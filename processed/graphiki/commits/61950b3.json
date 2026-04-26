@@ -1,0 +1,55 @@
+{
+  "sha": "61950b3",
+  "fullSha": "61950b328082c67084ea8bc06e6a4a92f47e37fb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T00:46:45Z",
+  "commitDate": "2026-04-05T00:46:45Z",
+  "subject": "fix(theme): replace all hardcoded colors with DaisyUI semantic references",
+  "body": "Remove every hardcoded hex color and rgba() value from CSS and TSX files\n(except DebugPill which intentionally uses its own React root). All colors\nnow reference DaisyUI CSS variables via var() or color-mix(in oklab, ...).\n\nCytoscape styles read computed DaisyUI values from the DOM at runtime via\ngetCSSColor() instead of hardcoding dark/light color pairs. LABEL_COLORS\nand COMPONENT_COLORS palettes remain as literal hex (Cytoscape requires\nliteral values and DaisyUI doesn't provide data visualization palettes).\n\nCSS files: rgba(r,g,b,a) → color-mix(in oklab, var(--color-*) N%, transparent)\nTSX files: hex fallbacks → getCSSColor('--color-*', fallback)\nQueryBuilder.css: dual-query #3b82f6/#10b981 → var(--color-info)/var(--color-success)\n\nTags: theme, daisyui, colors, cleanup\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "replace all hardcoded colors with DaisyUI semantic references",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#3",
+    "#10"
+  ],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 89,
+    "deletions": 71
+  },
+  "files": [
+    "src/App.css",
+    "src/components/conventions/ConventionsModal.css",
+    "src/components/duplicates/DuplicateScannerModal.css",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/graph/cytoscapeStyles.ts",
+    "src/components/importExport/MergeReview.css",
+    "src/components/layout/DetailDrawer.css",
+    "src/components/query/QueryBuilder.css",
+    "src/components/ui/LabelSuggestions.css",
+    "src/components/ui/Toast.css",
+    "src/components/views/TimelineView.css"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

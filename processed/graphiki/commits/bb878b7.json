@@ -1,0 +1,53 @@
+{
+  "sha": "bb878b7",
+  "fullSha": "bb878b770449a16a2bf947ab55fcfde5c18a695b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T00:24:40Z",
+  "commitDate": "2026-04-05T00:24:40Z",
+  "subject": "feat(theme): add DaisyUI theming with dark/light mode toggle",
+  "body": "Install Tailwind CSS v4 + DaisyUI v5. Set up dual-layer theming:\n.dark class (Tailwind dark: variant) + data-theme attribute (DaisyUI\ncomponent colors) + color-scheme (native form elements). Bridge\nexisting CSS custom variables to DaisyUI semantic tokens so all 444\nvar() references respond to theme changes automatically. Theme-aware\nCytoscape stylesheet adapts node/edge label colors per mode.\n\n- Theme combo: pastel (light) + dark (dark), extensible for more combos\n- Flash prevention inline script in index.html\n- Cross-tab sync via storage event\n- OS preference fallback on first visit\n- PWA meta theme-color updates on toggle\n\nTags: theme, daisyui, tailwind, dark-mode, infrastructure\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: theme-dark-mode\nSemver: minor\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "feature",
+    "ui",
+    "dependency-add"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "theme-dark-mode",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "add DaisyUI theming with dark/light mode toggle",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 860,
+    "deletions": 150
+  },
+  "files": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/graph/cytoscapeStyles.ts",
+    "src/config/daisyuiThemes.ts",
+    "src/hooks/useTheme.ts",
+    "src/index.css",
+    "vite.config.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}
