@@ -1,0 +1,48 @@
+{
+  "sha": "05633ad",
+  "fullSha": "05633adf376af1fb61c11786b96d51ffcd6d4083",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T15:19:55Z",
+  "commitDate": "2026-04-21T15:19:55Z",
+  "subject": "fix(scheduling): wire review findings through host screens + docs",
+  "body": "- Chat screens (mobile app/(app)/chat/[id].tsx + desktop ChatPanel.tsx) now\n  pull realtimeDegraded from useScheduledMessages and forward it to\n  ScheduledMessagesModal so the reconnecting banner appears when the\n  sender-scoped realtime channel drops.\n\n- utils/clearData.ts: before ending chats on \"Clear All Data\", soft-cancel\n  any pending scheduled_messages the user owns. Prevents server-side\n  queued sends from firing after the user has considered their identity\n  gone. (endAllChats would have caused the dispatcher to mark them\n  failed/chat_ended anyway, but explicit cancellation keeps the book\n  clean and saves the dispatcher the work.)\n\n- CLAUDE.md corrections:\n  * Removed the false claim that the 30/min message rate limit applies\n    naturally at dispatch time; it now applies because the dispatcher\n    re-checks it explicitly.\n  * Documented cancel as soft-cancel (was hard-delete).\n  * Added the cleanup cron and the at-least-once delivery model.\n  * Noted that dispatcher + cleanup functions are cron-only (REVOKEd\n    from authenticated).\n  * Extended the scheduled_messages schema section to cover the new\n    BEFORE UPDATE trigger, cleanup index, and min-lead CHECK.\n\n- docs/HISTORY.md: full review-cycle entry listing all fixed findings\n  grouped by severity.\n\n- docs/SESSION_NOTES.md: rewritten for post-review state. Next session's\n  only remaining task is applying the migration (supabase db push), then\n  the smoke-test checklist.\n\nTags: scheduling, integration, docs, user-facing\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: message-scheduling\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "ui",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "message-scheduling",
+  "semver": "patch",
+  "scope": "scheduling",
+  "title": "wire review findings through host screens + docs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 166,
+    "deletions": 60
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "components/ChatPanel.tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "utils/clearData.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

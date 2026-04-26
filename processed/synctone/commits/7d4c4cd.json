@@ -1,0 +1,61 @@
+{
+  "sha": "7d4c4cd",
+  "fullSha": "7d4c4cd9eb2ab4ee63af94a025ba996f516b228e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T20:57:36Z",
+  "commitDate": "2026-04-22T20:57:36Z",
+  "subject": "feat(ui): shared ModalBackdrop + haptic feedback across modal surfaces",
+  "body": "Parts C (ModalBackdrop refactor) and D (haptic instrumentation)\nof the APP_ICONS-maskable-fix task. Consolidates the 11 modals'\nduplicated inline backdrop patterns into one shared component and\nwires HIG-aligned haptic feedback onto every modal toggle, menu\nitem selection, and reaction pick.\n\n## Part C — ModalBackdrop\n\nBefore: every modal in synctone wrapped its `<Modal>` content in\na `<Pressable className=\"flex-1 ...\" onPress={onClose}>` with an\ninner `<Pressable onPress={(e) => e.stopPropagation()}>` to keep\ninner taps from bubbling. Each copy had slightly different\naccessibility labels, no consistent z-index, and no single place\nto instrument haptics.\n\n- `components/common/ModalBackdrop.tsx`: new. `Pressable` at\n  `StyleSheet.absoluteFill` with `Z.backdrop` and\n  `accessibilityLabel=\"Close\"`. Auto-fires `hapticLight()` on tap\n  so every modal's dismiss-by-background is consistently tactile.\n- All 11 modals refactored onto the sibling layout:\n  `<Modal><View outer-layout><ModalBackdrop/><View zIndex:Z.modal>\n  content</View></View></Modal>`. Content paints above the\n  backdrop because `Z.modal` (60) > `Z.backdrop` (40). Taps on\n  content hit content first (RN's gesture system gives later-\n  rendered siblings priority for overlapping touches); taps\n  outside reach the backdrop and close the modal.\n- Affected: ChatHeaderMenu (dropdown + edit-name modal),\n  SettingsModal, MessageActionSheet, ReactionPicker,\n  MessageInfoModal, ScheduleComposerModal,\n  ScheduledMessagesModal, ReportMessageModal,\n  InstallInstructionsModal, ToneEditModal. TutorialModal left\n  alone — it intentionally has no backdrop-tap-to-close (nav is\n  via Back/Next/Skip).\n\nWhy the sibling pattern vs keeping backdrop-wraps-content: the\ntask spec's ModalBackdrop uses `StyleSheet.absoluteFill`, which\nis a sibling idiom. Siblings also cleanly let `Z.modal` and\n`Z.backdrop` participate in the z-index scale, which the previous\nnested-stopPropagation pattern couldn't.\n\n## Part D — Haptics\n\n`utils/haptics.ts`: wrapper over `expo-haptics` with built-in\n`Platform.OS !== 'web'` guard (expo-haptics throws on web; this\nkeeps every call site clean). Exposes `hapticLight` /\n`hapticMedium` / `hapticWarning`. Errors are logged via\n`logger.warn` and swallowed — UI flows never block on haptic\nfailures.\n\nInstrumented, Apple-HIG-aligned:\n- **Light**: reaction pick (ReactionPicker emoji grid,\n  MessageActionSheet quick-reactions, ReactionBar toggle), menu\n  item selection (every item in ChatHeaderMenu / SettingsModal /\n  MessageActionSheet / ScheduledMessagesModal / ReportMessageModal\n  / InstallInstructionsModal / TutorialModal), modal close /\n  cancel buttons, modal trigger buttons (home gear icon,\n  install/update buttons, compose-bar schedule clock,\n  ChatHeaderMenu ellipsis, tap-to-add-tones hint), ModalBackdrop\n  tap.\n- **Medium**: long-press-fires-MessageActionSheet (both the web\n  custom gesture path and native Gesture.LongPress). Confirms\n  the 500ms threshold was crossed.\n- **Warning** (`notificationAsync(Warning)`): destructive confirms\n  — Clear All Data (Settings), End Chat (ChatHeaderMenu), Cancel\n  scheduled send (ScheduledMessagesModal), Delete for Everyone\n  (MessageActionSheet), Submit Report (ReportMessageModal).\n\n`expo-haptics` pinned at `~14.0.1` (Expo SDK 54 bundled native\nmodule version).\n\nVerified: `tsc --noEmit` at HEAD shows 14 pre-existing errors,\nsame count as before this branch's code changes → zero new\nerrors introduced. Haptic testing requires physical device\n(simulators don't reliably report haptics).\n\nTags: ui, haptics, modal, accessibility, refactor\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: minor",
+  "tags": [
+    "feature",
+    "ui",
+    "accessibility",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "shared ModalBackdrop + haptic feedback across modal surfaces",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 18,
+    "additions": 376,
+    "deletions": 118
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "components/BubbleContent.tsx",
+    "components/ChatHeaderMenu.tsx",
+    "components/ComposeBar.tsx",
+    "components/InstallInstructionsModal.tsx",
+    "components/MessageActionSheet.tsx",
+    "components/MessageBubble.tsx",
+    "components/MessageInfoModal.tsx",
+    "components/ReactionBar.tsx",
+    "components/ReactionPicker.tsx",
+    "components/ReportMessageModal.tsx",
+    "components/ScheduleComposerModal.tsx",
+    "components/ScheduledMessagesModal.tsx",
+    "components/SettingsModal.tsx",
+    "components/ToneEditModal.tsx",
+    "components/TutorialModal.tsx",
+    "components/common/ModalBackdrop.tsx",
+    "utils/haptics.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

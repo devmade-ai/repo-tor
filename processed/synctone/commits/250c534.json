@@ -1,0 +1,64 @@
+{
+  "sha": "250c534",
+  "fullSha": "250c5347c5d050a964aef6cc26712cb352cb7b1f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "noreply@github.com"
+  },
+  "timestamp": "2026-04-21T20:25:57Z",
+  "commitDate": "2026-04-21T20:25:57Z",
+  "subject": "Merge pull request #117 from devmade-ai/claude/add-message-scheduling-dsZ7r",
+  "body": "feat: add server-side message scheduling with pg_cron dispatcher",
+  "tags": [
+    "merge"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "message-scheduling",
+  "semver": "patch",
+  "scope": null,
+  "title": "Merge pull request #117 from devmade-ai/claude/add-message-scheduling-dsZ7r",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [
+    "#117"
+  ],
+  "stats": {
+    "filesChanged": 22,
+    "additions": 2575,
+    "deletions": 67
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "components/ChatHeaderMenu.tsx",
+    "components/ChatPanel.tsx",
+    "components/ComposeBar.tsx",
+    "components/DateTimePicker.native.tsx",
+    "components/DateTimePicker.tsx",
+    "components/ScheduleComposerModal.tsx",
+    "components/ScheduledMessagesModal.tsx",
+    "constants/tutorial.ts",
+    "docs/DATABASE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_GUIDE.md",
+    "hooks/useScheduledMessages.ts",
+    "package-lock.json",
+    "package.json",
+    "services/rateLimit.ts",
+    "services/scheduledMessages.ts",
+    "supabase/migrations/20260421024318_add_scheduled_messages.sql",
+    "types/database.ts",
+    "utils/clearData.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

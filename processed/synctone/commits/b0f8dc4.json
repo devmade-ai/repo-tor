@@ -1,0 +1,45 @@
+{
+  "sha": "b0f8dc4",
+  "fullSha": "b0f8dc42b0f845f5aa776fa3a29324a56c3e3121",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T15:19:19Z",
+  "commitDate": "2026-04-21T15:19:19Z",
+  "subject": "fix(scheduling): service + hook correctness from review findings",
+  "body": "- H6: cancelScheduledMessage now uses UPDATE (soft-cancel, status='cancelled')\n  matched on id + sender_id + status='pending' with .maybeSingle(), verifying\n  a row was affected. If the dispatcher beat us to it, surface \"Could not\n  cancel: this message is no longer pending\" instead of a silent success.\n  Mirror for dismissScheduledMessage on failed rows.\n\n- M7: updateScheduledMessage drops the pre-fetch-then-update TOCTOU pattern.\n  It relies on UPDATE + RLS + the BEFORE UPDATE lead-bounds trigger, mapping\n  0-rows-affected to a friendly \"no longer pending\" message.\n\n- M5/L4/L9: Added friendlyScheduleError() translating common Supabase error\n  shapes (rate limit, RLS, constraint violations, PGRST116, realtime drop)\n  to user copy. Used by the service on schedule/update/cancel throws and\n  reused by both modals for their own catch blocks.\n\n- L2: ScheduledMessageFailureReason narrowed to the canonical union\n  ('chat_ended' | 'too_stale' | 'rate_limited'). The row's failure_reason\n  is typed as `string | null` because unexpected errors write sqlerrm\n  substrings; an isKnownFailureReason() type guard lets consumers\n  switch-with-exhaustiveness on known reasons and fall back on strings.\n\n- L3/M9: useScheduledMessages effects split so realtime subscribes on\n  sender_id only (no churn on chatId change). Polling and fetch stay\n  reactive to both. A new realtimeDegraded flag surfaces when the\n  subscription channel drops/times out so the UI can show a reconnecting\n  hint — polling still guarantees eventual consistency regardless.\n\n- L4: snapshotReply propagates query errors instead of swallowing them\n  into a silent null snippet. Also adds a defense-in-depth check that\n  the reply target belongs to the same chat (RLS already enforces this\n  via the SELECT policy; belt and braces).\n\n- 'cancelled' added to ScheduledMessageStatus to match the DB enum.\n\nTags: scheduling, correctness, errors, types, race-conditions\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: message-scheduling\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "types",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "message-scheduling",
+  "semver": "patch",
+  "scope": "scheduling",
+  "title": "service + hook correctness from review findings",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 251,
+    "deletions": 57
+  },
+  "files": [
+    "hooks/useScheduledMessages.ts",
+    "services/scheduledMessages.ts",
+    "types/database.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

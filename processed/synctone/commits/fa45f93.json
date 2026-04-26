@@ -1,0 +1,44 @@
+{
+  "sha": "fa45f93",
+  "fullSha": "fa45f9356dcf2c804cce61780e76bbc34c067a37",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T20:57:59Z",
+  "commitDate": "2026-04-22T20:57:59Z",
+  "subject": "docs(claude): icons/haptics/ModalBackdrop + pattern-audit + z-index rules",
+  "body": "Brings CLAUDE.md in sync with the Part A–D code changes of the\nAPP_ICONS + ModalBackdrop + haptics branch, and clears the three\nfindings I pushed back on during the earlier audit — those were\nvalid fleet-hygiene items, not scope creep, once the user confirmed\nthey wanted everything addressed.\n\n- **§Icon Assets**: two-source table replacing the single-source\n  table. Now lists `assets/icon-source-maskable.svg`,\n  `public/icon-1024-maskable.png`, and `public/favicon.ico`\n  alongside the existing any-purpose outputs. §Regenerating Icons\n  updated to mention keeping the two SVGs in lockstep and\n  references the `png-to-ico` favicon packer.\n\n- **§Haptic Feedback** (new subsection under §Core Concepts next to\n  Emoji Reactions): documents the `utils/haptics.ts` helper API,\n  the HIG-aligned Light/Medium/Warning impact matrix for synctone's\n  surfaces, the auto-haptic on `ModalBackdrop`, the error-swallow\n  + logger.warn semantics, and the physical-device testing caveat.\n\n- **§Pattern Adoption Status** (new top-level section right before\n  §Not Applicable Patterns): classifies every glow-props pattern\n  (all 10) as adopted / not-applicable / applicable-but-unimplemented,\n  with the specific synctone surface or rationale for each. Closes\n  the \"6 unclassified patterns\" gap honestly — PWA_ICON_CACHE_BUST\n  and HTTPS_PROXY marked as unimplemented with revisit conditions;\n  APP_ICONS, DEBUG_SYSTEM, PWA_SYSTEM, THEME_DARK_MODE, Z_INDEX_SCALE\n  marked as adopted with file-path evidence.\n\n- **§Z-Index Scale**: tier-usage table updated from \"reserved\" to\n  actual consumers now that ModalBackdrop is real — `Z.backdrop`\n  used by every modal's dismiss layer, `Z.modal` used by every\n  modal's content wrapper, `Z.menu` used by ChatHeaderMenu\n  dropdown. New rule #5 states the Android elevation-vs-zIndex\n  footgun (native Android treats elevation and zIndex as separate\n  stacking systems) with the current elevation inventory. New\n  rule #6 covers the transform/filter/opacity stacking-context\n  trap relevant to `MessageBubble`'s swipe-to-reply animation.\n\n- **§Project Structure**: adds `components/common/ModalBackdrop.tsx`\n  under the components/ tree and `utils/haptics.ts` under utils/.\n\nTags: documentation, pwa, haptics, fleet-alignment, patterns\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "scope": "claude",
+  "title": "icons/haptics/ModalBackdrop + pattern-audit + z-index rules",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#5",
+    "#6"
+  ],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 49,
+    "deletions": 15
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

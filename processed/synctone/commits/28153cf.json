@@ -1,0 +1,50 @@
+{
+  "sha": "28153cf",
+  "fullSha": "28153cff0aee904859870f9da9f972937071ccf9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T07:25:29Z",
+  "commitDate": "2026-04-22T07:25:29Z",
+  "subject": "feat(ui): adopt z-index scale; document not-applicable fleet patterns",
+  "body": "Parts A–D of the architectural decisions + z-index audit.\n\n- Add `constants/zIndex.ts` with the glow-props standard 8-tier scale\n  (base 0, sticky 20, sheet 30, backdrop 40, menu 50, modal 60, toast\n  70, debug 80). Doc-comment maps each tier to the synctone surfaces\n  that use it.\n- Replace every runtime `zIndex: <literal>` with `Z.*`:\n  - home.tsx pull-to-refresh indicator 100 → Z.sticky\n  - Toast / InAppNotification 9999 → Z.toast\n  - PWADebugBanner collapsed pill + expanded panel 9999 → Z.debug\n  - +html.tsx noscript JS-disabled fallback 9999 → Z.debug (topmost\n    pre-mount surface; no runtime competition)\n- Remove the redundant `zIndex: 1` on ChatBackground's content layer:\n  DOM sibling order already paints the content above the absolute\n  background pattern, so the explicit stacking was noise.\n- CLAUDE.md gains two sections:\n  - \"Not Applicable Patterns\" recording evaluated-and-skipped\n    fleet patterns with revisit conditions: BURGER_MENU (chat apps\n    don't use burger nav — ChatHeaderMenu + SettingsModal cover\n    contextual + global surfaces), DOWNLOAD_PDF (chat transcripts\n    want structured export, not window.print() layout), EVENT_BUS\n    (Zustand + React hooks cover all current cross-concern flows;\n    realtime fan-out lives in DB triggers).\n  - \"Z-Index Scale\" documenting the tiers, where each is used, and\n    rules (including the `web/index.html` reference-only exception).\n\n`web/index.html` retains its legacy `z-index: 9999` CSS but that\nfile is ignored by Expo Router's static export (per existing\nCLAUDE.md note), so it has no runtime effect.\n\nTags: ui, conventions, fleet-alignment, z-index, architecture\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "refactor",
+    "config",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "adopt z-index scale; document not-applicable fleet patterns",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 103,
+    "deletions": 7
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/home.tsx",
+    "app/+html.tsx",
+    "components/ChatBackground.tsx",
+    "components/InAppNotification.tsx",
+    "components/PWADebugBanner.tsx",
+    "components/Toast.tsx",
+    "constants/zIndex.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}
