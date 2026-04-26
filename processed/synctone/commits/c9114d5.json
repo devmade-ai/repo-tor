@@ -1,0 +1,51 @@
+{
+  "sha": "c9114d5",
+  "fullSha": "c9114d58161a29aab1bb87f09e500025da9bf210",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T23:44:57Z",
+  "commitDate": "2026-04-22T23:44:57Z",
+  "subject": "fix(types): close all 14 pre-existing TS errors (strict-clean repo)",
+  "body": "I'd been reporting \"14 pre-existing errors, zero new\" on every commit\nthis session and treating the baseline as someone else's problem.\nThat's the bit-rot pattern the \"no skipping\" directive rules out.\nClosing all of them now so the repo is strict-TS-clean for the first\ntime.\n\n## A. Supabase Edge Function (6 errors)\n\n`supabase/functions/send-notification/index.ts` is Deno code, not\nNode/Metro. Its `Deno` global and `https://deno.land/...` imports\ncan't resolve under the app's tsconfig. Fix: exclude\n`supabase/functions/**/*` from `tsconfig.json`'s `include`/`exclude`\nand add a minimal `supabase/functions/deno.json` so Deno-aware\neditors still type-check it with the correct runtime. Edge\nfunction behavior unchanged — Supabase CLI compiles it via Deno.\n\n## B. `app/index.tsx` (1 error)\n\n`JSX.Element` as a bare namespace no longer resolves under React 18+\nstrict types. Switched to `ReactElement` from 'react' (explicit import,\nno global lookup).\n\n## C. `app/(app)/chat/[id].tsx` (2 errors)\n\nThe `@ts-expect-error` on FlatList's `WebkitOverflowScrolling` style\nwas stale (RN types or React types now accept it implicitly via the\nconditional-object pattern), so the directive itself errored (TS2578).\nReplaced the directive + object literal with an explicit\n`as unknown as ViewStyle` cast scoped to the web-only branch, with\na comment explaining why. `ViewStyle` imported as a type.\n\n## D. `components/ComposeBar.tsx` (1 error)\n\nSame stale-`@ts-expect-error` pattern. `getGlassStyle` returns\n`Record<string, unknown>` which already accepts web-only CSS\nproperties without complaint. Removed the directive; added a\ncomment documenting why it isn't needed.\n\n## E. Null-returning components (2 errors)\n\n`MessageActionSheet` and `Toast` both declared `React.JSX.Element`\nreturn types but had `if (!message) return null` / `if (!visible)\nreturn null` paths. Widened both signatures to\n`React.JSX.Element | null` — the actual contract.\n\n## F. `hooks/usePWAInstall.ts` (1 error)\n\n`navigator as Record<string, unknown>` — TS2352 because Navigator\nand Record don't structurally overlap. Fixed with double-cast\n`navigator as unknown as Record<string, unknown>` and a comment\nexplaining the explicit widening.\n\n## G. `services/chat.ts` (1 error)\n\n`sanitizeDisplayName(name?: string)` accepts `string | undefined`\nbut `updateChatDisplayName` passes `string | null`. Widened the\nsanitizer to `name: string | null | undefined` — matches the caller\ncontract so TypeScript tracks the shape correctly. Body already\nhandled falsy inputs via `if (!name) return null`.\n\n## Verification\n\n`./node_modules/.bin/tsc --noEmit` → **0 errors** (was 14).\nNo behavior changes — only type annotations, config exclusions,\nand a helper widening that affects zero runtime paths.\n\n## docs/SESSION_NOTES.md\n\nKnown Issues section updated:\n- Removed the \"pre-existing TS errors untouched\" caveat.\n- New note stating repo is now strict-clean with a summary of\n  what was addressed.\n\nTags: types, strict-mode, cleanup, supabase, technical-debt\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "types"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "scope": "types",
+  "title": "close all 14 pre-existing TS errors (strict-clean repo)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 47,
+    "deletions": 15
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "app/index.tsx",
+    "components/ComposeBar.tsx",
+    "components/MessageActionSheet.tsx",
+    "components/Toast.tsx",
+    "docs/SESSION_NOTES.md",
+    "hooks/usePWAInstall.ts",
+    "services/chat.ts",
+    "supabase/functions/deno.json",
+    "tsconfig.json"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

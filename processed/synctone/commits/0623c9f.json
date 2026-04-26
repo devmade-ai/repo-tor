@@ -1,0 +1,42 @@
+{
+  "sha": "0623c9f",
+  "fullSha": "0623c9fd40976dab3ad1ae52cdf7eef338934ec3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T22:13:45Z",
+  "commitDate": "2026-04-24T22:13:45Z",
+  "subject": "fix(race): DebugPill removes fallback pill directly + sync gate on update check",
+  "body": "Two concurrency fixes surfaced by the `race branch` trigger:\n\n(1) DebugPill's React mount didn't directly remove the inline\npre-React fallback pill — it relied on the inline script's 250ms\nsetInterval poll to detect `__debugMounted = true` and remove the\nDOM node. That poller is cleared at 30s. If the JS bundle loads\nslower than that (throttled network, cold mobile CPU, dev-mode\nsource maps on a large bundle), the React pill mounts AFTER the\npoller stopped, leaving the fallback pill attached forever. Both\npills then render at the same top-right position.\n\nFix: React pill's useEffect now removes `#__pre-react-debug-pill`\ndirectly, once and idempotently, regardless of whether the poller\nis still running. In the fast-mount happy path this is a no-op\n(poller removed it first); in the slow-bundle case it's the only\nthing that removes the fallback.\n\n(2) SettingsModal → Check for Updates button could fire two\nconcurrent `checkForUpdates()` calls on a fast double-tap. Pressable\n`disabled={isCheckingForUpdates}` + the JS-level `if\n(isCheckingForUpdates) return` gate both read a React-state prop\npropagated through (hook → home → modal → prop → Pressable). Within\none render tick, the second tap can pass both gates before\n`setIsChecking(true)` has re-rendered. Result: two concurrent SW\nupdate checks, two Promises, two \"You're up to date\" toasts.\n\nFix: added a `updateCheckInFlight = useRef(false)` gate that flips\nsynchronously inside `handleCheckForUpdates`. Two taps in the same\nevent-loop tick are serialized — the second reads the synchronous\nref value (true) and returns early. Ref is released in `finally` so\na failed check doesn't wedge the button. The existing state-based\ngates remain as belt-and-braces at the Pressable layer.\n\nVerification:\n- npx tsc --noEmit: 0 errors\n- npm run verify:inline-scripts: 47 passed, 0 failed\n\nTags: bugfix, race, debug, pwa\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01UiYobyYgDFYNeVKZrChVXH",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "scope": "race",
+  "title": "DebugPill removes fallback pill directly + sync gate on update check",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 55,
+    "deletions": 24
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "components/debug/DebugPill.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

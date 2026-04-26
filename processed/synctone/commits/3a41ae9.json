@@ -1,0 +1,46 @@
+{
+  "sha": "3a41ae9",
+  "fullSha": "3a41ae9e4b078837cb9157e2b56033fd8b588796",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T22:57:29Z",
+  "commitDate": "2026-04-22T22:57:29Z",
+  "subject": "feat(theme): complete THEME_DARK_MODE web integration",
+  "body": "Closes the glow-props THEME_DARK_MODE pattern gaps found by the\npattern-audit trigger. synctone already had the Uniwind @variant\nmechanism for theme-name-keyed CSS variables; this adds the three\nweb-specific layers that Uniwind doesn't touch: flash prevention,\n`data-theme` metadata, `.dark` class, `color-scheme` root rule,\nand Tailwind v4's `@custom-variant dark`.\n\n## Parts A + E — Flash prevention inline script\n\n`app/+html.tsx` gets a new synchronous `<script>` in `<head>` that\nruns BEFORE the Expo bundle loads. It reads synctone's localStorage\nkeys (`synctone_dark_mode`, `synctone_theme_combo`) and applies the\ntheme class + `data-theme` + `.dark` class to `<html>` by first\npaint. Resolution logic matches `lib/themeColors.ts#resolveThemeName`\nverbatim and defaults to the same initial state as the Zustand store\n(isDark=true, combo=retro → synthwave) when keys are absent.\n\nResult: no light-flash when reloading with a dark theme saved, which\nwas previously visible because Uniwind's setTheme() only ran after\nReact mounted.\n\n## Parts B + C — Web attribute + class toggling\n\n`applyTheme()` in `hooks/useTheme.ts` extracted the web DOM side-\neffects into a shared `applyWebAttributes()` helper that runs on\nboth the happy path (after Uniwind.setTheme succeeds) and the\nfallback path (if Uniwind.setTheme throws). It:\n- sets `data-theme` to the resolved theme name — keeps the runtime\n  attribute in sync with whatever the flash script wrote, and\n  future-proofs for any DaisyUI-native selectors that key off it\n- adds/removes the `.dark` class based on isDark — enables\n  Tailwind v4's `dark:` variant and drives the color-scheme rule\n\n## Part D — `color-scheme` CSS rule\n\n`global.css` now has `:root { color-scheme: light; }` + `html.dark\n{ color-scheme: dark; }` at the top level. Makes native\n`<select>` dropdowns, scrollbars, autofill highlights, and focus\nrings match the active theme instead of defaulting to the browser's\nsystem preference.\n\n## Part F — Tailwind v4 `@custom-variant dark`\n\n`@custom-variant dark (&:where(.dark, .dark *));` added to\n`global.css` right after `@import 'uniwind'`. Tells Tailwind v4\nto resolve the `dark:` utility variant against the `.dark` class\non `<html>`. No current callers use `dark:*` utilities (the app\nuses Uniwind's `@variant`-driven theme switching instead), but\nhaving this registered means any future `dark:bg-base-300`-style\nutility will work correctly without further config.\n\n## Docs\n\n§ Theme & Colors in CLAUDE.md updated:\n- Architecture table now lists `@custom-variant dark`,\n  `color-scheme` rules, `data-theme` / `.dark` attributes, and the\n  flash-prevention inline script.\n- New \"Web theme application — three layers\" subsection explains\n  why all three (theme name class / data-theme / .dark class) are\n  needed and which mechanism consumes each.\n\n## Not verified\n\nLive browser verification (no light-flash on hard reload, native\n`<select>` dropdowns match theme, `dark:*` utilities resolve) can't\nbe done from this sandbox — should be confirmed with a local\n`npm run web` + DevTools inspection. tsc --noEmit shows 14\npre-existing errors, zero new.\n\nTags: theme, pwa, web, accessibility, fleet-alignment\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: minor",
+  "tags": [
+    "feature",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "complete THEME_DARK_MODE web integration",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 79,
+    "deletions": 2
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/+html.tsx",
+    "global.css",
+    "hooks/useTheme.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

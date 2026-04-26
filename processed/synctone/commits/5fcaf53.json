@@ -1,0 +1,44 @@
+{
+  "sha": "5fcaf53",
+  "fullSha": "5fcaf536ba2f38baf524d8c2ebdb3bfc6aea96a0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T22:59:13Z",
+  "commitDate": "2026-04-24T22:59:13Z",
+  "subject": "fix(deps): align @types/react-dom with react-dom@19.1 runtime",
+  "body": "Vercel build was failing with ERESOLVE: @types/react-dom@19.2.3 peer-\nrequires @types/react@^19.2.0, but the root project pins @types/react\nto ~19.1.10 (which resolves to 19.1.17). Vercel's npm enforces peer\ndeps strictly; local resolved more leniently and masked the conflict.\n\nRoot cause: I added @types/react-dom@^19.2.3 in commit 7f6cd39 (the\nDEBUG_SYSTEM hardening that introduced `react-dom/client` createRoot\nin utils/debugRootMount.ts) without realigning @types/react. The\nright fix isn't to bump @types/react forward — runtime is pinned to\nreact@19.1.0 and react-dom@19.1.0, and the type definitions should\nmatch the runtime, not float a minor ahead. Pinned @types/react-dom\nto ~19.1.11 (latest 19.1.x) instead.\n\nAfter change:\n- @types/react-dom@19.1.11 peer-requires @types/react@^19.0.0\n- @types/react resolves to 19.1.17 (~19.1.10 range)\n- Peer requirement satisfied\n\nVerification:\n- npm install: clean, no ERESOLVE\n- npx tsc --noEmit: 0 errors\n- npm run verify:inline-scripts: 47 passed, 0 failed\n\nTags: deps, build, bugfix\nComplexity: 1\nUrgency: 5\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01UiYobyYgDFYNeVKZrChVXH",
+  "tags": [
+    "bugfix",
+    "dependency-update",
+    "build"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "scope": "deps",
+  "title": "align @types/react-dom with react-dom@19.1 runtime",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 22,
+    "deletions": 9
+  },
+  "files": [
+    "package-lock.json",
+    "package.json"
+  ],
+  "repo_id": "synctone",
+  "urgency": 5,
+  "impact": "infrastructure"
+}

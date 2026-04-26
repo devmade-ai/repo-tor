@@ -1,0 +1,48 @@
+{
+  "sha": "2562f64",
+  "fullSha": "2562f64e4d33ff1e937e39bcc8a8467ff520ecc6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T20:45:20Z",
+  "commitDate": "2026-04-24T20:45:20Z",
+  "subject": "fix(pwa): always toast Check-for-Updates outcome + exhaustive switch guard",
+  "body": "Two issues surfaced by an audit of the prior race-fix commit:\n\n(1) UX gap when triggered from SettingsModal.\nThe original design had 'update-available' silent on the assumption\nthat the Update button in the home header would signal the user. But\nthe manual Check-for-Updates trigger lives INSIDE SettingsModal,\nwhich covers the header — so a user running the check from Settings\ngot zero feedback on the one branch that actually mattered.\n\nFix: every CheckForUpdatesResult branch now surfaces a toast.\n'update-available' shows \"An update is available — tap Update in the\nheader\" (4s duration, so the text has time to be read before\nauto-dismissing). Toasts render at Z.toast (70) which is above\nZ.modal (60), so the feedback is visible on top of SettingsModal.\n\n(2) Non-exhaustive switch in handleCheckForUpdates.\nBecause the function returns Promise<void>, falling off the end of\nthe switch without handling a new discriminator value would silently\nno-op at runtime — TypeScript wouldn't flag it. Added\n`default: { const _exhaustive: never = result; return _exhaustive }`\nso adding a new CheckForUpdatesResult value without updating this\nswitch becomes a compile error.\n\nDocs:\n- hooks/usePWAUpdate.ts: TSDoc updated to show the new toast text for\n  every discriminator (was still showing the pre-refactor \"silent\")\n- docs/TODO.md live-browser scenario #7: updated to match new toast\n  behavior (6 toasts, one per discriminator)\n- docs/SESSION_NOTES.md: added a \"Follow-up wrap pass on the undone\n  commit\" subsection documenting the race-fix commit AND this\n  polish commit, so the session's final state is fully captured\n\nVerification:\n- npx tsc --noEmit: 0 errors\n- npm run verify:inline-scripts: 47 passed, 0 failed\n\nTags: pwa, ux, types\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01UiYobyYgDFYNeVKZrChVXH",
+  "tags": [
+    "bugfix",
+    "ux",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "always toast Check-for-Updates outcome + exhaustive switch guard",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#7"
+  ],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 48,
+    "deletions": 13
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

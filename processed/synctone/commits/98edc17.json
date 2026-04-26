@@ -1,0 +1,54 @@
+{
+  "sha": "98edc17",
+  "fullSha": "98edc17a04fcff31ce6e0d523dd97bef5257f24f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:38:33Z",
+  "commitDate": "2026-04-23T19:38:33Z",
+  "subject": "feat(pwa): icon cache busting — content-hashed URLs across HTML,",
+  "body": "manifest, service worker\n\nAdopts the glow-props PWA_ICON_CACHE_BUST pattern, adapted to\nsynctone's Expo/Metro build chain (vs the pattern's Vite plugin\nreference). All 5 URL surfaces now carry synchronized `?v=<hash>`\nquery suffixes so a new icon deploy invalidates browser, CDN, and\nservice-worker caches on first page load.\n\n## Part A — scripts/inject-icon-hashes.mjs (new)\n\nSHA-256 8-char content hash per icon in public/. Writes three\nartifacts:\n\n- `public/icon-hashes.json`: source-of-truth map\n  `{ filename: \"8-char-sha256\" }`.\n- `public/manifest.json`: rewritten in place — every icons[].src\n  becomes `/<filename>?v=<hash>`.\n- `public/sw.js`: rewrites the PWA_ICON_PATHS array between the\n  `@icon-cache-bust:begin` and `:end` marker comments with\n  versioned URLs.\n\nIdempotent: re-running produces a byte-identical output when the\nicon bytes haven't changed. Fails loudly (throws) on:\n - any listed icon missing from public/\n - manifest.json containing an icon src not in VERSIONED_ICONS\n - sw.js missing the icon-cache-bust markers\n - manifest.json JSON parse failure\n\n## Part B — app/+html.tsx reads hashes, emits versioned URLs\n\nReads `public/icon-hashes.json` at build time via Node `fs.readFileSync`\n(Metro's static-render pass runs +html.tsx in Node with `process.cwd()`\nat the project root — that's the reliable way to locate the file;\n`import.meta.url` resolves to a Metro-bundled chunk path). New\n`iconUrl(filename)` helper returns `/<filename>?v=<hash>`, throws\nif the filename isn't in the hashes (prevents silent \"leaked\nunversioned URL\" regressions).\n\nEvery `<link rel=\"icon\">` / `<link rel=\"apple-touch-icon\">` now uses\n`iconUrl(...)` instead of a hardcoded path. The manifest `<link>`\nstill points at the stable `/manifest.json` — the manifest file\nitself is rewritten with versioned internal URLs, and Vercel\nserves it with Cache-Control: max-age=0, must-revalidate so the\nupdated contents reach the browser on every page load.\n\n## Part C — sw.js precache + cache lookup\n\nThree changes:\n 1. CACHE_VERSION: v9 → v10. Old DYNAMIC_CACHE entries with stale\n    versioned URLs get cleaned up on activate.\n 2. PWA_ICON_PATHS array between markers is rewritten by the\n    injection script with versioned URLs. Install precaches these\n    versioned URLs directly (not the unversioned ones) so a\n    request for `/icon-192.png?v=NEW` hits the precache on the\n    new SW's first activation.\n 3. cacheFirst regex allows optional `(?:\\?.*)?$` tail — without\n    this, `/icon-192.png?v=abc` wouldn't match the `.png$`\n    anchor and would fall through to networkFirst.\n 4. caches.match uses { ignoreSearch: true } as belt-and-braces\n    so a slightly-off URL (e.g. during a partial rollout)\n    still finds the precached entry.\n\n## Part D — InstallInstructionsModal \"icon looks outdated\" disclosure\n\nNew `IconCacheNote` component in the modal — collapsible via\nuseState (React Native equivalent of HTML `<details>/<summary>`).\nClosed by default to avoid cluttering the Install modal for the\n95% case.\n\nWhen expanded, explains that the OS-level installed-app icon\ncache (iOS Springboard, Android launcher, Windows/macOS Dock)\nkeys off installed-app identity and isn't touched by the web\ncache-busting layer. Platform-specific uninstall/reinstall steps\nkeyed off `navigator.userAgent` + `BrowserType`:\n\n - iOS (Safari, or Chrome-on-iOS): long-press → Remove App →\n   re-add from Safari Share menu.\n - Android (Chrome/Edge/Brave): long-press → Uninstall → re-add\n   via browser menu → Install app.\n - Chromium desktop: browser menu → Apps → Uninstall SyncTone →\n   reload page → Install icon in address bar.\n - Safari macOS: Launchpad long-press → X → Safari File → Add\n   to Dock.\n\n## Build chain\n\n`package.json` `build:web` + `vercel.json` `buildCommand` both\nnow chain:\n\n  inject-icon-hashes → write-build-version → expo export\n\n`gen:icons` additionally chains inject-icon-hashes so the\nhashes stay in sync when icons regenerate.\n\n## Verification\n\n`scripts/verify-inline-scripts.mjs` extended by 15 assertions\ncovering the new icon-cache-bust surface (total 44 up from 23):\n\n ✓ every built-HTML icon <link> carries ?v=<8-hex>\n ✓ zero unversioned icon URLs leaked through\n ✓ every manifest.json icon.src has matching hash\n ✓ sw.js PWA_ICON_PATHS entries are versioned\n ✓ sw.js cacheFirst regex allows optional query string\n ✓ sw.js caches.match uses { ignoreSearch: true }\n ✓ all hashes match icon-hashes.json (no drift between surfaces)\n\nFull build chain (`npm run build:web`) succeeds end-to-end.\n`npm run verify:inline-scripts` (post-build): 44 passed, 0 failed.\n`tsc --noEmit`: 0 errors.\n\nTags: pwa, caching, infrastructure, fleet-alignment\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: minor",
+  "tags": [
+    "feature",
+    "caching",
+    "build"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "icon cache busting — content-hashed URLs across HTML,",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "SHA-256"
+  ],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 527,
+    "deletions": 31
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/+html.tsx",
+    "components/InstallInstructionsModal.tsx",
+    "package.json",
+    "public/icon-hashes.json",
+    "public/manifest.json",
+    "public/sw.js",
+    "scripts/inject-icon-hashes.mjs",
+    "scripts/verify-inline-scripts.mjs",
+    "vercel.json"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

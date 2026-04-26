@@ -1,0 +1,44 @@
+{
+  "sha": "9a26c76",
+  "fullSha": "9a26c7628409bd6ea786294bb15c45b64ea2b794",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T16:25:53Z",
+  "commitDate": "2026-04-23T16:25:53Z",
+  "subject": "refactor(pwa): harden visibility-based update checks + granular errors",
+  "body": "Wrap-pass fixes to the PWA update-check work. All 7 items flagged\nin the reflective pass addressed.\n\n## Fix 1 — Initial-state gate at setup\n\n`initUpdateDetection()` now checks `document.visibilityState` before\nstarting the hourly interval. If a user opens the app in a background\ntab (middle-click, window-swap), we skip interval start entirely;\nthe first `visible` transition later fires an immediate check and\nkicks off the cadence. Previous behavior ran the interval anyway\nuntil the first `hidden` event — wasteful in the background-tab case.\n\n## Fix 2 — iOS Safari PWA standalone (pagehide / pageshow)\n\n`visibilitychange` covers desktop tab-switch and window-minimize but\niOS PWA standalone mode transitions through `pagehide` → `pageshow`\non app-switch (swipe-up). Previously we silently kept polling while\nthe installed iPhone PWA was in the background. Now:\n\n- `pagehide` → stop interval (symmetric to visibilitychange→hidden)\n- `pageshow` → immediate check (throttled) + restart interval\n  (symmetric to visibilitychange→visible)\n\n`pageshow.persisted` (bfcache restore) intentionally runs the same\npath: the bundle may have been updated server-side since the page\nwas cached, so we re-check on every restore.\n\n## Fix 3 — docs/TODO.md live-browser verification expanded\n\nThe existing \"Live-browser theme verification\" High Priority entry\nabsorbed the 7 PWA-visibility confirm bullets from this task. Now\none entry covers both theme + PWA visibility verification, with\nfull DevTools step-by-step instructions. Drops once verified\nend-to-end on both desktop (Chrome) and mobile (Safari iOS\ninstalled-PWA).\n\n## Fix 4 — HMR flag ONE-WAY documentation\n\nAdded explicit doc-comment to `window.__synctonePwaVisAttached` in\ntypes/rn-web-style.d.ts: once set to `true`, it stays set for the\nsession. Nothing clears it, which is correct today because the\nlisteners live at module scope and share the page lifetime. The\nnote spells out the cleanup expectation if a future feature flag\never tears down PWA update detection.\n\n## Fix 5 — CheckForUpdatesResult forward-compat doc\n\nExpanded the `CheckForUpdatesResult` doc comment with a usage\nexample showing the full discriminated switch. Notes explicitly\nthat no synctone UI consumer currently uses the distinction, but\nthe typed return is ready when a future \"Check for updates\" button\nneeds it.\n\n## Fix 6 — Granular typed errors (allSettled)\n\nSplit `'error'` into `'error-sw' | 'error-version' | 'error'`:\n- `'error-sw'` — SW update threw, version.json succeeded. Likely\n  offline or SW crashed.\n- `'error-version'` — version.json fetch threw, SW update succeeded.\n  Likely server-side deploy-in-progress or CDN hiccup.\n- `'error'` — both failed. Generic catch-all for when there's no\n  useful distinction.\n\nImplementation switched from `Promise.all` (fails on first rejection,\nloses the other outcome) to `Promise.allSettled`. Either side's\nfailure no longer masks the other side's outcome.\n\n## Fix 7 — Rapid-cycle throttle\n\nNew `VISIBILITY_THROTTLE_MS = 30 * 1000` constant + module-level\n`_lastPeriodicCheckAt` timestamp. New `runPeriodicUpdateCheckThrottled()`\nhelper: if the last check was less than 30s ago, log\n`pwa:visibility-throttled` and skip. A user rapidly cycling tabs\n(5× in 2s) now fires exactly ONE check, not five. The interval\nrestart is not throttled — only the immediate check is — so the\nhourly cadence proceeds normally.\n\nChosen 30s specifically: well below the hourly interval (so a real\nreturn-from-long-absence still fires the immediate check) but high\nenough to suppress realistic tab-juggling.\n\n## Verification\n\n`tsc --noEmit` → 0 errors. All 7 items landed without widening\nthe hack surface (zero new `as any` / `@ts-expect-error` introduced).\n\nLive-browser verification of the 7 scenarios (background tab, rapid\ncycling, iOS pagehide/pageshow, HMR single-listener, native no-crash,\ntyped-error dispatch) requires `npm run web` locally — tracked in\nthe expanded docs/TODO.md entry.\n\nTags: pwa, service-worker, ios-safari, hygiene, fleet-alignment\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "refactor",
+    "performance"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "harden visibility-based update checks + granular errors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 183,
+    "deletions": 40
+  },
+  "files": [
+    "docs/TODO.md",
+    "hooks/usePWAUpdate.ts",
+    "types/rn-web-style.d.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

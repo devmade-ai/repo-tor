@@ -1,0 +1,49 @@
+{
+  "sha": "e363b48",
+  "fullSha": "e363b48aa705d5b770c3dbe85a37f2c399f3fc31",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T23:30:41Z",
+  "commitDate": "2026-04-22T23:30:41Z",
+  "subject": "refactor(theme): single source of truth + prefers-color-scheme + tightening",
+  "body": "Wrap-pass cleanup for the THEME_DARK_MODE work. Addresses every item\nflagged in the reflective pass after the previous commit landed —\nnothing deferred.\n\n## Single source of truth (drift elimination)\n\nPreviously the combo → (light theme name, dark theme name) mapping\nlived in three places — `constants/themeCombos.ts`, the inline\nresolver in `lib/themeColors.ts#resolveThemeName`, and the\nflash-prevention inline script in `app/+html.tsx` — each with its\nown hardcoded literal. Adding a new combo would silently leave the\nflash script returning the default, producing a flash for users of\nthe new combo.\n\nFix: new `COMBO_THEME_MAP` + `COMBO_IDS` exports in\n`constants/themeCombos.ts`, derived from `themeCombos` via\n`Object.fromEntries`. `resolveThemeName` now imports the same\nconstant (the old \"circular dependency\" comment was stale — neither\nfile actually imports the other, verified by grep). `+html.tsx`\nimports `COMBO_THEME_MAP`, `COMBO_IDS`, `DEFAULT_COMBO` and\n`JSON.stringify`s them into the inline script body. TypeScript\nnow enforces the three consumers agree.\n\n## prefers-color-scheme first-visit detection\n\nWhen no `synctone_dark_mode` is saved, both the inline script and\nthe `useTheme` load handler now fall back to\n`window.matchMedia('(prefers-color-scheme: dark)').matches` on web\n(native still defaults to dark because `Appearance.getColorScheme()`\nwould race against first paint). New `getSystemPrefersDark()`\nhelper in `useTheme.ts` centralizes the Platform guard.\n\nThe flash-prevention inline script mirrors this fallback with a\ndirect `matchMedia` check — same semantic, pre-mount.\n\n## Verified sync assumption\n\nRead Uniwind source (`node_modules/uniwind/dist/module/core/config/\nconfig.common.js`) to confirm `setTheme()` is synchronous: mutates\ninternal state, synchronously calls `onThemeChange` + listener\nnotifications (including the rnw.js layer that adds the theme name\nto `<html>.classList`), returns `void`. `applyWebAttributes()`\nrunning on the next line therefore cannot race against Uniwind.\nDocumented in the `applyTheme` doc comment with a pointer to the\nsource location so future readers don't have to re-discover this.\n\n## Honest docs\n\n- CLAUDE.md § Web theme application — three layers: now marks\n  `data-theme` and `.dark` as \"currently unused / kept for\n  forward-compat\" instead of implying they have active consumers.\n  ~30 bytes of HTML payload for each; the honest tradeoff is\n  documented.\n- CLAUDE.md new \"Single source of truth\" paragraph points at\n  `COMBO_THEME_MAP` as the one place to edit.\n- CLAUDE.md new \"First-visit default\" paragraph documents the\n  `prefers-color-scheme` behavior per platform.\n- docs/TODO.md High Priority: new \"Live-browser theme verification\"\n  entry with 6 concrete DevTools checks the sandbox can't run.\n- docs/TESTING_GUIDE.md new \"Theme verification (web)\" section with\n  step-by-step tables for flash prevention, runtime toggle,\n  color-scheme, `dark:` utility, and single-source-of-truth drift\n  check. Added \"Theme\" row to Regression Checklist.\n\n## Smoke tests run\n\n- `tsc --noEmit`: 14 pre-existing errors (same count as before this\n  branch's code changes); zero in touched files.\n- `tsc --noEmit --noUnusedLocals --noUnusedParameters` on touched\n  files: zero new unused locals/imports.\n- Node `new Function(body)` parse check on the inline flash\n  script with stubbed interpolations: syntactically valid.\n\nLive-browser verification still requires `npm run web` locally —\ntracked in docs/TODO.md High Priority as an explicit follow-up\nwith detailed DevTools steps.\n\nTags: theme, refactor, docs, testing, fleet-alignment\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "single source of truth + prefers-color-scheme + tightening",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 186,
+    "deletions": 33
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/+html.tsx",
+    "constants/themeCombos.ts",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "hooks/useTheme.ts",
+    "lib/themeColors.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

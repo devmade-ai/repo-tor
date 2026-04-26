@@ -1,0 +1,50 @@
+{
+  "sha": "770b1cc",
+  "fullSha": "770b1cc73fecff05a5b9cd9e62d1953d18428152",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:03:59Z",
+  "commitDate": "2026-04-23T19:03:59Z",
+  "subject": "refactor(debug): wrap-pass hardening — prod visibility, URL redaction,",
+  "body": "subscribe-during-replay, mount race, ARIA, docs\n\nAll 8 items from the DEBUG_SYSTEM wrap-pass landed. The biggest was\nthe prod false-positive: the React pill was gated `if (!isDev) return`,\nwhich meant the pre-React inline pill's 20-second \"React failed to\nmount\" escalation fired for every production user. Fixed by mounting\nthe React pill in prod too but rendering nothing when no errors or\nwarnings exist.\n\n## Fix 1 — Prod mount-timeout false positive\n\n`utils/debugRootMount.ts`: removed the `if (!isDev) return` guard.\nThe React pill now mounts in prod too, so `__debugMounted` flips\ncorrectly, so the inline pill's 20s escalation doesn't misfire.\n\n`components/debug/DebugPill.tsx`: added a visibility gate — in prod\nthe component returns null unless `entries` contains at least one\nerror or warning. Production users see nothing on a clean page;\nwhen an error or warning is captured (via the inline pill's\n`__debugPushError` bridge, `window.error`, `unhandledrejection`, or\nintercepted `console.error`/`console.warn`), the pill fades in\nwith the error count + tap-to-expand.\n\n`debugLog()` itself still no-ops in prod for ordinary `.debugLog()`\ncall-site tracing, so the prod log buffer only contains\nerror/warning captures — nothing gets logged speculatively.\n\nDoc comment in debugRootMount.ts explains the tradeoff: ~10 KB of\ninactive prod UI in exchange for actual error visibility to end\nusers hitting an issue.\n\n## Fix 2 — URL fragment redaction\n\n`redactUrl()` in `utils/debugLog.ts` now strips both `?query` AND\n`#fragment`. OAuth implicit flow hashes, client-side session state,\nand anything else after `#` is replaced with `#[redacted]` before\nthe URL lands in a `debugGenerateReport()` copy.\n\n## Fix 3 — Subscribe-during-replay\n\n`subscribeDebugLog()`:\n - Snapshots `entries` with `.slice()` before iterating so a\n   concurrent `debugLog()` push doesn't inject entries into the\n   \"replay\" phase of the contract (they'll arrive through the\n   normal notify path instead).\n - Checks `listeners.has(listener)` each iteration so a listener\n   that unsubscribes itself from inside a replayed call (by\n   invoking its returned unsubscribe fn synchronously) stops\n   receiving further replay deliveries.\n\n## Fix 4 — Mount race guard\n\n`utils/debugRootMount.ts`: new `window.__debugMountAttempted` flag\nset synchronously BEFORE `createRoot()`. Covers the tiny race\nwindow between `createRoot(...).render(...)` returning and\nDebugPill's `useEffect` flipping `__debugMounted` — two concurrent\nimporters (HMR re-exec + transitive sibling import, etc.) would\npreviously race on `__debugMounted` and could attempt a second\n`createRoot` on the same DOM element.\n\nDeclared on Window in `types/rn-web-style.d.ts` with doc\ndistinguishing it from `__debugMounted`.\n\n## Fix 5 — Documentation\n\nNew `### Debug System` subsection in `CLAUDE.md` § Core Concepts\ndocumenting:\n - The inline pre-React pill (what it covers, ~1.5 KB inline script,\n   ships in both dev + prod)\n - The React DebugPill (separate root, pure DOM, prod visibility\n   gate)\n - The debugLog store (API, capture surfaces, prod no-op, design\n   choice to NOT filter React dev-mode warnings)\n - Why THREE cooperating surfaces: one per failure mode (bundle\n   never loads / main-tree crashes / everything works).\n\n`docs/TODO.md`: Live-browser verification entry expanded with 9\nspecific DEBUG_SYSTEM confirmations (throw-in-render test,\nconsole-capture latency, `<div id=\"debug-root\">` presence,\npre-React inline pill fallback, HMR single-attach, subscribe-\nduring-replay, mobile-Safari clipboard fallback, prod visibility\ngate, URL redaction).\n\nRemoved one stale entry from the Low Priority section (\"clean up\n`as any` casts\") — that was done in commit d314346.\n\n## Fix 6 — React warning capture is intentional\n\nAdded a design-note comment in the `console.error` interception in\n`utils/debugLog.ts` explaining that React dev-mode warnings are\ndeliberately captured unfiltered. Filtering would suppress\nlegitimate library errors formatted the same way; the right fix\nfor noisy warnings is to address the underlying issue.\n\n## Fix 7 — Residual `PWADebugBanner` text sweep\n\nUpdated `hooks/usePWAInstall.ts` doc-comment and\n`utils/debugLog.ts` doc-comment that referenced the old name by\nfile. `docs/SESSION_NOTES.md` retains a historical reference as\nnarrative (session snapshots describe past state; the end-of-\nsession rewrite will naturally replace it).\n\n## Fix 8 — ARIA roles on DebugPill\n\n- `role=\"tablist\"` on tab container, `aria-label=\"Debug tabs\"`\n- `role=\"tab\"` on each tab button with `aria-selected`,\n  `aria-controls`, and stable `id`\n- `role=\"tabpanel\"` on panel body with `aria-labelledby` pointing\n  at the active tab's id\n- `role=\"log\"` + `aria-live=\"polite\"` + `aria-atomic={false}` on\n  the Log tab body specifically, so new entries get polite-\n  announced without interrupting other screen-reader flow\n- `role=\"dialog\"` + `aria-label=\"Debug pill\"` on the expanded\n  panel wrapper\n\n## Verification\n\n`tsc --noEmit` → 0 errors. All 8 fixes land without introducing\nnew casts or directives. Fix 7 grep confirms zero source-file\nreferences to `PWADebugBanner` remain; the only hits are in\nsession-narrative history docs.\n\nLive-browser verification of all items expanded in\n`docs/TODO.md § High Priority` (9 concrete DevTools steps including\n`throw new Error()` in render, console-capture latency check,\nmobile-Safari clipboard fallback, production visibility gate,\nURL redaction roundtrip).\n\nTags: debug, accessibility, production, docs, fleet-alignment\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "refactor",
+    "accessibility",
+    "security",
+    "monitoring"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "wrap-pass hardening — prod visibility, URL redaction,",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 249,
+    "deletions": 35
+  },
+  "files": [
+    "CLAUDE.md",
+    "components/debug/DebugPill.tsx",
+    "docs/TODO.md",
+    "hooks/usePWAInstall.ts",
+    "types/rn-web-style.d.ts",
+    "utils/debugLog.ts",
+    "utils/debugRootMount.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

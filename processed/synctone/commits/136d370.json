@@ -1,0 +1,45 @@
+{
+  "sha": "136d370",
+  "fullSha": "136d3700097b38066287c5f6089d4a13a2e8df06",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T07:29:06Z",
+  "commitDate": "2026-04-23T07:29:06Z",
+  "subject": "feat(pwa): visibility-based update checks + typed checkForUpdates result",
+  "body": "Completes the PWA_SYSTEM pattern's \"Update Check Scheduling\" surface\nfor synctone's custom-sw.js setup (synctone doesn't use\nvite-plugin-pwa; hand-wired equivalents in hooks/usePWAUpdate.ts).\n\n## Part A — Visibility-based update checks\n\nPreviously: `initUpdateDetection()` created an hourly `setInterval`\nwhose ID was discarded. A tab left open in a background window kept\nfiring `_registration.update()` + `checkVersionJson()` every hour —\nwasteful and (for users with auto-sleeping laptops) led to phantom\nerrors in the debug log.\n\nNow: interval handle stored in module-level `_updateCheckInterval`\nso a `visibilitychange` listener can pause/resume it.\n- Tab hidden → `stopUpdateCheckInterval()` clears the interval.\n- Tab visible → immediate `runPeriodicUpdateCheck()` (tab may have\n  been backgrounded through a deploy) then restart the interval at\n  the same hourly cadence via `startUpdateCheckInterval()`.\n\nHMR double-attach guarded behind `window.__synctonePwaVisAttached`\n— Metro module re-exec on hot-reload would otherwise fire the\nhandler twice per visibility change. Flag declared on Window in\n`types/rn-web-style.d.ts` (not `window as any` — that pattern was\nalready cleaned up in d314346).\n\nListener lives at module scope because the SW registration itself\nlives at module scope; component mounts/unmounts don't control\nthis lifecycle. Native platforms skip the whole path via the\nexisting `Platform.OS === 'web'` guard at the top of\n`initUpdateDetection()`.\n\n## Part B — Typed `checkForUpdates()` return\n\nWas: `Promise<void>` — callers could only call-and-ignore.\n\nNow: `Promise<'no-sw' | 'done' | 'error'>` — exported as the\n`CheckForUpdatesResult` type so UI callers can write a typed\nswitch-statement without re-deriving the string set.\n\n- `'no-sw'` — SW API unavailable (non-web, browser without SW,\n  or registration not yet initialized). Fast-path return.\n- `'done'` — Check completed; `hasUpdate` will reflect any\n  newly-detected update on the next listener tick.\n- `'error'` — Check threw; logged via `logger.error` + `debugLog`.\n\nDual-mechanism check preserved (SW + version.json in parallel) —\nthe task spec's simpler `reg.update()`-only version would regress\nbundle-only updates. Existing `_registration` null check gives the\ntyped `'no-sw'` signal early.\n\nExisting callers (pull-to-refresh in `home.tsx` and\n`DesktopLayout.tsx`) continue fire-and-forget — neither is an\nexplicit \"Check for updates\" button where toast surfacing would\nhelp the user. Typed return is forward-compat for when that\nbutton lands.\n\n## Docs\n\nCLAUDE.md § PWA System updated with two new subsections:\n- \"Update Check Scheduling\" — visibility-based interval management.\n- \"Manual Update Check — Typed Result\" — the three return values,\n  what each means for UI feedback.\n\n## Verification\n\n`tsc --noEmit`: 0 errors (unchanged — synctone's been strict-clean\nsince d314346).\n\nBehavioral verifications that need a real browser (tracked in\ndocs/TODO.md § High Priority for the next live-web smoke test):\n1. Background tab for several minutes → DevTools Network tab shows\n   no SW update requests firing at the hourly boundary.\n2. Foreground tab → immediate check fires within a few ms.\n3. HMR reload in dev → `__synctonePwaVisAttached` prevents a\n   second listener attach (verify with `getEventListeners(document)`\n   in DevTools console).\n4. iOS/Android Expo build doesn't reach the visibilitychange code\n   path (Platform.OS guard).\n5. Manual check returns the correct enum value.\n\nTags: pwa, service-worker, performance, types, fleet-alignment\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: minor",
+  "tags": [
+    "feature",
+    "types",
+    "performance"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "visibility-based update checks + typed checkForUpdates result",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 126,
+    "deletions": 13
+  },
+  "files": [
+    "CLAUDE.md",
+    "hooks/usePWAUpdate.ts",
+    "types/rn-web-style.d.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}
