@@ -1,0 +1,48 @@
+{
+  "sha": "4d95607",
+  "fullSha": "4d956072e02c221238c2fffc81c16549c8c18db5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T23:54:01Z",
+  "commitDate": "2026-04-19T23:54:01Z",
+  "subject": "docs(cleanup): delete superseded plans and migration doc; refresh session notes",
+  "body": "Three docs were describing work that has since shipped:\n- docs/PLAN_api_migration.md — src/api/ exists, zero supabase.from/rpc\n  remain, migration is done.\n- docs/PLAN_intent_labels_and_summaries.md — 8 intents + 60-char tones\n  + multi-word normalization + summary_does/when/consequence fields all\n  in code.\n- docs/FRONTEND_BACKEND_MIGRATION.md — localStorage → Supabase guide\n  that no longer reflects reality (tool-till-tees API is the data\n  layer now; only ephemeral local caches remain).\n\nDeleted (git log preserves their history). README doc index and TODO\nTwo-browser-testing pointer rewritten to not depend on the deleted\nmigration doc. CLAUDE.md Architecture tree adds the still-relevant\nSPEC_tool_till_tees_additions.md and the Backend line now reflects\nthe actual architecture (Supabase auth+realtime + tool-till-tees\nREST API) rather than pointing at the soon-to-be-removed supabase/\ndirectory.\n\nSESSION_NOTES.md fully rewritten to cover this branch: auth bypass\nshim, CLAUDE.md fleet alignment, Z_INDEX_SCALE adoption, EVENT_BUS\nN/A, APP_ICONS hardening, and the doc cleanup itself.\n\nTags: documentation, cleanup, doc-cleanup\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
+  "tags": [
+    "docs",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-docs",
+  "semver": "patch",
+  "scope": "cleanup",
+  "title": "delete superseded plans and migration doc; refresh session notes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 20,
+    "deletions": 1077
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/FRONTEND_BACKEND_MIGRATION.md",
+    "docs/PLAN_api_migration.md",
+    "docs/PLAN_intent_labels_and_summaries.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

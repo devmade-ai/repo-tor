@@ -1,0 +1,47 @@
+{
+  "sha": "033111d",
+  "fullSha": "033111d9fcbd8f3980d7cc1a0c8c9cefbf58c5d2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T23:36:40Z",
+  "commitDate": "2026-04-19T23:36:40Z",
+  "subject": "refactor(icons): adopt APP_ICONS filename convention",
+  "body": "Rename the vite-plugin-pwa scaffolding names (pwa-192x192.png,\npwa-512x512.png, pwa-1024x1024.png) to the glow-props APP_ICONS\npattern (icon-192.png, icon-512.png, icon-1024.png) so the\nfilenames match the fleet convention already used by glow-props.\n\nDrop pwa-maskable-512x512.png: the pattern prescribes one maskable\nentry (the 1024) and the 512 maskable was redundant — Android launchers\ncan downscale when needed.\n\nManifest + generator + service worker precache list updated in lockstep.\n\nTags: icons, pwa, refactor, fleet-alignment\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
+  "tags": [
+    "refactor",
+    "naming"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-docs",
+  "semver": "patch",
+  "scope": "icons",
+  "title": "adopt APP_ICONS filename convention",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 6,
+    "deletions": 8
+  },
+  "files": [
+    "public/icon-1024.png",
+    "public/icon-192.png",
+    "public/icon-512.png",
+    "public/pwa-maskable-512x512.png",
+    "scripts/generate-icons.mjs",
+    "vite.config.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

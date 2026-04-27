@@ -1,0 +1,42 @@
+{
+  "sha": "ab57190",
+  "fullSha": "ab571904a3f90e1cc4528b52a397f54e7e156a5c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T23:17:38Z",
+  "commitDate": "2026-04-19T23:17:38Z",
+  "subject": "refactor(z-index): move skip-to-content z-index to JSX className",
+  "body": "Drop the raw z-index from .skip-to-content in index.css and apply\nz-[70] on the <a> element instead. Every overlay in src/ now sets its\nz-index the same way — Tailwind utility on the element — so the scale\nhas a single shape and there is no longer a CSS/TS pair to keep in\nsync for this element.\n\nTags: refactor, z-index, consistency\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-docs",
+  "semver": "patch",
+  "scope": "z-index",
+  "title": "move skip-to-content z-index to JSX className",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 3,
+    "deletions": 4
+  },
+  "files": [
+    "src/index.css",
+    "src/layouts/AppLayout.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 1,
+  "impact": "internal"
+}

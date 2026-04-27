@@ -1,0 +1,54 @@
+{
+  "sha": "150b71a",
+  "fullSha": "150b71ad449a89d79dbad4ba1688a66ce0de3cc9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-20T23:22:39Z",
+  "commitDate": "2026-04-20T23:22:39Z",
+  "subject": "feat(observability): log auth-bypass, API errors, and realtime channel failures",
+  "body": "Tighten the observability surface so support + devs can tell from the\nDebugPill buffer what actually happened during a session:\n\n- src/config/authBypass.ts: emit a boot entry (debugLog 'boot' 'warn')\n  in addition to the existing console.warn, so exported debug reports\n  always carry the auth-bypass state unambiguously.\n- src/api/client.ts: collapse apiGet/Post/Put/Delete into a shared\n  `request()` helper that logs every network failure and every non-ok\n  HTTP response to debugLog('graph', 'error', …). Removes the duplicated\n  error-handling path in apiDelete.\n- src/hooks/*.ts (8 files): every realtime channel subscribe callback\n  now logs CHANNEL_ERROR and TIMED_OUT statuses. Previously these were\n  silent — users saw stale data with no clue why.\n\nAlso add a GitHub Actions workflow (.github/workflows/guard-auth-bypass.yml)\nthat fails pushes and PRs to main when AUTH_BYPASS_ENABLED is true.\nFeature branches are not checked, so dev work with the shim can continue\nunhindered. The gate is a safety net for when the flag is eventually\nflipped back off — prevents accidental re-enablement.\n\nTags: observability, debug, error-handling, ci\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
+  "tags": [
+    "feature",
+    "monitoring",
+    "error-handling",
+    "ci"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-docs",
+  "semver": "patch",
+  "scope": "observability",
+  "title": "log auth-bypass, API errors, and realtime channel failures",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 100,
+    "deletions": 39
+  },
+  "files": [
+    ".github/workflows/guard-auth-bypass.yml",
+    "src/api/client.ts",
+    "src/config/authBypass.ts",
+    "src/hooks/useAgreements.ts",
+    "src/hooks/useModules.ts",
+    "src/hooks/useNotes.ts",
+    "src/hooks/useNotifications.ts",
+    "src/hooks/usePdfVerifications.ts",
+    "src/hooks/useProjects.ts",
+    "src/hooks/useProposals.ts",
+    "src/hooks/useSignatureLog.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

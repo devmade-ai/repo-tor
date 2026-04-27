@@ -1,0 +1,45 @@
+{
+  "sha": "132d60d",
+  "fullSha": "132d60df37c7168ad48811b1d86d5f2f8ec758ec",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-20T23:31:10Z",
+  "commitDate": "2026-04-20T23:31:10Z",
+  "subject": "revert(ci): drop auth-bypass guard; record prod=dev policy in CLAUDE.md",
+  "body": "The guard-auth-bypass workflow assumed a prod/dev split that does not\nexist for this project. Sancio is in active development and the\ndeployed Vercel app is the test environment — AUTH_BYPASS_ENABLED is\nintentional across every deployment so the PWA can be tested end-to-end\non a real HTTPS origin. The owner will flip the flag manually and ask\nfor pre-merge guardrails when the app is ready for real users.\n\nChanges:\n- Delete .github/workflows/guard-auth-bypass.yml.\n- Add a new AI Note to CLAUDE.md stating \"No prod/dev/test separation —\n  this project is all one environment\" and explicitly forbidding the AI\n  from proposing CI gates, env-flag splits, or release-time flip\n  workflows unprompted.\n- Add a 2026-04-20 entry to docs/AI_MISTAKES.md capturing the\n  assumption so this does not repeat next session.\n\nTags: policy, ci, docs, ai-context\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
+  "tags": [
+    "revert",
+    "ci",
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-docs",
+  "semver": "patch",
+  "scope": "ci",
+  "title": "drop auth-bypass guard; record prod=dev policy in CLAUDE.md",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 11,
+    "deletions": 36
+  },
+  "files": [
+    ".github/workflows/guard-auth-bypass.yml",
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}
