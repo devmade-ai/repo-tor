@@ -1,0 +1,44 @@
+{
+  "sha": "e0bedd6",
+  "fullSha": "e0bedd6a0e19979ac90802e3e53d357d61a0bc85",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T20:14:31Z",
+  "commitDate": "2026-04-23T20:14:31Z",
+  "subject": "chore(cold): trim defensive code, backfill TODO.md from cold-audit",
+  "body": "Findings from the cold reflective pass that are narrow cleanups\nrather than fresh triggers.\n\nCode\n1. useDialogA11y: removed SSR guards in lockBodyScroll /\n   unlockBodyScroll. The composable only runs inside Vue components\n   mounted in the browser (lockBodyScroll is reachable only via\n   onMounted); `typeof document === 'undefined'` can't fire. Kept\n   the empty-focusable Tab guard (legitimate edge case) and the\n   focus-yank-back branch (legitimate stacked-modal edge case where\n   a click on an input in the outer modal moves focus out of the\n   top dialog).\n2. CashflowGraph: simplified `reducedMotion` from a reactive ref +\n   matchMedia change listener + onMounted/onUnmounted wiring down\n   to a single const read at init. Mid-session OS-level reduce-motion\n   toggles are vanishingly rare; users can reload to pick up a\n   preference change. Save 14 lines for coverage that costs more\n   than it buys. Also removed `reducedMotion` from the chart :key\n   (no longer reactive, never changes).\n\nDocs (TODO.md backfill)\n- `text-base-content/40` systematic audit — 30 residual uses after\n  the a11y pass. Per-site visual review needed.\n- Dashboard computed-chain debounce (deferred from motion trigger).\n- CashflowGraph :key full re-init cost (deferred from motion trigger).\n- Unit tests for useDialogA11y stack semantics.\n- Unit tests for TransactionEditModal `isDirty`.\n- ApexCharts English-only date format — deferred until i18n adoption.\n\nAlso added Performance, Testing, and Internationalization\ncategories so future work lands in the right bucket.\n\nType-check clean. 116/116 tests pass. Production build succeeds.\n\nTags: cleanup, cold-audit, todo, tests, perf, i18n\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
+  "tags": [
+    "refactor",
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "patch",
+  "scope": "cold",
+  "title": "trim defensive code, backfill TODO.md from cold-audit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 28,
+    "deletions": 40
+  },
+  "files": [
+    "docs/TODO.md",
+    "src/components/CashflowGraph.vue",
+    "src/composables/useDialogA11y.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}

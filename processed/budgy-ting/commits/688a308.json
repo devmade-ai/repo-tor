@@ -1,0 +1,51 @@
+{
+  "sha": "688a308",
+  "fullSha": "688a3086ce92996d1aaa7949a057e480aee3e318",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T23:51:20Z",
+  "commitDate": "2026-04-22T23:51:20Z",
+  "subject": "fix(ux): nine targeted UX improvements from frontend.ux sweep",
+  "body": "Findings from the `ux` trigger against the whole codebase. Each item\ncloses a discoverability, feedback, or destructive-action gap a real\nuser would hit. No architectural changes; all targeted component edits.\n\nHigh-severity\n1. Empty state on dashboard when no transactions imported.\n   WorkspaceDashboard.vue now renders an EmptyState with a primary\n   \"Import transactions\" CTA when transactions.length === 0, rather\n   than a blank graph + zero metrics + empty table. Suppressed while\n   loading to avoid a flash.\n2. Transaction delete promoted to ConfirmDialog (was inline panel).\n   TransactionEditModal.vue now uses ConfirmDialog for delete, matching\n   the pattern already used for workspace delete. Same alertdialog\n   semantics, same button weight — destructive actions now consistent.\n\nMedium-severity\n3. CSV parse UI no longer appears frozen on large files.\n   ImportStepUpload.vue wraps the sync parseCSV call in\n   requestAnimationFrame so the \"Parsing…\" spinner paints before the\n   main thread is grabbed. Spinner visual upgraded from text-only\n   \"Parsing...\" to a proper loading-spinner + reassuring copy.\n4. ML retry affordance on dashboard (was only in import review).\n   WorkspaceDashboard exposes modelError + retryModel through\n   TransactionTable → TransactionEditModal. Modal shows a retry link\n   when suggestionsError is set and no suggestions exist. Also fixes\n   a latent bug: handleRequestSuggestions now awaits waitForModel()\n   before calling suggestTags, so users opening a transaction before\n   the model finishes loading actually get suggestions once it does.\n5. Restore-from-backup loading state.\n   useRestoreWorkspace exposes a restoring ref; ConfirmDialog gains\n   a `busy` prop that disables both buttons and swaps the confirm\n   label for a spinner + \"Working…\". Prevents the app-looks-frozen\n   window during IDB replace transactions and blocks double-clicks.\n6. Kebab-menu hint persists until tapped (was 6s auto-dismiss).\n   WorkspaceDetailView.vue: pulse continues until user interacts with\n   the button. Previously a user who glanced away during the 6s\n   window would never see the hint and could miss Save as PDF /\n   Export / Edit entirely. Removes kebabHintTimeout entirely.\n\nLow-severity\n7. Wizard error banner clears on navigation and retry.\n   NewImportWizard.vue clears error at the top of handleUploadComplete\n   (stale banner from prior upload no longer persists) and on the\n   ImportStepReview back emit.\n8. TransactionTable tablet breakpoint moved sm → md.\n   Card layout now extends through tablets (< 768px); table kicks in\n   only at laptop widths. Prevents awkward tag-column wrapping on\n   640-768px screens.\n9. Export toast tells the user where the file went.\n   \"Workspace exported\" → \"Workspace exported — check your downloads\".\n\nType-check clean. 111/111 tests pass. Production build succeeds.\n\nTags: ux, forms, dashboard, import, pwa, a11y\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: minor",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "minor",
+  "scope": "ux",
+  "title": "nine targeted UX improvements from frontend.ux sweep",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 181,
+    "deletions": 53
+  },
+  "files": [
+    "src/components/AppLayout.vue",
+    "src/components/ConfirmDialog.vue",
+    "src/components/TransactionEditModal.vue",
+    "src/components/TransactionTable.vue",
+    "src/composables/useRestoreWorkspace.ts",
+    "src/views/NewImportWizard.vue",
+    "src/views/WorkspaceDashboard.vue",
+    "src/views/WorkspaceDetailView.vue",
+    "src/views/import-steps/ImportStepUpload.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

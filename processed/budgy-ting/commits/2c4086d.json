@@ -1,0 +1,42 @@
+{
+  "sha": "2c4086d",
+  "fullSha": "2c4086d645f8acc01e8f19744d8c58e0fb1c526c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T21:44:49Z",
+  "commitDate": "2026-04-24T21:44:49Z",
+  "subject": "fix(race): sync-flush dark-mode watchers to honor syncing flag",
+  "body": "Cross-tab dark-mode sync had a stale-flag race. handleStorageSync\nsets syncing=true, mutates isDark + currentComboId, sets\nsyncing=false, all synchronously — then calls applyTheme(..., true).\n\nVue's default watch scheduling is post-flush: the isDark / combo\nwatchers fire on the next microtask. By then syncing is already\nfalse, the `if (syncing) return` guard passes, and both watchers\nrun applyTheme with skipPersist=false + emit debug log entries.\nNet: 3 applyTheme calls + 2 redundant localStorage writes +\n2 duplicated debug entries per cross-tab sync event.\n\nNo ping-pong loop (localStorage setItem only fires storage events\nin OTHER tabs when the value actually changes; the values match\nwhat was just synced). Not corruption, just wasted work the\nsyncing flag was designed to prevent.\n\nFix: `{ flush: 'sync' }` on both watchers so they run synchronously\non ref mutation, while the syncing flag is still true. Single\napplyTheme call per sync event; single localStorage write; single\ndebug entry.\n\nOther findings from the race sweep were false alarms:\n- Debounce timers on unmount: onUnmounted already clearTimeouts both\n  cashSaveTimeout and runwayDebounceTimer.\n- ML request on disposed worker: dispose() rejects pending requests.\n- Radiogroup rapid keys: focus order is correct even with overlapping\n  nextTick awaits (last-wins matches last-keypress).\n- Print-theme fallback cancel: dataset.printTheme saved before swap,\n  so cancel restores correctly.\n- ConfirmDialog double-click: parent guard (`if (restoring.value) return`)\n  handles it synchronously before second emit's handler runs.\n\nType-check clean. 145/145 tests pass.\n\nTags: race, dark-mode, vue-reactivity, flush-sync\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "performance"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "patch",
+  "scope": "race",
+  "title": "sync-flush dark-mode watchers to honor syncing flag",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 8,
+    "deletions": 3
+  },
+  "files": [
+    "src/composables/useDarkMode.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}

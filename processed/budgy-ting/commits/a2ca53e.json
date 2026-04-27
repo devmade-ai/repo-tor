@@ -1,0 +1,44 @@
+{
+  "sha": "a2ca53e",
+  "fullSha": "a2ca53e7f12765c486ec66fbde1c7d849ff17c56",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T23:05:29Z",
+  "commitDate": "2026-04-22T23:05:29Z",
+  "subject": "fix(cleanup): HMR-safe cleanup for remaining module-level listeners",
+  "body": "Completes the TIMER_LEAKS pattern sweep surfaced by pattern-audit. The\nprior commit (cf8c1c9) fixed usePWAUpdate.ts; this covers the other\nfive module-level listener sites identified in that audit's surface\nfindings.\n\nuseDarkMode.ts (2 listeners)\n- window 'storage' for cross-tab sync\n- mediaQuery 'change' for OS preference fallback\n- Added __darkModeAttached guard + import.meta.hot.dispose() to remove\n  both on HMR.\n\nusePWAInstall.ts (4 listeners + 1 timeout)\n- window 'beforeinstallprompt' (main capture)\n- window 'appinstalled'\n- standaloneMediaQuery 'change' (install-via-browser-menu detection)\n- window 'beforeinstallprompt' { once: true } (diag timeout clear)\n- 5s diagnostic setTimeout\n- Extracted all anonymous handlers to named functions\n  (handleBeforeInstallPrompt, handleAppInstalled, handleStandaloneChange,\n  handleEarlyPromptClearDiag) so removeEventListener can reach them.\n- Tracked standaloneMediaQuery and diagTimeout at module scope.\n- Added __pwaInstallAttached guard + dispose hook that removes all four\n  listeners (including the { once: true } pre-fire case), clears the\n  media query subscription, and clears diagTimeout.\n\ndebugLog.ts (2 listeners + console patches)\n- window 'error' and 'unhandledrejection' already had a guard flag but\n  no teardown; patched console.error/warn likewise.\n- Without dispose, HMR leaves patched console pointing at the orphaned\n  old module's debugLog — new events silently routed to a stale buffer\n  with no subscribers.\n- Hoisted originalError/originalWarn to module scope for restoration.\n- Extracted handleGlobalError/handleUnhandledRejection as named handlers.\n- Added dispose hook that restores console originals, removes both\n  listeners, and resets all three guard flags (__debugConsolePatched,\n  __debugLogListenersAttached, __debugLogReady).\n\nNo runtime behavior change in production (import.meta.hot is dev-only).\nEliminates the dev-only listener doubling and stale-closure routing\nthat would accumulate across HMR cycles.\n\nType-check clean. All 111 tests pass.\n\nTags: timer-leaks, hmr, cleanup, pwa, dark-mode, debug, fleet-alignment\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "scope": "cleanup",
+  "title": "HMR-safe cleanup for remaining module-level listeners",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 153,
+    "deletions": 44
+  },
+  "files": [
+    "src/composables/useDarkMode.ts",
+    "src/composables/usePWAInstall.ts",
+    "src/debug/debugLog.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

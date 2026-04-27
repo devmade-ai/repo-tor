@@ -1,0 +1,45 @@
+{
+  "sha": "d8a78f8",
+  "fullSha": "d8a78f8a1c30ced6259dfa72c5bd8249e0d44e54",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:38:48Z",
+  "commitDate": "2026-04-23T19:38:48Z",
+  "subject": "fix(visual): modal h3 type-scale parity + opacity-scale outliers",
+  "body": "Low-severity visual consistency drift from the frontend.visual sweep.\nFiltered the agent's six findings down to two real ones; dropped\nfalse positives (tag-badge context split, pagination gap drift,\nchip button sizing — all legitimate by-context differences).\n\n1. Modal heading drift.\n   TransactionEditModal's h3 used `text-base font-semibold`; every\n   other modal (ConfirmDialog, TutorialModal, InstallInstructionsModal,\n   HelpDrawer) uses `text-lg font-semibold`. Bumped both TransactionEditModal\n   sites (details view + edit mode) to `text-lg` for parity.\n\n2. Opacity-scale outliers.\n   App's `text-base-content/*` distribution: 42 at /60, 30 at /40,\n   26 at /70, 11 at /80, 4 at /50, 1 at /20. The four /50 uses were\n   one-offs that don't fit the scale: ClassificationBadge \"Once-off\"\n   text, CashflowGraph History/Forecast section labels, BurgerMenu\n   menu-trigger icon. Normalised all four to /60. Contrast marginally\n   improves as a side effect.\n\nType-check clean. 116/116 tests pass. No /50 opacity usages remain\nin .vue files. Production chunks unchanged in size (CSS-only edits).\n\nTags: visual, consistency, type-scale, opacity, daisyui\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "patch",
+  "scope": "visual",
+  "title": "modal h3 type-scale parity + opacity-scale outliers",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 6,
+    "deletions": 6
+  },
+  "files": [
+    "src/components/BurgerMenu.vue",
+    "src/components/CashflowGraph.vue",
+    "src/components/ClassificationBadge.vue",
+    "src/components/TransactionEditModal.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "user-facing"
+}

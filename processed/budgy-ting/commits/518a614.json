@@ -1,0 +1,53 @@
+{
+  "sha": "518a614",
+  "fullSha": "518a61466db1e8865a7f001b8c1ac65b5370edc4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T16:23:27Z",
+  "commitDate": "2026-04-23T16:23:27Z",
+  "subject": "fix(a11y): 10 accessibility fixes from frontend.a11y sweep",
+  "body": "Highest-impact item is #1 — a regression I introduced in the prior\nux commit when routing transaction delete through ConfirmDialog.\n\nHigh-severity\n1. Dialog stack in useDialogA11y.\n   Two open modals (ConfirmDialog inside TransactionEditModal) each\n   registered their own document keydown listener. A single Escape\n   fired both handlers, so pressing Escape on the inner confirm also\n   closed the outer edit modal — losing the entire edit session.\n   Refactored to a module-level stack with one shared keydown\n   listener; only the topmost dialog handles Escape/Tab. Focus trap\n   also yanks focus back if it leaks out of the top dialog.\n2. Validation errors announced to screen readers.\n   TransactionEditModal now tags the failing input with aria-invalid,\n   points aria-describedby at the error, wraps the error in role=\"alert\"\n   for auto-announcement, and focuses the first failing input on save.\n   Previously a screen-reader user got no feedback when Save failed.\n\nMedium-severity\n3. prefers-reduced-motion global clamp in index.css.\n   Tailwind animate-*, DaisyUI spinners, and ApexCharts transitions all\n   respect the OS-level preference now (vestibular / motion-sensitive\n   users). 0.01ms animation/transition duration with !important.\n4. Text contrast bumped from /40 → /60 on real content.\n   EmptyState description, TransactionTable empty-state messages,\n   TransactionEditModal \"No tags\" italic, CashflowGraph no-data copy.\n   40% opacity failed WCAG AA 4.5:1 on both themes for body text.\n5. Desktop transaction rows get role=\"button\" + aria-label.\n   Was tabindex=\"0\" only — AT users heard a table cell with no cue\n   that Enter opens the edit modal. Mobile cards gained matching\n   aria-label for parity.\n6. Chart text alternative for screen-reader users.\n   CashflowGraph wraps the chart in role=\"img\" with a computed\n   aria-label summarising period, cumulative direction, forecast\n   endpoint, and runway depletion date. ApexCharts SVG is now\n   aria-hidden so AT users hear the summary instead of traversing\n   the DOM.\n\nLow-severity\n7. Tutorial step dots — 32×32 touch target.\n   Was 8×8 px — far under the 44px mobile minimum. Visible dot stays\n   8px for design continuity, wrapped in a flex-centred 32×32 button.\n   Close button bumped to 40×40 to match TransactionEditModal.\n8. Pagination contrast and labels.\n   ImportStepReview and TransactionTable pagination: disabled opacity\n   bumped 30% → 50% (keeps WCAG 3:1 for non-text UI), aria-label on\n   Previous/Next clarifies page context, aria-live=\"polite\" on the\n   page indicator so the current page announces on change.\n9. Combobox aria-controls + aria-activedescendant.\n   Tag-input listbox gains an id; input points at it via aria-controls,\n   and aria-activedescendant tracks the highlighted option id. Explicit\n   combobox wiring that screen readers don't need to infer.\n10. aria-busy on loading containers.\n    \"Suggesting tags...\" and \"Parsing…\" indicators gain role=\"status\"\n    + aria-live=\"polite\" + aria-busy so AT users hear the progress\n    state, not silence.\n\nType-check clean. 116/116 tests pass. Production build succeeds.\n\nUI verification note: these changes affect keyboard, screen reader,\nand contrast behaviour that can't be asserted from tests alone. The\nmodal-stack fix in particular should be exercised manually —\nTransactionEditModal open, click Delete transaction, press Escape,\nverify only ConfirmDialog closes. Then verify Escape on the edit\nmodal still closes it.\n\nTags: a11y, dialog, forms, focus, aria, contrast, motion\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: minor",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "minor",
+  "scope": "a11y",
+  "title": "10 accessibility fixes from frontend.a11y sweep",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#1"
+  ],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 257,
+    "deletions": 71
+  },
+  "files": [
+    "src/components/CashflowGraph.vue",
+    "src/components/EmptyState.vue",
+    "src/components/TransactionEditModal.vue",
+    "src/components/TransactionTable.vue",
+    "src/components/TutorialModal.vue",
+    "src/composables/useDialogA11y.ts",
+    "src/index.css",
+    "src/views/import-steps/ImportStepReview.vue",
+    "src/views/import-steps/ImportStepUpload.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

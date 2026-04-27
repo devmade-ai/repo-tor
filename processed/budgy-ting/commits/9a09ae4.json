@@ -1,0 +1,52 @@
+{
+  "sha": "9a09ae4",
+  "fullSha": "9a09ae42a1bbf81c70dfdc3a6cf69a6a9975d109",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T20:50:08Z",
+  "commitDate": "2026-04-23T20:50:08Z",
+  "subject": "fix(a11y): text-base-content/40 → /60 on body text and status labels",
+  "body": "Systematic audit of the 30 /40 uses flagged in docs/TODO.md. 12\nbumped to /60, 18 kept at /40 (all icons or hover-resting states\nwhere the hover variant already provides contrast).\n\nBumped (body text / helper text / status):\n- ErrorBoundary.vue error-message paragraph (tech info but user-visible)\n- InstallInstructionsModal.vue instructions list\n- TransactionEditModal.vue tag helper text\n- LoadingSpinner.vue loading message\n- MetricCard.vue sublabel\n- WorkspaceListView.vue pull-to-refresh rest label\n- WorkspaceForm.vue currency-symbol helper text\n- NewImportWizard.vue step indicator\n- ImportStepUpload.vue file size\n- ImportStepReview.vue: \"Download once\" note, \"N ignored\" count, \"Loading tag suggestions\" status\n\nKept at /40 (decorative / resting-state hover targets):\n- Close/kebab/menu/upload/chevron icons with hover:text-base-content/70 variants\n- BurgerMenu menu-item icon default class (hover fills in)\n- ImportStepReview delete-row button (hover:text-error lifts it)\n- Disabled / background-icon placements\n\nNet effect: body copy now meets WCAG AA 4.5:1 on both cmyk and night\nthemes; decorative icons remain subdued as intended.\n\nType-check clean. 116/116 tests pass.\n\nTags: a11y, contrast, wcag, text-scale\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "patch",
+  "scope": "a11y",
+  "title": "text-base-content/40 → /60 on body text and status labels",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 12,
+    "deletions": 12
+  },
+  "files": [
+    "src/components/ErrorBoundary.vue",
+    "src/components/InstallInstructionsModal.vue",
+    "src/components/LoadingSpinner.vue",
+    "src/components/MetricCard.vue",
+    "src/components/TransactionEditModal.vue",
+    "src/components/WorkspaceForm.vue",
+    "src/views/NewImportWizard.vue",
+    "src/views/WorkspaceListView.vue",
+    "src/views/import-steps/ImportStepReview.vue",
+    "src/views/import-steps/ImportStepUpload.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "user-facing"
+}

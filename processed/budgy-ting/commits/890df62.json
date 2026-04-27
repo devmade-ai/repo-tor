@@ -1,0 +1,48 @@
+{
+  "sha": "890df62",
+  "fullSha": "890df62582aa44eff0b8e13fa671de611387348e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:07:58Z",
+  "commitDate": "2026-04-23T19:07:58Z",
+  "subject": "fix(forms): 9 forms UX + a11y fixes from frontend.forms sweep",
+  "body": "## Forms audit findings\n\nHigh-severity\n1. Cash-on-hand input had no accessible label.\n   WorkspaceDashboard.vue had a <label> as a sibling of the <input>\n   with no for/id binding — screen readers heard an unlabeled number\n   input. Added id/for association plus aria-label derived from the\n   workspace currency.\n2. Unsaved-changes warning on TransactionEditModal close.\n   Backdrop click, Escape, X, and Cancel-edit all silently discarded\n   edits. Added dirty-state tracking (compares local fields against\n   the original transaction) and a ConfirmDialog that fires before\n   tear-down when dirty. Two discard targets: 'close' (exit modal)\n   and 'view' (revert to read-only without closing).\n\nMedium-severity\n3. Period selector converted to WAI-ARIA radiogroup.\n   WorkspaceForm.vue Monthly/Custom-dates toggle was plain buttons\n   with no arrow-key support and no group semantics. Now role=radiogroup\n   + role=radio + aria-checked + roving tabindex; Left/Right/Up/Down\n   keys select and move focus to the newly selected option.\n4. inputmode=\"decimal\" on all currency number inputs.\n   Triggers the iOS numeric-with-decimal keypad instead of the\n   telephony keypad. Applied to WorkspaceDashboard cash-on-hand and\n   TransactionEditModal amount.\n5. Date-format dropdown label now associated via for/id.\n   ImportStepUpload.vue had a bare text label sibling to the <select>.\n6. Search input label in ImportStepReview.\n   Was placeholder-only — not a label per WCAG. Added aria-label and\n   changed input type to \"search\" for the native clear button.\n\nLow-severity\n7. File input accessible label in ImportStepUpload.\n   Was `class=\"hidden\"` (also removes from tab order) with no aria-label.\n   Switched to `sr-only` so keyboard users can Tab to it, added an\n   explicit aria-label, and gave the drop-zone label a focus-within\n   ring so focus is visible.\n8. Tag-input combobox in ImportStepReview now has aria-controls and\n   aria-activedescendant — matches the wiring TransactionEditModal got\n   in the previous a11y pass. Each list/option gets a stable id per\n   transaction index.\n9. Cash-on-hand step fixed 100 → 0.01.\n   Old step forced values to multiples of 100 currency units; typing\n   more granular amounts got coerced.\n\nType-check clean. 116/116 tests pass. Production build succeeds.\n\nUI verification note: The radiogroup behaviour, unsaved-changes\nconfirm, and iOS inputmode need manual verification. Focus-change\non arrow-key selection is the subtle one — tab into \"Monthly\",\npress Right, focus should jump to \"Custom dates\" with it selected.\n\nTags: forms, a11y, aria, radiogroup, ios, inputmode, unsaved-changes\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: ux-polish\nSemver: minor",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "minor",
+  "scope": "forms",
+  "title": "9 forms UX + a11y fixes from frontend.forms sweep",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 158,
+    "deletions": 23
+  },
+  "files": [
+    "src/components/TransactionEditModal.vue",
+    "src/components/WorkspaceForm.vue",
+    "src/views/WorkspaceDashboard.vue",
+    "src/views/import-steps/ImportStepReview.vue",
+    "src/views/import-steps/ImportStepUpload.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}
