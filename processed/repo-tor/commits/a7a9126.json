@@ -1,0 +1,43 @@
+{
+  "sha": "a7a9126",
+  "fullSha": "a7a912631b2eefa7cb8d6eb5624387da247d7eb4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-16T00:43:53Z",
+  "commitDate": "2026-04-16T00:43:53Z",
+  "subject": "test(tripwire): enforce CLAUDE.md exception lists at source level",
+  "body": "Retrospective on the 3-audit-pass cleanup caught a gap: the tripwire\nverifies DaisyUI component-class usage and the custom-CSS allowlist,\nbut does NOT enforce the CLAUDE.md \"Frontend: Styles and Scripts\"\nexception lists I just spent three passes locking down. Without\nmachine-verified invariants, a future contributor can drift right\npast the rules.\n\nAdded three regression guards to\n`scripts/__tests__/daisyui-surfaces.test.mjs` — one per high-value\nexception category. Each test:\n  - Scans every `.js` / `.jsx` file under `dashboard/js/`\n  - Extracts matching patterns from stripped source (comments removed\n    so rationale blocks mentioning forbidden patterns don't false-fire)\n  - Fails with a specific list of offenders and instructions for how\n    to think about adding a new exception vs removing the offender\n\n### Test 1: arbitrary bracket value allowlist\n\nAllowlist (set in the test):\n  - `z-[var(--z-sticky-header)]`\n  - `z-[var(--z-toast)]`\n  - `grid-cols-[auto_repeat(7,1fr)]`\n  - `max-w-[calc(100vw-2rem)]`\n\nMatches any Tailwind-style `utility-[...]` in a JSX className. Uses\nthe classname attribute extractor to avoid false-positives from JS\narray subscript syntax (`foo[i]`). A new bracket value triggers the\ntest and requires either rounding to stock or adding a 5th documented\nexception with its own rationale in CLAUDE.md.\n\n### Test 2: hex literal scope\n\nAllowlist (set in the test):\n  - `dashboard/js/components/DebugPill.jsx` (isolated React root,\n    survives CSS load failure)\n  - `dashboard/js/components/debug/` (entire subtree — same\n    resilience concern as DebugPill.jsx)\n  - `dashboard/js/generated/themeMeta.js` (auto-generated PWA meta\n    colours — browser parses `<meta content=\"\">` as literal hex)\n\nMatches `#[0-9a-fA-F]{6}` in any file outside the allowlist. Stripped\nsource excludes comments, so the comment block describing the\n2026-04-15 `themes.js #808080` removal doesn't trigger. Would have\ncaught the gap I noticed during the retrospective: if the DebugPill\nsubsystem expanded to a new file outside `components/debug/`, the\ntest would flag it as an unapproved hex location.\n\n### Test 3: JSX heading font-mono requirement\n\nMatches `<h[123]\\b[^>]*>` and fails if the opening tag doesn't\ncontain `font-mono` in its classNames. Enforces the contract that\nreplaced the `h1, h2, h3 { font-family: mono }` element-selector rule\nremoved in commit 5bcc2c2. `<h4>` through `<h6>` are intentionally\nexcluded — the old rule targeted h1-h3 only, and h4+ uses inherited\nbody font.\n\nA future new heading without font-mono will fail the test with\n`file:line: <h2 className=\"text-lg\">` offender format, prompting the\ncontributor to add the class or promote to h4+ if monospace is\nundesired in that spot.\n\n### Implementation notes\n\n- Pure Node — no external deps (we're in `node:test`-land, not\n  vitest-land). Added a `walkFiles()` recursive walker that uses\n  `readdirSync({withFileTypes: true})` for efficient directory\n  traversal.\n- Uses `createRequire(import.meta.url)` from `node:module` to get\n  at `require` for sync fs operations — the existing builtCss loader\n  at the top of the file does the same thing via top-level await.\n- Stripped-source comment removal is the same regex pair used in the\n  existing \"styles.css allowlist\" test. Keeps behaviour consistent\n  with how other regression guards handle comments.\n- Sanity-checked the regexes against synthetic violations outside the\n  test suite before committing — all three catch planted bad\n  patterns while allowing the current 4-bracket / 2-hex-location /\n  4-heading-with-font-mono state.\n\nVerified:\n  - All 63 tests pass (was 60, now +3)\n  - Build clean\n  - No new false positives on the current tree\n\nTags: testing, tripwire, audit, regression-guard\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "test-unit"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "scope": "tripwire",
+  "title": "enforce CLAUDE.md exception lists at source level",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#808080"
+  ],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 197,
+    "deletions": 0
+  },
+  "files": [
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

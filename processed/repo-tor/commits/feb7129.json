@@ -1,0 +1,45 @@
+{
+  "sha": "feb7129",
+  "fullSha": "feb712928203cee21d0b813cf7a818485d79aed4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T20:57:24Z",
+  "commitDate": "2026-04-15T20:57:24Z",
+  "subject": "refactor(debug): split DebugPill into pill chrome + tabs + styles",
+  "body": "Audit finding extension to #16 — DebugPill.jsx was 527 lines,\n27 lines over the 500-line component soft-limit from CLAUDE.md\n\"Code Organization\". The file held three concerns: the pill /\npanel chrome (state, subscriptions, copy actions), the three\ntab body components (Log / Environment / PWA Diagnostics), and\na ~140-line inline styles object with severity / source colour\nmaps.\n\nSplit into three files inside a new `debug/` subdirectory so\nthey stay grouped without polluting the top-level components/\nlisting:\n\n  dashboard/js/components/DebugPill.jsx              — 200 lines\n  dashboard/js/components/debug/debugStyles.js       — 180 lines\n  dashboard/js/components/debug/DebugTabs.jsx        — 187 lines\n\ndebugStyles.js exports the `styles` object plus `SOURCE_COLORS`\nand `SEVERITY_COLORS` lookup maps. Standalone JS module (no JSX)\nbecause both consumers (DebugPill chrome + DebugTabs bodies)\nneed access. The hex-literal exception for the debug pill is\ndocumented in CLAUDE.md \"Frontend: Styles and Scripts\" — these\nfiles inherit that exception with an extended rationale block\nin the file header explaining why DaisyUI semantic tokens can't\nbe used here.\n\nDebugTabs.jsx exports `LogTab`, `EnvironmentTab`,\n`PWADiagnosticsTab`, and the `runDiagnostics()` async helper.\nPure presentation + the live-probe code; the parent owns all\nstate and stale-run cancellation via a monotonic counter ref.\nBrings `getBrowserName()` along with `runDiagnostics()` because\nit's only called from there.\n\nDebugPill.jsx (now 200 lines, well under the limit) is reduced\nto: pill / panel chrome render, debug-entry subscription,\nauto-scroll effect, diagnostics fetch effect, copy/clear\nhandlers, and the manual-copy textarea fallback. Imports the\nthree tab components by name and renders them via the existing\n`activeTab === N` discriminator.\n\nBuild clean (562.30 kB → 562.43 kB, +0.13 kB module scaffolding).\n60/60 tests pass.\n\nTags: refactor, debug, code-organization, audit\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: vanilla-daisyui-cleanup\nSemver: patch",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "vanilla-daisyui-cleanup",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "split DebugPill into pill chrome + tabs + styles",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#16"
+  ],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 378,
+    "deletions": 338
+  },
+  "files": [
+    "dashboard/js/components/DebugPill.jsx",
+    "dashboard/js/components/debug/DebugTabs.jsx",
+    "dashboard/js/components/debug/debugStyles.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

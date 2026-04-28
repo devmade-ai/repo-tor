@@ -1,0 +1,43 @@
+{
+  "sha": "0431126",
+  "fullSha": "0431126fb1bd933a5da00798f071d31881e31df8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-16T00:48:39Z",
+  "commitDate": "2026-04-16T00:48:39Z",
+  "subject": "docs(audit): retrospective rollup — HISTORY, SESSION_NOTES, TODO.md",
+  "body": "Fourth-pass documentation rollup. Records the retrospective pass\nitself so a future session can trace the full 4-pass history from\nthe docs without git-log spelunking.\n\n- **docs/HISTORY.md** — new \"Retrospective pass — tripwire invariants,\n  file-size findings, index.html scope\" section at the top of the\n  2026-04-15 entry. Paragraph-per-commit for the 4 retrospective\n  commits (a7a9126 tripwire, 460e161 file-size TODOs, 57e2423\n  CLAUDE.md scope note, this commit). New subsection \"Verified\n  invariants at the end of the retrospective\" captures the\n  assumptions I re-checked:\n\n    * `<body class=\"font-sans\">` redundancy verified via Tailwind v4\n      preflight chain; documented that the OLD `* { font-family }`\n      rule was a latent bug that overrode preflight's monospace\n      for `<code>` / `<kbd>` / `<samp>` / `<pre>`. Nobody noticed\n      but the 2026-04-15 removal fixed it.\n    * DaisyUI v5 `:root, [data-theme]` base rule re-verified still\n      emitted by `node_modules/daisyui/base/rootcolor.css` so the\n      body bg/color removal (commit 39cd3cf) holds across version\n      upgrades.\n    * Repo-wide inline-style / bracket-value / hex-literal greps\n      confirmed no regressions beyond the documented allowlists.\n\n- **docs/SESSION_NOTES.md** — new \"Fourth pass — retrospective +\n  tripwire strengthening\" section with 4-commit summary. The\n  \"Current file-size posture\" subsection expanded to include the\n  three newly-found over-limit files (pwa.js, aggregate-processed.js,\n  extract-api.js), each labelled with their limit classification\n  (soft / strong). Tripwire test file line count noted with a\n  \"test files are exempt\" convention note.\n\n  The \"Open Items For Next Session\" section rewritten from\n  scratch — the previous version had two stale bullets left over\n  from an earlier session (duplicate \"Live browser verification of\n  the SettingsPane radio + UTC toggle\" + a truncated \"documenting.\"\n  sentence fragment). Now lists just (1) browser verification that\n  I can't do without a browser, (2) the three file-size splits\n  flagged in TODO.md, (3) pointer to TODO.md for the long tail.\n\n- **docs/TODO.md** footer — rewritten to describe all four audit\n  passes (13 + 8 + 6 + 4 = 31 audit commits total, plus 14 earlier\n  pre-audit commits on the branch = 45 total branch commits). Final\n  exception count: 8, each with a stated rationale. Test count: 63.\n\nBuild clean, 63/63 tests pass.\n\nTags: documentation, audit, retrospective\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "retrospective rollup — HISTORY, SESSION_NOTES, TODO.md",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 188,
+    "deletions": 22
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

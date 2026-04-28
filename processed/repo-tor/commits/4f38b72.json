@@ -1,0 +1,45 @@
+{
+  "sha": "4f38b72",
+  "fullSha": "4f38b72856fee2522236b5b126b9c0eeb83edee7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T20:54:31Z",
+  "commitDate": "2026-04-15T20:54:31Z",
+  "subject": "refactor(timing): extract heatmap render into TimingHeatmap component",
+  "body": "Audit finding #16 — Timing.jsx was 573 lines, over the 500-line\ncomponent soft-limit from CLAUDE.md \"Code Organization\". The\nbiggest single block was renderHeatmap (~113 lines) holding three\nmutually-exclusive render branches (weekly bar grid, daily bar list,\n24×7 hourly grid) plus the HEATMAP_LEVEL_CLASSES palette and\ngetHeatmapLevel helper.\n\nExtracted to a new presentational component:\n\n  dashboard/js/components/TimingHeatmap.jsx (166 lines)\n\nThe new file holds three internal render-branch components\n(WeeklyHeatmap, DailyHeatmap, HourlyHeatmap) plus the shared\ngetHeatmapLevel helper and HEATMAP_LEVEL_CLASSES palette. The\nexported TimingHeatmap component is a thin type-discriminator that\npicks the right branch from the heatmapContent prop. Parent\n(sections/Timing.jsx) keeps all data shaping inside its existing\nuseMemo and just passes the resulting object as a single prop.\n\nAfter:\n  dashboard/js/sections/Timing.jsx: 573 → 436 lines (-137, under\n    the 500-line soft-limit with headroom)\n  dashboard/js/components/TimingHeatmap.jsx: new (166 lines, well\n    under the limit)\n\nTest fixup:\n  scripts/__tests__/daisyui-surfaces.test.mjs Heatmap intensity\n  test now reads dashboard/js/components/TimingHeatmap.jsx for the\n  HEATMAP_LEVEL_CLASSES palette assertions instead of Timing.jsx.\n  Added two new assertions on Timing.jsx itself to guard against\n  accidental re-inlining: must `import TimingHeatmap from` and must\n  render `<TimingHeatmap`. The styles.css negative assertions\n  (deleted .heatmap-N rules, deleted --chart-accent-override hook)\n  are unchanged because they apply to a different file.\n\nAll other behavioural assertions about the heatmap palette\n(stock bg-primary/N utilities, no deleted .heatmap-N custom\nclasses) still pass — the extraction is a code-organization\nrefactor with zero behavioural change.\n\nBuild clean (562.18 kB → 562.30 kB, +0.12 kB component scaffold).\n60/60 tests pass.\n\nTags: refactor, ui, code-organization, audit\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: vanilla-daisyui-cleanup\nSemver: patch",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "vanilla-daisyui-cleanup",
+  "semver": "patch",
+  "scope": "timing",
+  "title": "extract heatmap render into TimingHeatmap component",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#16"
+  ],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 186,
+    "deletions": 146
+  },
+  "files": [
+    "dashboard/js/components/TimingHeatmap.jsx",
+    "dashboard/js/sections/Timing.jsx",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

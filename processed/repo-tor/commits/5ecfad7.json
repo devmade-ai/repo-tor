@@ -1,0 +1,46 @@
+{
+  "sha": "5ecfad7",
+  "fullSha": "5ecfad7ce2582c5c5e065bda0e3ff32e9d28cae7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T22:45:07Z",
+  "commitDate": "2026-04-15T22:45:07Z",
+  "subject": "refactor(context): extract reducer + filter logic to appReducer.js",
+  "body": "Audit finding #14 — dashboard/js/AppContext.jsx was 579 lines, over\nthe 500-line soft-limit from CLAUDE.md \"Code Organization\" and the\nlargest single file in dashboard/js/. The audit pass deferred the\nsplit because the previous round prioritized lower-risk line-count\nwins (TimingHeatmap, DebugPill, Discover, Timeline). With those done,\nAppContext was the only remaining over-soft-limit offender.\n\nSplit cleanly into two files at the pure-data / React boundary:\n\n  dashboard/js/appReducer.js (285 lines, NEW)\n    - DEFAULT_FILTERS (single source of truth for filter shape)\n    - loadInitialState() (reads localStorage + matchMedia, validates\n      theme names against themes.js allowlists, returns the reducer's\n      initial state object)\n    - reducer(state, action) (the full switch — every case preserved\n      verbatim, including the no-op short-circuits for SET_DARK_MODE /\n      SET_LIGHT_THEME / SET_DARK_THEME / SET_THEME_COLORS that skip\n      re-renders when the incoming value equals the stored value)\n    - filterCommits(commits, filters) (the predicate applied in\n      AppProvider's filteredCommits useMemo, including the hoisted\n      fromBoundMs/toBoundMs optimization from commit 4a8bd00)\n\n  dashboard/js/AppContext.jsx (338 lines, trimmed from 579)\n    - createContext + DispatchContext / AppStateContext\n    - AppProvider component with every useEffect / useMemo /\n      useCallback hook (persistence, dark-mode effect, cross-tab\n      storage listener, system-preference fallback, active filter\n      count, openDetailPane, setTheme, isMobile resize tracking)\n    - useApp() + useAppDispatch() consumer hooks\n    - Imports { loadInitialState, reducer, filterCommits } from\n      ./appReducer.js\n\nWhy this split and not alternatives:\n  - Three files (reducer / initial state / filter): Rejected —\n    they're tightly coupled (the reducer references DEFAULT_FILTERS,\n    loadInitialState seeds filters from it) and three files for ~280\n    lines fragments logic pointlessly.\n  - Move filterCommits to utils.js: Rejected — it's tied to the\n    filters shape defined in this module, not a generic helper.\n  - Pure split at the reducer function only (leaving loadInitialState\n    and filterCommits in AppContext.jsx): Rejected — would leave\n    AppContext at ~450 lines, just under the soft-limit, with no\n    headroom for future growth. All three helpers are pure data with\n    no React dependencies, so they belong together.\n\nThe reducer module has zero React imports — it only pulls from\nutils.js (pure helpers), themes.js (validators), and chartColors.js\n(runtime resolvers). This means the reducer can be unit-tested\nwithout mounting a React tree — a future test layer could import\nreducer + loadInitialState directly and assert (state, action) ->\nstate' behaviour, including the theme cross-tab handlers and the\nno-op short-circuits.\n\n`DEFAULT_FILTERS` is exported from appReducer.js but not re-exported\nfrom AppContext.jsx — a repo-wide grep confirmed no component\nimports DEFAULT_FILTERS from anywhere (the only reference was an\nold git-history commit message in the JSON data files). If a\nfuture component needs it for a \"reset filters\" action, it can\nimport directly from `./appReducer.js`.\n\nTest fixup:\n  scripts/__tests__/daisyui-surfaces.test.mjs \"AppContext dispatches\n  SET_THEME_COLORS after applyTheme()\" test now reads both files:\n  `case 'SET_THEME_COLORS'` in appReducer.js, dispatch call +\n  resolveRuntimeAccent/Muted calls in AppContext.jsx. Added a\n  sanity assertion on the import wiring between the two files so a\n  future rename of the extracted module gets caught.\n\nCLAUDE.md \"Key Components\" list updated with the new module + a\none-line note on AppContext's delegation.\n\nBuild clean (879.95 kB, identical post-tree-shake — the split is a\npure code-organization refactor, no behavioural change). 60/60\ntests pass.\n\nTags: refactor, react, code-organization, audit\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "scope": "context",
+  "title": "extract reducer + filter logic to appReducer.js",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#14"
+  ],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 311,
+    "deletions": 255
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/appReducer.js",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,44 @@
+{
+  "sha": "39cd3cf",
+  "fullSha": "39cd3cf797f6c61384f9e929a9672fe6bd2146e4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T22:40:23Z",
+  "commitDate": "2026-04-15T22:40:23Z",
+  "subject": "fix(styles): drop redundant body bg/color — DaisyUI base already sets it",
+  "body": "Audit finding #16 — the `body` rule in dashboard/styles.css had been\ndoing two things at once:\n\n  body {\n      padding-top: env(safe-area-inset-top);\n      padding-bottom: env(safe-area-inset-bottom);\n      padding-left: env(safe-area-inset-left);\n      padding-right: env(safe-area-inset-right);\n      background-color: var(--color-base-100);\n      color: var(--color-base-content);\n  }\n\nThe safe-area padding is necessary (can't be expressed as a Tailwind\nutility). The `background-color` / `color` pair was leftover from the\npre-DaisyUI custom-var era and is redundant under DaisyUI v5.\n\nVerified via `cat node_modules/daisyui/base/rootcolor.css`:\n\n    @layer base {\n      :root, [data-theme] {\n        background: var(--page-scroll-bg, var(--root-bg));\n        color: var(--color-base-content);\n      }\n      :where(:root, [data-theme]) {\n        --root-bg: var(--color-base-100);\n      }\n    }\n\nDaisyUI paints the viewport background on the `html` element via\n`[data-theme]` (the theme flash-prevention script sets data-theme on\n<html>), which CSS treats as special — its background covers the\nwhole initial containing block. The cascade-root `color` is also set\non html, and body inherits it via the normal color cascade. Our\nextra body background + color pair were overpainting with the\nidentical tokens DaisyUI already emitted.\n\nVerified via grep of the built CSS bundle:\n\n  $ grep 'body{' dist/assets/index-*.css\n  }body{padding-top:env(...);padding-bottom:env(...);padding-left:env(...);padding-right:env(...)}\n\nand\n\n  $ grep ':root,\\[data-theme\\]' dist/assets/index-*.css\n  }:root,[data-theme]{background:var(--page-scroll-bg,var(--root-bg));color:var(--color-base-content)}\n\nBoth rules ship; removing the body duplicate doesn't regress theme\nrendering across any of the 8 themes.\n\nThis also clarifies the CLAUDE.md \"element-selector exceptions\"\ndocumentation block: the body rule is now a single-concern\n`env(safe-area-inset-*)` utility override, which matches the\ncomment's original scope. Before the cleanup, a reader seeing the\nbg/color lines might reasonably wonder whether DaisyUI theming was\nonly half-wired. The file header comment was rewritten to document\nthe removal + the DaisyUI mechanism so a future session doesn't\nre-add the redundant lines thinking they were missing.\n\nBuild clean (880.01 kB → 879.94 kB, -0.07 kB from the 2 removed\ndeclarations), 60/60 tests pass. Visual verification across all 8\nthemes is captured as a TODO.md post-sweep-verification item.\n\nTags: cleanup, daisyui, css\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "simplify"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "scope": "styles",
+  "title": "drop redundant body bg/color — DaisyUI base already sets it",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#16"
+  ],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 16,
+    "deletions": 3
+  },
+  "files": [
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,44 @@
+{
+  "sha": "5bcc2c2",
+  "fullSha": "5bcc2c2e19245e9b2f1748c870489a4d8ac8e8c1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T23:15:24Z",
+  "commitDate": "2026-04-15T23:15:24Z",
+  "subject": "refactor(styles): drop h1/h2/h3 font-mono rule — use explicit utility classes",
+  "body": "Removes the second element-selector exception in styles.css. The\n`h1, h2, h3 { font-family: var(--font-mono) }` rule existed because\nadding `font-mono` to every heading individually would be repetitive\nboilerplate — but a repo-wide grep found only 4 JSX headings in the\nentire dashboard tree, well within the \"do it by hand\" threshold.\n\nHeading inventory (4 sites total):\n\n  dashboard/js/components/Header.jsx             h1  \"Git Analytics\"\n  dashboard/js/components/QuickGuide.jsx         h2  step titles\n  dashboard/js/components/InstallInstructionsModal.jsx  h2  \"Install App\"\n  dashboard/js/components/DropZone.jsx           h1  \"Git Analytics Dashboard\"\n\nDropZone.jsx already had `font-mono` on its h1 (pre-existing). The\nother three were relying on the styles.css rule. Added explicit\n`font-mono` utility class to each. CollapsibleSection's title prop\nrenders as a `<span>`, not a heading element — section titles were\nnot affected by the old rule and don't need a change.\n\nThe single `<h4>` in sections/Projects.jsx is intentionally left\nwithout font-mono because the old styles.css rule targeted h1/h2/h3\nonly. No behavioural change.\n\nAfter this commit:\n  - styles.css has ONE element-selector exception remaining\n    (`body::before` decorative grid — pseudo-elements can't be\n    Tailwind utilities)\n  - CLAUDE.md element-selector exception list can be collapsed to\n    a single entry in the consolidation commit at the end of this\n    batch\n\nVerified:\n  - Build clean (879.91 kB → 879.90 kB, -0.01 kB)\n  - `.font-mono` rule present in the built CSS bundle (emitted by\n    Tailwind's JIT for each JSX consumer of the utility)\n  - 60/60 tests pass\n  - Grep confirms no bare h1/h2/h3 elements without font-mono\n    anywhere in dashboard/js\n\nTags: cleanup, css, vanilla-daisyui\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "scope": "styles",
+  "title": "drop h1/h2/h3 font-mono rule — use explicit utility classes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 25,
+    "deletions": 24
+  },
+  "files": [
+    "dashboard/js/components/Header.jsx",
+    "dashboard/js/components/InstallInstructionsModal.jsx",
+    "dashboard/js/components/QuickGuide.jsx",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}
