@@ -1,0 +1,47 @@
+{
+  "sha": "f83f15c",
+  "fullSha": "f83f15c492aa7f75904973ba8710ef9a30e0cb80",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T20:58:14Z",
+  "commitDate": "2026-04-02T20:58:14Z",
+  "subject": "feat(pwa): auto-extract meta theme-color hex from DaisyUI themes",
+  "body": "Replace hand-picked hex approximations with a build script that reads\nDaisyUI's oklch theme definitions and converts them to hex automatically.\nAlso moves aqua to dark themes to conform with DaisyUI's color-scheme.\n\nRun `npm run generate:meta-colors` after DaisyUI updates.\n\nTags: pwa, theme, build, automation\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pwa-theme-color\nSemver: minor\n\nhttps://claude.ai/code/session_01JrL2asTpesrUXcPYxuGUKw",
+  "tags": [
+    "feature",
+    "build"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-theme-color",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "auto-extract meta theme-color hex from DaisyUI themes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 338,
+    "deletions": 93
+  },
+  "files": [
+    "docs/implementations/THEME_DARK_MODE.md",
+    "package.json",
+    "partials/head-common.html",
+    "partials/navbar.html",
+    "public/theme.js",
+    "scripts/generate-meta-colors.mjs"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

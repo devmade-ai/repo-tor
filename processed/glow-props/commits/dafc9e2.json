@@ -1,0 +1,46 @@
+{
+  "sha": "dafc9e2",
+  "fullSha": "dafc9e2a146accd7b52ca2d12f1e7ebf5a108676",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T15:22:03Z",
+  "commitDate": "2026-04-02T15:22:03Z",
+  "subject": "feat(patterns): make pattern cards clickable with detail page and copy",
+  "body": "Pattern cards now work like project cards — click to reveal a \"View\npattern\" link that opens a detail page with the full implementation\ndoc rendered as markdown, plus \"Copy markdown\" and \"Raw file\" buttons.\n\nNew files:\n- pattern.html: Pattern detail page with markdown viewer, copy button,\n  and raw file link. Uses same markdown renderer and .md-render CSS\n  as project.html.\n\nChanges:\n- index.html: Added card-links with \"View pattern\" to all 7 pattern\n  cards (PWA System, Theme & Dark Mode, Burger Menu, App Icons,\n  Download as PDF, HTTPS Proxy, Debug System)\n- vite.config.js: Extended copyRootFiles plugin to copy\n  docs/implementations/*.md to dist/patterns/ at build time. Added\n  dev server middleware to serve patterns/ from docs/implementations/\n  during development. Registered pattern.html in multi-page config.\n- README.md: Added pattern.html to project structure\n\nTags: feature, patterns, ui, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pattern-viewer\nSemver: minor\n\nhttps://claude.ai/code/session_01PkFsUzwZ5J1e5RQC86PwAF",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pattern-viewer",
+  "semver": "minor",
+  "scope": "patterns",
+  "title": "make pattern cards clickable with detail page and copy",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 305,
+    "deletions": 10
+  },
+  "files": [
+    "README.md",
+    "index.html",
+    "pattern.html",
+    "vite.config.js"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}
