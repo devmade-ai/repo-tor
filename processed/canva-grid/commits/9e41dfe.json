@@ -1,0 +1,41 @@
+{
+  "sha": "9e41dfe",
+  "fullSha": "9e41dfe8eb1a569c455790cbe1a877caad29858d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T22:29:50Z",
+  "commitDate": "2026-04-22T22:29:50Z",
+  "subject": "docs(claude-md): align shared sections with glow-props scaffolding",
+  "body": "`align` trigger found six drift items vs glow-props/CLAUDE.md:\n\n- Communication: add \"Work, not process.\" rule — no opining on\n  branching/PRs/git history/review flow.\n- Code Standards: add \"Timer and Subscription Cleanup\" subsection\n  covering cleanup pairing, React/plain-module patterns, and HMR-safe\n  listener guards. Relevant here — BottomSheet drag timers, BurgerMenu\n  close-then-act delay, PWA hook listeners, debug log subscribers.\n- AI Notes: prepend \"All code is yours.\" and add\n  \"Discontinued repos — skip entirely\" (plant-fur, coin-zapp).\n- Prohibitions: add three process-related bans (branch/PR mentions,\n  \"out of scope\" framing, editorializing on git history/PR shape).\n- Dedupe: remove verbatim-duplicated \"DaisyUI component classes for\n  form inputs\" bullet introduced in a prior merge.\n\nCanva-grid-specific sections (Project Info, Architecture, State\nStructure, Tab Details, Style Guide doc entry) preserved.\n\nTags: docs, claude-md, alignment, glow-props, fleet\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "scope": "claude-md",
+  "title": "align shared sections with glow-props scaffolding",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 14,
+    "deletions": 1
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

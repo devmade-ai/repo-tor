@@ -1,0 +1,44 @@
+{
+  "sha": "0f4b1c0",
+  "fullSha": "0f4b1c077ecd62be743ce71ef29496b52aa95a8f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T22:49:17Z",
+  "commitDate": "2026-04-22T22:49:17Z",
+  "subject": "fix(timer-leaks): apply pattern-audit findings",
+  "body": "`pattern-audit` found two real timer-leak violations vs\nglow-props/TIMER_LEAKS.md and one z-index scale deviation:\n\n- AIPromptHelper.handleCopy: setTimeout had no cleanup path. If user\n  copied and immediately navigated away (tab switch / sheet close)\n  the 2s reset fired against an unmounted component, leaking a\n  setCopied call. Store id on useRef; clear on unmount and on every\n  new copy. Per TIMER_LEAKS.md §2 (single-shot, handler-driven).\n\n- usePWAInstall effect: two parallel timeouts cleared via separate\n  raw vars. Converted to array-drain shape so additional timers can\n  be added without rewriting cleanup. Per TIMER_LEAKS.md §1.\n\n- FreeformEditor three refs (confirm/blur/scroll): reviewed — the\n  subagent flagged these but they're independent single-shot timers\n  driven by different event handlers, already correctly using §2's\n  useRef-per-timer shape. No change.\n\n- Z_INDEX_SCALE.md deviations documented in CLAUDE.md: native\n  <dialog> modals render above debug pill (accepted for native focus\n  trap + Escape handling), and MobileNav at z-40 rather than z-20\n  (stable; menu backdrop covers it, which is the desired behavior\n  when burger menu opens).\n\nTags: timer-leaks, pwa, freeform, claude-md, pattern-audit, fleet\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "memory"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "scope": "timer-leaks",
+  "title": "apply pattern-audit findings",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 20,
+    "deletions": 9
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/AIPromptHelper.jsx",
+    "src/hooks/usePWAInstall.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

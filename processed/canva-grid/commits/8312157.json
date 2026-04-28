@@ -1,0 +1,52 @@
+{
+  "sha": "8312157",
+  "fullSha": "83121570af1904a7391d6e9e5d6d24493dffda5f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:01:17Z",
+  "commitDate": "2026-04-23T19:01:17Z",
+  "subject": "fix(export): pre-embed Google Fonts so html-to-image stops spamming CORS errors",
+  "body": "Mobile PWA debug report showed every export firing 5+ console errors:\n  Error inlining remote css file SecurityError: ... cssRules ...\n  Error loading remote stylesheet TypeError: Failed to fetch\n  Error while reading CSS rules from https://fonts.googleapis.com/...\n\nRoot cause: html-to-image's getCSSRules walks document.styleSheets and\ncalls sheet.cssRules on each — cross-origin sheets without crossorigin\nthrow SecurityError. The fallback fetch() then fails because the SW had\ncached opaque (status 0) responses under no-cors and they can't satisfy\nthe new CORS-mode request. Export \"succeeded\" but with system fonts.\n\nFix:\n- New `utils/fontEmbed.js` fetches active fonts' CSS over CORS, inlines\n  every woff2 url(...) as a data URL, caches per font URL.\n- `captureAsBlob` / `captureForPdf` now accept fontIds and pass the\n  resulting CSS to toCanvas as `fontEmbedCSS`. With that option set,\n  html-to-image skips its broken stylesheet walker entirely.\n- ExportButtons threads activeFontIds (title + body, useMemo) through\n  all four call sites and useCallback deps.\n\nDefense in depth (so other CSSOM consumers also work):\n- crossorigin=\"anonymous\" on every Google Fonts <link> tag (index.html\n  + MobileLayout / DesktopLayout / ReaderMode).\n- SW caches bumped: google-fonts-cache → -v2, gstatic-fonts-cache → -v2,\n  cacheableResponse.statuses tightened from [0,200] → [200] so opaque\n  can never be cached. Old caches (with stale opaque entries that would\n  fail CORS) are abandoned by the rename.\n- debugLog.js console interceptor filters the four known html-to-image\n  noise messages so future stragglers don't pollute debug reports.\n  Original console.error output is preserved.\n\nWhy pre-fetch instead of skipFonts:true: SVG <foreignObject> rasterized\nvia Image element loses parent document context — document.fonts isn't\nconsulted, so the result would render with system fonts.\n\nTags: export, pwa, fonts, html-to-image, debug, service-worker\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-export-fidelity\nSemver: patch\n\nhttps://claude.ai/code/session_01QRw1MjzQ87B6weXuqwvz19",
+  "tags": [
+    "bugfix",
+    "ui",
+    "caching"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "mobile-export-fidelity",
+  "semver": "patch",
+  "scope": "export",
+  "title": "pre-embed Google Fonts so html-to-image stops spamming CORS errors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 196,
+    "deletions": 72
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "index.html",
+    "src/components/DesktopLayout.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/MobileLayout.jsx",
+    "src/components/ReaderMode.jsx",
+    "src/utils/debugLog.js",
+    "src/utils/exportHelpers.js",
+    "src/utils/fontEmbed.js",
+    "vite.config.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

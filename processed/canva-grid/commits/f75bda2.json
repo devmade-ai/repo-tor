@@ -1,0 +1,45 @@
+{
+  "sha": "f75bda2",
+  "fullSha": "f75bda222045eae03a472eee1ec97c975e1138af",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T08:37:30Z",
+  "commitDate": "2026-04-18T08:37:30Z",
+  "subject": "chore(deps): minor/patch bumps; fix react-hooks 7.1.1 lint regressions",
+  "body": "deps trigger pass — scoped to safe updates within existing semver ranges:\n\n- dompurify 3.3.3 → 3.4.0 (minor, ^3.3.3 range)\n- eslint-plugin-react-hooks 7.0.1 → 7.1.1 (minor, ^7.0.1)\n- marked 17.0.1 → 17.0.6 (patch, ^17.0.1)\n\nNo package.json edits — lockfile refresh only.\n\nThe react-hooks plugin 7.1.1 ships a stricter `react-hooks/set-state-in-effect`\nrule and a new `react-hooks/refs` rule, which surfaced four latent issues:\n\n- SampleImagesSection.jsx:24: Ref was being mutated during render\n  (`selectedCellRef.current = selectedCell`). Moved to a no-deps useEffect\n  that runs after each committed render — concurrent-mode safe (a\n  discarded render can no longer desync the ref).\n- App.jsx:218 (cell-clamp), App.jsx:254 (mobile→desktop cleanup),\n  SampleImagesSection.jsx:63 (fetch-on-mount): Legitimate setState-in-effect\n  patterns already suppressed elsewhere in the codebase with the same\n  rationale (external-sync, derived persistence, async bootstrapping).\n  Added `eslint-disable-next-line ... -- <reason>` suffixes on the exact\n  setState call lines (suppressions on the useEffect line don't cover\n  deeper calls in 7.1.1).\n\nNOT updating (require user call):\n- Major bumps (eslint 9→10 blocked by plugin peer cap, react 18→19,\n  vite 5→8, @vitejs/plugin-react 4→6, globals 15→17, marked 17→18).\n- 13 audit advisories in build-toolchain (vite-plugin-pwa → workbox-build\n  → rollup/picomatch/serialize-javascript). `npm audit fix --force`\n  regresses vite-plugin-pwa 1.2.0 → 0.19.8, no upstream patch available.\n  All dev-only, never runs at user runtime.\n\nNo unused runtime deps — verified dompurify, file-saver, html-to-image,\njszip, marked, pdf-lib, sharp all referenced.\n\nTags: deps, lint, react-hooks, tidy\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: clean-sweep-2026-04\nSemver: patch\n\nhttps://claude.ai/code/session_012r7JyJzHjENMhqhWtdGywz",
+  "tags": [
+    "dependency-update",
+    "lint",
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "clean-sweep-2026-04",
+  "semver": "patch",
+  "scope": "deps",
+  "title": "minor/patch bumps; fix react-hooks 7.1.1 lint regressions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 23,
+    "deletions": 11
+  },
+  "files": [
+    "package-lock.json",
+    "src/App.jsx",
+    "src/components/SampleImagesSection.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

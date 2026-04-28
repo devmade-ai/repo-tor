@@ -1,0 +1,47 @@
+{
+  "sha": "74e296b",
+  "fullSha": "74e296b50a93cac42e4a1fe125723ecfb104bff9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T08:19:46Z",
+  "commitDate": "2026-04-18T08:19:46Z",
+  "subject": "docs(cleanup): sync user docs with current UI labels; drop stale files",
+  "body": "doc-cleanup trigger pass:\n\n- plan.md (root): Deleted. Described the imageCells → cellImages refactor\n  which is long complete — only reference left is a comment in\n  useAdState.js:661 documenting the concept's removal. Git history\n  preserves the plan.\n\n- README.md: \"Structured\" → \"Guided\" (UI label); Structure section now\n  reflects Grid + Pages (removed stale \"Text Alignment\" — moved to\n  Content tab); Style section now lists all five current sub-sections\n  (Background, Color Tint, Frames, Spacing, Fonts) in UI order.\n\n- docs/USER_GUIDE.md: \"Structured Mode\" → \"Guided Mode\"; added\n  Background section; renamed Overlay → Color Tint and Typography →\n  Fonts to match UI labels; split dedicated Frames section out of\n  Spacing; removed duplicated \"Zoom Background (1920×1080)\" line.\n\n- CLAUDE.md: test count 142 → 141 (reflects MIME_TYPES test removal\n  from the prior commit); added cross-reference from config/platforms.js\n  architecture line to docs/SOCIAL_MEDIA_SPECS.md (previously an\n  orphaned reference doc, now discoverable from the code map).\n\n- docs/TODO.md: test count 142 → 141, same reason.\n\n- docs/SESSION_NOTES.md: Rewrote — prior content described the\n  delete-history-file branch work and was fully stale.\n\nTags: docs, readme, user-guide, session-notes, tidy\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: clean-sweep-2026-04\nSemver: patch\n\nhttps://claude.ai/code/session_012r7JyJzHjENMhqhWtdGywz",
+  "tags": [
+    "documentation",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "clean-sweep-2026-04",
+  "semver": "patch",
+  "scope": "cleanup",
+  "title": "sync user docs with current UI labels; drop stale files",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 60,
+    "deletions": 137
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md",
+    "plan.md"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

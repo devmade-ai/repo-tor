@@ -1,0 +1,54 @@
+{
+  "sha": "759ebf4",
+  "fullSha": "759ebf4f5a492e1f395dd76b3eab5f56ccaedbc8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:30:36Z",
+  "commitDate": "2026-04-23T19:30:36Z",
+  "subject": "fix(export): cold-audit follow-up — partial-weight tolerance, fast tests, vendor split",
+  "body": "Addresses every finding from the `cold` branch audit (8 items) plus the two\npre-existing concerns disclosed in that pass.\n\nFindings 1–3 — fontEmbed correctness + observability:\n- Promise.all → Promise.allSettled for woff2 fetches inside fetchInlinedCSS.\n  One transient 503 on a single weight no longer drops the entire font;\n  surviving weights inline as data URLs, the failed weight URL stays\n  verbatim so the browser can retry at SVG-rasterize time.\n- New onWarning callback on getEmbeddedFontCSS — invoked once per dropped\n  weight or per failed font with a human-readable message. exportHelpers\n  bridges to debugLog('export', 'font-embed-warning', ...).\n- Removed the dead getFontEmbedCSSWithLogging wrapper. Its outer try/catch\n  was catching impossible errors; per CLAUDE.md \"Don't add error handling\n  for scenarios that can't happen\". Inlined call site uses the new callback.\n- 3 new tests cover partial-weight failure, per-font onWarning, and the\n  optional-callback path.\n\nFinding 4 — test latency:\n- Abort-timeout test now uses jest.useFakeTimers({ doNotFake: ['queueMicrotask'] })\n  + advanceTimersByTime(8001). Test suite total: 8.47s → 1.09s.\n\nFindings 5–7 — CLAUDE.md doc currency:\n- Architecture utils/ block now lists fontEmbed.js + pwaCleanup.js with\n  one-line descriptions matching the surrounding style.\n- New AI Note \"Font embedding for export\" explains why we roll our own CSS\n  pre-fetch instead of html-to-image's exported getFontEmbedCSS (which has\n  the same internal getCSSRules SecurityError issue), why Promise.allSettled,\n  and lists every companion change. Future sessions reading the file as the\n  canonical map will find the rationale before re-walking the path.\n- Layout link comments shrunk to one-liners pointing to the AI Note. The\n  three near-identical 4-line comments in MobileLayout/DesktopLayout/\n  ReaderMode are now consistent one-liners.\n\nFinding 8 — vite.config doc gaps:\n- runtimeCaching gets a top-level comment explaining why we keep SW caches\n  for fonts despite the browser HTTP cache (offline support + PWA standalone\n  context). Per-cache `maxEntries` numbers now have inline rationale\n  (10 covers typical CSS pick rate; 30 covers ≈3 weights × N families).\n\nPre-existing concern — bundle size:\n- manualChunks: vendor-react (140KB), vendor-pdf (429KB),\n  vendor-export (113KB), vendor-text (65KB), index (349KB).\n- Total bytes unchanged. App chunk dropped 1099KB → 349KB so app-only\n  updates re-download ~1/4 of the previous bytes; vendor chunks stay cached\n  for as long as their package.json version is unchanged.\n- React.lazy(ExportButtons) explicitly rejected in the code comment —\n  ExportButtons is always visible in the desktop sidebar, Suspense fallback\n  on every cold load would be a real UX regression.\n\nPre-existing concern — runtime cache rationale:\n- Documented inline in vite.config.js next to the runtimeCaching block.\n\nTODO.md: pwaCleanup.js sunset entry added (target ~Oct 2026 once SW cache\nrename has propagated to all installs).\n\nTest count CLAUDE.md: 150 → 153.\n\nTags: export, fonts, html-to-image, tests, bundle, observability, claude-md, docs\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: mobile-export-fidelity\nSemver: patch\n\nhttps://claude.ai/code/session_01QRw1MjzQ87B6weXuqwvz19",
+  "tags": [
+    "bugfix",
+    "performance",
+    "bundler",
+    "documentation"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-export-fidelity",
+  "semver": "patch",
+  "scope": "export",
+  "title": "cold-audit follow-up — partial-weight tolerance, fast tests, vendor split",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 238,
+    "deletions": 84
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "index.html",
+    "src/components/DesktopLayout.jsx",
+    "src/components/MobileLayout.jsx",
+    "src/components/ReaderMode.jsx",
+    "src/utils/__tests__/fontEmbed.test.js",
+    "src/utils/exportHelpers.js",
+    "src/utils/fontEmbed.js",
+    "vite.config.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,44 @@
+{
+  "sha": "cdebbc4",
+  "fullSha": "cdebbc41e2ad058be11b3190b387b60acd07a25d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T08:30:27Z",
+  "commitDate": "2026-04-18T08:30:27Z",
+  "subject": "refactor(hacks): replace setTimeout timing guess; add eslint-disable reasons",
+  "body": "hacks trigger pass:\n\n- SaveLoadModal.jsx: Replaced setTimeout(..., 50) focus-after-modal-open\n  with requestAnimationFrame. The 50ms was a timing guess to win a race\n  against <dialog>.showModal()'s native auto-focus; rAF is the semantic\n  browser API for \"run after the next layout/paint\", which is exactly\n  when we want to override the dialog's initial focus.\n\n- App.jsx:293 and BottomSheet.jsx:88: Added `--` reason suffixes to two\n  `eslint-disable-next-line react-hooks/exhaustive-deps` comments.\n  CLAUDE.md AI notes mandate this format so the WHY travels with the\n  suppression instead of being siloed in adjacent comment lines.\n\nScan clean on: TODO/FIXME/HACK/XXX markers, @ts-ignore/@ts-expect-error,\n`any` escapes framed as temporary, and legacy/backcompat shims. Existing\nsetTimeout usages elsewhere are legitimate UX timings (long-press,\nauto-dismiss, orientation debounce, documented PWA-install settle, etc.).\n\nTags: refactor, focus-management, eslint, tidy\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: clean-sweep-2026-04\nSemver: patch\n\nhttps://claude.ai/code/session_012r7JyJzHjENMhqhWtdGywz",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "clean-sweep-2026-04",
+  "semver": "patch",
+  "scope": "hacks",
+  "title": "replace setTimeout timing guess; add eslint-disable reasons",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 9,
+    "deletions": 5
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/BottomSheet.jsx",
+    "src/components/SaveLoadModal.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}
