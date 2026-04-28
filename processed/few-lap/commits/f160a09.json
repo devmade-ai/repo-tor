@@ -1,0 +1,44 @@
+{
+  "sha": "f160a09",
+  "fullSha": "f160a0973a142df1fda90e86cfa0fa46a064f907",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T20:02:28Z",
+  "commitDate": "2026-04-17T20:02:28Z",
+  "subject": "chore(types): wire Uniwind className augmentation + fix 2 lingering casts",
+  "body": "tsc --noEmit went from 317 errors to 0.\n\nRoot cause: Uniwind ships its className augmentation in\nnode_modules/uniwind/types.d.ts but its package \"types\" export points\nonly at dist/module/index.d.ts, which re-exports runtime types and\nskips the augmentation. TS therefore never saw className on ViewProps,\nTextProps, TouchableOpacityProps, etc. — producing ~315 cascading\nTS2769/TS2322 errors across the codebase.\n\nFix: add uniwind-env.d.ts at the project root with\n  /// <reference types=\"uniwind/types\" />\nwhich is the standard pattern Uniwind's quickstart assumes and mirrors\nthe next-env.d.ts / expo-env.d.ts convention.\n\nRemaining 2 errors were real latent bugs: direct casts from Window /\nNavigator to Record<string, unknown>, which TS 5 rejects. Replaced\nwith the shape-cast pattern already used elsewhere in _layout.tsx.\n\nTags: types, tooling, tech-debt\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: typecheck-cleanup\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "bugfix",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "typecheck-cleanup",
+  "semver": "patch",
+  "scope": "types",
+  "title": "wire Uniwind className augmentation + fix 2 lingering casts",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 3,
+    "deletions": 2
+  },
+  "files": [
+    "app/_layout.tsx",
+    "src/hooks/usePWAInstall.ts",
+    "uniwind-env.d.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

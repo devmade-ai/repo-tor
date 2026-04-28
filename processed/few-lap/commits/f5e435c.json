@@ -1,0 +1,47 @@
+{
+  "sha": "f5e435c",
+  "fullSha": "f5e435c07d4a62d2b8f4675fc29294b2625d79c9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T23:22:11Z",
+  "commitDate": "2026-04-17T23:22:11Z",
+  "subject": "feat(debug): redact URL query strings in debug reports + env output",
+  "body": "Users paste debug reports into support chats, and screenshot the pill\nwhen the format is more convenient. Query strings routinely carry auth\ntokens, session ids, and PII — both output paths need redaction before\nleaving the device.\n\n- New redactUrls(text) helper exported from debugLog.ts. Replaces\n  everything from `?` up to the next whitespace / `#` / quote / angle\n  bracket with `?[redacted]`. The fragment is preserved (client-side,\n  usually non-sensitive).\n- Regex intentionally excludes quotes and angle brackets from the\n  query-match character class: without that, URLs embedded in\n  JSON-stringified details (`{\"url\":\"https://x/?t=1\"}`) would have the\n  regex greedily consume the closing `\"}` as part of the \"query\" and\n  produce malformed output.\n- Applied in TWO places:\n  - debugGetEnvironment: redacts env.url at construction time so the\n    pill's Env tab can't leak the query in a screenshot. A caller that\n    needs the raw URL reads globalThis.location.href directly.\n  - debugGenerateReport: final sweep over the joined string so URLs\n    that appear in log entry events / details get redacted too.\n\nTightening from the task snippet's regex (`[^\\s#]*` for the query\nchars): expanded to `[^\\s#'\"<>]*` to fix the JSON-embedded URL case\nnoted above. Fragment-preservation behaviour of the original is kept.\n\n7 new tests — straight redaction / fragment preservation / no-query\npassthrough / multi-URL / JSON-embedded / structured-detail via\nreport / env.url via report (location mocked).\n\n76 tests total (up from 69). tsc 0, jest green, expo web build clean.\n\nTags: debug, privacy, security, redaction\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "feature",
+    "security",
+    "sanitization"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "minor",
+  "scope": "debug",
+  "title": "redact URL query strings in debug reports + env output",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 95,
+    "deletions": 7
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "src/debug/__tests__/debugLog.test.ts",
+    "src/debug/debugLog.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

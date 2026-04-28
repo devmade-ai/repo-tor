@@ -1,0 +1,45 @@
+{
+  "sha": "6dc88bc",
+  "fullSha": "6dc88bc8abcd100f48ab182a04d1665ca81ba20c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T16:40:53Z",
+  "commitDate": "2026-04-17T16:40:53Z",
+  "subject": "feat(debug): mount DebugPill in separate ReactDOM root on web",
+  "body": "Previously the pill lived inside the Expo app tree, so any crash that\nunmounted the root layout took it with it — including the very case\nwhere it's most useful. Mount it into <div id=\"debug-root\"> via its\nown createRoot(); a fully independent reconciler is unaffected by\ncrashes in the main tree. Native keeps the inline render since the\nseparate-DOM-root concept doesn't apply on iOS/Android.\n\nReused the existing DebugPill component (react-native-web renders RN\ncomponents into any DOM node once the style registry is initialised)\nrather than duplicating ~450 lines as a DOM-native variant.\n\nTags: debug, web, pwa, resilience\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "feature",
+    "monitoring"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "debug-pill-hardening",
+  "semver": "minor",
+  "scope": "debug",
+  "title": "mount DebugPill in separate ReactDOM root on web",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 62,
+    "deletions": 2
+  },
+  "files": [
+    "app/+html.tsx",
+    "app/_layout.tsx",
+    "src/debug/debugRootMount.ts",
+    "src/debug/debugRootMount.web.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

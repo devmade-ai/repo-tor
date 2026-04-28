@@ -1,0 +1,44 @@
+{
+  "sha": "537ff56",
+  "fullSha": "537ff56665a2267c06757e9bd5838bae6d6b6948",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T00:17:18Z",
+  "commitDate": "2026-04-18T00:17:18Z",
+  "subject": "refactor(debug): small tightenings — boot pill timeout constant, null-reason, env.url",
+  "body": "Four minor cleanups across the debug surface, no behaviour change in\nthe happy path.\n\n- app/+html.tsx: extracted BOOT_PILL_TIMEOUT_MS (20_000) as a named\n  TS constant interpolated into the inline IIFE template string, and\n  derived the displayed label from it. Removes the hardcoded 20000 +\n  '20s' drift risk; the comment now documents the must-exceed\n  relationship with RECOVERY_TIMEOUT_MS.\n- app/+html.tsx: unhandledrejection fallback now distinguishes\n  null/undefined (→ 'Unhandled rejection') from other falsy values\n  (0, '', false) which it stringifies as before. Previous `||`\n  coalescing discarded the rare but-valid falsy rejection reasons.\n- src/debug/debugLog.ts: env.url fallback now only calls redactUrls\n  when there's a URL to redact, returning 'unknown' directly\n  otherwise. Before: 'unknown' ran through the regex for no reason.\n- app/_layout.tsx: added an explanatory comment on the side-effect\n  require of debugRootMount so a reader doesn't mistake an unused\n  return value for dead code.\n\nVerified: tsc 0, jest 79/79, expo web build clean, IIFE visible in\nbuilt dist/index.html with the interpolated literals intact.\n\nTags: debug, refactor, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "refactor",
+    "comments"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "small tightenings — boot pill timeout constant, null-reason, env.url",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 19,
+    "deletions": 10
+  },
+  "files": [
+    "app/+html.tsx",
+    "app/_layout.tsx",
+    "src/debug/debugLog.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "internal"
+}

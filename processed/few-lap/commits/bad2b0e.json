@@ -1,0 +1,51 @@
+{
+  "sha": "bad2b0e",
+  "fullSha": "bad2b0e80d316963746ae10583030a353ff6766f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T14:18:33Z",
+  "commitDate": "2026-04-17T14:18:33Z",
+  "subject": "feat(a11y): extract useArrowNavigation + complete search modal wiring",
+  "body": "Three related improvements, one commit:\n\n1. Extract useArrowNavigation hook\n   Arrow navigation in BurgerMenu was inline. HeaderFilters now needs\n   the same behavior, so extract into a shared hook alongside\n   useDisclosureFocus and useFocusTrap. Reuses FOCUSABLE_SELECTOR for\n   \"what counts as focusable\". BurgerMenu refactored to use it.\n\n2. Thread search button ref through SearchModalProvider\n   The SearchButton lives in HeaderFilters; the search modal body\n   lives in the home screen. A shared triggerRef on the context lets\n   useDisclosureFocus return focus to the button on close instead of\n   dropping to document.body. useDisclosureFocus gained an optional\n   overrides argument for this cross-component case.\n\n3. Search modal dialog semantics + aria-controls\n   Panel gets role=\"dialog\", aria-modal=\"true\", id=\"search-panel\",\n   and accessibilityLabel=\"Search location\". SearchButton gets\n   aria-controls + aria-expanded (via accessibilityState.expanded).\n   Parallels the BurgerMenu aria wiring.\n\nHeaderFilters dropdown also gains arrow navigation via the new hook.\n\nRemaining: TutorialModal + InstallInstructionsModal — open from\ninside BurgerMenu, focus-return semantics need discussion.\n\nTags: a11y, keyboard, aria, hooks, refactor\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: a11y-polish\nSemver: minor\n\nhttps://claude.ai/code/session_01MmYgkDuYLSCs1giR4bz6kF",
+  "tags": [
+    "feature",
+    "accessibility",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "a11y-polish",
+  "semver": "minor",
+  "scope": "a11y",
+  "title": "extract useArrowNavigation + complete search modal wiring",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 124,
+    "deletions": 65
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(tabs)/index.tsx",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "src/components/search/HeaderFilters.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/hooks/useArrowNavigation.ts",
+    "src/hooks/useDisclosureFocus.ts",
+    "src/hooks/useSearchModal.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

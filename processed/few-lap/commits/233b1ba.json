@@ -1,0 +1,45 @@
+{
+  "sha": "233b1ba",
+  "fullSha": "233b1bab1a86138319dc68a852c1552fe0bf41d7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T20:45:30Z",
+  "commitDate": "2026-04-17T20:45:30Z",
+  "subject": "refactor(debug): replace className with inline styles + hex literals in DebugPill",
+  "body": "The pill is a diagnostic tool — it's most needed when *other* things\nare broken, and a stylesheet load failure is exactly one of those\nthings. Previously every structural element used DaisyUI className\ntokens, which silently no-op if Tailwind/Uniwind CSS fails to load.\n\nChanges:\n- Remove all 40 className usages on View / Text / TouchableOpacity /\n  ScrollView in DebugPill.tsx.\n- Remove the SEVERITY_BG / SEVERITY_TEXT / SOURCE_TEXT className token\n  maps; replace with C (surface/text/primary), SEVERITY, and SOURCE\n  hex-literal maps.\n- Expand StyleSheet.create to cover every reusable element (collapsed\n  pill, tabs, log rows, env/pwa tabs, footer). Colour and layout are\n  co-located so each element is independent of any stylesheet.\n- Single dark palette chosen to read against both dark and light app\n  backgrounds. Deliberate tradeoff: the pill no longer auto-themes,\n  but it renders correctly when the app stylesheet is blocked/missing.\n\nVerification added: TESTING_GUIDE.md step 47 — DevTools block the\n`_expo/static/css/global-*.css` request and reload; main app loses\nits theme (expected), but the pill still renders correctly.\n\ntsc --noEmit: 0 errors. jest: 52/52. expo export --platform web:\nclean; CSS bundle size dropped 26.3 → 25.3 kB as a side effect.\n\nTags: debug, refactor, resilience, styling\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "replace className with inline styles + hex literals in DebugPill",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 236,
+    "deletions": 86
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "src/debug/DebugPill.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

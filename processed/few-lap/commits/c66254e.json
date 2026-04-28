@@ -1,0 +1,49 @@
+{
+  "sha": "c66254e",
+  "fullSha": "c66254e831115d349ffe687cc5ead7ffc19e3543",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T00:15:29Z",
+  "commitDate": "2026-04-18T00:15:29Z",
+  "subject": "docs(debug): correct CLAUDE.md + track temporary always-on gates + rename test describe",
+  "body": "Four small docs drifts that a fresh reader would stumble on:\n\n1. CLAUDE.md project-status bullet claimed the debug system is\n   \"feature-flagged behind __DEV__\" but it isn't — three TEMPORARY\n   markers keep it always-on for PWA alpha. Rewrote to reflect reality\n   and point at the TODO entry.\n\n2. Added a consolidated docs/TODO.md entry listing all four gates\n   that need to flip together post-alpha: the debugAdd early-return,\n   the global error-listener registration guard, the console-patch\n   guard, and DEBUG_PILL_ENABLED in _layout.tsx. Each in-code\n   TEMPORARY marker now references this TODO entry, so they can't\n   drift out of sync from the revert checklist.\n\n3. debugLog.ts had a \"Security: Only register in development\" comment\n   immediately above a block that registers regardless. Rewrote to\n   describe actual behaviour + the deferred revert.\n\n4. Test file's outer describe was 'debugLog console capture' but now\n   covers much more (pub/sub, errDetails, safeStringify, redactUrls,\n   report formatting). Renamed to 'debugLog'; the redactUrls nested\n   describe stays for specific coverage.\n\n5. Minor: fixed the stale \"~450 lines of pill code\" comment in\n   debugRootMount.web.tsx (DebugPill is ~615 now), shortened the\n   duplicate \"no className\" stylesheet comment in DebugPill.tsx, and\n   dropped the specific kilobyte figure from SESSION_NOTES — a\n   snapshot not a stable fact.\n\nNo behaviour change. tsc 0, jest 79/79.\n\nTags: docs, debug, policy\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "documentation",
+    "comments"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "correct CLAUDE.md + track temporary always-on gates + rename test describe",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 29,
+    "deletions": 19
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/_layout.tsx",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/debug/DebugPill.tsx",
+    "src/debug/__tests__/debugLog.test.ts",
+    "src/debug/debugLog.ts",
+    "src/debug/debugRootMount.web.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

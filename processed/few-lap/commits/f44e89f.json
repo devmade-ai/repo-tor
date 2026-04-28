@@ -1,0 +1,47 @@
+{
+  "sha": "f44e89f",
+  "fullSha": "f44e89fa8cf7fd541a7b2738cddd06c70c76270a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T22:06:09Z",
+  "commitDate": "2026-04-17T22:06:09Z",
+  "subject": "refactor(debug): debugSubscribe replays entries + isolates subscriber errors",
+  "body": "Architectural tightening of the pub/sub surface.\n\nProblem: every subscriber had to do two things on mount — call\ndebugGetEntries() for the initial snapshot, then debugSubscribe() for\nlive updates. Easy to forget; left a race window where an entry added\nbetween the two calls was visible to neither path. Separately, a\nthrowing subscriber would break subsequent subscribers in the same\nnotification loop (listeners.forEach with no try/catch).\n\nChanges:\n- Subscriber type: () => void → (entries: DebugEntry[]) => void.\n- debugSubscribe now invokes the callback synchronously with the\n  current snapshot before returning. Wrapped in try/catch.\n- notifyAll() helper used by debugAdd/debugClear; iterates a\n  snapshot of subscribers (so a self-unsubscribing callback doesn't\n  disrupt iteration) and wraps each call in try/catch.\n- Error isolation: a throwing subscriber never prevents others from\n  receiving a notification, and never propagates out of debugAdd\n  or debugSubscribe.\n- DebugPill.useEffect collapses to a single debugSubscribe((latest)\n  => { setEntries([...latest]); setCounts(debugGetCounts()); }).\n  Removed the manual pre-subscribe sync and the now-unused\n  debugGetEntries import.\n\nTests:\n- Updated 'does not recurse when subscriber calls console.error' —\n  immediate replay means the subscriber fires once during subscribe\n  too, producing an additional 'subscriber log' entry. Adjusted\n  expectations.\n- New 'invokes the callback synchronously with the current snapshot\n  (immediate replay)'.\n- New 'isolates subscriber errors: one throwing subscriber does not\n  block others'.\n\ntsc --noEmit: 0 errors. jest: 65/65 (up from 63). expo export --platform\nweb: clean.\n\nDeviation from task snippet: task noted \"wrap each subscribers.forEach\nin try/catch\" — I extracted a single notifyAll helper used by both\ndebugAdd and debugClear so the isolation policy lives in one place.\n\nTags: debug, refactor, api, reliability\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "refactor",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "minor",
+  "scope": "debug",
+  "title": "debugSubscribe replays entries + isolates subscriber errors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 121,
+    "deletions": 29
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "src/debug/DebugPill.tsx",
+    "src/debug/__tests__/debugLog.test.ts",
+    "src/debug/debugLog.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

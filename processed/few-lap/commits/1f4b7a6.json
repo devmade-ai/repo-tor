@@ -1,0 +1,42 @@
+{
+  "sha": "1f4b7a6",
+  "fullSha": "1f4b7a62e5b5aff99bbcb64c65fff6df871c7316",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T16:23:39Z",
+  "commitDate": "2026-04-17T16:23:39Z",
+  "subject": "chore(search): list triggerRef in SearchModalProvider useMemo deps",
+  "body": "Comment says \"listing all for exhaustive-deps compliance\" but the deps\narray omitted triggerRef. It's a stable RefObject so behavior is\nunchanged — this just reconciles the code with its stated intent and\nkeeps exhaustive-deps lint happy.\n\nTags: search, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: a11y-polish\nSemver: patch\n\nhttps://claude.ai/code/session_01MmYgkDuYLSCs1giR4bz6kF",
+  "tags": [
+    "bugfix",
+    "lint"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "a11y-polish",
+  "semver": "patch",
+  "scope": "search",
+  "title": "list triggerRef in SearchModalProvider useMemo deps",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    "src/hooks/useSearchModal.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "internal"
+}
