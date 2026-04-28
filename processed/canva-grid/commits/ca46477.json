@@ -1,0 +1,44 @@
+{
+  "sha": "ca46477",
+  "fullSha": "ca46477616ea49335c67ebc64ac0a1d875e7fa19",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T23:48:10Z",
+  "commitDate": "2026-04-05T23:48:10Z",
+  "subject": "fix(ui): add missing useEffect import, revert DebugPill to inline styles",
+  "body": "Two bugs caught in code review:\n\n1. SaveLoadModal was missing useEffect import — would crash at runtime\n   when the save tab tried to focus the input field.\n\n2. DebugPill badges used DaisyUI badge classes, but DebugPill renders\n   in a separate React root without data-theme — DaisyUI color tokens\n   don't resolve. Reverted to inline styles (consistent with the rest\n   of DebugPill which already uses inline styles).\n\nTags: bugfix, modal, debug\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_017oR3zVWAu68xTcZgGmoFM1",
+  "tags": [
+    "bugfix",
+    "hotfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "add missing useEffect import, revert DebugPill to inline styles",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 10,
+    "deletions": 8
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/DebugPill.jsx",
+    "src/components/SaveLoadModal.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 4,
+  "impact": "user-facing"
+}
