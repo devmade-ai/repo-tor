@@ -1,0 +1,60 @@
+{
+  "sha": "d4bf22a",
+  "fullSha": "d4bf22ab20617aa7a50a49ab7eeca0d581560388",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-11T05:00:14Z",
+  "commitDate": "2026-04-11T05:00:14Z",
+  "subject": "fix(ui): harden React migration — 12 fixes for bugs, a11y, architecture",
+  "body": "Fix 3 bugs, convert 3 vanilla DOM patterns to React, and close 2\naccessibility gaps found during systematic HTML-to-React review.\n\nBugs:\n- Fix body scroll lock race condition between overlays (new useScrollLock hook)\n- Fix Chart.js theme colors going stale after dark/light toggle\n- Fix SettingsPane label-select association for screen readers\n\nReact migration:\n- Convert heatmap tooltip from vanilla DOM to React portal\n- Move embed ?theme=/?bg= overrides from module scope into useEffect\n- Consolidate URL param parsing into shared urlParams.js module\n\nAccessibility:\n- Add full keyboard navigation to FilterSidebar MultiSelect\n- Add aria-labels to 12+ clickable elements across Health, Timeline, Progress\n\nTags: react, accessibility, bugfix, refactor, ui\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: react-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01N8GBYKjZEPdg6DJSj4Qdrh",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "react-migration",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "harden React migration — 12 fixes for bugs, a11y, architecture",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 18,
+    "additions": 437,
+    "deletions": 119
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/App.jsx",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/chartColors.js",
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/HeatmapTooltip.jsx",
+    "dashboard/js/components/QuickGuide.jsx",
+    "dashboard/js/components/SettingsPane.jsx",
+    "dashboard/js/hooks/useScrollLock.js",
+    "dashboard/js/main.jsx",
+    "dashboard/js/sections/Health.jsx",
+    "dashboard/js/sections/Progress.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/js/urlParams.js",
+    "dashboard/styles.css",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

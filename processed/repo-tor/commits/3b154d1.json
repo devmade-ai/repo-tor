@@ -1,0 +1,43 @@
+{
+  "sha": "3b154d1",
+  "fullSha": "3b154d1121ebab03aca0f328bdc9138251ecde01",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T21:38:39Z",
+  "commitDate": "2026-04-10T21:38:39Z",
+  "subject": "chore(icons): remove redundant apple-touch-icon copy, note icon sync gap",
+  "body": "Removed the manually-copied apple-touch-icon.png from\ndashboard/public/assets/images/ — the generate script doesn't manage\nthat directory, so it would drift. The root-level copy at\ndashboard/public/apple-touch-icon.png (managed by the script) is the\none referenced by the <link> tag.\n\nAdded a TODO for the broader issue: dashboard/public/assets/images/\nicons are manual copies not synced by the generate script.\n\nTags: icons, cleanup, documentation\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: patch\n\nhttps://claude.ai/code/session_01FZx63vfq6y3XePEh5evu7P",
+  "tags": [
+    "removal",
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "icons",
+  "title": "remove redundant apple-touch-icon copy, note icon sync gap",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 5,
+    "deletions": 1
+  },
+  "files": [
+    "dashboard/public/assets/images/apple-touch-icon.png",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "internal"
+}

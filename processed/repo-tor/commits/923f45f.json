@@ -1,0 +1,45 @@
+{
+  "sha": "923f45f",
+  "fullSha": "923f45f3951025ffa29ee920b0cccecb749f8878",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-11T11:39:47Z",
+  "commitDate": "2026-04-11T11:39:47Z",
+  "subject": "fix(debug): strengthen spec compliance — hooks, diagnostics, clipboard, routing",
+  "body": "Audit and fix 6 issues found in the initial debug system implementation:\n\n1. Move embed-mode skip from DebugPill (conditional return before hooks,\n   violates React rules) to main.jsx (don't mount component at all).\n2. Remove unused status param from diagRow style function (dead code).\n3. Add browser info and richer manifest validation (icon sizes, start_url,\n   id) to PWA diagnostics tab per DEBUG_SYSTEM.md spec.\n4. Add visible textarea fallback with auto-select when all clipboard\n   methods fail, per spec's manual copy requirement.\n5. Route Projects.jsx console.error through debugAdd for structured\n   logging instead of relying on console interception.\n6. Verify no duplicate entries from console interception + explicit\n   debugAdd — all callers use one or the other, never both.\n\nTags: debug, refactor, ui\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01VJTP7qCmApamkAM8xREziS",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-system",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "strengthen spec compliance — hooks, diagnostics, clipboard, routing",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 86,
+    "deletions": 19
+  },
+  "files": [
+    "dashboard/js/components/DebugPill.jsx",
+    "dashboard/js/main.jsx",
+    "dashboard/js/sections/Projects.jsx",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}
