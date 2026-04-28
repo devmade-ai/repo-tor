@@ -1,0 +1,51 @@
+{
+  "sha": "1429510",
+  "fullSha": "1429510feb4c04847bda73b2a82c0fbae6280a3f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T19:13:22Z",
+  "commitDate": "2026-04-15T19:13:22Z",
+  "subject": "fix(audit): HTML semantics + tag/repo single-source-of-truth",
+  "body": "#4 — Header filter button was a DaisyUI btn-link nested inside <p>\n  The \"Showing X of Y filtered\" indicator wrapped the button in a <p>\n  with `btn btn-link btn-sm p-0 min-h-0 h-auto` overrides fighting\n  DaisyUI's button component (inline-flex, internal min-height, etc.).\n  Replaced with a plain <button> styled via stock Tailwind text\n  utilities: `text-primary underline underline-offset-2 hover:opacity-80\n  cursor-pointer`. Renders as proper inline phrasing content, no\n  flex-button-in-paragraph awkwardness.\n\n#5 — FilterSidebar root used DaisyUI `menu` class for a form panel\n  `<aside className=\"menu bg-base-200 ...\">` was misuse — the menu\n  component is for navigation menus (role=\"menu\") and DaisyUI's CSS\n  expects <li> children. The filter sidebar contains form controls\n  (multi-selects, date inputs, button), not menu items. Screen readers\n  could announce it as a menu, and the menu-component padding/gap\n  rules conflicted with the explicit `p-4 space-y-4`. Dropped the\n  `menu` class — the aside is now just `bg-base-200 min-h-full w-80\n  p-4 space-y-4`, stock Tailwind only.\n\n#6 — Tag semantic mapping duplicated across two parallel maps\n  utils.js had `TAG_SEMANTIC` (34 tags → badge-* classes) AND\n  `TAG_SEMANTIC_VAR` (34 tags → --color-* variable names). Two maps\n  encoding the same tag → semantic-meaning relationship — adding a\n  new tag to one and forgetting the other would let chips and chart\n  datasets disagree. Collapsed to one source of truth:\n\n    const TAG_SEMANTIC_BASE = { feature: 'success', bugfix: 'error', ... }\n    function tagSemanticBase(tag) { return TAG_SEMANTIC_BASE[tag] || 'neutral'; }\n    export function getTagBadgeClass(tag) { return `badge-${tagSemanticBase(tag)}`; }\n    export function resolveTagSemanticColor(tag) {\n        return getComputedStyle(...).getPropertyValue(`--color-${tagSemanticBase(tag)}`)...;\n    }\n\n  The fall-through to 'neutral' is now in one place. Adding a new tag\n  requires editing exactly one map.\n\n#7 — getRepoColor() inverted the visual hierarchy for internal repos\n  Phase 2 mapped internal repos to `--color-base-content` (the\n  primary text colour). On any theme that's the highest-contrast\n  colour available — internal repos rendered MORE prominent than\n  active repos using getSeriesColor(). The pre-vanilla design had\n  internal repos at #d1d5db (light grey, dimmer than active) and\n  discontinued at #4b5563 (mid grey, dimmest).\n\n  Restored the intended hierarchy: discontinued → 30% neutral overlay\n  (barely visible ghost), internal → 60% neutral overlay (visible but\n  de-emphasised), active → cycle through the 8-slot semantic palette.\n  Both inactive categories use color-mix on `--color-neutral` so they\n  track the active theme's neutral tone without competing visually\n  with the live-data colours.\n\n  Added `dimNeutral(opacity)` helper so the pattern is reusable if\n  more dim-overlay categories appear.\n\nVerified:\n  - vite build clean (2.77s)\n  - 60/60 tests pass\n\nTags: fix, audit, ui, daisyui, charts, accessibility\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "simplify"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-v5-migration",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "HTML semantics + tag/repo single-source-of-truth",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#4",
+    "#5",
+    "#6",
+    "#7"
+  ],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 65,
+    "deletions": 74
+  },
+  "files": [
+    "dashboard/js/chartColors.js",
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/Header.jsx",
+    "dashboard/js/utils.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "51d16d2",
+  "fullSha": "51d16d2957a72a93fb9865df1e9689a29d23581e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T20:50:01Z",
+  "commitDate": "2026-04-15T20:50:01Z",
+  "subject": "docs(session): rewrite SESSION_NOTES.md as compact snapshot",
+  "body": "Audit finding #14 — SESSION_NOTES.md had grown to 624 lines, mostly\nhistorical entries from the round-3 custom-CSS sweep, the\npost-migration audit pass, the vanilla-DaisyUI 8-phase migration, and\nthe zero-arbitrary-values sweep. Per CLAUDE.md the doc is supposed to\nbe a \"compact context snapshot for session continuity\" — rewritten at\nsession end.\n\nReplaced with a 70-line snapshot that captures only what the next\nsession needs:\n  - Current branch + current state (1-paragraph dashboard status)\n  - Vanilla-DaisyUI policy invariants (zero custom classes, documented\n    exceptions list)\n  - Testing posture (Playwright removed, single tripwire active)\n  - Last-session work summary with commit shas (1 line each)\n  - Open items requiring next-session action (aggregate.js\n    investigation, live browser spot-check, TODO.md pointer)\n  - Doc pointers for deeper context\n\nThe 554 lines of historical narrative removed all duplicated content\nthat's already in HISTORY.md and the git log — keeping it in\nSESSION_NOTES inflated the file and made finding the actually-current\nstate harder. New entries should follow the same compact structure:\nthe next agent reads SESSION_NOTES first, so it should give them\nexactly the context to start work, not a re-tellling of what\nHISTORY.md already documents.\n\nTags: documentation, cleanup, audit\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: vanilla-daisyui-cleanup\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "vanilla-daisyui-cleanup",
+  "semver": "patch",
+  "scope": "session",
+  "title": "rewrite SESSION_NOTES.md as compact snapshot",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#14"
+  ],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 72,
+    "deletions": 619
+  },
+  "files": [
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

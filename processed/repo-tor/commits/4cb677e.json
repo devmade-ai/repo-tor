@@ -1,0 +1,45 @@
+{
+  "sha": "4cb677e",
+  "fullSha": "4cb677ea2255f4b2f6d86df512e7eeec9fe19e3c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T07:05:29Z",
+  "commitDate": "2026-04-15T07:05:29Z",
+  "subject": "refactor(dashboard): Phase 4c — heatmap intensity to stock bg-primary/N",
+  "body": "Deletes the 5 .heatmap-0..4 custom CSS classes from styles.css and\nreplaces them with a JS constant palette in sections/Timing.jsx that\nuses stock Tailwind utilities tracking DaisyUI's --color-primary.\n\ndashboard/js/sections/Timing.jsx:\n  const HEATMAP_LEVEL_CLASSES = [\n    'bg-base-300',    // level 0 — no activity\n    'bg-primary/20',  // level 1\n    'bg-primary/40',  // level 2\n    'bg-primary/60',  // level 3\n    'bg-primary',     // level 4 — max activity\n  ];\n\n  className={`... ${HEATMAP_LEVEL_CLASSES[level]}`}\n\nTailwind's content scanner picks up the 5 string literals from the\narray and generates the utility rules without needing a safelist.\n\nRemoved from styles.css:\n  .heatmap-0 { background-color: var(--color-base-300); }\n  .heatmap-1..4 { color-mix(primary 15/35/60%) + color-primary-content }\n  The --chart-accent-override URL embed hook (will be fully removed\n  in Phase 2 alongside chartColors.js URL params)\n\nRemoved from daisyui-surfaces.test.mjs:\n  - heatmap-0 through heatmap-4 from LEGITIMATE_CUSTOM_CLASSES allowlist\n  - \"Heatmap CSS uses color-mix\" regression test replaced with a new\n    assertion that Timing.jsx uses HEATMAP_LEVEL_CLASSES and that\n    styles.css does NOT re-introduce the deleted .heatmap-N rules\n\nVisual difference:\n  Previous gradient used color-mix 15/35/60/100% opacity over primary.\n  New gradient uses Tailwind alpha 20/40/60/100% over primary.\n  Very close visual match; slight saturation shift on levels 2-3.\n\nVerified: vite build clean (3.11s), 61/61 tests pass, new test\nenforces the migration.\n\nTags: refactor, ui, daisyui, cleanup, vanilla\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui",
+    "simplify"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-v5-migration",
+  "semver": "patch",
+  "scope": "dashboard",
+  "title": "Phase 4c — heatmap intensity to stock bg-primary/N",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 42,
+    "deletions": 59
+  },
+  "files": [
+    "dashboard/js/sections/Timing.jsx",
+    "dashboard/styles.css",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

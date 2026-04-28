@@ -1,0 +1,43 @@
+{
+  "sha": "562c618",
+  "fullSha": "562c618b627f11f08f4528bc4ba62d69f474f0d7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T11:39:33Z",
+  "commitDate": "2026-04-15T11:39:33Z",
+  "subject": "fix(charts): include themeAccent/themeMuted in chart useMemo deps",
+  "body": "Double-check audit of the vanilla-DaisyUI sweep found that Progress,\nContributors, and Tags chart useMemo blocks only listed state.darkMode\nin their deps. Since chart data builders call getSeriesColor() (which\nreads CSS variables at call time), the useMemo didn't re-run on\ninter-theme switches where darkMode stays constant — e.g. lofi → nord\n(both light) or black → dim (both dark). Chart datasets would keep\nresolving the OLD theme's --color-primary / --color-secondary / etc.\nuntil darkMode flipped or a new filter triggered re-render.\n\nstate.themeAccent and state.themeMuted DO update on every theme change\nvia the SET_THEME_COLORS dispatch from AppContext's darkMode+activeTheme\nuseEffect, so adding them to the chart useMemo deps closes the gap.\n\nFiles updated:\n  - Progress.jsx: 3 useMemo deps arrays (featFix, complexity, semver)\n  - Contributors.jsx: 1 useMemo deps array (complexityChartData)\n  - Tags.jsx: 2 useMemo deps arrays — also normalised the rationale\n    comment to reference themeAccent/themeMuted instead of the earlier\n    lightTheme/darkTheme fields I'd added as a first-pass fix (both\n    work, but themeAccent is more semantically correct since it's\n    what the charts actually consume)\n\nTimeline.jsx and Timing.jsx already had correct deps from the Phase 2\ncommit — verified.\n\nVerified: vite build clean, 60/60 tests pass. Next theme-switch on a\nbrowser with, say, lofi → nord (or similar same-mode inter-theme) will\ncorrectly rebuild every chart dataset with the new semantic tokens.\n\nAlso verified during this audit pass:\n  - All DaisyUI drawer + drawer-end + drawer-toggle + drawer-content\n    + drawer-side + drawer-overlay + lg:drawer-open classes ship\n    correctly in built CSS (my earlier doubts about nested-drawer\n    behaviour turned out to be misreading the CSS — DaisyUI v5 drawer\n    IS a fixed-positioned slide-over with translate-based animation,\n    which is exactly the behaviour we need)\n  - All collapse + collapse-arrow + collapse-open + collapse-close +\n    collapse-title + collapse-content classes ship\n  - All 7 DaisyUI badge semantic variants (primary/secondary/accent/\n    info/success/warning/error/neutral) + badge-sm + badge-xs ship\n  - HEATMAP_LEVEL_CLASSES array values (bg-base-300 + bg-primary/N)\n    all generate utility rules via Tailwind content scanning\n  - Zero orphaned imports of deleted exports (getTagColor,\n    getTagStyleObject, TAG_COLORS, DYNAMIC_TAG_PALETTE, hashString,\n    getDynamicTagColor, accentColor, mutedColor, seriesColors,\n    hasUrlAccentOverride) anywhere in dashboard/js\n  - Focus management hooks (useFocusTrap, useEscapeKey, useScrollLock)\n    still wired correctly on DetailPane + SettingsPane after the\n    drawer migration\n\nTags: fix, charts, daisyui, audit\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-v5-migration",
+  "semver": "patch",
+  "scope": "charts",
+  "title": "include themeAccent/themeMuted in chart useMemo deps",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 20,
+    "deletions": 12
+  },
+  "files": [
+    "dashboard/js/sections/Contributors.jsx",
+    "dashboard/js/sections/Progress.jsx",
+    "dashboard/js/sections/Tags.jsx"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

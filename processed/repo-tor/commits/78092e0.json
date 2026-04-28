@@ -1,0 +1,50 @@
+{
+  "sha": "78092e0",
+  "fullSha": "78092e048a893f33554aafaf4275856c93c1ed65",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T19:10:32Z",
+  "commitDate": "2026-04-15T19:10:32Z",
+  "subject": "fix(audit): heatmap grid alignment, embed per-chart isolation, hooks order",
+  "body": "Fresh-eyes audit found 4 coupled issues in the vanilla-DaisyUI sweep.\n\n#1 — Timing.jsx full heatmap rows broken at most viewport widths\n  Phase 3 replaced `grid-cols-[36px_repeat(7,1fr)]` with a flex row\n  containing a fixed-width label column (`w-10 sm:w-12`) and a\n  separate `grid-cols-7 flex-1` day grid. Label cells were aspect-\n  square at 40/48px while day cells were aspect-square at (flex-1 /\n  7) = ~35px mobile / ~91px desktop. Rows didn't line up — the\n  \"09:00\" label rendered next to a different hour's data on most\n  screens.\n\n  Restored a single CSS grid with `grid-cols-[auto_repeat(7,1fr)]`\n  so the label column and 7 day columns share the same rows.\n  Labels align perfectly at every viewport width.\n\n  CLAUDE.md \"Frontend: Styles and Scripts\" updated to document this\n  as the ONE permitted arbitrary bracket value exception (grid\n  templates with mixed auto + repeat() aren't expressible as stock\n  Tailwind utilities, and row alignment is a functional\n  data-correctness requirement — not cosmetic).\n\n#2 — EmbedRenderer can't isolate individual charts within sections\n  Phase 4b+4g made CollapsibleSection return `<>{children}</>`\n  (Fragment, no DOM wrapper) in embed mode. Then EmbedRenderer's\n  DOM traversal walked up from `[data-embed-id]` to \"the top-level\n  child of the container\". For multi-chart sections like Timeline\n  (5 embeddable charts in one section), all charts shared the same\n  top-level parent (Timeline's `<div className=\"space-y-4\">`).\n  `?embed=activity-timeline` showed all 5 Timeline charts stacked.\n\n  Fix:\n    - CollapsibleSection.jsx: return `<div data-embed-wrapper>{children}</div>`\n      in embed mode instead of a Fragment. Each CollapsibleSection\n      now has its own DOM ancestor.\n    - EmbedRenderer.jsx: useLayoutEffect hides all\n      `[data-embed-wrapper]` elements and shows only those whose\n      subtree contains a matching `[data-embed-id]`. Per-chart\n      isolation restored.\n\n#3 — CollapsibleSection calls useState after an early return\n  The `if (isEmbedMode) return ...` short-circuit was BEFORE\n  `useState(defaultExpanded)`. React's Rules of Hooks requires hooks\n  at the top of the function body, before any early returns. Since\n  `isEmbedMode` is a module-level constant, this didn't crash at\n  runtime — but ESLint's rules-of-hooks flags it, and any future\n  refactor that made `isEmbed` dynamic would silently crash with\n  \"Rendered fewer hooks than expected.\"\n\n  Moved useState above the embed-mode early return. Dropped the\n  unused `sectionId` variable (was only used to build a checkbox\n  `id` that no `<label htmlFor>` referenced — dead code).\n\n#12 — EmbedRenderer wrapped ALL sections in a single ErrorBoundary\n  If any section throws, the ErrorBoundary's fallback replaces the\n  entire sectionsToRender list — including the wrappers for\n  healthy charts. EmbedRenderer's DOM traversal then finds no\n  `[data-embed-wrapper]` elements because the DOM tree is the\n  fallback div instead. User sees a blank iframe with no error\n  message.\n\n  Wrapped each section individually:\n    sectionsToRender.map((S, i) => <ErrorBoundary key={i}><S /></ErrorBoundary>)\n\n  A single broken section renders its own fallback but healthy\n  sections still render and the embed traversal works normally.\n\nVerified:\n  - vite build clean (3.06s)\n  - 60/60 tests pass\n  - .grid-cols-\\[auto_repeat\\(7\\,1fr\\)\\] utility generated in built CSS\n  - data-embed-wrapper attribute flows through from CollapsibleSection\n    to the DOM (no custom-class allowlist impact — attributes aren't\n    class definitions)\n\nTags: fix, audit, ui, daisyui, embed\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-v5-migration",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "heatmap grid alignment, embed per-chart isolation, hooks order",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#1",
+    "#2",
+    "#3",
+    "#12"
+  ],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 102,
+    "deletions": 80
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/components/CollapsibleSection.jsx",
+    "dashboard/js/components/EmbedRenderer.jsx",
+    "dashboard/js/sections/Timing.jsx"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

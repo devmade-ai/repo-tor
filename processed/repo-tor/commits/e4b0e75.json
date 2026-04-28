@@ -1,0 +1,58 @@
+{
+  "sha": "e4b0e75",
+  "fullSha": "e4b0e7513a39e1561b19bc32b6f64f32f3be0b5c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-14T16:30:33Z",
+  "commitDate": "2026-04-14T16:30:33Z",
+  "subject": "refactor(dashboard): zero-arbitrary-values sweep via @theme + @utility",
+  "body": "User asked for \"theme tokens for everything always\" — a full sweep of\nevery remaining arbitrary Tailwind bracket value into either @theme\ntokens (standard namespaces) or @utility directives (non-standard) in\ndashboard/styles.css, so the JSX stops shipping `text-[11px]`,\n`shadow-[0_2px_8px...]`, `grid-cols-[36px_repeat...]`, `[text-shadow:...]`\nand similar arbitraries.\n\n@theme tokens (standard Tailwind v4 namespaces, auto-generate utilities):\n  - --text-8/9/10/11/13 → text-8, text-9, text-10, text-11, text-13\n    (8/9/10/11/13 px — sizes below/between Tailwind's 12/14/16 default)\n  - --shadow-tooltip / --shadow-dropdown / --shadow-dropzone-glow\n    → shadow-tooltip / shadow-dropdown / shadow-dropzone-glow\n    (higher-opacity shadows than stock shadow-md/lg/xl which use ~10%\n    and read too subtly against base-200/300 section backgrounds)\n\n@utility directives (non-standard namespaces):\n  - grid-heatmap-m / grid-heatmap-d — 36px/50px + repeat(7,1fr)\n  - w-modal-responsive — min(420px, calc(100vw - 32px))\n  - max-w-viewport-margin — calc(100vw - 32px)\n  - min-h-hero — 60vh\n  - text-shadow-primary-glow — 0 0 10px color-mix(primary 50%)\n    (Tailwind v4 has no text-shadow utility out of the box)\n\nJSX replacements across 11 files:\n  - text-[Npx] → text-N (14 occurrences: Timing ×5, SettingsPane ×5,\n    TabBar, HeatmapTooltip, Projects, HamburgerMenu, EmbedRenderer)\n  - shadow-[0_2px_8px_rgba(0,0,0,0.3)] → shadow-tooltip (HeatmapTooltip)\n  - shadow-[0_10px_25px_rgb(0_0_0/0.25)] → shadow-dropdown (FilterSidebar)\n  - shadow-[0_0_20px_color-mix(...)] → shadow-dropzone-glow (DropZone)\n  - [text-shadow:0_0_10px_color-mix(...)] → text-shadow-primary-glow (TabBar)\n  - grid-cols-[36px_repeat(7,1fr)] → grid-heatmap-m (Timing)\n  - sm:grid-cols-[50px_repeat(7,1fr)] → sm:grid-heatmap-d (Timing)\n  - w-[min(420px,calc(100vw-32px))] → w-modal-responsive (QuickGuide)\n  - max-w-[calc(100vw-32px)] → max-w-viewport-margin (InstallInstructionsModal)\n  - min-h-[60vh] → min-h-hero (DropZone)\n\nTest update: the Phase 7 TabBar daisyui-surfaces assertion regex was\nupdated from /\\[text-shadow:0_0_10px_color-mix/ to\n/text-shadow-primary-glow/ to match the new utility name.\n\nCLAUDE.md: added a new rule under \"Frontend: Styles and Scripts\"\nlisting the 6-tier precedence for replacing arbitrary values:\n  1. Stock Tailwind utility\n  2. DaisyUI semantic token\n  3. Theme-scale CSS var inside an arbitrary\n  4. @theme token in styles.css\n  5. @utility directive in styles.css\n  6. Arbitrary bracket value (last resort, document rationale)\n\nDAISYUI_V5_NOTES.md: added inventory of every defined @theme token and\n@utility directive with rationale + the hard rule that arbitrary\nbracket syntax is banned.\n\nVerified:\n  - vite build clean (2.92s)\n  - npm test 61/61 pass\n  - All new utilities confirmed in built CSS:\n    .text-8, .text-9, .text-10, .text-11, .text-13,\n    .shadow-tooltip, .shadow-dropdown, .shadow-dropzone-glow,\n    .grid-heatmap-m, .sm\\:grid-heatmap-d,\n    .w-modal-responsive, .max-w-viewport-margin, .min-h-hero,\n    .text-shadow-primary-glow\n  - Grep of dashboard/js for\n    text-\\[[0-9]|shadow-\\[[0-9_]|\\[text-shadow|grid-cols-\\[[0-9]|\n    min-h-\\[[0-9]|max-h-\\[[0-9]|w-\\[[0-9]|min-w-\\[[0-9]|\n    max-w-\\[calc|w-\\[min\\(\n    returns zero actual-code hits (one comment in CollapsibleSection\n    explaining why max-h-[9999px] would clip long sections)\n  - 24-class allowlist test still passes — @theme and @utility don't\n    write .classname { primary rules in styles.css, so the regex\n    scanner doesn't count them as new custom classes\n\nRemaining legitimate non-stock usages (intentional, documented):\n  - Dynamic style={{ width: `${pct}%` }} progress bars — computed\n  - Dynamic style={{ height: chartHeight }} chart containers — computed\n  - DebugPill.jsx inline styles — isolated React root (rationale)\n  - main.jsx error boundary inline layout — pre-CSS-load (rationale)\n  - Tags/Contributors style={{ backgroundColor: getTagColor }} —\n    brand-fixed per-tag palette (rationale in TAG_COLORS)\n\nTags: refactor, ui, tailwind, daisyui, tokens, cleanup\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-v5-migration",
+  "semver": "patch",
+  "scope": "dashboard",
+  "title": "zero-arbitrary-values sweep via @theme + @utility",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 17,
+    "additions": 214,
+    "deletions": 25
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/components/DropZone.jsx",
+    "dashboard/js/components/EmbedRenderer.jsx",
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/HamburgerMenu.jsx",
+    "dashboard/js/components/HeatmapTooltip.jsx",
+    "dashboard/js/components/InstallInstructionsModal.jsx",
+    "dashboard/js/components/QuickGuide.jsx",
+    "dashboard/js/components/SettingsPane.jsx",
+    "dashboard/js/components/TabBar.jsx",
+    "dashboard/js/sections/Projects.jsx",
+    "dashboard/js/sections/Timing.jsx",
+    "dashboard/styles.css",
+    "docs/DAISYUI_V5_NOTES.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

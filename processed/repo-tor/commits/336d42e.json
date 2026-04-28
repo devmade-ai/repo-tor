@@ -1,0 +1,54 @@
+{
+  "sha": "336d42e",
+  "fullSha": "336d42efe6acf67237f9caaac07397c3a225f285",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T20:05:11Z",
+  "commitDate": "2026-04-15T20:05:11Z",
+  "subject": "chore(testing): remove Playwright entirely, log future re-introduction TODO",
+  "body": "The 2026-04-13 commit `af0f02d` added Playwright + e2e dir + visual\nregression spec + 5 npm scripts + ~170MB browser binary install\nrecipe, but never produced any baseline screenshots. The session that\ncommitted it had no Chromium binary in its sandbox — the spec files\nsat unrun across every subsequent session. Several later audit reports\nincorrectly warned \"Playwright baselines will drift\" when there were\nno baselines to drift from.\n\nRemoved in this commit:\n  - playwright.config.js (123 lines)\n  - dashboard/e2e/README.md\n  - dashboard/e2e/daisyui-surfaces.spec.js (~390 lines, 14 functional tests)\n  - dashboard/e2e/visual/theme-baselines.spec.js (~130 lines, 48 visual tests)\n  - dashboard/e2e/ directory\n  - @playwright/test ^1.59.1 devDependency\n  - 5 npm scripts: test:e2e, test:e2e:install, test:e2e:ui, test:visual,\n    test:visual:update\n  - 5 .gitignore lines for Playwright artifacts (test-results,\n    playwright-report, playwright/.cache, *-actual.png, *-diff.png)\n  - dashboard/e2e/README.md row from CLAUDE.md \"Documentation\" table\n  - \"Re-capture Playwright baselines\" entry from docs/TODO.md\n  - \"Playwright visual regression baselines will drift\" outstanding\n    note from docs/SESSION_NOTES.md\n  - Stale \"playwright test --list enumerates 62 e2e tests\" verification\n    lines from older SESSION_NOTES \"Recent Updates\" entries\n  - Three-tier test infrastructure description in older SESSION_NOTES\n    entry — collapsed to single-tier (source-level only)\n\nReinstalled node_modules to refresh package-lock.json. Verified\n@playwright/test, playwright, playwright-core all gone from\nnode_modules.\n\ndocs/TESTING_GUIDE.md \"Automated coverage\" section rewrote to describe\nONE layer (source-level node:test tripwire) instead of three. The\nmanual checklists below it are unchanged.\n\ndocs/TODO.md gained a new \"Browser test coverage (future)\" backlog\nentry with notes on what to do differently when re-introducing\nbrowser tests:\n  - Verify the runner can actually execute in the target environment\n    BEFORE writing specs (the previous attempt set up everything\n    without ever running it once)\n  - Decide scope first — visual regression has high maintenance cost,\n    functional smoke tests are higher value-per-byte; start with smoke\n    only\n  - Existing source-level tripwire complements browser tests, not\n    replaces them — anything that can be checked at the source level\n    should stay there\n  - Reference for the previous attempt: commit af0f02d in git history.\n    Resurrect as a starting point if useful, but treat as a draft —\n    most assertions reference DaisyUI v5 phase markers that have\n    shifted with subsequent refactors\n\ndocs/HISTORY.md gained a 2026-04-15 entry documenting the removal\nwith full rationale.\n\nVerified after removal:\n  - vite build clean\n  - npm test 60/60 pass (source-level tripwire still runs)\n  - No references to playwright / @playwright / dashboard/e2e /\n    test:e2e / test:visual / theme-baselines remain in:\n      CLAUDE.md, package.json, .gitignore, docs/TESTING_GUIDE.md,\n      docs/TODO.md\n  - Older changelog-style entries in docs/HISTORY.md are left alone\n    (historical context, not active state)\n  - SESSION_NOTES has one intentional reference in the new\n    \"Recent Updates 2026-04-15\" block describing the removal\n\nTags: chore, testing, cleanup, dependency\nComplexity: 2\nUrgency: 1\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: dependency-cleanup\nSemver: patch",
+  "tags": [
+    "removal",
+    "dependency-remove",
+    "ci"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dependency-cleanup",
+  "semver": "patch",
+  "scope": "testing",
+  "title": "remove Playwright entirely, log future re-introduction TODO",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 92,
+    "deletions": 872
+  },
+  "files": [
+    ".gitignore",
+    "CLAUDE.md",
+    "dashboard/e2e/README.md",
+    "dashboard/e2e/daisyui-surfaces.spec.js",
+    "dashboard/e2e/visual/theme-baselines.spec.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "package-lock.json",
+    "package.json",
+    "playwright.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "infrastructure"
+}

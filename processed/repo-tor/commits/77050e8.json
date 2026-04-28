@@ -1,0 +1,52 @@
+{
+  "sha": "77050e8",
+  "fullSha": "77050e842e64b905eb5171a8ffe67cab7c4f0195",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T07:15:44Z",
+  "commitDate": "2026-04-15T07:15:44Z",
+  "subject": "refactor(dashboard): Phase 2 — chart colours to vanilla DaisyUI semantic cycle",
+  "body": "Rewrites chartColors.js to use only DaisyUI semantic CSS variables\nresolved at runtime. Deletes every static brand palette, every URL\noverride, and every hardcoded hex colour.\n\nchartColors.js rewritten end-to-end:\n  Deleted:\n    DEFAULT_SERIES (20-hex default palette)\n    DEFAULT_ACCENT (#2D68FF brand blue)\n    DEFAULT_ACCENT_MUTED (#94a3b8)\n    PALETTES.default / .warm / .cool / .earth / .vibrant / .mono\n      (5 alternate 20-hex palettes)\n    DISCONTINUED/INTERNAL repo hex constants (#4b5563, #d1d5db)\n    parseColorOverrides() URL parser\n    isValidHex / toHex helpers\n    seriesColors / accentColor / mutedColor exports (static bootstrap)\n    hasUrlAccentOverride / hasUrlMutedOverride export flags\n    palettes export (for settings UI that doesn't exist yet)\n\n  Added:\n    SEMANTIC_CYCLE constant — 8 DaisyUI CSS variable names in cycle order\n      (primary → secondary → accent → info → success → warning → error\n      → neutral)\n    readCssVar(name) — getComputedStyle helper\n    getSemanticPalette() — returns all 8 resolved colours as an array\n    SEMANTIC_CYCLE_VARS export — the list of variable names\n    withOpacity(color, opacity) — now returns color-mix(in oklab, color N%,\n      transparent) instead of rgba() so it works on oklch / color-mix\n      inputs as well as hex\n\n  Kept:\n    resolveRuntimeAccent() — now always reads --color-primary\n    resolveRuntimeMuted() — color-mix of --color-base-content at 40%\n    getSeriesColor(index) — cycles through SEMANTIC_CYCLE\n    getRepoColor / buildRepoColorMap — repo category helpers now resolve\n      --color-neutral (discontinued) and --color-base-content (internal)\n      via runtime CSS vars\n\nURL parameters removed:\n  - ?palette=name (no more named presets)\n  - ?accent=hex   (no more brand override)\n  - ?muted=hex    (no more muted override)\n  - ?colors=h1,h2,h3 (no more per-series override)\n  embedders now get whatever DaisyUI theme they configured via ?theme=.\n\nConsumers updated:\n  - main.jsx: dropped the --chart-accent-override CSS var bridge that\n    ran on module load when an embedder supplied ?accent=. The heatmap\n    migration in Phase 4c already dropped the CSS var read that used\n    it, so nothing consumes --chart-accent-override anymore.\n  - AppContext.jsx: dropped the import of { accentColor, mutedColor }.\n    state.themeAccent / state.themeMuted now seed as empty strings and\n    the darkMode useEffect dispatches SET_THEME_COLORS on mount with\n    runtime-resolved values. Chart sections already gate their dataset\n    builders on state.themeAccent via useMemo deps so this is safe.\n  - Timeline.jsx: dropped unused seriesColors import and rewrote the\n    rationale comment block to describe the vanilla-DaisyUI approach\n    (delete references to the deleted \"static 20-color palette\").\n  - urlParams.js: deleted references to ?palette / ?accent / ?muted /\n    ?colors in the header doc block. searchParams export stays because\n    the embed/data/theme/bg params still use it.\n\nTests (daisyui-surfaces.test.mjs):\n  - \"chartColors.js exposes runtime theme resolvers\" replaced with\n    \"chartColors.js is vanilla DaisyUI (no brand hex, no URL overrides)\"\n    which regression-guards the deletion of DEFAULT_SERIES / PALETTES /\n    hasUrlAccentOverride / any hex literal in the file.\n\nVisual regression:\n  - Charts with >8 categories now repeat colours across the 8-slot\n    semantic cycle. Previously had 20 brand hexes for more distinct\n    multi-category rendering. Acceptable per user directive.\n  - Embedders who supplied ?accent=hex lose that customisation — they\n    now see the active DaisyUI theme's primary. They can still pick a\n    theme via ?theme= (light vs dark; full theme name via applyTheme).\n  - The \"low complexity\" muted chart tone switched from hardcoded\n    slate-400 to color-mix(base-content 40%, transparent) which tracks\n    the theme's text tone.\n\nVerified: vite build clean (3.23s), 60/60 tests pass, chartColors.js\nhas zero hex literals, zero URL override references.\n\nTags: refactor, ui, daisyui, cleanup, vanilla, charts\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-v5-migration",
+  "semver": "patch",
+  "scope": "dashboard",
+  "title": "Phase 2 — chart colours to vanilla DaisyUI semantic cycle",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#2",
+    "#94",
+    "#4"
+  ],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 147,
+    "deletions": 352
+  },
+  "files": [
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/chartColors.js",
+    "dashboard/js/main.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/js/urlParams.js",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

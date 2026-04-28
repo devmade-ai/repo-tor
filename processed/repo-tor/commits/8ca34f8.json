@@ -1,0 +1,49 @@
+{
+  "sha": "8ca34f8",
+  "fullSha": "8ca34f8a3fdd841f7a600b5e8bd3a74a6f237266",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T20:46:39Z",
+  "commitDate": "2026-04-15T20:46:39Z",
+  "subject": "chore(hygiene): inline-style → utility, mobile copy, z-index doc",
+  "body": "Audit findings #11, #12, #18 — three small hygiene fixes batched\ntogether because each one is a single-line touch.\n\n#11 Progress.jsx semver doughnut sizing (line 347):\n  Was: style={{ height: isMobile ? '180px' : '200px' }} — inline\n       JS expression for what's a static breakpoint switch.\n  Now: className=\"h-45 sm:h-50\" — Tailwind h-45 = 11.25rem = 180px,\n       h-50 = 12.5rem = 200px. The sm: breakpoint (640px) matches\n       isMobile's window.innerWidth < 640 check exactly so the\n       behaviour is identical without the inline style override.\n       Per CLAUDE.md \"no inline style={} unless runtime-computed\n       from data\" — this is breakpoint-derived, not data-derived.\n\n#12 QuickGuide.jsx step 3 copy:\n  Was: \"Use the filter button to focus on...\" — only mentioned the\n       mobile filter button, ignored the desktop sidebar pattern.\n  Now: Covers both: \"On larger screens, use the filter panel on the\n       left ... On phones and tablets, tap the filter button in the\n       header to open the same panel.\" Aligns the help with the\n       actual responsive layout where lg: shows a permanent sidebar.\n\n#18 styles.css :root z-index comment:\n  Was: 4-line cryptic note (\"Sub-layers: 21 = sticky-header above\n       tabs (20), 58 = modal backdrop above menu (50)\").\n  Now: Documents the actual project pattern — most consumers use\n       stock z-N Tailwind utilities directly, the named CSS vars\n       only exist for sub-layer values that need\n       `z-[var(--z-...)]` arbitrary utilities (z-21, z-70). Lists\n       every consumer with a one-liner so a reader can trace any\n       z-utility back to its layer in the stacking scheme.\n\nBuild clean, 60/60 tests pass.\n\nTags: hygiene, ui, accessibility, documentation, audit\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: vanilla-daisyui-cleanup\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui",
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "vanilla-daisyui-cleanup",
+  "semver": "patch",
+  "scope": "hygiene",
+  "title": "inline-style → utility, mobile copy, z-index doc",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#11",
+    "#12",
+    "#18"
+  ],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 18,
+    "deletions": 5
+  },
+  "files": [
+    "dashboard/js/components/QuickGuide.jsx",
+    "dashboard/js/sections/Progress.jsx",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,49 @@
+{
+  "sha": "063147b",
+  "fullSha": "063147b6c3f4741fb9d5e9a2ccafa868d433aa7f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T07:27:01Z",
+  "commitDate": "2026-04-15T07:27:01Z",
+  "subject": "refactor(dashboard): Phase 4a — drawers to DaisyUI drawer component",
+  "body": "Replaces the three custom slide-over panes (filter sidebar, detail\npane, settings pane) with DaisyUI's native `drawer` component.\nPositioning, slide animation, overlay rendering, and click-outside-\nto-close are all handled by DaisyUI CSS + native `<input type=\"checkbox\">`\nstate synced to React via controlled onChange.\n\nApp.jsx rewritten to nest three drawer wrappers:\n  - Outer: `drawer lg:drawer-open` for FilterSidebar (left side,\n    inline on lg+, overlay below lg)\n  - Middle: `drawer drawer-end` for DetailPane (right side slide-over)\n  - Inner: `drawer drawer-end` for SettingsPane (right side slide-over)\n  - Innermost content wraps Header + TabBar + the main tab router\n\nEach drawer input is controlled:\n  checked={state.xxxOpen}\n  onChange={e => dispatch({ type: e.target.checked ? 'OPEN_XXX' : 'CLOSE_XXX' })}\n\nThe `drawer-overlay` label[htmlFor] handles click-outside-to-close\nwithout any JS — DaisyUI's drawer-side component generates the\nbackdrop as a sibling label that unchecks the checkbox when clicked.\n\nFilterSidebar.jsx simplified:\n  - Dropped the wrapper div + mobile overlay sibling\n  - Now renders only the inner content as an `<aside className=\"menu\n    bg-base-200 min-h-full w-80 p-4 space-y-4\">` which lives inside\n    the drawer-side in App.jsx\n\nDetailPane.jsx simplified:\n  - Dropped `.detail-pane-overlay` sibling and `.detail-pane` wrapper\n  - Now renders as `flex flex-col h-full w-full max-w-lg bg-base-200\n    border-l border-base-300`\n  - DaisyUI drawer-end provides the transform/slide animation\n  - useFocusTrap + useEscapeKey hooks still run for keyboard UX\n\nSettingsPane.jsx simplified:\n  - Same pattern as DetailPane — bare content inside drawer-side\n  - Max width w-sm for the narrower settings panel\n\nAppContext new actions:\n  - OPEN_FILTER_SIDEBAR: sets filterSidebarOpen = true\n  - OPEN_SETTINGS_PANE: sets settingsPaneOpen = true\n  These complement the existing TOGGLE_/CLOSE_ actions so the drawer\n  onChange can explicitly open (e.target.checked) without flipping\n  current state.\n\nstyles.css deletions (10+ CSS rules):\n  - .detail-pane + .detail-pane.open + mobile bottom-sheet @media\n  - .detail-pane-overlay + .detail-pane-overlay.open\n  - .detail-pane-header::before (mobile drag handle pseudo)\n  - .settings-pane + .settings-pane.open + mobile bottom-sheet @media\n  - .settings-pane-overlay + .settings-pane-overlay.open\n  - .settings-pane-header::before (mobile drag handle pseudo)\n  - .filter-sidebar + .filter-sidebar.open + .filter-sidebar.collapsed\n  - .filter-sidebar-overlay + .filter-sidebar-overlay.open\n  - @media (max-width: 768px) .filter-sidebar transforms block\n  - .dashboard-enter + @keyframes dashboard-enter (page-load fade-in\n    animation — vanilla sweep removes cosmetic entrance animations)\n\nTests (daisyui-surfaces.test.mjs):\n  - LEGITIMATE_CUSTOM_CLASSES allowlist: removed filter-sidebar,\n    filter-sidebar-overlay, detail-pane, detail-pane-overlay,\n    detail-pane-header, settings-pane, settings-pane-overlay,\n    settings-pane-header, dashboard-enter (9 classes)\n\nVisual regression:\n  - Mobile bottom-sheet variant for detail/settings panes is gone —\n    on mobile both panes now slide in from the right (DaisyUI drawer\n    doesn't ship a bottom-sheet variant). Functionally equivalent,\n    visually different direction.\n  - Mobile drag-handle pills (::before pseudos on pane headers) are\n    gone. DaisyUI doesn't include one.\n  - Page-load fade-in animation removed.\n  - DaisyUI drawer uses its own transform transition timing which\n    may feel slightly different from the custom 0.3s ease values.\n\nAllowlist status: custom CSS classes dropped from 18 → 9.\n\nVerified: vite build clean (2.74s), 60/60 tests pass.\n\nTags: refactor, ui, daisyui, cleanup, vanilla, drawer\nComplexity: 5\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 5,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-v5-migration",
+  "semver": "patch",
+  "scope": "dashboard",
+  "title": "Phase 4a — drawers to DaisyUI drawer component",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 227,
+    "deletions": 508
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/components/DetailPane.jsx",
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/SettingsPane.jsx",
+    "dashboard/styles.css",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

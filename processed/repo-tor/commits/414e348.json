@@ -1,0 +1,47 @@
+{
+  "sha": "414e348",
+  "fullSha": "414e34818956fa139dd8a0c1dc6cec5b7b569fee",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T07:31:15Z",
+  "commitDate": "2026-04-15T07:31:15Z",
+  "subject": "refactor(dashboard): Phase 4d-j — strip remaining custom classes",
+  "body": "Deletes every remaining custom CSS class from styles.css. The allowlist\nis now empty — the vanilla-DaisyUI sweep is complete.\n\nDeleted custom classes + migrations:\n\n  .dashboard-header + ::after gradient — removed entirely. Header.jsx\n    now uses `border-b border-base-300` for the divider. Decorative\n    primary-tinted gradient line is gone.\n\n  .hamburger-dropdown + @keyframes hamburger-fade-in — HamburgerMenu.jsx\n    now uses inline Tailwind utilities for the dropdown surface:\n    `fixed min-w-52 max-w-[calc(100vw-2rem)] bg-base-200 border\n    border-base-300 rounded-md shadow-xl z-50 py-1`. The 0.12s fade-in\n    animation is gone; dropdown appears immediately.\n\n  .hamburger-update-dot + @keyframes hamburger-pulse — Header.jsx now\n    uses `w-2 h-2 rounded-full bg-primary animate-pulse` (Tailwind's\n    stock animate-pulse utility) for the PWA update indicator.\n\n  .scrollbar-hide + ::-webkit-scrollbar — TabBar.jsx mobile tab row\n    now shows the native scrollbar when overflowing. Minor aesthetic\n    regression accepted per vanilla directive.\n\n  .header-filter-hint — Header.jsx filtered-state button now uses\n    DaisyUI `btn btn-link btn-sm p-0 min-h-0 h-auto text-primary`\n    (native underlined link-style button).\n\n  .root-error-message / .root-error-detail / .root-error-hint —\n    main.jsx root error boundary fallback now inlines Tailwind\n    utilities directly. If CSS load fails, the error message falls\n    back to browser default styling. Acceptable given the vanilla-only\n    directive — previously the root-error classes existed specifically\n    to survive CSS failure.\n\n  @media print block trimmed: removed references to deleted\n    `.dashboard-header`, `.hamburger-menu`, `.header-filter-hint`.\n    Only element selectors (body, a, section) and DaisyUI overrides\n    remain. Print-hiding of chrome is handled via Tailwind's `print:hidden`\n    variant on JSX consumers instead.\n\ndaisyui-surfaces.test.mjs:\n  - LEGITIMATE_CUSTOM_CLASSES allowlist: set to empty Set — every\n    custom class has been deleted. The allowlist guard now enforces\n    a zero-custom-class policy.\n  - No allowlist entries remain to verify against.\n\nVisual regressions (all accepted per vanilla directive):\n  - Header no longer has decorative gradient accent line below it\n  - Hamburger dropdown appears without fade-in animation\n  - Mobile tab bar shows native scrollbar when overflowing\n  - Root error fallback has simpler typography\n\nVerified: vite build clean (2.75s), 60/60 tests pass, allowlist is empty\nand the guard test passes trivially.\n\nFinal custom-CSS count: 0.\nTotal custom classes deleted in the full vanilla sweep: 24 → 0.\n\nTags: refactor, ui, daisyui, cleanup, vanilla\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "removal"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-v5-migration",
+  "semver": "patch",
+  "scope": "dashboard",
+  "title": "Phase 4d-j — strip remaining custom classes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 43,
+    "deletions": 160
+  },
+  "files": [
+    "dashboard/js/components/HamburgerMenu.jsx",
+    "dashboard/js/components/Header.jsx",
+    "dashboard/js/components/TabBar.jsx",
+    "dashboard/js/main.jsx",
+    "dashboard/styles.css",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}
