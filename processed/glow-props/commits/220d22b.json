@@ -1,0 +1,44 @@
+{
+  "sha": "220d22b",
+  "fullSha": "220d22b9f8a534f3b00eb37ca9b4eeb2e1144fb0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-16T08:56:14Z",
+  "commitDate": "2026-04-16T08:56:14Z",
+  "subject": "docs(todo): mark repo-tor fully compliant — all gaps implemented",
+  "body": "Re-audited repo-tor against actual code. All 5 pattern gaps are now\nimplemented:\n- APP_ICONS: 180px apple-touch-icon + favicon.ico generation\n- Z_INDEX_SCALE: inline pill now uses z-80, full scale in CSS vars\n- DEBUG_SYSTEM: full debugLog module, console interception, #debug-root,\n  React DebugPill with 3 tabs, clipboard fallbacks, URL redaction\n- THEME_DARK_MODE: DaisyUI v5 with 8 themes, data-theme, flash\n  prevention, cross-tab sync via storage event, meta theme-color,\n  generate-theme-meta script\n- BURGER_MENU: useDisclosureFocus + useFocusTrap wired, Home/End keys,\n  disabled items, theme UI\n\nEVENT_BUS decided against — React Context dispatch is sufficient.\n\n4 repos now fully compliant: glow-props, canva-grid, budgy-ting, repo-tor.\n\nTags: documentation, audit, patterns, cross-project\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pattern-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01CKqDf6SZ2KGeAXjZS2s91W",
+  "tags": [
+    "documentation",
+    "audit",
+    "patterns",
+    "cross-project"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pattern-alignment",
+  "semver": "patch",
+  "scope": "todo",
+  "title": "mark repo-tor fully compliant — all gaps implemented",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 16,
+    "deletions": 74
+  },
+  "files": [
+    "docs/TODO.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

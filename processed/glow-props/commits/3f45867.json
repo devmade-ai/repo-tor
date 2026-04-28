@@ -1,0 +1,43 @@
+{
+  "sha": "3f45867",
+  "fullSha": "3f4586748f1002e8a092b74f7aa5479f4c38def5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T21:13:26Z",
+  "commitDate": "2026-04-17T21:13:26Z",
+  "subject": "docs(claude): redesign Triggers — 34 perspectives, 7 groups, scope modifiers",
+  "body": "Replaced the 9-trigger set (review/audit/docs/mobile/clean/performance/\nsecurity/debug/improve) with 34 focused perspectives organized into 7\ngroups: correctness, trust, speed, frontend, quality, ops, design.\n\nInvocation: type a trigger for one perspective, a group name for a\nfamily, `all` for everything, or a meta sweep (`quick`, `ship`, `risk`).\n\nScope modifiers (branch / branch <base> / staged / file <path>) let any\ntrigger run against the whole codebase, the current branch's diff, or a\nsingle file.\n\nNew perspectives added: errors, race, types, edges, privacy, supply-chain,\nnetwork, database, bundle, a11y, copy, i18n, dark-mode, naming, patterns,\ntests, complexity, deps, observability, reliability, config, migration,\nci, architecture, api, state, data-model.\n\nBehavior preserved: one pass per response, numbered findings, pause for\nfix/skip/stop after each pass. Groups + `all` + meta sweeps run sequentially\nin table order. Triggers that don't apply to the repo report \"N/A\" and\nskip.\n\nTags: documentation, triggers, claude-md\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: triggers-redesign\nSemver: minor\n\nhttps://claude.ai/code/session_013TSNyXMQiUmG4hPbycbrZT",
+  "tags": [
+    "documentation",
+    "triggers",
+    "claude-md"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "triggers-redesign",
+  "semver": "minor",
+  "scope": "claude",
+  "title": "redesign Triggers — 34 perspectives, 7 groups, scope modifiers",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 111,
+    "deletions": 36
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

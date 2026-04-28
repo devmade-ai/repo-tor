@@ -1,0 +1,48 @@
+{
+  "sha": "2483bb3",
+  "fullSha": "2483bb306db0aeaecca61b8893feb92d55fd9b17",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T00:37:10Z",
+  "commitDate": "2026-04-17T00:37:10Z",
+  "subject": "docs(todo): tighten all stale claims, add per-repo tasks for new items",
+  "body": "Fixes discovered in review pass:\n- canva-grid and repo-tor no longer claim \"fully compliant\" — both\n  now Missing ICON_CACHE_BUST plus cross-fleet items\n- budgy-ting intro now lists all remaining items including cross-fleet\n- four-ems CLAUDE.md Confirm line corrected from ~475 to ~630 lines\n- Audit date corrected: re-audit was 2026-04-16, not 2026-04-10\n- Cross-cutting gaps section rewritten: \"Only glow-props is fully\n  clean\", added HISTORY.md removal as item #2, Communication section\n  propagation folded into CLAUDE.md alignment scope, counts updated\n\nPer-repo additions:\n- ICON_CACHE_BUST subsection added to all 9 PWA repos (Vite template\n  for 7, Expo/Metro template for few-lap and synctone)\n- Communication section propagation added to all 10 downstream repos\n  (folded into existing CLAUDE.md alignment tasks for 7 repos,\n  standalone subsection for canva-grid, budgy-ting, repo-tor)\n- SESSION_NOTES.md rewritten for this session\n\nTags: documentation, audit, cleanup, patterns, cross-project\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pattern-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01CKqDf6SZ2KGeAXjZS2s91W",
+  "tags": [
+    "documentation",
+    "audit",
+    "cleanup",
+    "patterns",
+    "cross-project"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pattern-alignment",
+  "semver": "patch",
+  "scope": "todo",
+  "title": "tighten all stale claims, add per-repo tasks for new items",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#2"
+  ],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 200,
+    "deletions": 49
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

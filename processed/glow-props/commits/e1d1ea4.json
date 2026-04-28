@@ -1,0 +1,43 @@
+{
+  "sha": "e1d1ea4",
+  "fullSha": "e1d1ea4d92d901adc1b923b5c0b66d2bc9dbd64d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T21:47:24Z",
+  "commitDate": "2026-04-17T21:47:24Z",
+  "subject": "docs(claude): add skipped + assumed + approach reflective triggers; split meta table",
+  "body": "Three new reflective passes, each individually invokable:\n- `skipped` / `skp` — what was skipped (including issues noticed outside\n  the current changes that were left alone)\n- `assumed` / `asm` — what was assumed (including things treated as\n  out of scope)\n- `approach` / `apr` — honest self-review: was the fix the best / most\n  proper way? What shortcuts were taken, what would a senior reviewer\n  flag, what does the proper version look like\n\nAlso split the old \"Meta sweeps\" table into two:\n- **Meta sweeps** — multi-trigger sweeps (`quick`, `ship`, `all`)\n- **Reflective passes** — single-pass reflections (`risk`, `surface`,\n  `wrap`, `skipped`, `assumed`, `approach`, `cold`)\n\nThe distinction is behavioral: sweeps fan out to other triggers and\npause between each; reflective passes answer one question without\nfan-out.\n\nTags: documentation, triggers, claude-md\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: triggers-redesign\nSemver: minor\n\nhttps://claude.ai/code/session_013TSNyXMQiUmG4hPbycbrZT",
+  "tags": [
+    "documentation",
+    "triggers",
+    "claude-md"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "triggers-redesign",
+  "semver": "minor",
+  "scope": "claude",
+  "title": "add skipped + assumed + approach reflective triggers; split meta table",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 13,
+    "deletions": 1
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

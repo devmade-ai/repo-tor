@@ -1,0 +1,47 @@
+{
+  "sha": "9003967",
+  "fullSha": "9003967f177d5cffef5fb7cd38531b597bc6d353",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-16T18:36:40Z",
+  "commitDate": "2026-04-16T18:36:40Z",
+  "subject": "docs: remove HISTORY.md — git history tracks completions",
+  "body": "Maintaining a separate HISTORY.md changelog duplicates what git\nhistory already tracks. Removing it across the fleet.\n\nChanges in glow-props:\n- Deleted docs/HISTORY.md\n- Removed HISTORY.md section from CLAUDE.md Documentation rules\n- Updated TODO.md guidance: \"delete completed items\" instead of\n  \"move to HISTORY.md\"\n- Removed HISTORY.md from README.md file tree\n\nAdded USER_ACTIONS.md entry to propagate this policy change to all\n10 downstream repos on their next session.\n\nTags: documentation, cleanup, policy, cross-project\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: docs-simplification\nSemver: patch\n\nhttps://claude.ai/code/session_01CKqDf6SZ2KGeAXjZS2s91W",
+  "tags": [
+    "documentation",
+    "cleanup",
+    "policy",
+    "cross-project"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "docs-simplification",
+  "semver": "patch",
+  "scope": null,
+  "title": "remove HISTORY.md — git history tracks completions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 16,
+    "deletions": 509
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/USER_ACTIONS.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 1,
+  "impact": "internal"
+}

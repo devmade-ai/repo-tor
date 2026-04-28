@@ -1,0 +1,48 @@
+{
+  "sha": "77a6db1",
+  "fullSha": "77a6db156e3e60346ec59452856c6831905861f1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-08T09:36:23Z",
+  "commitDate": "2026-04-08T09:36:23Z",
+  "subject": "fix(icons): add 180px Apple touch icon and resolve glow-props pattern gaps",
+  "body": "Add apple-touch-icon.png (180px) to icon generation script — Apple's\nrecommended size for iOS home screen. Update all HTML files to reference\nthe dedicated 180px icon instead of reusing the 192px PWA icon.\n\nMark DEBUG_SYSTEM and EVENT_BUS as N/A for this static portfolio repo.\nUpdate gap matrix to reflect full compliance.\n\nTags: icons, pwa, documentation\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pattern-compliance\nSemver: patch\n\nhttps://claude.ai/code/session_01BHgwkoqHrt1Tq8Rb2bDPc6",
+  "tags": [
+    "icons",
+    "pwa",
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pattern-compliance",
+  "semver": "patch",
+  "scope": "icons",
+  "title": "add 180px Apple touch icon and resolve glow-props pattern gaps",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 21,
+    "deletions": 18
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/TODO.md",
+    "index.html",
+    "pattern.html",
+    "project.html",
+    "scripts/generate-icons.mjs"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}
