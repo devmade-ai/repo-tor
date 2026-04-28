@@ -1,0 +1,41 @@
+{
+  "sha": "629a061",
+  "fullSha": "629a06165d63c1455ee38ffb2b7bc74dc5cc66a5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T20:09:35Z",
+  "commitDate": "2026-04-22T20:09:35Z",
+  "subject": "docs(claude): add \"Work, not process\" rule — 1 Communication bullet + 3 Prohibitions",
+  "body": "Closes a behavioral gap: AI assistants in this fleet (and sessions\nin glow-props itself) have been volunteering opinions on branching,\npull requests, git history editing, squash/rebase decisions, and\n\"scope\" framings that defer work. These are process concepts, not\nwork concepts, and the user's domain — not the assistant's.\n\nCommunication section gets one positive bullet (\"Work, not process\")\nstating the norm: only discuss work that can be done and work that\nis done. No process opinions influence task execution.\n\nProhibitions section gets three hard-stop bullets:\n\n1. Don't mention branches / PRs / squashing / rebasing / merging /\n   force-pushing unless the user raises the topic first. When they\n   do, answer the specific question and stop.\n\n2. Don't frame work as \"out of scope\" or \"deferred as out of scope\".\n   Work is either doable (do it) or blocked on missing user input\n   (say what input is needed). Scope is not a valid reason to skip.\n\n3. Don't offer opinions on git history editing, branch strategy,\n   PR size/shape, review flow, or commit structure. Follow\n   instructions; don't editorialize.\n\nPlacement rationale:\n- Communication bullet is sibling to \"Proper solutions only\" —\n  both govern how the assistant approaches a task.\n- Prohibitions bullets are siblings to the existing hard \"Never\"\n  rules — same register, same enforcement expectation.\n\nFleet propagation is automatic: every tracked repo (10 downstream +\ntool-till-tees) fetches glow-props CLAUDE.md on session start per\nthe Process section. This rule takes effect fleet-wide on the next\nsession in any of those repos without per-repo edits.\n\nTags: documentation, claude-md, ai-behavior, cross-fleet\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01Mx2aebqgqtBaC611uxsp7q",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-alignment",
+  "semver": "minor",
+  "scope": "claude",
+  "title": "add \"Work, not process\" rule — 1 Communication bullet + 3 Prohibitions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 4,
+    "deletions": 0
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

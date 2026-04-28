@@ -1,0 +1,41 @@
+{
+  "sha": "1f307f1",
+  "fullSha": "1f307f13a8adc703b3dfa64810c8a2c892394cbc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T22:23:45Z",
+  "commitDate": "2026-04-17T22:23:45Z",
+  "subject": "docs(claude): add cadence-based meta sweeps — hot, session, tidy",
+  "body": "Fills gaps in the meta-sweep cadence hierarchy. Previously only had\nquick/ship/all, which left \"just before commit\", \"end of session\", and\n\"weekly maintenance\" without a dedicated invocation.\n\nNew sweeps:\n- `hot` / `h` — pre-commit tier: `bugs` + `types` + `errors`. Lighter than\n  `quick`. Pairs with `hot staged` for staged-files-only check.\n- `session` / `ses` — end-of-session wrap: `surface` + `wrap` + `undone`\n  + `skipped`. Answers \"what state am I leaving this in?\"\n- `tidy` / `tdy` — weekly/maintenance: `clean` + `doc-cleanup` + `hacks`\n  + `deps` + `undone` + `dx`. Hygiene-focused subset of `quality`.\n\nAlso added a Cadence column to the table so the progression is clear\nat a glance: pre-commit → pre-push → pre-merge → end-of-session →\nweekly → quarterly.\n\nMeta sweep count: 3 → 6.\n\nTags: documentation, triggers, claude-md\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: triggers-redesign\nSemver: minor\n\nhttps://claude.ai/code/session_013TSNyXMQiUmG4hPbycbrZT",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "triggers-redesign",
+  "semver": "minor",
+  "scope": "claude",
+  "title": "add cadence-based meta sweeps — hot, session, tidy",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 10,
+    "deletions": 7
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

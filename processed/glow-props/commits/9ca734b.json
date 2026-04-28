@@ -1,0 +1,42 @@
+{
+  "sha": "9ca734b",
+  "fullSha": "9ca734bb6284bf7dee7c0b9a5d6183d575f0b874",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T00:09:37Z",
+  "commitDate": "2026-04-18T00:09:37Z",
+  "subject": "docs(todo): prune completed items across all 10 downstream repos",
+  "body": "Re-audited every per-repo TODO via GitHub API (one agent per repo) on\n2026-04-18. Deleted completed items per CLAUDE.md rule (\"delete completed\nitems — git history tracks them\"). File shrinks 1011 → 809 lines.\n\nKey deletions:\n- canva-grid: HISTORY.md, Communication, ICON_CACHE_BUST sections\n- budgy-ting: HISTORY.md, DOWNLOAD_PDF, Communication, EVENT_BUS + most\n  ICON_CACHE_BUST items\n- repo-tor: Communication, ICON_CACHE_BUST sections\n- graphiki: HISTORY.md, CLAUDE.md Align, BURGER_MENU, DEBUG_SYSTEM,\n  PWA_SYSTEM, EVENT_BUS + most ICON_CACHE_BUST items\n- few-lap: HISTORY.md, CLAUDE.md Align, APP_ICONS, BURGER_MENU sections\n- model-pear: DEBUG_SYSTEM section + prohibition sub-item\n\nCorrections:\n- synctone flash-prevention script marked present on 2026-04-17 is NOT\n  actually in +html.tsx; added back as a pending item.\n\nGap Matrix updated, Cross-Cutting Gaps rewritten to reflect new state.\nTriggers replacement remains the only universal outstanding item across\nall 10 downstream repos.\n\nTags: documentation, audit, fleet-alignment\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-pattern-alignment\nSemver: patch",
+  "tags": [
+    "docs",
+    "removal"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-pattern-alignment",
+  "semver": "patch",
+  "scope": "todo",
+  "title": "prune completed items across all 10 downstream repos",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 64,
+    "deletions": 266
+  },
+  "files": [
+    "docs/TODO.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}
