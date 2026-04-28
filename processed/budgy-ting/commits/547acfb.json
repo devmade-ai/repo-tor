@@ -1,0 +1,52 @@
+{
+  "sha": "547acfb",
+  "fullSha": "547acfb7df324b201293733121051f4c2e7bbe71",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T12:14:50Z",
+  "commitDate": "2026-04-09T12:14:50Z",
+  "subject": "feat(burger-menu): add arrow key navigation, enforce z-index scale",
+  "body": "ArrowDown/ArrowUp with wrapping and Home/End key navigation added to\nBurgerMenu.vue per glow-props BURGER_MENU pattern. Z-index scale\nenforced: modals/drawers promoted from z-50 to z-[60] so they layer\nabove the burger menu (z-50). Affected: BottomSheet, ConfirmDialog,\nHelpDrawer, InstallInstructionsModal, TransactionEditModal, TutorialModal.\nCLAUDE.md z-index table updated. Theme UI already implemented. Build verified.\n\nTags: burger-menu, a11y, z-index, glow-props-sync\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: glow-props-sync\nSemver: minor\n\nhttps://claude.ai/code/session_01HStghTVMRxyymnHn4AWxUi",
+  "tags": [
+    "feature",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "glow-props-sync",
+  "semver": "minor",
+  "scope": "burger-menu",
+  "title": "add arrow key navigation, enforce z-index scale",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 49,
+    "deletions": 11
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/BottomSheet.vue",
+    "src/components/BurgerMenu.vue",
+    "src/components/ConfirmDialog.vue",
+    "src/components/HelpDrawer.vue",
+    "src/components/InstallInstructionsModal.vue",
+    "src/components/TransactionEditModal.vue",
+    "src/components/TutorialModal.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

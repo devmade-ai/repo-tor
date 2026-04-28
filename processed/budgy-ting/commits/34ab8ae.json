@@ -1,0 +1,45 @@
+{
+  "sha": "34ab8ae",
+  "fullSha": "34ab8ae70356a3ee9255fafa6a61a36ee17cb03a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T11:41:32Z",
+  "commitDate": "2026-04-09T11:41:32Z",
+  "subject": "fix(icons): add geometricPrecision to SVG, remove orphaned favicon-48",
+  "body": "shape-rendering=\"geometricPrecision\" on icon.svg tells the rasterizer\nto prioritize accurate geometry for all icons (per glow-props APP_ICONS\npattern). Removed orphaned favicon-48x48.png that was generated but\nnever referenced by manifest, HTML, or includeAssets. Removed duplicate\nshape-rendering injection from maskable transform (source SVG now has it).\nBuild verified.\n\nTags: icons, pwa, cleanup, glow-props-sync\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: glow-props-sync\nSemver: patch\n\nhttps://claude.ai/code/session_01HStghTVMRxyymnHn4AWxUi",
+  "tags": [
+    "bugfix",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "glow-props-sync",
+  "semver": "patch",
+  "scope": "icons",
+  "title": "add geometricPrecision to SVG, remove orphaned favicon-48",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 3,
+    "deletions": 4
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "public/favicon-48x48.png",
+    "public/icon.svg",
+    "scripts/generate-icons.mjs"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}
