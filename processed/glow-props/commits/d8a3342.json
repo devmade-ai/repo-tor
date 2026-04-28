@@ -1,0 +1,43 @@
+{
+  "sha": "d8a3342",
+  "fullSha": "d8a3342de5811e066a3b5f676ac303ae9736bce3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T12:18:10Z",
+  "commitDate": "2026-04-02T12:18:10Z",
+  "subject": "docs(pwa): standardize install/update UI patterns from cross-repo audit",
+  "body": "Audited canva-grid, four-ems, sync-tone, and glow-props PWA implementations.\nRewrote PWA_SYSTEM.md to standardize on canva-grid's patterns: ref-based\ninterval cleanup for usePWAUpdate, data-driven getInstallInstructions() with\nfour-ems' iOS/macOS split, context-based Toast system replacing one-off banners,\nfocus-trapped InstallInstructionsModal with benefits section.\n\nTags: pwa, documentation, standardization, cross-repo\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pwa-system\nSemver: minor\n\nhttps://claude.ai/code/session_0113x2dhJ4gD9iUKygB9gLjt",
+  "tags": [
+    "documentation",
+    "patterns"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-system",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "standardize install/update UI patterns from cross-repo audit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 447,
+    "deletions": 130
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "docs/implementations/PWA_SYSTEM.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

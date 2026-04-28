@@ -1,0 +1,52 @@
+{
+  "sha": "39e94b2",
+  "fullSha": "39e94b2231fe6aace543c5ee56a7185c96288092",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T09:30:42Z",
+  "commitDate": "2026-04-02T09:30:42Z",
+  "subject": "fix(security,ux,a11y): full audit sweep — XSS, touch targets, skip link, safe areas",
+  "body": "Security (critical):\n- Fix XSS in inlineMarkdown(): escape HTML before formatting, validate\n  link hrefs via isSafeUrl() protocol allowlist\n- Escape meta.tech array before inserting into HTML\n- Validate meta.liveUrl/repoUrl protocols (reject javascript:/data:)\n\nBug fix (critical):\n- Random theme toggle stores String(newState) instead of boolean\n\nPWA fixes:\n- Fix Escape listener leak in install modal (cleaned up on all paths)\n- Add .catch() on deferredPrompt.userChoice and doc file fetches\n- Remove dead needsRefresh variable\n- Add data-close to install menu button (closes burger menu)\n- Add safe area insets to update banner and install modal\n\nMobile/Accessibility:\n- Bump card action buttons from btn-xs to btn-sm for 44px touch targets\n- Add skip-to-content link on both pages\n- Add OG meta tags for social sharing previews\n- Add 10s AbortController timeout on project metadata fetch\n\nDocs:\n- Update README (35 themes, not 8 combos)\n- Update PWA_SYSTEM.md version (^1.2.0)\n\nTags: security, xss, accessibility, mobile, pwa, ux, documentation\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: audit-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01HoZf1sn3s7HFAdrXTdCf66",
+  "tags": [
+    "security",
+    "vulnerability",
+    "sanitization",
+    "accessibility",
+    "bugfix"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "audit-sweep",
+  "semver": "patch",
+  "scope": "security,ux,a11y",
+  "title": "full audit sweep — XSS, touch targets, skip link, safe areas",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 166,
+    "deletions": 91
+  },
+  "files": [
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/implementations/PWA_SYSTEM.md",
+    "index.html",
+    "project.html",
+    "public/theme.js",
+    "src/pwa.js"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 4,
+  "impact": "user-facing"
+}

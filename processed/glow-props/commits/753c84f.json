@@ -1,0 +1,43 @@
+{
+  "sha": "753c84f",
+  "fullSha": "753c84f8742eb621a68abc5cbd1571fa85fef118",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T15:22:31Z",
+  "commitDate": "2026-04-01T15:22:31Z",
+  "subject": "fix(menu): fix tap-outside close and scroll-through on mobile",
+  "body": "Two bugs caused by the navbar's backdrop-filter creating a containing\nblock for position:fixed — the backdrop only covered the navbar area,\nnot the full viewport.\n\n1. Tap outside menu didn't close: replaced backdrop click handler with\n   a document-level click handler that checks if the target is outside\n   the menu and trigger. Works regardless of backdrop positioning.\n\n2. Scroll bled through to page: added body overflow lock on menu open,\n   restored on close. overscroll-contain alone only prevents chaining\n   on scroll containers — taps on non-scrollable menu areas (nav links,\n   toggle button) still chained to the body.\n\nTags: bugfix, mobile, ui, accessibility\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: patch\n\nhttps://claude.ai/code/session_01XtdBUsRggbA6nNYrNDHoFN",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-system",
+  "semver": "patch",
+  "scope": "menu",
+  "title": "fix tap-outside close and scroll-through on mobile",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 21,
+    "deletions": 2
+  },
+  "files": [
+    "public/theme.js"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 3,
+  "impact": "user-facing"
+}
