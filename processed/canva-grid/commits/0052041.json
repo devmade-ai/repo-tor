@@ -1,0 +1,42 @@
+{
+  "sha": "0052041",
+  "fullSha": "0052041df394b19aa59471e14eca649986a0136e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-03T11:17:42Z",
+  "commitDate": "2026-04-03T11:17:42Z",
+  "subject": "feat(mobile): make entire bottom sheet surface draggable",
+  "body": "Touch handlers moved from drag handle to the outer sheet container.\nContent-area touches are promoted to sheet drags only when the content\nis scrolled to top and the user pulls down, preserving normal scrolling\nbehavior within the sheet content.\n\nTags: mobile, ui, bottom-sheet, touch\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mobile-ux\nSemver: minor\n\nhttps://claude.ai/code/session_01KqSvdetpoiavQAeddphCmv",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "mobile-ux",
+  "semver": "minor",
+  "scope": "mobile",
+  "title": "make entire bottom sheet surface draggable",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 29,
+    "deletions": 10
+  },
+  "files": [
+    "src/components/BottomSheet.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

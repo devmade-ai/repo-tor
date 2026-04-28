@@ -1,0 +1,47 @@
+{
+  "sha": "ab3b877",
+  "fullSha": "ab3b877808ccff88a5731bdf8dc2cf231a4ca560",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T22:51:08Z",
+  "commitDate": "2026-04-02T22:51:08Z",
+  "subject": "fix(ui): restore missing range sliders using DaisyUI range component",
+  "body": "Custom CSS targeted wrong pseudo-element (::-webkit-slider-track instead\nof ::-webkit-slider-runnable-track), making sliders invisible in WebKit\nbrowsers. Replaced custom range styling with DaisyUI's built-in .range\ncomponent class which handles all browser pseudo-elements correctly.\n\nAll 15 range inputs across MediaTab, StyleTab, and LayoutTab now use\n`range range-primary range-sm` class. Mobile override bumps thumb to\nrange-md equivalent for touch targets.\n\nTags: ui, slider, daisyui, bugfix\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: slider-visibility\nSemver: patch\n\nhttps://claude.ai/code/session_019qr8PY5KVKAazhwwjZfsMr",
+  "tags": [
+    "bugfix",
+    "ui",
+    "hotfix",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "slider-visibility",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "restore missing range sliders using DaisyUI range component",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 23,
+    "deletions": 69
+  },
+  "files": [
+    "src/components/LayoutTab.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/StyleTab.jsx",
+    "src/index.css"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 4,
+  "impact": "user-facing"
+}
