@@ -1,0 +1,45 @@
+{
+  "sha": "65115ee",
+  "fullSha": "65115ee341441caabc84e3dfb60c8b7101cffa38",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T19:49:22Z",
+  "commitDate": "2026-04-18T19:49:22Z",
+  "subject": "fix(pwa): cold-pass fixes — fail-loud SW, prerender guard, dead import",
+  "body": "Four findings from cold-branch audit:\n\n1. inject-icon-hashes silently skipped missing sw.js PRECACHE literals,\n   the exact format-drift failure the pattern warns about. Added\n   SW_EXPECTED_URLS set + explicit error with missing list. Regex-match\n   accepts bare or already-versioned literal so idempotent re-runs and\n   hash refresh both work.\n2. statSync imported but unused. Removed.\n3. usePWAUpdate.handleVisibilityChange used a bare else, which treats\n   'prerender' as 'visible' and starts polling during prerender. Tightened\n   to explicit === 'visible'.\n4. icon-hashes.json was written to public/ (source tree) in addition to\n   dist/. Dropped the public/ write — dist/ is the only consumer — and\n   removed the now-unnecessary .gitignore entry.\n\nVerified via dry-run: happy path, idempotent re-run, hash refresh after\nicon byte change, and fail-loud on removed PRECACHE literal all pass.\n\nTags: pwa, build, fix, cleanup\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pwa-polish\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "build",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-polish",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "cold-pass fixes — fail-loud SW, prerender guard, dead import",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 45,
+    "deletions": 23
+  },
+  "files": [
+    ".gitignore",
+    "scripts/inject-icon-hashes.mjs",
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

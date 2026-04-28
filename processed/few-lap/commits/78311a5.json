@@ -1,0 +1,45 @@
+{
+  "sha": "78311a5",
+  "fullSha": "78311a52e611de6f4f2451a5a8f60024ae62efe4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T00:32:03Z",
+  "commitDate": "2026-04-18T00:32:03Z",
+  "subject": "refactor(debug): extract PwaDiagnosticsTab + shared debugPalette",
+  "body": "DebugPill.tsx was at 613 lines and mixing four concerns: the pill\nshell (collapsed + expanded), log-row rendering, env-tab rendering,\nand the whole PWA diagnostics sub-tab (component + async runPwaDiagnostics\n+ DiagLine type). The PWA surface is self-contained, web-only, and\nconceptually separate — clean extraction candidate.\n\n- New: src/debug/PwaDiagnosticsTab.tsx — component + async diagnostic\n  runner + DiagLine type + its own StyleSheet. Defensively re-gates\n  on Platform.OS === 'web' inside the runner so a future caller\n  can't accidentally hit window / navigator on native.\n- New: src/debug/debugPalette.ts — extracted C / SEVERITY / SOURCE /\n  monoIfWeb from DebugPill.tsx so PwaDiagnosticsTab can reuse them\n  without duplication. Typed against DebugSeverity / DebugSource\n  from debugLog.\n- DebugPill.tsx imports both; removed the inline PwaDiagnosticsTab,\n  runPwaDiagnostics, DiagLine, palette constants, and the now-unused\n  pwaList / pwaLine StyleSheet entries.\n\nLine counts:\n  Before: DebugPill.tsx 613.\n  After:  DebugPill.tsx 466, PwaDiagnosticsTab.tsx 138,\n          debugPalette.ts 50.\n\nDebugPill.tsx is now under the 500-line \"consider extraction\"\nthreshold from CLAUDE.md code standards.\n\nCLAUDE.md architecture section updated with both new files.\n\nNo behaviour change. tsc 0, jest 83/83, expo web build clean.\n\nTags: debug, refactor, modularity\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "extract PwaDiagnosticsTab + shared debugPalette",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 194,
+    "deletions": 148
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/debug/DebugPill.tsx",
+    "src/debug/PwaDiagnosticsTab.tsx",
+    "src/debug/debugPalette.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "internal"
+}

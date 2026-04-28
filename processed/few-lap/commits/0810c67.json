@@ -1,0 +1,42 @@
+{
+  "sha": "0810c67",
+  "fullSha": "0810c6723c0197d896151640916d5141dff0223c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T00:20:25Z",
+  "commitDate": "2026-04-18T00:20:25Z",
+  "subject": "fix(debug): sentinel-guard global error listeners against Fast Refresh duplication",
+  "body": "The console-patch block has had a __debugPatched sentinel from day one\nto avoid re-wrapping console.error/warn on repeat module execution.\nThe two window-level listeners right above it did not. On Fast Refresh\n(dev) or any other repeat module evaluation, each re-execute would\naddEventListener again — silently multiplying every captured error by\nthe number of re-executes.\n\nFix: mirror the console-patch pattern with a __debugGlobalListenersInstalled\nsentinel on globalThis. Registration runs only when the flag is unset;\nre-executions see it set and skip.\n\nNew tests (2):\n- Asserts that on first module load, addEventListener was called once\n  each for 'error' and 'unhandledrejection'.\n- Under jest.isolateModules + re-require, asserts zero new\n  addEventListener calls for those types.\n\nJest plumbing: Node's globalThis has no addEventListener (web-only API),\nso the production `typeof globalThis.addEventListener !== 'undefined'`\nguard would have made the branch a dead no-op under jest. Install a\njest.fn stub BEFORE the first require so the branch actually executes\nand idempotency is observable.\n\ntsc 0, jest 81/81 (up from 79), expo web build clean.\n\nTags: debug, bugfix, fast-refresh, tests\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "sentinel-guard global error listeners against Fast Refresh duplication",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 56,
+    "deletions": 12
+  },
+  "files": [
+    "src/debug/__tests__/debugLog.test.ts",
+    "src/debug/debugLog.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

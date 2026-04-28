@@ -1,0 +1,43 @@
+{
+  "sha": "c4a9337",
+  "fullSha": "c4a933766d8a5cd8b0595bf87786083aea476225",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T19:52:55Z",
+  "commitDate": "2026-04-18T19:52:55Z",
+  "subject": "fix(pwa): wire icon-hash injector into Vercel build + mark favicon immutable",
+  "body": "Vercel uses buildCommand directly, not `npm run build`, so production\ndeploys were skipping inject-icon-hashes.mjs and shipping un-versioned\nicon URLs. Every cache layer below the OS would keep serving the old\nicon indefinitely — the exact failure mode the pattern doc warns about.\n\nAlso mark /favicon.png as immutable since the URL is now content-addressed\nvia ?v=<hash>. /assets/images/* already gets the treatment via the\n/assets/(.*) rule; /favicon.png was falling through to max-age=0 in the\ncatch-all. Bytes change → URL changes → browsers/CDN can safely cache\nthe versioned form for a year.\n\nTags: pwa, infrastructure, caching, vercel\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pwa-polish\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "build",
+    "caching"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-polish",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "wire icon-hash injector into Vercel build + mark favicon immutable",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 7,
+    "deletions": 1
+  },
+  "files": [
+    "vercel.json"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

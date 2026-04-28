@@ -1,0 +1,41 @@
+{
+  "sha": "8934392",
+  "fullSha": "893439245a284d21e63e4a2c5652125a6bff6793",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T08:32:07Z",
+  "commitDate": "2026-04-18T08:32:07Z",
+  "subject": "chore(claude-md): align with glow-props — 4 drift fixes from `align` pass",
+  "body": "Trigger: `align`. Compared section-by-section against glow-props\nCLAUDE.md (fetched fresh via GitHub API). Found 3 real drifts + 1\nbullet that glow-props removed upstream but is worth keeping locally.\n\n1. Added 'Discontinued repos — skip entirely' bullet to AI Notes\n   (`plant-fur` and `coin-zapp` are discontinued; don't include in\n   cross-project operations). Placed immediately before the\n   'Implementation patterns' bullet to match glow-props ordering.\n\n2. Re-ordered Prohibitions: moved 'Create local copies of\n   implementation pattern files' from last position to 3rd position,\n   matching glow-props. Content unchanged, position differed.\n\n3. Updated Documentation TODO-cleanup wording from 'delete completed\n   items (git history tracks them)' to glow-props' clearer 'delete\n   from TODO (git history tracks completions — no separate changelog\n   needed)'.\n\n4. Retained local 'NEVER use AskUserQuestion tool' rule with an\n   explicit '(Local-only rule. Previously in glow-props; no longer\n   upstream as of 2026-04-17. Retain unless there's evidence the\n   tool's behaviour changed.)' annotation so future `align` passes\n   don't re-flag it as drift. Rule was useful; no evidence the\n   underlying tool behaviour has changed.\n\nShared sections (Process / Principles / Communication / Code\nStandards / Prohibitions / Triggers) are now byte-identical to\nglow-props. Project-specific augmentations (Project Status,\nArchitecture, Key State Structures, docs/DATA_EXTRACTION.md entry,\nDocker / Proxy / AI_MISTAKES / project-spec / Trigger collision\nnotes) correctly remain — these are the expected local extensions\ncalled out in the top-of-file blockquote.\n\nTags: claude-md, align, fleet, policy\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "scope": "claude-md",
+  "title": "align with glow-props — 4 drift fixes from `align` pass",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 4,
+    "deletions": 3
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}
