@@ -1,0 +1,48 @@
+{
+  "sha": "7c70d5f",
+  "fullSha": "7c70d5fad33f6c96fc79f7fcebb89d45c0c621b4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T11:44:24Z",
+  "commitDate": "2026-04-05T11:44:24Z",
+  "subject": "fix: remove X-Frame-Options — public dashboard doesn't need it",
+  "body": "Revert to simpler approach: remove X-Frame-Options entirely instead\nof the /embed path workaround. The dashboard is public, read-only,\nwith no auth — there are no actions to clickjack. The embed feature\nis designed for cross-origin use (CVs, portfolios, external apps).\n\nThis means no changes needed in see-veo or other embedding apps —\nexisting ?embed= URLs work as before.\n\nTags: security, embed, bugfix\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: embed-system\nSemver: patch\n\nhttps://claude.ai/code/session_01NJidJUBTVXpGasGxA8qzhJ",
+  "tags": [
+    "bugfix",
+    "security",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "embed-system",
+  "semver": "patch",
+  "scope": null,
+  "title": "remove X-Frame-Options — public dashboard doesn't need it",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 11,
+    "deletions": 48
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/js/App.jsx",
+    "docs/EMBED_REFERENCE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "vercel.json"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 4,
+  "impact": "user-facing"
+}

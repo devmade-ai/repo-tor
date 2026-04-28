@@ -1,0 +1,46 @@
+{
+  "sha": "d9deaf8",
+  "fullSha": "d9deaf8ea95bc15e59d9301183ca650ee0c7d77f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-06T12:43:31Z",
+  "commitDate": "2026-04-06T12:43:31Z",
+  "subject": "fix(pwa): align SW update flow with synctone/few-lap/canva-grid patterns",
+  "body": "Cross-project review found 4 issues:\n\n1. skipWaiting/prompt conflict: skipWaiting:true in workbox config\n   auto-activated new SWs, causing controllerchange reload before the\n   user ever saw the update prompt. Removed — now user-controlled via\n   applyUpdate() which sends SKIP_WAITING message.\n\n2. Surprise reloads: controllerchange listener reloaded on ANY SW\n   takeover, including background lifecycle events. Added\n   _userClickedUpdate guard so only user-initiated updates reload.\n\n3. False re-detection: After reload from update, onNeedRefresh could\n   fire again for the same SW version. Added 30s sessionStorage\n   suppression window (pattern from synctone/few-lap).\n\n4. No recovery: If SW serves corrupt assets, app hangs on spinner\n   forever. Added 30s recovery script that clears caches and\n   unregisters SW (max 2 attempts per session, pattern from\n   synctone/few-lap).\n\nTags: pwa, resilience, cross-project\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_016hJj32ZoXvcDL5fCjPCDmD",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pwa-hardening",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "align SW update flow with synctone/few-lap/canva-grid patterns",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 120,
+    "deletions": 10
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/js/pwa.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

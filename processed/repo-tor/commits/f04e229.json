@@ -1,0 +1,53 @@
+{
+  "sha": "f04e229",
+  "fullSha": "f04e22966cae026506b045ad7a05337328012f70",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-07T17:12:03Z",
+  "commitDate": "2026-04-07T17:12:03Z",
+  "subject": "feat(theme): install DaisyUI v5, delete all custom CSS variables",
+  "body": "DaisyUI v5 with corporate (light) and business (dark) themes — both\nhave blue primaries, zero color overrides needed.\n\nDeleted all 50+ custom CSS variables (:root and html.dark blocks).\nReplaced 395+ var() references with DaisyUI theme tokens:\n  --color-base-100/200/300 (backgrounds)\n  --color-base-content (text)\n  --color-primary/success/error/warning (semantic)\n\nWhere DaisyUI has no token (text opacity levels, primary alpha),\nused color-mix() with theme variables. Hardcoded semantic colors\n(tag bugfix/fix/enhancement) replaced with DaisyUI error/success/\nwarning tokens. Shadows/overlays stay hardcoded (theme-independent).\n\nAdded data-theme attribute and <meta name=\"theme-color\"> to flash\nprevention script, AppContext, and index.html.\n\nOnly remaining CSS variables: z-index scale (no DaisyUI equivalent),\nchart-accent-rgb and tag-* (runtime dynamic set by JS).\n\nTags: feature, refactor, ui, infrastructure\nComplexity: 5\nUrgency: 2\nImpact: user-facing\nRisk: high\nDebt: paid\nEpic: theme-dark-mode\nSemver: major\n\nhttps://claude.ai/code/session_01TG6uueaaKqyGSVoj8oc1fX",
+  "tags": [
+    "revert",
+    "feature",
+    "ui",
+    "migration"
+  ],
+  "complexity": 5,
+  "risk": "high",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "major",
+  "scope": "theme",
+  "title": "install DaisyUI v5, delete all custom CSS variables",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 640,
+    "deletions": 377
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/App.jsx",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/sections/Tags.jsx",
+    "dashboard/styles.css",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/implementations/THEME_DARK_MODE.md",
+    "package-lock.json",
+    "package.json"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

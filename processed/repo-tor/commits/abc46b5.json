@@ -1,0 +1,46 @@
+{
+  "sha": "abc46b5",
+  "fullSha": "abc46b50e82ad37b3033b8445d760def88eab803",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-07T17:11:08Z",
+  "commitDate": "2026-04-07T17:11:08Z",
+  "subject": "feat(menu): add focus trap, Home/End keys, disabled items, extract useDisclosureFocus",
+  "body": "- Extracted useDisclosureFocus hook — reusable open/close focus cycle\n- Wired useFocusTrap into burger menu — Tab trapped within dropdown\n- Added Home/End keys alongside ArrowDown/ArrowUp\n- Added disabled item support — grayed-out, skipped by keyboard nav\n\nTags: feature, a11y, refactor, ui\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: burger-menu\nSemver: minor\n\nhttps://claude.ai/code/session_01TG6uueaaKqyGSVoj8oc1fX",
+  "tags": [
+    "revert",
+    "feature",
+    "accessibility",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "burger-menu",
+  "semver": "minor",
+  "scope": "menu",
+  "title": "add focus trap, Home/End keys, disabled items, extract useDisclosureFocus",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 62,
+    "deletions": 28
+  },
+  "files": [
+    "dashboard/js/components/HamburgerMenu.jsx",
+    "dashboard/js/hooks/useDisclosureFocus.js",
+    "docs/implementations/BURGER_MENU.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

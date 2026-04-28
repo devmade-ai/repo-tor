@@ -1,0 +1,44 @@
+{
+  "sha": "3d1a579",
+  "fullSha": "3d1a5799f21f58b199dd7553fa514cfa1768d0b1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-06T21:29:16Z",
+  "commitDate": "2026-04-06T21:29:16Z",
+  "subject": "fix(pwa): restore installPWA return value, cleanup per CLAUDE.md audit",
+  "body": "CLAUDE.md compliance review found 4 issues:\n\n1. BUG: installPWA() changed return value from \"prompt shown\" to\n   \"user accepted\". Header.jsx checks the return to decide whether\n   to show manual install instructions — returning false on dismiss\n   incorrectly opened the modal. Restored to return true when\n   prompt is shown (regardless of user choice).\n\n2. PROHIBITION: Silent .catch(() => {}) in storeCurrentBuildTime()\n   lacked explanation. Added comment documenting why it's intentional\n   (fire-and-forget, non-critical, page about to reload).\n\n3. DEAD CODE: offlineGoogleAnalytics: false in vite.config.js was a\n   no-op default value creating confusion. Removed.\n\n4. DOC: Added pwaConstants.js to CLAUDE.md Key Components listing.\n\nTags: pwa, cleanup, compliance\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_016hJj32ZoXvcDL5fCjPCDmD",
+  "tags": [
+    "bugfix",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-hardening",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "restore installPWA return value, cleanup per CLAUDE.md audit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 9,
+    "deletions": 4
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/pwa.js",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

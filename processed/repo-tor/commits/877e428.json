@@ -1,0 +1,47 @@
+{
+  "sha": "877e428",
+  "fullSha": "877e428693b149748deb82c709ce7c90a6ed8f1f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-07T17:10:48Z",
+  "commitDate": "2026-04-07T17:10:48Z",
+  "subject": "feat(icons): add apple-touch-icon and dual-directory output",
+  "body": "Added 180px apple-touch-icon for iOS home screen. Generator now writes\nall 7 icons to both assets/images/ and dashboard/public/assets/images/\nin one pass — eliminates manual copy step.\n\nTags: feature, pwa, ios, infrastructure\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: app-icons\nSemver: minor\n\nhttps://claude.ai/code/session_01TG6uueaaKqyGSVoj8oc1fX",
+  "tags": [
+    "revert",
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "app-icons",
+  "semver": "minor",
+  "scope": "icons",
+  "title": "add apple-touch-icon and dual-directory output",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 77,
+    "deletions": 17
+  },
+  "files": [
+    "assets/images/apple-touch-icon.png",
+    "dashboard/index.html",
+    "dashboard/public/assets/images/apple-touch-icon.png",
+    "docs/implementations/APP_ICONS.md",
+    "scripts/generate-icons.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

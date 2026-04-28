@@ -1,0 +1,47 @@
+{
+  "sha": "dcaf423",
+  "fullSha": "dcaf42349955486b063ed935edca3bab3cc9d9c8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-07T17:11:23Z",
+  "commitDate": "2026-04-07T17:11:23Z",
+  "subject": "feat(debug): add React DebugPill with pub/sub, console interception, clipboard fallbacks",
+  "body": "Two-phase debug system: inline HTML pill (pre-React) + React DebugPill\n(post-mount in separate #debug-root, survives App crashes).\n\n- debugLog.js: typed pub/sub event store, 200-entry circular buffer,\n  URL query param redaction in reports\n- debugConsoleInterceptor.js: patches console.error/warn with reentrant\n  guard to prevent infinite recursion\n- DebugPill.jsx: 3 tabs (Log, Environment, PWA), collapsed pill badge,\n  3-tier clipboard fallback (ClipboardItem > writeText > textarea)\n- main.jsx: transfers inline errors, hides inline pill, mounts React pill,\n  uses original console.error in ErrorBoundary to avoid double-capture\n\nTags: feature, debug, infrastructure\nComplexity: 4\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: minor\n\nhttps://claude.ai/code/session_01TG6uueaaKqyGSVoj8oc1fX",
+  "tags": [
+    "revert",
+    "feature",
+    "monitoring"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-system",
+  "semver": "minor",
+  "scope": "debug",
+  "title": "add React DebugPill with pub/sub, console interception, clipboard fallbacks",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 636,
+    "deletions": 28
+  },
+  "files": [
+    "dashboard/js/components/DebugPill.jsx",
+    "dashboard/js/debugConsoleInterceptor.js",
+    "dashboard/js/debugLog.js",
+    "dashboard/js/main.jsx",
+    "docs/implementations/DEBUG_SYSTEM.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}
