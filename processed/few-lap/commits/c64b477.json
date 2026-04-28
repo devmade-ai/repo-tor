@@ -1,0 +1,45 @@
+{
+  "sha": "c64b477",
+  "fullSha": "c64b4770d0684e27c06da837f6b5d5fc1b9f9b21",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T21:20:02Z",
+  "commitDate": "2026-04-21T21:20:02Z",
+  "subject": "fix(db): accept spatial_ref_sys RLS lint warning; remove unapplyable migration",
+  "body": "Tested live: Studio SQL Editor fails with the same 42501 as the\nmanagement API and `supabase db push`. I was wrong earlier in this\nsession when I claimed Studio was the escalation path — on this\nproject it runs as `postgres`, same as the others, and `postgres` is\nnot a member of `supabase_admin` so `SET ROLE` doesn't help.\n\nChecked the full escalation surface before giving up:\n- No shipped SECURITY DEFINER helper owned by supabase_admin covers\n  RLS/ALTER (searched pg_proc for %rls%, %spatial%, %alter%, %admin%,\n  %privileg% — zero matches).\n- supabase_privileged_role isn't a member of supabase_admin and\n  doesn't have UPDATE on spatial_ref_sys.\n\nThe only real path to flip the bit is a Supabase support ticket.\nNot worth it — spatial_ref_sys is PostGIS public reference data, our\napp never writes to it, and \"writes denied by RLS\" is already\nenforced by table ownership (we can't write to a table we don't own).\nThe security value of enabling RLS here is nil.\n\nChanges:\n- Deleted supabase/migrations/20260409000001_enable_rls_spatial_ref_sys.sql\n  so it doesn't sit permanently unapplied and mislead new sessions.\n- CLAUDE.md: project-status line updated (17/17 applied + 1 accepted);\n  AI Notes entry corrected to reflect that Studio does NOT escalate\n  either; new \"Accepted lint warnings\" section documents the decision.\n- docs/USER_ACTIONS.md: removed the now-obsolete \"Enable RLS on\n  spatial_ref_sys\" section.\n- docs/SESSION_NOTES.md + docs/AI_MISTAKES.md: updated to record the\n  correct outcome and the mistaken Studio-privileges assumption.\n\nTags: database, migrations, supabase, documentation\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: db-sync\nSemver: patch",
+  "tags": [
+    "revert"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "db-sync",
+  "semver": "patch",
+  "scope": "db",
+  "title": "accept spatial_ref_sys RLS lint warning; remove unapplyable migration",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 15,
+    "deletions": 102
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "supabase/migrations/20260409000001_enable_rls_spatial_ref_sys.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

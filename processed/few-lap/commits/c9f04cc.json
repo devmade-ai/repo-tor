@@ -1,0 +1,47 @@
+{
+  "sha": "c9f04cc",
+  "fullSha": "c9f04ccc0b0e95a03b467655d973acd95fd9d29b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T21:55:27Z",
+  "commitDate": "2026-04-21T21:55:27Z",
+  "subject": "revert(db): reinstate spatial_ref_sys RLS migration — it's a real DoS risk",
+  "body": "Earlier in this session I closed this migration as \"accepted-not-fixed\"\non the reasoning that spatial_ref_sys is PostGIS reference data and\nour app never writes to it. The user's follow-up — \"is it ok to leave\nit?\" — prompted me to actually test the attack surface instead of\nreasoning about it. The reasoning was wrong.\n\nVerified live (test rows inserted and cleaned up):\n- anon has table-level INSERT, UPDATE, DELETE, TRUNCATE grants\n- A POST to /rest/v1/spatial_ref_sys with the public anon key returns\n  HTTP 201 with the row inserted\n- REVOKE by postgres silently no-ops (supabase_admin was the grantor;\n  postgres lacks grant authority — same ownership wall as RLS)\n\nImpact: any attacker with the anon key (bundled in the web app JS\nbundle — publicly visible) can TRUNCATE the table or corrupt SRID\n4326, breaking find_stations_in_radius and every ST_Distance /\nST_Transform call in the app. Full DoS with one curl, no auth.\n\nThe migration file's SELECT-only RLS policy implicitly denies writes\n(under RLS, operations without a matching policy default-deny, so the\nexisting table GRANTs become moot). It's the right fix; we just can't\napply it from any surface that runs as `postgres`.\n\nChanges:\n- Restored supabase/migrations/20260409000001_enable_rls_spatial_ref_sys.sql\n  with a rewritten header explaining the full platform constraint and\n  why the SELECT-only policy is sufficient.\n- CLAUDE.md: replaced the \"Accepted lint warnings\" section with\n  \"Known production risks\" so this can't age into accepted-by-default.\n  Project-status line now flags it as an open risk.\n- docs/USER_ACTIONS.md: added a support-ticket template with the exact\n  SQL for the support engineer to run as supabase_admin.\n- docs/AI_MISTAKES.md: new entry — don't grade security issues by\n  reasoning when one curl would prove it in seconds.\n- docs/SESSION_NOTES.md: reflects the corrected outcome.\n\nTags: security, database, migrations, supabase, critical\nComplexity: 2\nUrgency: 4\nImpact: infrastructure\nRisk: high\nDebt: paid\nEpic: db-sync\nSemver: patch",
+  "tags": [
+    "revert",
+    "security",
+    "vulnerability"
+  ],
+  "complexity": 2,
+  "risk": "high",
+  "debt": "paid",
+  "epic": "db-sync",
+  "semver": "patch",
+  "scope": "db",
+  "title": "reinstate spatial_ref_sys RLS migration — it's a real DoS risk",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 135,
+    "deletions": 10
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "supabase/migrations/20260409000001_enable_rls_spatial_ref_sys.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 5,
+  "impact": "infrastructure"
+}

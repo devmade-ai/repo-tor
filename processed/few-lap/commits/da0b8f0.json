@@ -1,0 +1,59 @@
+{
+  "sha": "da0b8f0",
+  "fullSha": "da0b8f01a0b658f161be097ccfcd41de12391c0c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "noreply@github.com"
+  },
+  "timestamp": "2026-04-22T07:24:08Z",
+  "commitDate": "2026-04-22T07:24:08Z",
+  "subject": "Merge pull request #59 from devmade-ai/claude/check-outstanding-migrations-gzdGw",
+  "body": "Audit and sync Supabase migrations; fix bugs and add guards",
+  "tags": [
+    "merge"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "db-sync",
+  "semver": "patch",
+  "scope": null,
+  "title": "Merge pull request #59 from devmade-ai/claude/check-outstanding-migrations-gzdGw",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [
+    "#59"
+  ],
+  "stats": {
+    "filesChanged": 17,
+    "additions": 843,
+    "deletions": 97
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_ACTIONS.md",
+    "package-lock.json",
+    "package.json",
+    "scripts/__tests__/inject-icon-hashes.test.ts",
+    "scripts/__tests__/migration-files.test.ts",
+    "scripts/__tests__/secret-leakage.test.ts",
+    "scripts/inject-icon-hashes.mjs",
+    "src/components/pwa/__tests__/IconCacheDisclosure.test.tsx",
+    "src/lib/__tests__/spatial-ref-sys-lockdown.test.ts",
+    "supabase/migrations/20260311000002_fix_update_coords_not_found.sql",
+    "supabase/migrations/20260322000002_upsert_bulk_insert_stations.sql",
+    "supabase/migrations/20260409000001_enable_rls_spatial_ref_sys.sql",
+    "supabase/migrations/20260421000001_block_spatial_ref_sys_writes.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

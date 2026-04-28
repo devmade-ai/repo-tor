@@ -1,0 +1,44 @@
+{
+  "sha": "75b4d67",
+  "fullSha": "75b4d67535a6624218ac50ee41e989acd7ac7dbb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T15:11:47Z",
+  "commitDate": "2026-04-21T15:11:47Z",
+  "subject": "fix(db): apply 13 outstanding migrations + fix blockers",
+  "body": "Found the remote DB was stuck at the Feb 19 baseline (only 4 of 18\nmigrations in supabase_migrations.schema_migrations; every post-Feb\nobject — suburb/province columns, bulk_insert_stations RPC,\nprice_history trigger, source_id unique index, etc. — was missing).\nCLAUDE.md claimed all were pushed; it was wrong.\n\nFixes that would have blocked `supabase db push` regardless:\n\n- Rename 20260311000001_fix_update_coords_not_found.sql to\n  ...000002_... — two migrations shared the same version string, so\n  schema_migrations would only ever track one.\n- Prepend DROP FUNCTION IF EXISTS to 20260322000002_upsert_bulk_insert_stations\n  because it widens the bulk_insert_stations RETURNS TABLE from 2 cols\n  to 3, which CREATE OR REPLACE cannot do.\n\nApplied 13 of the 14 outstanding migrations via the Supabase\nmanagement API SQL endpoint, with matching schema_migrations inserts.\nThe 14th (enable_rls_spatial_ref_sys) can't run as `postgres` because\npublic.spatial_ref_sys is owned by supabase_admin — documented in\nUSER_ACTIONS.md with the exact Studio SQL Editor steps.\n\nVerified all expected objects exist: chk_station_coordinates_valid,\nstation_province_check, suburb/province/loyalty columns, price_history\ntrigger, bulk_update_regulated_price, update_station_coordinates,\nbulk_insert_stations (upsert variant), reconcile_stations,\ndeactivate_stations, idx_stations_source_id_unique.\n\nTags: database, migrations, supabase, security\nComplexity: 3\nUrgency: 4\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: db-sync\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "security"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "db-sync",
+  "semver": "minor",
+  "scope": "db",
+  "title": "apply 13 outstanding migrations + fix blockers",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 27,
+    "deletions": 13
+  },
+  "files": [
+    "docs/USER_ACTIONS.md",
+    "supabase/migrations/20260311000002_fix_update_coords_not_found.sql",
+    "supabase/migrations/20260322000002_upsert_bulk_insert_stations.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

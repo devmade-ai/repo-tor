@@ -1,0 +1,43 @@
+{
+  "sha": "be168f8",
+  "fullSha": "be168f8b1cbb73274e2ef97234db16e1a5340d21",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T06:37:51Z",
+  "commitDate": "2026-04-19T06:37:51Z",
+  "subject": "refactor(pwa): extract IconCacheDisclosure + harden a11y",
+  "body": "Extract the \"Already installed and the icon looks outdated?\" disclosure\nfrom InstallInstructionsModal into its own component. Same visual +\nbehaviour contract as before; the split isolates the a11y/state concerns\nfor testing and future reuse.\n\na11y hardening from the a11y trigger pass:\n- py-2 + hitSlop 8/8/4/4 gives a ~44pt effective touch target (was\n  ~20pt with py-1, below Apple HIG and WCAG 2.5.5 AAA recommendation).\n- accessibilityElementsHidden + importantForAccessibility on the caret\n  icon — accessibilityLabel on the parent button carries the meaning,\n  so SRs shouldn't read \"caret-right\" after the label.\n\nTags: refactor, pwa, a11y\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-polish\nSemver: patch",
+  "tags": [
+    "refactor",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-polish",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "extract IconCacheDisclosure + harden a11y",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 73,
+    "deletions": 34
+  },
+  "files": [
+    "src/components/pwa/IconCacheDisclosure.tsx",
+    "src/components/pwa/InstallInstructionsModal.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

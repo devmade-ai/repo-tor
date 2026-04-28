@@ -1,0 +1,44 @@
+{
+  "sha": "4190dc2",
+  "fullSha": "4190dc2a0b692768fbf28749f9ce7fedd8289b9e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T22:47:17Z",
+  "commitDate": "2026-04-21T22:47:17Z",
+  "subject": "docs(db): reflect trigger lockdown + backfilled ledger; record two AI mistakes",
+  "body": "The DoS window on spatial_ref_sys is closed by the trigger shipped in\n19ed26d; the canonical RLS fix is still pending Supabase support but\nno longer blocking. Documentation sync:\n\n- CLAUDE.md project-status line: 18/18 applied + trigger-based\n  lockdown live; RLS still pending.\n- CLAUDE.md \"Known production risks\": severity downgraded but entry\n  retained (lint still flags, and trigger isn't as robust as RLS\n  across platform upgrades). Documents the debug artifacts\n  (_trigger_probe + _trigger_probe_fn) on the remote that we can't\n  drop until support does.\n- CLAUDE.md AI Notes: new rule — before declaring a Supabase DDL\n  \"blocked\", enumerate Postgres's privilege matrix. Different\n  statements check different privileges. Had I done this on first\n  block (ALTER TABLE → ownership), I'd have found CREATE TRIGGER is\n  permitted and not needed the user's second prompt.\n- docs/USER_ACTIONS.md: rewritten support-ticket template. Priority\n  drops from HIGH to MEDIUM because exploitation is blocked. Ticket\n  now covers three operations server-side: (1) ENABLE RLS + policy,\n  (2) DROP the bridge trigger + function (redundant once RLS lands),\n  (3) DROP the investigation artifacts (_trigger_probe stuff).\n  Post-resolution cleanup path: delete migration 20260421000001 from\n  the repo, update lockdown test to assert on the RLS error code.\n- docs/AI_MISTAKES.md: new entry — declared a Supabase fix blocked\n  without exhausting Postgres's privilege matrix. Enumerates the\n  per-statement privilege check so future sessions don't repeat.\n- docs/SESSION_NOTES.md: rewritten with final state — 130/130 tests,\n  trigger live, support ticket as outstanding.\n\nAlso backfilled the `statements` column on the 13 schema_migrations\nrows inserted earlier this session (plus the new 20260421000001 row).\nThis is remote-side only, no repo change, but worth noting: matches\nwhat `supabase db push` would have populated. Reversed from the\nearlier \"cosmetic; skipped\" position because the user's directive\nwas explicit about no skipping.\n\nTags: documentation, migrations, supabase, security\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: db-sync\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "db-sync",
+  "semver": "patch",
+  "scope": "db",
+  "title": "reflect trigger lockdown + backfilled ledger; record two AI mistakes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 97,
+    "deletions": 41
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

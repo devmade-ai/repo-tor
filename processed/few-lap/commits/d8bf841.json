@@ -1,0 +1,45 @@
+{
+  "sha": "d8bf841",
+  "fullSha": "d8bf8418e7508c08fb7a2d47064794f34e66d323",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T20:48:15Z",
+  "commitDate": "2026-04-21T20:48:15Z",
+  "subject": "fix(tests): repair 8 pre-existing failures surfaced after npm install",
+  "body": "None of the 23 tests added in 3a60a28 had ever been executed — its\nsession notes said tests were \"not yet executed\" because npm install\nwasn't available in that env. Running `npm install && npm test` here\nsurfaced 8 failures across two suites, all shipping to main.\n\nIconCacheDisclosure (6 failures): react-test-renderer is deprecated\non React 19. `TestRenderer.create()` returns a renderer that's\nunmounted before the test can read `.root`, and the environment\nwasn't flagged as act-compatible. Fix: set\nIS_REACT_ACT_ENVIRONMENT=true and wrap every create() in act() via\na renderComponent() helper. react-test-renderer is still functional\ninside act(), so no dep change needed. Added @types/react-test-renderer\n(was silently missing — `typeof import('react-test-renderer')` was\nresolving to any, suppressing TS7006 checks on findAll callbacks).\n\ninject-icon-hashes (2 failures):\n\n1. Idempotent re-run emitted a WARNING treating \"0 replacements\" as\n   format drift, even when HTML was already versioned. Script now\n   tracks whether HTML contains already-versioned refs for known\n   icons and only warns when neither bare nor versioned matches —\n   the actual drift case. The existing \"format drift\" test still\n   passes because its fixture has neither.\n2. \"Missing precached icon\" test tried to `rmSync` favicon.png, but\n   favicon was dropped from the pipeline in 19821c4 and isn't in the\n   fixture. Switched to icon-192.png (still in SW_EXPECTED_URLS).\n\nUnrelated to the migration-sync work on this branch — but surfaced\nonce `npm install` exposed the test runner, and fixing them here\nrather than opening another branch avoids leaving main on a\nchronically-red suite.\n\nTags: testing, pwa, react19, dependencies\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: db-sync\nSemver: patch",
+  "tags": [
+    "test-fix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "db-sync",
+  "semver": "patch",
+  "scope": "tests",
+  "title": "repair 8 pre-existing failures surfaced after npm install",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 67,
+    "deletions": 21
+  },
+  "files": [
+    "package-lock.json",
+    "package.json",
+    "scripts/__tests__/inject-icon-hashes.test.ts",
+    "scripts/inject-icon-hashes.mjs",
+    "src/components/pwa/__tests__/IconCacheDisclosure.test.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "internal"
+}

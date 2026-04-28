@@ -1,0 +1,46 @@
+{
+  "sha": "3a60a28",
+  "fullSha": "3a60a284e54d8c733808dacf76ab343ddd6552f7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T06:38:39Z",
+  "commitDate": "2026-04-19T06:38:39Z",
+  "subject": "test(pwa): +23 tests for injector script, visibility handler, disclosure",
+  "body": "Three test suites cover all the new PWA infrastructure from this branch:\n\n1. scripts/__tests__/inject-icon-hashes.test.ts (6 tests): integration\n   tests that shell out to the real .mjs script against a temp-dir\n   fixture with real icon bytes. Covers happy path, idempotent re-run,\n   hash refresh when icon bytes change, fail-loud on missing SW literal,\n   missing-precached-icon error, HTML format-drift warn. jest.config\n   roots expanded to include scripts/__tests__/.\n\n2. src/hooks/__tests__/usePWAUpdate.test.ts (11 tests): unit tests for\n   the visibility-aware polling helpers via a new __testing export on\n   usePWAUpdate. Exposes handleVisibilityChange, start/stopUpdateInterval,\n   checkForUpdate, plus reset/setRegistration hooks so tests can run in\n   isolation. Covers idempotent start/stop, correct clearInterval handle,\n   null-registration safety, async-rejection swallowing, hidden/visible/\n   prerender transitions, and a full visible→hidden→visible roundtrip.\n\n3. src/components/pwa/__tests__/IconCacheDisclosure.test.tsx (6 tests):\n   react-test-renderer-based tests for the extracted disclosure. Covers\n   collapsed initial state (body text absent), press-to-expand (caret\n   flip + accessibilityState.expanded update + body text present), press\n   roundtrip to collapse, color prop propagation, hitSlop WCAG target,\n   and SR-hidden caret (importantForAccessibility + accessibilityElementsHidden).\n\nTags: testing, pwa, hooks, a11y\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pwa-polish\nSemver: patch",
+  "tags": [
+    "test-unit",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-polish",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "+23 tests for injector script, visibility handler, disclosure",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 609,
+    "deletions": 1
+  },
+  "files": [
+    "jest.config.js",
+    "scripts/__tests__/inject-icon-hashes.test.ts",
+    "src/components/pwa/__tests__/IconCacheDisclosure.test.tsx",
+    "src/hooks/__tests__/usePWAUpdate.test.ts",
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

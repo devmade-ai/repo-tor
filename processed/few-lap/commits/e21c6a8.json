@@ -1,0 +1,41 @@
+{
+  "sha": "e21c6a8",
+  "fullSha": "e21c6a8bc49536397233daf4441c87e8e9593e25",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T20:06:41Z",
+  "commitDate": "2026-04-18T20:06:41Z",
+  "subject": "fix(pwa): warn when HTML rewrite finds 0 matches despite hashed icons",
+  "body": "Surface pass (session meta-sweep) flagged an asymmetry: cold added\nfail-loud for SW literal mismatches, but HTML rewrite still silently\nskipped when React render format drifts (single quotes, attribute\nreorder, self-closing variants). The failure would surface weeks later\nwhen an icon changes and stops refreshing.\n\nWarn-loud rather than fail-loud because a route-only build with no icon\nlinks would legitimately hit zero replacements — don't break those\nbuilds, but make the format-drift case loud for humans to notice.\n\nTags: pwa, build, fix\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pwa-polish\nSemver: patch",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-polish",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "warn when HTML rewrite finds 0 matches despite hashed icons",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 12,
+    "deletions": 0
+  },
+  "files": [
+    "scripts/inject-icon-hashes.mjs"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "infrastructure"
+}
