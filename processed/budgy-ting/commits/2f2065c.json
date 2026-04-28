@@ -1,0 +1,50 @@
+{
+  "sha": "2f2065c",
+  "fullSha": "2f2065cb36ea669df0d976ba21f6f383710697e1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T07:06:57Z",
+  "commitDate": "2026-04-10T07:10:28Z",
+  "subject": "fix(pwa): sync meta theme-color with DaisyUI combo system",
+  "body": "The <meta name=\"theme-color\"> tags were still hardcoded to the old\nbrand color #10b981 from before the DaisyUI migration. The default\ncombo is \"classic\" which uses #808080 (light) and #000000 (dark).\n\nThis caused the PWA status bar to flash the wrong color between HTML\nparse and Vue mount, since only the composable updated it dynamically.\n\nChanges:\n- index.html meta tags: #10b981 → #808080 (light) / #000000 (dark)\n- Flash prevention script: now also sets meta theme-color before\n  first paint (reads combo meta colors from hardcoded combos object)\n- vite.config.ts manifest theme_color: #10b981 → #808080\n- CLAUDE.md sync points: 3 → 4 locations (added manifest theme_color)\n\nTags: pwa, theme, daisyui, fix\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01BPc1xJr4LVbLgvTxtZf2i1",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "sync meta theme-color with DaisyUI combo system",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#10",
+    "#808080",
+    "#000000"
+  ],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 26,
+    "deletions": 14
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "index.html",
+    "vite.config.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

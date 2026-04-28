@@ -1,0 +1,42 @@
+{
+  "sha": "a2be76e",
+  "fullSha": "a2be76e349f8bc2f60e1b6d283b2c009f0d19461",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T14:04:54Z",
+  "commitDate": "2026-04-09T14:04:54Z",
+  "subject": "fix(burger-menu): guard arrow key idx=-1 edge case, clean up action timer",
+  "body": "ArrowUp with no focused button (idx=-1) calculated wrong index, skipping\nlast item. Now falls through to last item for ArrowUp, first for ArrowDown.\nhandleItem setTimeout now tracked and cleared on unmount to prevent stale\ncallbacks — per AI_MISTAKES.md timer cleanup lesson.\n\nTags: burger-menu, a11y, cleanup\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: glow-props-sync\nSemver: patch\n\nhttps://claude.ai/code/session_01HStghTVMRxyymnHn4AWxUi",
+  "tags": [
+    "bugfix",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "glow-props-sync",
+  "semver": "patch",
+  "scope": "burger-menu",
+  "title": "guard arrow key idx=-1 edge case, clean up action timer",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 13,
+    "deletions": 3
+  },
+  "files": [
+    "src/components/BurgerMenu.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

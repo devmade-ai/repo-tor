@@ -1,0 +1,55 @@
+{
+  "sha": "be393da",
+  "fullSha": "be393da0a34d3e00e220402ead8407d95a095338",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T22:47:19Z",
+  "commitDate": "2026-04-09T22:47:19Z",
+  "subject": "refactor(theme): adopt DaisyUI component classes for steps, skeleton, join, modal, progress, divider, loading",
+  "body": "Replace custom multi-class Tailwind patterns with DaisyUI component\nutilities that handle states, animations, and theming automatically.\n\nComponents adopted:\n- steps: NewImportWizard step indicator (25 lines → 8 lines)\n- skeleton: SkeletonLoader pulse animation (built-in to class)\n- join + join-item: CashflowGraph, WorkspaceForm toggle button groups\n- modal + modal-box + modal-backdrop: 4 modal files (eliminates\n  fixed/absolute/z-index/bg-black boilerplate)\n- progress: WorkspaceListView pull-to-refresh, ImportStepReview ML bars\n- divider: BurgerMenu, DetailView, ListView, InstallInstructionsModal\n- loading loading-spinner: TransactionEditModal (removes Loader2 import)\n\nIntentionally skipped:\n- HelpDrawer → DaisyUI drawer: designed for page sidebars, not modal\n  overlay panels with custom entry/exit animation timing\n- BottomSheet → DaisyUI drawer: has custom drag-to-close gesture\n- ToastNotification → DaisyUI toast: custom safe-area positioning\n\nTags: theme, daisyui, refactor, cleanup\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01BPc1xJr4LVbLgvTxtZf2i1",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "adopt DaisyUI component classes for steps, skeleton, join, modal, progress, divider, loading",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 108,
+    "deletions": 120
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/BurgerMenu.vue",
+    "src/components/CashflowGraph.vue",
+    "src/components/ConfirmDialog.vue",
+    "src/components/InstallInstructionsModal.vue",
+    "src/components/SkeletonLoader.vue",
+    "src/components/TransactionEditModal.vue",
+    "src/components/TutorialModal.vue",
+    "src/components/WorkspaceForm.vue",
+    "src/views/NewImportWizard.vue",
+    "src/views/WorkspaceDetailView.vue",
+    "src/views/WorkspaceListView.vue",
+    "src/views/import-steps/ImportStepReview.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}
