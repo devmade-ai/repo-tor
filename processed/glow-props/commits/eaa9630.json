@@ -1,0 +1,43 @@
+{
+  "sha": "eaa9630",
+  "fullSha": "eaa9630a31170ee0a38e480ee3199bd7ed95c30f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T06:20:50Z",
+  "commitDate": "2026-04-01T06:20:50Z",
+  "subject": "fix(theme): add missing .dark class removal in flash-prevention scripts",
+  "body": "The flash-prevention inline scripts set .dark class when dark mode is active\nbut didn't remove it in the light mode branch. If a user switched from dark\nto light mode and reloaded, the .dark class could persist on <html>, causing\nTailwind dark: utilities to activate while DaisyUI components were in light\nmode — a visual mismatch.\n\nTags: theme, dark-mode, bugfix\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: css-framework-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01BuRYF1Mc9N3Eh18WUDsNbX",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "css-framework-migration",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "add missing .dark class removal in flash-prevention scripts",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 2,
+    "deletions": 0
+  },
+  "files": [
+    "index.html",
+    "project.html"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 3,
+  "impact": "user-facing"
+}

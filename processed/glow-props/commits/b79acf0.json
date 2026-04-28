@@ -1,0 +1,48 @@
+{
+  "sha": "b79acf0",
+  "fullSha": "b79acf0235a6de592d53b63b6dad32318997afae",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T04:12:08Z",
+  "commitDate": "2026-04-01T04:12:08Z",
+  "subject": "fix(icon): match Pico cyan theme colour and remove glow effect",
+  "body": "Changed icon colour from #06b6d4 (Tailwind cyan-500) to #0ab1b1\n(Pico CSS cyan theme primary). The previous colour clashed with\nthe Pico theme on both light and dark backgrounds.\n\nRemoved the feGaussianBlur glow filter — the soft bloom around\nshapes looked out of place in the clean Pico UI.\n\nRegenerated all PNG icons (48, 192, 512) from the updated SVG.\n\nTags: ui, icon, branding\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: header-polish\nSemver: patch\n\nhttps://claude.ai/code/session_014wBL3hWTyiurDZphoiUrxE",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "header-polish",
+  "semver": "patch",
+  "scope": "icon",
+  "title": "match Pico cyan theme colour and remove glow effect",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#06",
+    "#0"
+  ],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 52,
+    "deletions": 60
+  },
+  "files": [
+    "assets/icon-source.svg",
+    "public/assets/images/favicon.png",
+    "public/assets/images/icon-192.png",
+    "public/assets/images/icon-512.png"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

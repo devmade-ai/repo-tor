@@ -1,0 +1,45 @@
+{
+  "sha": "5e8e248",
+  "fullSha": "5e8e248731cc59ec5b1f4bcef4af2641b69a10bc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T06:59:42Z",
+  "commitDate": "2026-04-01T06:59:42Z",
+  "subject": "feat(cards): reveal action links on card tap with pill buttons",
+  "body": "Cards now show links only when active (clicked/tapped). Default state\nshows title, badges, description, and tech stack cleanly. Active state\nadds a primary ring highlight and slides in pill-style action buttons.\n\nOnly one card active at a time — tap another to switch, tap same card\nor click outside to dismiss. Links use event.stopPropagation() so\nclicking a button navigates without toggling the card.\n\nReplaces the old card-hover lift effect with card-interactive which\ncombines subtle hover lift with the active reveal pattern.\n\nTags: ui, cards, interaction, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: css-migration\nSemver: minor\n\nhttps://claude.ai/code/session_019rxzEwNWyEtL2JasEh4bY3",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "css-migration",
+  "semver": "minor",
+  "scope": "cards",
+  "title": "reveal action links on card tap with pill buttons",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 161,
+    "deletions": 99
+  },
+  "files": [
+    "docs/PROJECT_DOCS.md",
+    "index.html",
+    "main.css"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

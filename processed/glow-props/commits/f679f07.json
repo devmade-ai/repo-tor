@@ -1,0 +1,43 @@
+{
+  "sha": "f679f07",
+  "fullSha": "f679f0745c83056e896e5f9fa9d080b997e8ebd2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T06:50:46Z",
+  "commitDate": "2026-04-01T06:50:46Z",
+  "subject": "fix(nav): fix header vertical alignment and use DaisyUI navbar slots",
+  "body": "Asymmetric vertical padding — padding-top was env(safe-area-inset-top)\n(0 on non-notch devices) while padding-bottom inherited navbar default\n0.5rem, shifting content upward. Fixed by using max(0.5rem, env(...))\nfor padding-top so non-notch devices get symmetric padding.\n\nAlso switched from flex-1/flex-none to navbar-start/navbar-end for\nconsistent centering via DaisyUI's built-in slot alignment.\n\nTags: nav, alignment, daisyui\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: css-migration\nSemver: patch\n\nhttps://claude.ai/code/session_019rxzEwNWyEtL2JasEh4bY3",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "css-migration",
+  "semver": "patch",
+  "scope": "nav",
+  "title": "fix header vertical alignment and use DaisyUI navbar slots",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 12,
+    "deletions": 8
+  },
+  "files": [
+    "index.html",
+    "project.html"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}
