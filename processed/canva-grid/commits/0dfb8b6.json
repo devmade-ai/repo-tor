@@ -1,0 +1,42 @@
+{
+  "sha": "0dfb8b6",
+  "fullSha": "0dfb8b64602dbcdf8b95b90a0e05ec5cc846bbe9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T05:24:30Z",
+  "commitDate": "2026-04-09T05:24:30Z",
+  "subject": "fix(pwa): fix Strict Mode interval death, document Brave iOS uncertainty",
+  "body": "usePWAUpdate: useRegisterSW uses useState lazy initializer internally —\nonRegistered fires exactly once, not on Strict Mode re-mount. The hourly\ninterval was created inside onRegistered, so after Strict Mode cleanup\nkilled it, it was never recreated. Fix: restore registered state flag\nthat triggers a separate interval effect with [registered] dependency.\nRemoved intervalRef (no longer needed — effect owns its own cleanup).\n\nusePWAInstall: Add comment documenting that 'brave' in navigator is\nunverified on iOS Brave (WebKit engine). If absent, iOS Brave falls\nthrough to 'safari' detection — benign since iOS Brave can't install\nPWAs anyway. Proper verification requires physical iOS Brave testing.\n\nTags: pwa, hooks, strict-mode, browser-detection\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pwa-reliability\nSemver: patch\n\nhttps://claude.ai/code/session_01AC1UWyZGqVwHGuu6SPJr72",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-reliability",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "fix Strict Mode interval death, document Brave iOS uncertainty",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 18,
+    "deletions": 11
+  },
+  "files": [
+    "src/hooks/usePWAInstall.js",
+    "src/hooks/usePWAUpdate.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

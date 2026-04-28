@@ -1,0 +1,44 @@
+{
+  "sha": "2a14382",
+  "fullSha": "2a14382f26af482c5e0b1947504f7280cd417876",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T21:07:18Z",
+  "commitDate": "2026-04-09T21:07:18Z",
+  "subject": "fix(mobile): fix TDZ crash in BottomSheet — reorder useCallback declarations",
+  "body": "BottomSheet.jsx had a temporal dead zone (TDZ) bug: handleTouchMove's\nuseCallback dependency array referenced snapToNearest before its const\ndeclaration. const/let are not hoisted like function declarations, so\naccessing them before their declaration line causes a ReferenceError:\n\"Cannot access 'm' before initialization\" (minified variable name).\n\nFix: Move snapToNearest declaration before handleTouchMove and finishTouch\nwhich both reference it in dependency arrays and closure bodies.\n\nAlso captures stack traces in debug system error handlers (console.error\ninterception + global error listener) to make future minified crash\ndebugging easier.\n\nTags: mobile, bottom-sheet, debug, bugfix\nComplexity: 2\nUrgency: 5\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-layout\nSemver: patch\n\nhttps://claude.ai/code/session_0128VebUZMcDBHELWCT6YPPe",
+  "tags": [
+    "hotfix",
+    "bugfix",
+    "monitoring"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-layout",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "fix TDZ crash in BottomSheet — reorder useCallback declarations",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 42,
+    "deletions": 35
+  },
+  "files": [
+    "src/components/BottomSheet.jsx",
+    "src/utils/debugLog.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 5,
+  "impact": "user-facing"
+}

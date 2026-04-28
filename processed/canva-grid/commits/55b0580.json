@@ -1,0 +1,57 @@
+{
+  "sha": "55b0580",
+  "fullSha": "55b0580968c255c63c73fe9a8a9c15ce31f8593e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T07:07:19Z",
+  "commitDate": "2026-04-09T07:07:19Z",
+  "subject": "feat: extract pwaHelpers.js, add 57 unit tests, complete ThemeContext + test TODO items",
+  "body": "Extract pure PWA functions to utils/pwaHelpers.js:\n- detectBrowser, wasJustUpdated, trackInstallEvent, isStandalone,\n  CHROMIUM_BROWSERS, BROWSER_DISPLAY_NAMES extracted from hook files\n  into standalone module with no browser-only imports (debugLog,\n  virtual:pwa-register). Both hooks now import from pwaHelpers.\n\nNew test files (57 tests, 76 → 133 total):\n- pwaHelpers.test.js: detectBrowser with 13 UA variants (iOS CriOS/\n  FxiOS/EdgiOS, Samsung, Opera, Vivaldi, Arc, etc.), wasJustUpdated\n  (within/outside 30s, missing key, storage error), trackInstallEvent\n  (write, append, cap at 50, storage error)\n- layouts.test.js: toRgba (rgb/rgba input, opacity scaling, non-rgb\n  passthrough), toTransparentRgba\n- platforms.test.js: structure validation (required fields, positive\n  dimensions, valid recommendedFormat), unique IDs, category coverage,\n  flat export count, getAspectRatio, findFormat, findPlatformGroup\n- themes.test.js: neutralColors integrity, getNeutralColor lookup,\n  presetThemes structure (unique IDs, valid hex, variant completeness,\n  light/dark primary differentiation)\n\nExport toRgba/toTransparentRgba from layouts.js for testing.\n\nMove React Context for theme values (TODO #2) to HISTORY as completed.\nUpdate unit test coverage item (TODO #3) with new counts and remaining.\nUpdate CLAUDE.md architecture with useTheme.js and pwaHelpers.js.\n\nTags: testing, pwa, refactor, state, themes\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: test-coverage\nSemver: minor\n\nhttps://claude.ai/code/session_01AC1UWyZGqVwHGuu6SPJr72",
+  "tags": [
+    "refactor",
+    "test-unit",
+    "coverage"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "test-coverage",
+  "semver": "minor",
+  "scope": null,
+  "title": "extract pwaHelpers.js, add 57 unit tests, complete ThemeContext + test TODO items",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#2",
+    "#3"
+  ],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 589,
+    "deletions": 113
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/config/__tests__/layouts.test.js",
+    "src/config/__tests__/platforms.test.js",
+    "src/config/__tests__/themes.test.js",
+    "src/config/layouts.js",
+    "src/hooks/usePWAInstall.js",
+    "src/hooks/usePWAUpdate.js",
+    "src/utils/__tests__/pwaHelpers.test.js",
+    "src/utils/pwaHelpers.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}
