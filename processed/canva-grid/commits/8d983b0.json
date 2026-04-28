@@ -1,0 +1,49 @@
+{
+  "sha": "8d983b0",
+  "fullSha": "8d983b0b365988f63cfa8761cd1515a66ac4dd34",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T18:46:57Z",
+  "commitDate": "2026-04-02T18:46:57Z",
+  "subject": "refactor(ui): reorganize layout — undo/redo to header, pages to Structure, consolidated ContextBar",
+  "body": "Move undo/redo from ContextBar to both mobile and desktop headers for\nconstant visibility. Relocate page management (add/duplicate/delete/reorder)\nto a new \"Pages\" section in the Structure tab. Consolidate page selection\nand cell selection into a single compact row in ContextBar. Open Presets\nbottom sheet by default on mobile load so users see it's active.\n\nTags: ui, layout, mobile, ux, structure\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: ui-reorganization\nSemver: minor\n\nhttps://claude.ai/code/session_01D464PDw9sMoPgBtrnCo9V6",
+  "tags": [
+    "refactor",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "ui-reorganization",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "reorganize layout — undo/redo to header, pages to Structure, consolidated ContextBar",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 247,
+    "deletions": 282
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "src/App.jsx",
+    "src/components/ContextBar.jsx",
+    "src/components/DesktopLayout.jsx",
+    "src/components/LayoutTab.jsx",
+    "src/components/MobileLayout.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

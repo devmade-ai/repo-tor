@@ -1,0 +1,42 @@
+{
+  "sha": "13a6eea",
+  "fullSha": "13a6eea2eeb940edfc87c5de5287f8ab2c156e89",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T22:12:15Z",
+  "commitDate": "2026-04-01T22:12:15Z",
+  "subject": "fix(style): replace invalid border-base-300-subtle class in StyleTab",
+  "body": "The migration agent incorrectly mapped border-ui-border-subtle to the\nnonexistent class border-base-300-subtle (concatenated token names).\nThe correct DaisyUI equivalent for a subtle border is border-base-200.\nFixed on lines 339 and 446.\n\nTags: theme, daisyui, bugfix\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01QDdpPbsw1PaMMrwihoc5hG",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "scope": "style",
+  "title": "replace invalid border-base-300-subtle class in StyleTab",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "src/components/StyleTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

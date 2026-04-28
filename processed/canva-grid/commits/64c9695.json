@@ -1,0 +1,49 @@
+{
+  "sha": "64c9695",
+  "fullSha": "64c9695c58a6a9f0d0e8d94cff9a69a390a74456",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T23:02:38Z",
+  "commitDate": "2026-04-01T23:02:38Z",
+  "subject": "fix(theme): sweep fixes from tap/cln/perf/sec/dbg/imp triggers",
+  "body": "tap: ThemeSelector dropdown items py-2.5 → py-3 for 44px+ touch targets.\n\ncln: Removed unused --shadow-soft token and @utility card-lift from\nindex.css (defined but never referenced in any component).\n\nperf: Removed unused activeTheme from App.jsx useDarkMode destructuring.\n\nsec: Flash-prevention script in index.html now validates theme IDs\nagainst hardcoded allowlists before setting data-theme attribute.\nPrevents arbitrary attribute values from corrupted localStorage.\n\ndbg: Added debugLog calls to useDarkMode.js — logs theme-applied,\nlight/dark-theme-set, invalid theme fallbacks (warn severity), and\ncross-tab sync events. Theme changes now visible in DebugPill.\n\nimp: Added React Context for theme values and split-hook refactoring\nto docs/TODO.md as medium-priority items.\n\nTags: theme, a11y, security, cleanup, debug, mobile\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01QDdpPbsw1PaMMrwihoc5hG",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "security",
+    "monitoring"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "sweep fixes from tap/cln/perf/sec/dbg/imp triggers",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 28,
+    "deletions": 22
+  },
+  "files": [
+    "docs/TODO.md",
+    "index.html",
+    "src/App.jsx",
+    "src/components/ThemeSelector.jsx",
+    "src/hooks/useDarkMode.js",
+    "src/index.css"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}
