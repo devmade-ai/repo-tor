@@ -1,0 +1,44 @@
+{
+  "sha": "b6ca724",
+  "fullSha": "b6ca72479df2758968549f80a63de37b9efa846c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-16T14:59:40Z",
+  "commitDate": "2026-04-16T14:59:40Z",
+  "subject": "fix(charts): filter achromatic tokens from active repo color cycle",
+  "body": "Monochrome DaisyUI themes (lofi, black) define primary/secondary/accent\nas achromatic grays identical to --color-neutral, making active repos\nindistinguishable from internal/discontinued repos in stacked bar charts.\n\nresolveActiveRepoColor() now checks oklch chroma at runtime and skips\ntokens below 0.03. Status tokens (info/success/warning/error) are\ncolorful in every theme so at least 4 distinct colours survive. Neutral\nis excluded from the active-repo candidate list entirely since it's\nreserved for the internal/discontinued dimmed overlays.\n\nAffected themes: black (3 gray tokens filtered), lofi (3), caramellatte\n(1), coffee (1). Colorful themes (nord, emerald, dim, dracula) pass all\n7 tokens unchanged.\n\nTags: charts, theme, ui, bug\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theming\nSemver: patch\n\nhttps://claude.ai/code/session_01TaJ1yJJeDX1HxKad4qw1xq",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theming",
+  "semver": "patch",
+  "scope": "charts",
+  "title": "filter achromatic tokens from active repo color cycle",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 96,
+    "deletions": 19
+  },
+  "files": [
+    "dashboard/js/chartColors.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

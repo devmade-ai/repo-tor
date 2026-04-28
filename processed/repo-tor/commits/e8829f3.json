@@ -1,0 +1,47 @@
+{
+  "sha": "e8829f3",
+  "fullSha": "e8829f3a6b178156191911506bdb1ca6324475f4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-16T15:11:04Z",
+  "commitDate": "2026-04-16T15:11:04Z",
+  "subject": "test(tripwire): lock chroma-filtering invariants + strengthen repo color fix",
+  "body": "Add regression guard verifying expected colorful-token counts per\nregistered theme (test 43/65). Catches DaisyUI upgrades that shift a\ntoken's chroma across the 0.03 threshold.\n\nAlso: console.warn in the zero-colorful-tokens fallback path (surfaces\nbroken custom themes during dev), stale doc updates replacing \"8-slot\"\nreferences with the dual-cycle design (general 8-token + filtered\nrepo-specific 7-token), caramellatte neutral discovery documented.\n\nTags: testing, charts, theme, documentation\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theming\nSemver: patch\n\nhttps://claude.ai/code/session_01TaJ1yJJeDX1HxKad4qw1xq",
+  "tags": [
+    "test-unit"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theming",
+  "semver": "patch",
+  "scope": "tripwire",
+  "title": "lock chroma-filtering invariants + strengthen repo color fix",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 141,
+    "deletions": 10
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/chartColors.js",
+    "docs/DAISYUI_V5_NOTES.md",
+    "docs/EMBED_IMPLEMENTATION.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

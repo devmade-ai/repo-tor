@@ -1,0 +1,41 @@
+{
+  "sha": "c09b9ca",
+  "fullSha": "c09b9ca19dee7c7b59ca73444240a8f2ad2f5df1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-16T01:58:54Z",
+  "commitDate": "2026-04-16T01:58:54Z",
+  "subject": "test(tripwire): guard root ErrorBoundary against inline-style regression",
+  "body": "Adds a 64th tripwire assertion that catches re-introduction of\ninline `style={{ minHeight }}` in main.jsx's root ErrorBoundary\nfallback. The inline styles were removed in commit aea7c43\n(converted to Tailwind utilities) with the rationale that the\nbrowser's user-agent default stylesheet renders the fallback\nlegibly even when the CSS bundle fails to load.\n\nThe test checks both the positive (Tailwind utilities present) and\nthe negative (inline `style={{ minHeight }}` absent) so a future\ncontributor who re-adds the inline styles for \"resilience\" sees the\ntest fail with a clear message pointing to the CLAUDE.md rationale.\n\nTest count: 63 → 64. Build unaffected.\n\nTags: testing, tripwire, regression-guard\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "test-unit"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "scope": "tripwire",
+  "title": "guard root ErrorBoundary against inline-style regression",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 18,
+    "deletions": 0
+  },
+  "files": [
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}
