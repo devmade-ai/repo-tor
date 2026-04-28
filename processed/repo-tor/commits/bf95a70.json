@@ -1,0 +1,46 @@
+{
+  "sha": "bf95a70",
+  "fullSha": "bf95a70f90364d2b752d436b721db2ea2b43249e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T15:34:59Z",
+  "commitDate": "2026-04-02T15:34:59Z",
+  "subject": "feat: embedding features and merge commit filtering (items 21-24)",
+  "body": "Data URL query param (item 21):\n- Accept ?data=<url> to load dashboard data from external URL\n- Falls back to ./data.json when param not present\n- User-friendly error message on fetch failure\n\nVite library build (item 22):\n- Add vite.config.lib.js for ES module library output\n- Add dashboard/js/lib.js entry point exporting App, AppProvider, useApp\n- Add npm build:lib script\n- React, ReactDOM, Chart.js externalized as peer dependencies\n\nMerge commit filtering (item 24):\n- Add --no-merges CLI flag to extract.js\n- Applied to both log extraction and numstat extraction commands\n- Usage: node extract.js [repo-path] --no-merges\n\nDevice attribution research (item 23):\n- Git does not store device/platform info natively\n- Proxy indicators (email domain, timezone, commit patterns) are weak signals\n- Documented as infeasible — removed from active TODO\n\nTags: embedding, extraction, feature\nComplexity: 2\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cross-project-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01TTPDz1J9eg8GxxJHYf5DXG",
+  "tags": [
+    "feature",
+    "build"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "cross-project-alignment",
+  "semver": "minor",
+  "scope": null,
+  "title": "embedding features and merge commit filtering (items 21-24)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 90,
+    "deletions": 9
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/lib.js",
+    "package.json",
+    "scripts/extract.js",
+    "vite.config.lib.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "user-facing"
+}
