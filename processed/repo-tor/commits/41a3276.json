@@ -1,0 +1,43 @@
+{
+  "sha": "41a3276",
+  "fullSha": "41a32763576dff570e9f77f74e7a60390509d63c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T07:52:01Z",
+  "commitDate": "2026-04-13T07:52:01Z",
+  "subject": "feat(tabs): Phase 7 — TabBar adds DaisyUI tabs/tab class composition",
+  "body": "Seventh of 10 phases from the DaisyUI component-class audit. Small but\nmeaningful phase: TabBar already had proper ARIA roles (tablist/tab/\naria-selected), this phase adds DaisyUI's `tabs tabs-border` +\n`tab tab-active` structural classes alongside the existing custom\n`.tab-btn` / `.tab-btn-active` styling via class composition.\n\nChanges:\n\nTabBar.jsx:\n- Outer wrapper gains `tabs tabs-border` DaisyUI classes alongside\n  the existing `flex overflow-x-auto scrollbar-hide`. DaisyUI's tabs\n  component applies its layout/border rules; our flex + overflow\n  utilities handle the horizontal scroll on narrow viewports.\n- Each tab button gains `tab` + `tab-active` (conditional) alongside\n  our custom `tab-btn` / `tab-btn-active` classes. The custom classes\n  provide the mono-font uppercase techy look; the DaisyUI classes\n  provide the structural tabs behavior.\n- Added `aria-label=\"Dashboard sections\"` to the tablist container for\n  screen reader context — \"Dashboard sections, tablist, 6 items\".\n- Added a header comment documenting the composition rationale and\n  rejected alternatives (pure DaisyUI tabs-lift/tabs-box have different\n  typography; replacing .tab-btn with inline Tailwind would bloat the\n  JSX).\n\nWhy keep .tab-btn / .tab-btn-active:\n\nOur .tab-btn rules use:\n  - font-family: var(--font-mono)\n  - text-transform: uppercase\n  - letter-spacing: 0.05em\n  - font-size: 13px\n  - font-weight: 500\n\nAnd .tab-btn-active additionally applies a text-shadow glow in\nvar(--color-primary) that gives the active tab a distinctive \"powered on\"\nlook consistent with the dashboard's tech-focused aesthetic. DaisyUI's\ndefault tab typography is sentence-case body font — clean and correct\nfor most apps, but doesn't match our visual language. Class composition\npreserves both.\n\nNo CSS deletions this phase — .tab-btn / .tab-btn-active remain in\nstyles.css because they're not shadowing any DaisyUI class (DaisyUI uses\n.tab, not .tab-btn, so they coexist).\n\nBuild verification:\n  - npm run build: passes\n  - DaisyUI .tabs, .tabs-border, .tab, .tab-active all present in built CSS\n\nTags: ui, daisyui, refactor, a11y, tabs\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch\n\nhttps://claude.ai/code/session_018prUZYyhuCZQGS1azip9bG",
+  "tags": [
+    "feature",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "scope": "tabs",
+  "title": "Phase 7 — TabBar adds DaisyUI tabs/tab class composition",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 25,
+    "deletions": 2
+  },
+  "files": [
+    "dashboard/js/components/TabBar.jsx"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "user-facing"
+}

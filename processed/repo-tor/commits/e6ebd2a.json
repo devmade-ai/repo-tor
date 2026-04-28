@@ -1,0 +1,43 @@
+{
+  "sha": "e6ebd2a",
+  "fullSha": "e6ebd2abeea60429d9bbb91027a6d2cc61a4dadb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T09:42:29Z",
+  "commitDate": "2026-04-13T09:42:29Z",
+  "subject": "fix(summary): merge stat-card dead-wrapper into the styled tile div",
+  "body": "Post-migration audit finding. The Key Stats grid in Summary.jsx had\na two-div sandwich per tile:\n\n  <div className=\"stat-card cursor-pointer hover:ring-2 ...\" role=\"button\" onClick={...}>\n    <div className=\"p-4 bg-base-300 rounded-lg text-center\">\n      <div>{metrics.features}</div>\n      <div>Features Built</div>\n    </div>\n  </div>\n\nThe outer `stat-card` class had no CSS rule defined anywhere in the\ndashboard — it was a dead marker class that survived a prior cleanup.\nThe interaction (role, tabIndex, aria-label, onClick, onKeyDown) was\non the outer, and the visual (padding, background, rounding, text\nalignment) was on the inner. Functionally fine but a dead class is\nexactly the kind of \"leave unused variables\" trap CLAUDE.md's Cleanup\nrules forbid.\n\nMerged into a single <div> per tile carrying both the interaction\nand the visual classes:\n\n  <div className=\"p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all\"\n       role=\"button\" tabIndex={0} aria-label=\"...\"\n       onClick={...} onKeyDown={...}>\n    <div>{metrics.features}</div>\n    <div>Features Built</div>\n  </div>\n\nAdded a rationale comment block at the top of the Key Stats section\ndocumenting why DaisyUI's `stat` component was rejected (horizontal\nstat-block vs our denser 1x4 / 2x2 tile grid) so future audits don't\nre-open the question.\n\nAffects all four tiles (Features Built, Bugs Fixed, Avg Urgency,\n% Planned). No behavior change — same click handlers, same aria\nlabels, same visuals; just one less DOM element per tile and one\nless dead class in the codebase.\n\nTags: ui, refactor, cleanup, accessibility, audit\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "simplify",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "scope": "summary",
+  "title": "merge stat-card dead-wrapper into the styled tile div",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 36,
+    "deletions": 22
+  },
+  "files": [
+    "dashboard/js/sections/Summary.jsx"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

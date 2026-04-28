@@ -1,0 +1,64 @@
+{
+  "sha": "26d56e1",
+  "fullSha": "26d56e1d8a486eb077e64cd74b5e01d5a982a498",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T17:16:34Z",
+  "commitDate": "2026-04-13T17:16:34Z",
+  "subject": "refactor(dashboard): custom-CSS cleanup — dead code, utility hijacks, duplication",
+  "body": "Fourth audit pass of 2026-04-13, driven by \"no custom Tailwind / CSS\nunless absolutely necessary\". Six cleanup groups shipped as one sweep\nafter user approval. Zero behavior change on the happy path; visible\nresult is identical for any user who doesn't read source.\n\n=== Group 1 — Dead CSS removed (0 consumers) ===\n\ndashboard/styles.css deletions:\n  - .skeleton + .skeleton-commit + .skeleton-line[-short|-medium]\n    + @keyframes skeleton-loading (0 JSX consumers, ALSO shadowed\n    DaisyUI v5's own `.skeleton` component — the removal lets a\n    future consumer use DaisyUI's skeleton class directly).\n  - .timeline-dot (0 consumers)\n  - .stat-label + .stat-label mobile override (0 consumers)\n  - .stat-value (only in a comment, 0 consumers)\n  - .detail-pane-content-loaded + @keyframes fadeIn (0 consumers)\n\nNet: ~35 lines of CSS removed, zero behavior change.\n\n=== Group 2 — Custom Tailwind utility hijacks removed ===\n\nThe pre-existing styles.css had three rules that hijacked Tailwind\nutilities by targeting them as descendants or in selector lists:\n\n1. Global rule `.font-mono, h1, h2, h3, .stat-value, .text-3xl,\n   .text-2xl { font-family: var(--font-mono); }` forced mono font\n   on every large-text element app-wide via the Tailwind utility\n   names. Narrowed to `h1, h2, h3 { font-family: var(--font-mono); }`\n   — semantic-HTML element targeting, not utility hijacking.\n   22 JSX elements that previously got mono via the global rule\n   now gain explicit `font-mono tracking-tight` classes:\n\n   - sections/Summary.jsx: 8 stat tiles + 4 activity snapshot\n     counters (warning/info/accent/secondary tinted)\n   - sections/Timeline.jsx: 5 summary tile counters\n   - sections/Progress.jsx: 4 metric counters\n   - sections/Health.jsx: 3 security event counters\n   - components/HealthWorkPatterns.jsx: 1 stat tile counter\n   - sections/Discover.jsx: 1 metric value (already had\n     text-2xl sm:text-3xl; gained font-mono tracking-tight)\n\n2. Card descendant rule `.card .text-3xl, .card .text-2xl\n   { font-family: var(--font-mono); letter-spacing: -0.02em; }`\n   duplicated the mono part (redundant with the global rule) and\n   added tracking-tight only for numerics inside DaisyUI card\n   ancestors. Deleted entirely — `tracking-tight` is now an\n   explicit Tailwind class on the 22 migrated JSX elements above.\n\n3. Mobile media query `@media (max-width: 640px) { ... }` had four\n   rules that needed cleanup:\n   - `.card { padding: 16px }` was dead — DaisyUI's `.card` has\n     no padding; `.card-body` does. Our rule added padding to the\n     wrapper, which was structurally wrong for DaisyUI v5 cards.\n   - `.card .text-3xl { font-size: 1.5rem }` was redundant — the\n     only consumer (sections/Discover.jsx metric card) already\n     used the responsive Tailwind form `text-2xl sm:text-3xl`\n     which achieves the same result natively.\n   - `.card .text-lg { font-size: 0.9375rem }` migrated:\n     components/CollapsibleSection.jsx h3 title now\n     `text-base sm:text-lg` to preserve the mobile-density intent\n     via the standard Tailwind responsive form.\n   - `.space-y-6 > * + * { margin-top: 16px }` was a fragile\n     descendant selector targeting a Tailwind utility. Migrated\n     to `space-y-4 sm:space-y-6` at all 10 consumer call sites:\n       App.jsx (×2 space-y-6 wrappers)\n       sections/Contributors.jsx\n       sections/Discover.jsx\n       sections/Health.jsx\n       sections/Progress.jsx\n       sections/Projects.jsx\n       sections/Summary.jsx\n       sections/Timeline.jsx\n       sections/Timing.jsx\n\n   Kept in the mobile media query: `.collapsible-header` padding\n   tightening and `.collapsible-subtitle` font shrink — both\n   target genuinely custom classes (not Tailwind utilities).\n\n=== Group 3a — safeStorage helper deduplication ===\n\ndashboard/js/pwa.js previously defined private safeStorageGet /\nsafeStorageSet / safeStorageRemove copies alongside utils.js's\nidentical exports. The \"pwa loads early, avoid the full utils\nchain\" comment was premature optimization — utils.js imports only\nfrom state.js (a constants-only module with no side-effect imports\nor heavy initialisation). pwa.js now imports the three helpers\nfrom utils.js. The two safeSessionGet / safeSessionSet wrappers\nstay local because sessionStorage isn't wrapped in utils.js and\nthey're the only consumers (used by the `pwa-just-updated`\npost-update suppression window). Rationale comment added at the\nlocal session helpers explaining why sessionStorage scope is the\ncorrect choice for that short-lived signal.\n\nNet: 9 lines of duplication removed.\n\n=== Group 3b — Tag color duplication collapsed ===\n\nBefore: the 34 tag colors were defined TWICE:\n\n  - dashboard/js/utils.js TAG_COLORS map (hex strings, used for\n    Chart.js dataset backgrounds that need a solid fill).\n  - dashboard/styles.css .tag-{name} rules (40+ rgba entries,\n    used for chip display styling).\n\nAdding, renaming, or recoloring a tag required editing both files\nin sync. The CSS also encoded TAG_TEXT_OVERRIDES information (8\ntags where the chip text uses a lighter family variant) that had\nno JS counterpart.\n\nAfter:\n\n- utils.js TAG_COLORS unchanged (still the hex source for Chart.js).\n- utils.js NEW `TAG_TEXT_OVERRIDES` map for the 8 tags where the\n  chip text uses a lifted tone for readability on the 30%-opaque\n  background: `security`, `refactor`, `cleanup`, `config`, `style`,\n  `performance`, `dependency`, `other`. Values preserved exactly\n  from the pre-cleanup CSS rules.\n- utils.js `getTagStyleObject(tag)` generalized to return a direct\n  `{ backgroundColor, color, border }` object for ALL tags (static\n  AND dynamic). Alpha values `0.3` / `0.5` for known tags,\n  `0.2` / `0.3` for dynamic tags — matches the pre-cleanup CSS\n  WCAG-AA-tuned contrast ratios on dark themes. Result stays\n  cached in a Map at module scope so React re-renders of long\n  tag lists hit a lookup instead of re-computing rgba strings.\n- utils.js `getTagClass(tag)` export REMOVED. JSX consumers\n  previously used `className={\\`tag ${getTagClass(tag)}\\`}` so\n  the returned `tag-{name}` / `tag-dynamic` picked up the per-tag\n  CSS rules. Those rules are gone, so the extra class does nothing.\n- dashboard/styles.css: deleted all 40+ `.tag-{name}` rules, the\n  `.tag-dynamic` CSS-variable bridge, and the dead `.tag-breaking`\n  rule (0 consumers — `has_breaking_change` is a Discover counter,\n  not a tag chip).\n- 5 JSX consumers updated to use `className=\"tag\"` + inline\n  `style={getTagStyleObject(tag)}`:\n    sections/Tags.jsx\n    sections/Timeline.jsx (×2 — per-commit chips + tag summary)\n    sections/Contributors.jsx\n    components/DetailPane.jsx\n\nThe `.tag` base class in styles.css stays — it provides the\ncommon layout (padding, border-radius, font-size, font-weight)\nshared across all tags, and it's NOT duplicated anywhere.\n\nResult: 34 tag colors + 8 text-color overrides live in exactly\none place (utils.js). Adding, renaming, or recoloring a tag now\nrequires editing one file.\n\n=== Group 4 — TAB_SECTIONS dead export removed ===\n\ndashboard/js/state.js exported a `TAB_SECTIONS` map documenting\nthe tab -> section name mapping. Zero JSX consumers — the comment\neven said \"Actual routing is in App.jsx — this documents the\nstructure\". The documentation already exists in CLAUDE.md's\n\"Dashboard Architecture\" table (Summary=overview, Timeline=activity,\nBreakdown=work, Health=health, Discover=discover, Projects=projects).\nThat table is now the single source of truth:\n\n- state.js: TAB_SECTIONS export deleted. Rationale comment added\n  pointing at CLAUDE.md's table and App.jsx's switch statement.\n- CLAUDE.md: \"Constants (TAB_SECTIONS, VIEW_LEVELS, THRESHOLDS)\"\n  description updated to remove the dead reference. Architecture\n  section now explicitly notes that routing is in App.jsx's\n  switch statement and that the doc table is the source of truth,\n  with a historical note about the 2026-04-13 removal.\n\n=== New regression-guard assertions ===\n\nscripts/__tests__/daisyui-surfaces.test.mjs gained 6 new tests\nso the cleanup invariants are protected by the source-level\ntripwire that runs in every `npm test` invocation:\n\n1. Dead classes stay deleted (skeleton, timeline-dot, stat-label,\n   stat-value, detail-pane-content-loaded, @keyframes skeleton-\n   loading). CSS-comment-stripped so rationale blocks that\n   reference the removed names don't false-trigger.\n2. Tailwind utility hijack rules stay deleted (.text-3xl/.text-2xl/\n   .font-mono/.stat-value in a font-family selector, .card .text-3xl\n   descendant selectors, .space-y-6 > * descendant selector).\n3. Per-tag CSS rule re-introduction guard — any `.tag-{name} { ... }`\n   block pattern fails the test (the `.tag` base class is allowed).\n4. utils.js `getTagClass` export re-introduction guard.\n5. state.js `TAB_SECTIONS` export re-introduction guard.\n6. pwa.js local safeStorageGet re-introduction guard + verifies\n   the import from utils.js is present.\n\nTotal surface assertions: 30 -> 36. `npm test` total: 51 -> 57\n(21 oklchToHex + 36 DaisyUI surfaces).\n\n=== Build impact ===\n\n- dashboard/styles.css: 1531 -> 1456 lines (-75, -4.9%).\n- dist/assets/index-*.css: ~158 KB -> ~156 KB.\n- dist/assets/index-*.js: unchanged ±100 bytes.\n- `./node_modules/.bin/vite build` clean after every group.\n- `npm test` 57/57 pass.\n- `playwright test --list` enumerates all 62 e2e tests (14 smoke +\n  48 visual) — config still parses, specs still discoverable.\n\n=== Verified invariants after the pass ===\n\n- Zero custom CSS rules shadowing DaisyUI component classes.\n- Zero Tailwind utility hijacks (.text-3xl/.text-2xl/.space-y-6/\n  .card .text-lg all deleted).\n- Zero hardcoded Tailwind color shades in dashboard/js/**/*.jsx.\n- Zero dead marker classes in JSX className attributes.\n- Zero v4 DaisyUI cruft in built CSS.\n- Zero per-tag .tag-{name} CSS rules — tag colors sourced from\n  TAG_COLORS + TAG_TEXT_OVERRIDES in utils.js.\n- Tag chip CSS now: 1 base .tag class (shared layout) + inline\n  styles from getTagStyleObject(tag).\n- safeStorage helpers defined once (utils.js), imported by\n  AppContext / themes / pwa / QuickGuide / Discover.\n\n=== Documentation ===\n\n- docs/HISTORY.md: new \"Custom-CSS cleanup pass\" section above\n  the \"Chart.js runtime theme-tracking\" entry from earlier today,\n  documenting all six groups with exact file counts and rationale.\n- docs/SESSION_NOTES.md: new \"Recent Updates (2026-04-13 —\n  custom-CSS cleanup pass)\" block at the top of Current State.\n- docs/DAISYUI_V5_NOTES.md: new \"Tag chips (brand-fixed, not\n  theme-tracked)\" section under \"Project conventions we use\"\n  explaining the single-source-of-truth pattern and regression\n  guard.\n\nTags: ui, refactor, css, cleanup, daisyui, audit, tailwind, dedup\nComplexity: 4\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "removal",
+    "simplify"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "scope": "dashboard",
+  "title": "custom-CSS cleanup — dead code, utility hijacks, duplication",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 22,
+    "additions": 458,
+    "deletions": 220
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/App.jsx",
+    "dashboard/js/components/CollapsibleSection.jsx",
+    "dashboard/js/components/DetailPane.jsx",
+    "dashboard/js/components/HealthWorkPatterns.jsx",
+    "dashboard/js/pwa.js",
+    "dashboard/js/sections/Contributors.jsx",
+    "dashboard/js/sections/Discover.jsx",
+    "dashboard/js/sections/Health.jsx",
+    "dashboard/js/sections/Progress.jsx",
+    "dashboard/js/sections/Projects.jsx",
+    "dashboard/js/sections/Summary.jsx",
+    "dashboard/js/sections/Tags.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/js/sections/Timing.jsx",
+    "dashboard/js/state.js",
+    "dashboard/js/utils.js",
+    "dashboard/styles.css",
+    "docs/DAISYUI_V5_NOTES.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

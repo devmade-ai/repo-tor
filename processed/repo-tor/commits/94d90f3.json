@@ -1,0 +1,43 @@
+{
+  "sha": "94d90f3",
+  "fullSha": "94d90f3980a62bf22fcd6f1ea9fb2ec4c51f414c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T07:58:36Z",
+  "commitDate": "2026-04-13T07:58:36Z",
+  "subject": "refactor(dashboard): migrate multi-select checkbox to DaisyUI checkbox",
+  "body": "Phase 10 (final) of the DaisyUI component-class migration. Audit\nthe FilterSidebar MultiSelect widget, document why the listbox\nstructure cannot move to DaisyUI `dropdown` + `menu`, and migrate\nthe inner checkbox to DaisyUI for visual consistency with the rest\nof the filter sidebar.\n\nFindings:\n- Wrong semantic match: the MultiSelect widget implements the\n  WAI-ARIA combobox/listbox pattern (role=\"listbox\", role=\"option\",\n  aria-multiselectable=\"true\"). DaisyUI's `menu` component implies\n  role=\"menu\" which is semantically wrong for multi-select filter\n  values. DaisyUI v5 provides no first-class listbox component.\n- DaisyUI's `dropdown` shows/hides via CSS :focus, which conflicts\n  with the React state (`open` + `highlightIndex`) needed for the\n  arrow-key navigation.\n- No shadowing: `.filter-multi-select-*` is a unique prefix; DaisyUI\n  does not define any class under that namespace, so the custom\n  styles are safe.\n- Theme cleanliness: the existing rules already use\n  `var(--color-base-*)` tokens and `color-mix()` — no hardcoded\n  theme values were found in this widget.\n\nChanges:\n- FilterSidebar.jsx: rationale block added to the MultiSelect\n  component explaining the rejection reasoning so future audits\n  do not re-open this question.\n- FilterSidebar.jsx: the inner `<input type=\"checkbox\">` gains\n  `className=\"checkbox checkbox-xs checkbox-primary\"` so it renders\n  in the active theme's primary color instead of the browser\n  default, matching the visual language of the rest of the\n  DaisyUI-migrated filter sidebar.\n- styles.css: the `.filter-multi-select-option input[type=\"checkbox\"]`\n  rule is slimmed down to only reset margin and flex-shrink — size,\n  color, and cursor are now handled by DaisyUI's `checkbox` class.\n\nTags: ui, refactor, daisyui, migration, audit, accessibility\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "scope": "dashboard",
+  "title": "migrate multi-select checkbox to DaisyUI checkbox",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 16,
+    "deletions": 3
+  },
+  "files": [
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

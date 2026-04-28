@@ -1,0 +1,55 @@
+{
+  "sha": "38a2092",
+  "fullSha": "38a2092575d4494dd7318e415300e790c06edbf0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T23:49:13Z",
+  "commitDate": "2026-04-13T23:49:13Z",
+  "subject": "fix(audit): 8 post-migration issues — toggle, hover regressions, focus ring hygiene",
+  "body": "Fresh-eyes audit of the round-3 custom-CSS sweep caught 2 CLAUDE.md\nviolations, 2 user-visible UX regressions, 1 a11y regression, and 3\nhygiene items.\n\n- SettingsPane UTC toggle reimplemented DaisyUI's native .toggle and\n  hardcoded `after:bg-white` (invisible thumb violation). Replaced with\n  `<input type=\"checkbox\" className=\"toggle toggle-primary\" readOnly\n  aria-hidden=\"true\" />` — parent row still owns role=\"switch\".\n- FilterSidebar MultiSelect selected-row hover inverted the cascade:\n  `hover:bg-base-300` replaced the primary tint so hovering a selected\n  row visually deselected it. Changed to `hover:bg-primary/20`.\n- DetailPane commit row `hover:bg-white/5` was invisible on light themes\n  (lofi/nord/emerald/caramellatte) and violated \"never hardcode theme\n  values\". Changed to `hover:bg-base-content/5`.\n- DropZone `focus-visible:outline-none` was an a11y regression —\n  keyboard users lost the focus outline. Replaced with explicit\n  `focus-visible:outline-2 focus-visible:outline-primary\n  focus-visible:outline-offset-2` to match TabBar.\n- FilterSidebar stale comment referenced deleted `.filter-multi-select-*`\n  classes; stale `mb-0` override for deleted descendant selector\n  removed.\n- Redundant `focus-visible:outline` alongside `focus-visible:outline-2`\n  (9 files) — in Tailwind v4, `.outline-2` already sets both style and\n  width via `--tw-outline-style` (defaults to `solid`). Dropped the\n  bare `outline` from utils.js FOCUS_RING_CLASSES, TabBar,\n  CollapsibleSection, FilterSidebar, DropZone, Progress, Health,\n  Timeline, HealthAnomalies, HealthBars.\n\nVerified: vite build clean, 61/61 tests pass, DaisyUI `.toggle` +\n`.toggle-primary` both ship, `hover:bg-base-content/5` +\n`hover:bg-primary/20` + `focus-visible:outline-2` all present in built\nCSS. No `focus-visible:outline focus-visible:outline-2` pairings remain\nin dashboard/js.\n\nTags: audit, ui, ux, a11y, daisyui, cleanup\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-v5-migration",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "8 post-migration issues — toggle, hover regressions, focus ring hygiene",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 76,
+    "deletions": 37
+  },
+  "files": [
+    "dashboard/js/components/CollapsibleSection.jsx",
+    "dashboard/js/components/DetailPane.jsx",
+    "dashboard/js/components/DropZone.jsx",
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/HealthAnomalies.jsx",
+    "dashboard/js/components/HealthBars.jsx",
+    "dashboard/js/components/SettingsPane.jsx",
+    "dashboard/js/components/TabBar.jsx",
+    "dashboard/js/sections/Health.jsx",
+    "dashboard/js/sections/Progress.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/js/utils.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

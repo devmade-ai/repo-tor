@@ -1,0 +1,46 @@
+{
+  "sha": "4a7637d",
+  "fullSha": "4a7637dff5d117438fde577ee7bd7f83a27b834c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T14:17:03Z",
+  "commitDate": "2026-04-13T14:17:03Z",
+  "subject": "feat(charts): theme-track Chart.js dataset colors at runtime",
+  "body": "Closes the long-standing \"Chart.js accentColor hardcoded fallback\ndoesn't track theme\" TODO entry from the 2026-04-13 audit. Chart\nsingle-accent datasets (hour-of-day bars, weekday bars, commit\nvolume, contributor complexity bar, impact \"internal\" segment) now\npick up the active DaisyUI theme's --color-primary / --color-base-content\non every theme change.\n\nchartColors.js:\n\n- New exports resolveRuntimeAccent() / resolveRuntimeMuted() that\n  return the URL override when present (sticky for branded embeds)\n  or read --color-primary / --color-base-content from\n  getComputedStyle(document.documentElement) at call time.\n- New booleans hasUrlAccentOverride / hasUrlMutedOverride from\n  parseColorOverrides() so the resolvers can distinguish an\n  explicit embedder override from the default bootstrap path.\n- parseColorOverrides() tracks explicit override state alongside\n  the resolved color.\n- isValidHex / toHex extracted to module scope so both the parser\n  and the runtime resolvers share the validator.\n- The muted resolver uses color-mix(in oklab, var(--color-base-content)\n  40%, transparent) so muted chart bars align with the dashboard's\n  existing text-base-content/40 tertiary text tint. Canvas parses\n  color-mix() directly in modern browsers (same capability the\n  existing themes.js ChartJS.defaults sync relies on), so no\n  JS-side oklch/hex conversion is needed.\n- The static `accentColor` / `mutedColor` exports are kept as\n  documented \"bootstrap fallbacks\" for pre-React code (main.jsx)\n  and SSR paths.\n\nAppContext.jsx:\n\n- Reducer state gains `themeAccent` / `themeMuted`, seeded from\n  the chartColors bootstrap values.\n- New SET_THEME_COLORS action type with a no-op guard that skips\n  re-renders when the resolved values haven't changed (e.g. dark/\n  light toggle between two themes with identical --color-primary).\n- The darkMode useEffect now dispatches SET_THEME_COLORS with\n  resolveRuntimeAccent / resolveRuntimeMuted return values AFTER\n  applyTheme() has mutated data-theme. Two-render sequence: first\n  render uses the previous theme's accent (harmless — DOM hasn't\n  painted yet), second render after the dispatch uses the new\n  theme's accent and charts re-memo with the new values.\n\nChart section consumers:\n\n- sections/Timing.jsx: hour-of-day + weekday bar backgroundColor\n  now reads state.themeAccent / state.themeMuted. Direct\n  `accentColor` / `mutedColor` imports removed. useMemo deps\n  updated.\n- sections/Timeline.jsx: commit-volume bar + net-lines bar\n  backgroundColor now state.themeAccent. Impact chart's 'internal'\n  segment now state.themeMuted. Static imports trimmed to the\n  theme-independent helpers (seriesColors, getSeriesColor,\n  withOpacity, buildRepoColorMap). All five chart useMemos\n  updated with state.themeAccent / state.themeMuted deps.\n- sections/Contributors.jsx: low-complexity segment fill now\n  state.themeMuted. useMemo deps updated.\n\nRationale comments at every touched site explain the pattern with\npointers to the chartColors.js runtime resolver comment for the\nURL-override precedence rules.\n\nTags: ui, refactor, daisyui, charts, theming, migration\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "scope": "charts",
+  "title": "theme-track Chart.js dataset colors at runtime",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 207,
+    "deletions": 27
+  },
+  "files": [
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/chartColors.js",
+    "dashboard/js/sections/Contributors.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/js/sections/Timing.jsx"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

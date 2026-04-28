@@ -1,0 +1,46 @@
+{
+  "sha": "fd27258",
+  "fullSha": "fd27258a6bca4a2d60757810b4c501717702f7a4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T14:19:03Z",
+  "commitDate": "2026-04-13T14:19:03Z",
+  "subject": "docs: record Chart.js theme-tracking + Playwright infra landing",
+  "body": "Wraps up the DaisyUI v5 migration follow-up pass: Chart.js runtime\ntheme tracking, heatmap CSS migration, and the three-layer automated\ntest infrastructure (source tripwire + Playwright smoke +\nPlaywright visual regression). Every previously-deferred TODO from\nthe earlier audit passes is now shipped or explicitly rejected with\nrationale.\n\ndocs/HISTORY.md:\n  New \"Chart.js runtime theme-tracking + Playwright test\n  infrastructure\" section above the \"Second audit pass\" entry.\n  Full breakdown with:\n    1. chartColors.js resolveRuntimeAccent / resolveRuntimeMuted\n       design + URL-override precedence\n    2. AppContext SET_THEME_COLORS dispatch pattern + two-render\n       sequence explanation\n    3. Chart section migrations (Timing, Timeline, Contributors)\n    4. Heatmap CSS color-mix + embed override rationale\n    5. Three test layers with per-spec purpose + exact test counts\n    6. Playwright config rationale (dual project, webServer, sandbox\n       fallback via PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH)\n    7. npm scripts + dashboard/e2e/README.md index\n    8. Verification commands + outcomes\n\ndocs/SESSION_NOTES.md:\n  New \"Recent Updates (2026-04-13 — deferred items landed)\" block\n  at the top of Current State documenting all three deferred-item\n  landings with per-spec test counts (30 source / 14 smoke / 48\n  visual) and the sandbox caveat for local Playwright runs.\n\ndocs/TODO.md:\n  - Removed the \"Test infrastructure\" section entirely (both items\n    landed).\n  - Removed the \"Chart.js theme-tracking\" item (landed).\n  - Kept the \"Data-viz palette (out of scope by design)\" entry\n    explaining why the 20-color seriesColors palette stays\n    hardcoded and embedder-customizable — so a future audit\n    doesn't re-open it as a gap.\n  - Footer \"Last updated\" paragraph rewritten to cover every\n    follow-up fix across all audit passes.\n\ndocs/DAISYUI_V5_NOTES.md:\n  New \"Chart.js dataset colors (theme-tracked)\" entry under\n  \"Project conventions we use\" explaining the\n  state.themeAccent / state.themeMuted pattern + URL override\n  precedence. New \"Heatmap CSS (theme-tracked with embed\n  override)\" entry explaining the color-mix + nested-var\n  fallback chain.\n\ndocs/TESTING_GUIDE.md:\n  New \"Automated coverage\" section at the top of the file\n  introducing the three automated layers with a quick-reference\n  table, command list, and cross-reference to\n  dashboard/e2e/README.md. Explains that the manual \"DaisyUI\n  component-class migration\" checklist later in the file is the\n  source-of-truth that the automated suites implement — when you\n  add a manual entry, add a corresponding automated assertion.\n\nCLAUDE.md:\n  Documentation table gains dashboard/e2e/README.md entry with\n  its update trigger.\n\nTags: documentation, daisyui, migration, testing, audit\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "scope": null,
+  "title": "record Chart.js theme-tracking + Playwright infra landing",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 161,
+    "deletions": 9
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/DAISYUI_V5_NOTES.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

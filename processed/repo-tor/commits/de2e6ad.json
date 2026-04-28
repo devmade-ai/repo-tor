@@ -1,0 +1,52 @@
+{
+  "sha": "de2e6ad",
+  "fullSha": "de2e6ad75a496022eae87aaef306561a7dd2ac70",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T10:37:41Z",
+  "commitDate": "2026-04-13T10:37:41Z",
+  "subject": "refactor(dashboard): close remaining DaisyUI v5 audit gaps",
+  "body": "Rerunning the 10-step DaisyUI audit against the post-sweep codebase\nturned up four additional gaps that weren't caught in the original\npass. All four are fixed in this commit.\n\n=== 1. Hardcoded Tailwind color classes -> DaisyUI semantic tokens ===\n\nViolates CLAUDE.md's hardcoded-theme-values rule: data-viz categories\nwere using fixed `bg-green-500`, `bg-red-500`, `bg-amber-500`,\n`bg-blue-500`, `bg-purple-500`, `bg-gray-500`, `bg-indigo-500` that\ndon't track the active theme. On a dark theme like `black`, the mid\nsaturation shades can blend into the page; on `caramellatte` they\nclash with the warm base. Replaced with DaisyUI semantic tokens that\nauto-switch per theme:\n\n  HealthBars.jsx UrgencyBar stacked bar:\n    bg-green-500  -> bg-success   (planned)\n    bg-blue-500   -> bg-info      (normal)\n    bg-amber-500  -> bg-warning   (reactive)\n\n  HealthBars.jsx ImpactBar stacked bar:\n    bg-blue-500   -> bg-info      (user-facing)\n    bg-gray-500   -> bg-neutral   (internal)\n    bg-purple-500 -> bg-secondary (infrastructure)\n    bg-green-500  -> bg-accent    (api)\n\n  Health.jsx urgencyItems / impactItems colorClass values — same\n  mapping as HealthBars above so the list view matches the stacked\n  bar view.\n\n  HealthAnomalies.jsx riskItems:\n    bg-red-500   -> bg-error   (high)\n    bg-amber-500 -> bg-warning (medium)\n    bg-green-500 -> bg-success (low)\n\n  HealthAnomalies.jsx debtItems:\n    bg-red-500   -> bg-error   (added)\n    bg-green-500 -> bg-success (paid)\n    bg-gray-400  -> bg-neutral (neutral)\n\n  Progress.jsx semver list:\n    bg-blue-500  -> bg-info    (patch)\n    bg-green-500 -> bg-success (minor)\n    bg-red-500   -> bg-error   (major)\n\n  Discover.jsx comparison bar:\n    bg-green-500 -> bg-success (left side)\n    bg-amber-500 -> bg-warning (right side)\n\n  Timing.jsx developer-pattern legend dots:\n    bg-green-600 -> bg-success\n    bg-amber-600 -> bg-warning\n    bg-red-600   -> bg-error\n\nRationale comment blocks added next to the Urgency/Impact color\narrays in Health.jsx and HealthBars.jsx to explain why the\nfour-token impact palette uses info/neutral/secondary/accent\n(four distinct tokens that render as visibly different colors\nacross every registered theme, rather than two tokens repeating\ninside a 4-category chart).\n\n=== 2. .loading-spinner custom class shadow removal ===\n\nThe custom `.loading-spinner` rule in styles.css was shadowing\nDaisyUI v5's own `.loading-spinner` animation variant — exactly\nthe same trap as the prior .card / .btn / .badge / .toast shadow\ncases caught in the 10-phase sweep. Our custom class provided\nfull styling (display, size, border-radius, border-top-color,\nanimation) so consumers using `className=\"loading-spinner\nloading-spinner-sm\"` hit our custom code, not DaisyUI's. Migrated\nevery consumer to the proper DaisyUI class pattern:\n\n  App.jsx                   loading-spinner loading-spinner-lg\n                              -> loading loading-spinner loading-lg text-primary\n  sections/Timeline.jsx     loading-spinner loading-spinner-sm\n                              -> loading loading-spinner loading-sm text-primary\n  sections/Projects.jsx     loading-spinner loading-spinner-md\n                              -> loading loading-spinner loading-md text-primary\n  sections/Discover.jsx     loading-spinner loading-spinner-sm\n                              -> loading loading-spinner loading-sm text-primary\n\nEvery migrated consumer is now a <span> (inline element) with\n`aria-label=\"Loading\"` for screen readers — DaisyUI's `.loading`\nbase uses display:inline-block + mask-image so a <span> is the\nsemantically correct wrapper. The text-primary override threads\nthe active theme's primary color through DaisyUI's currentColor\nfill so the spinner matches the theme's accent.\n\nstyles.css cleanup:\n  - Deleted .loading-spinner, .loading-spinner-sm/md/lg rules.\n  - Deleted dead .loading-overlay rule (no JSX consumer anywhere).\n  - Deleted @keyframes spin (unused after the custom class removal).\n  - Simplified the prefers-reduced-motion rule: dropped the stale\n    `.loading-spinner` target since the universal selector already\n    catches every animated element.\n\n=== 3. Single-value progress bars -> native <progress> ===\n\nTwo places rolled their own \"wrapper + fill\" progress bar using\ntwo nested divs with `bg-base-300` track and a colored fill. Both\nmigrated to the native HTML <progress> element with DaisyUI's\n`progress` class + `progress-{variant}` theme color:\n\n  Progress.jsx epic breakdown bar:\n    <div class=\"w-full bg-base-300 rounded-full h-2\">\n      <div class=\"bg-primary h-2 rounded-full\" style=\"width:...\">\n    </div>\n    ->\n    <progress class=\"progress progress-primary w-full\"\n              value={pct} max=\"100\"\n              aria-label=\"${epic} progress: ${pct} percent\" />\n\n  Discover.jsx file-change bar:\n    <div class=\"h-2 bg-base-300 rounded-full overflow-hidden\">\n      <div class=\"h-full bg-info rounded-full\" style=\"width:...\">\n    </div>\n    ->\n    <progress class=\"progress progress-info w-full\"\n              value={pct} max=\"100\"\n              aria-label=\"${name} changes: ${pct} percent of top file\" />\n\nWins:\n  - One semantic element per bar instead of a two-div sandwich.\n  - Screen readers announce \"X percent of 100\" via the native\n    element — free a11y upgrade over the prior custom divs which\n    exposed no progress semantics at all.\n  - Fill color tracks theme via `progress-{primary|info}` so a\n    theme swap updates every bar in place without a re-render.\n  - DaisyUI's `.progress` ships at `height: .5rem` which matches\n    our prior custom `h-2` (8px), so the visual is unchanged.\n\nStacked bars (HealthBars UrgencyBar/ImpactBar, Discover\ncomparison bar) stay custom because they show MULTIPLE values\nsimultaneously — native <progress> can't render a multi-segment\nstacked bar. Their structural pattern is unchanged; only the\nsegment fill colors are migrated to semantic tokens (item 1).\n\nVerified via grep that `.progress-primary` and `.progress-info`\nboth ship in the built CSS (Tailwind's content-based tree-shaker\npicks them up when they appear in JSX). This was a concern during\naudit — the classes didn't ship BEFORE the migration because\nnothing referenced them; adding the class to a file makes DaisyUI\nemit the rule.\n\n=== 4. Dead marker classes (Discover.jsx) ===\n\nTwo more orphan marker classes like the `.stat-card` case caught\nin the prior audit: `metric-selector` on a <select> and `pin-btn`\non a <button>, both with zero CSS rules defined anywhere. The\nactual visual styling was already on the same elements via\nTailwind utility classes — the custom class names were doing\nnothing. Removed the class name from both elements.\n\nAdded rationale comment blocks at both sites explaining why\nthey're kept as raw <select> / <button> with Tailwind utilities\ninstead of migrating to DaisyUI's `select select-xs` /\n`btn btn-ghost btn-xs`:\n\n  - The metric picker is an ultra-dense inline control inside a\n    p-5 card-body, sitting beside a pin toggle in a flex row.\n    DaisyUI's `select` ships a 2rem min-height + chevron icon\n    that would overflow the inline layout.\n  - The pin toggle is a bare 16px icon. DaisyUI's `btn` applies\n    padding, min-height, and pill border-radius that would shift\n    the card header layout away from its dense design.\n\nAlso added `type=\"button\"` to the pin toggle (was missing — could\nhave submitted a parent form in some contexts, though in practice\nwe don't wrap these in forms).\n\n=== Verified ===\n\n- `./node_modules/.bin/vite build` clean.\n- `node --test scripts/__tests__/oklchToHex.test.mjs` 21/21 pass.\n- `grep -oE \"\\.bg-(success|info|warning|error|primary|secondary|accent|neutral)\\b\" dist/assets/index-*.css | sort -u`\n  -> all 8 semantic bg-* tokens present in built CSS.\n- `grep -oE \"\\.loading[a-zA-Z-]*\" dist/assets/index-*.css | sort -u`\n  -> .loading, .loading-spinner, .loading-sm/md/lg all DaisyUI v5\n  origin; no leftover custom `.loading-spinner-sm/md/lg`.\n- `grep -oE \"\\.progress[a-zA-Z-]*\" dist/assets/index-*.css | sort -u`\n  -> .progress, .progress-info, .progress-primary.\n- No hardcoded `bg-{color}-{weight}` Tailwind classes remain in\n  dashboard/js (verified via the color-name regex sweep).\n\nTags: ui, refactor, daisyui, migration, audit, accessibility, a11y, cleanup\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "scope": "dashboard",
+  "title": "close remaining DaisyUI v5 audit gaps",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 96,
+    "deletions": 83
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/components/HealthAnomalies.jsx",
+    "dashboard/js/components/HealthBars.jsx",
+    "dashboard/js/sections/Discover.jsx",
+    "dashboard/js/sections/Health.jsx",
+    "dashboard/js/sections/Progress.jsx",
+    "dashboard/js/sections/Projects.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/js/sections/Timing.jsx",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

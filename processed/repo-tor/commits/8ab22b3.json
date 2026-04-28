@@ -1,0 +1,46 @@
+{
+  "sha": "8ab22b3",
+  "fullSha": "8ab22b3eb9610d403c8730d71325349ac5b2b95f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T09:43:56Z",
+  "commitDate": "2026-04-13T09:43:56Z",
+  "subject": "docs: add DAISYUI_V5_NOTES cheat sheet and capture audit follow-ups",
+  "body": "Adds a project-local DaisyUI v5 reference doc and rolls the full\npost-migration audit follow-up pass into SESSION_NOTES / HISTORY /\nTODO / AI_MISTAKES / CLAUDE.md.\n\nNew file — docs/DAISYUI_V5_NOTES.md:\n\n  Project-local cheat sheet for DaisyUI v5 quirks. Non-exhaustive\n  but covers every trap found during the 10-phase migration and\n  its follow-up audit. Sections:\n\n  - \"v4 -> v5 removed modifiers\" table: input-bordered,\n    select-bordered, textarea-bordered, btn-bordered, form-control,\n    input-group, card-bordered, card-compact, card-side, btn-group,\n    tab-bordered, tab-lifted, menu-compact, menu-normal, mask-*.\n    Each row has the v4 name and the v5 replacement with notes.\n  - \"Verification recipe\": grep recipe for enumerating what v5\n    actually ships in the built CSS (run after every build that\n    introduces a new DaisyUI component modifier). Narrower\n    per-component grep example also included.\n  - \"Project conventions we use\": concrete className templates\n    for cards, buttons, badges, alerts, modals, toasts, tabs,\n    form inputs, and checkboxes as we standardized on them in\n    the 10-phase migration.\n  - \"Deliberately NOT used\": dropdown, menu, collapse, drawer —\n    each with the rejection reason so future audits don't re-open\n    the question.\n  - \"Theme registration\": pointer to the scripts/theme-config.js\n    propagator flow.\n  - \"Related docs\" cross-reference list.\n\ndocs/AI_MISTAKES.md:\n\n  The 2026-04-13 entry (-bordered trap post-mortem) previously\n  ended with a TODO pointing at \"docs/implementations/\n  DAISYUI_V5_NOTES.md\" as a future home for a cheat sheet. The\n  implementations/ subdirectory doesn't exist in this repo —\n  CLAUDE.md's Suggested Implementations section explicitly\n  forbids creating local copies of implementation patterns.\n  Rewritten to point at the new top-level docs/DAISYUI_V5_NOTES.md\n  instead, and the placeholder TODO is removed.\n\ndocs/HISTORY.md:\n\n  New \"2026-04-13 Post-migration audit\" section ABOVE the 10-phase\n  sweep entry. Documents all four follow-up fixes with:\n    1. -bordered v4 cruft removal (commits de9bd4f + 9e2b154, already\n       in history but now cross-referenced from the audit section).\n    2. stat-card dead-wrapper merge in Summary.jsx (new).\n    3. Toast nested aria-live double-announce fix (new).\n    4. HamburgerMenu React Portal for stacking context (new).\n  Two remaining follow-ups (Playwright smoke test + visual\n  regression baselines) listed with rationale for why they're\n  deferred to the test-infrastructure TODO.\n\ndocs/SESSION_NOTES.md:\n\n  New \"2026-04-13 post-migration audit follow-up\" block at the top\n  of Current State, ABOVE the prior 10-phase block. Numbered list\n  of the four fixes with a sentence explaining each, plus a note\n  on the two test-infrastructure TODOs and why they're pending.\n\ndocs/TODO.md:\n\n  - Removed the \"Stacking Context\" entry (fixed in commit 1f71c6d\n    via React Portal).\n  - New \"Test infrastructure (post-migration follow-up)\" section\n    with two items: browser-runtime Playwright smoke test for the\n    DaisyUI migration checklist, and visual regression baselines\n    (per tab x per theme = 8 baselines). Each item describes what\n    it should check and why it's deferred.\n  - Footer \"Last updated\" paragraph rewritten to mention the four\n    follow-up fixes alongside the 10-phase sweep.\n\nCLAUDE.md:\n\n  The documentation table now lists docs/DAISYUI_V5_NOTES.md with\n  its update trigger (\"when encountering a new DaisyUI v5 quirk,\n  or when adding a new component class to JSX\") so future sessions\n  know to consult and maintain the cheat sheet.\n\nTags: documentation, daisyui, migration, audit, postmortem\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "scope": null,
+  "title": "add DAISYUI_V5_NOTES cheat sheet and capture audit follow-ups",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 192,
+    "deletions": 18
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/DAISYUI_V5_NOTES.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

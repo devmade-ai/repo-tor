@@ -1,0 +1,43 @@
+{
+  "sha": "9db2a10",
+  "fullSha": "9db2a1006892e2790b4b22af6505303b721c3553",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T07:57:10Z",
+  "commitDate": "2026-04-13T07:57:10Z",
+  "subject": "refactor(dashboard): audit HamburgerMenu for DaisyUI migration",
+  "body": "Phase 9 of the DaisyUI component-class migration. Verify the\nHamburgerMenu's custom `.hamburger-*` classes do not shadow any\nDaisyUI component classes, document why a full migration to\nDaisyUI `dropdown` + `menu` is deliberately rejected, and replace\nthe one remaining hardcoded theme value found in the audit.\n\nFindings:\n- No collision: the `.hamburger-*` prefix is unique; DaisyUI v5\n  does not use it anywhere in its component set, so there is no\n  shadowing risk like the one that prompted phases 5-6.\n- Trigger button already migrated in phase 6 to\n  `btn btn-ghost btn-square` — no further work needed there.\n- Full migration to DaisyUI `dropdown` + `menu` rejected because:\n  1. DaisyUI `dropdown` shows/hides via CSS `:focus` or the `[open]`\n     attribute, which conflicts with our React-state-controlled\n     `open` flag (needed for `keepOpen` theme picker items and\n     async action error capture).\n  2. DaisyUI `menu` implies `role=\"menu\"`, which the shared\n     BURGER_MENU pattern explicitly avoids because it forces\n     screen readers into forms mode.\n  The disclosure pattern is intentional and documented upstream in\n  `docs/implementations/BURGER_MENU.md`.\n- Hardcoded color fixed: `.hamburger-item-destructive:hover` used\n  `rgba(239, 68, 68, 0.1)` which violates the CLAUDE.md rule against\n  hardcoding theme values. Now uses\n  `color-mix(in oklab, var(--color-error) 10%, transparent)` so the\n  hover tint tracks the active theme's error color.\n- Added a documentation block at the top of HamburgerMenu.jsx\n  explaining the rejection reasoning so future audits do not\n  re-open the same question.\n\nTags: ui, refactor, daisyui, migration, audit, accessibility\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "scope": "dashboard",
+  "title": "audit HamburgerMenu for DaisyUI migration",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 9,
+    "deletions": 1
+  },
+  "files": [
+    "dashboard/js/components/HamburgerMenu.jsx",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

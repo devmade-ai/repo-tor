@@ -1,0 +1,45 @@
+{
+  "sha": "e020af6",
+  "fullSha": "e020af63b997c55a82db25a6b123aa4d49162ac9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T07:55:45Z",
+  "commitDate": "2026-04-13T07:55:45Z",
+  "subject": "refactor(dashboard): migrate form inputs to DaisyUI select/input",
+  "body": "Phase 8 of the DaisyUI component-class migration. Replace the last\ncustom form-control classes with DaisyUI's select and input components\nso they stay visually consistent with the rest of the migrated UI and\npick up theme tokens automatically.\n\n- SettingsPane work hour selects: filter-select -> select select-bordered select-sm\n- FilterSidebar date inputs: filter-input filter-date-input -> input input-bordered input-sm w-full\n- styles.css: delete .filter-select, .filter-select:focus, .filter-input,\n  .filter-input:focus, and .filter-date-input rules (replaced with pointer\n  comments so future readers can find the migrated component).\n- .filter-date-group layout helper is kept (still used as the flex column\n  wrapper around the two date inputs).\n\nTags: ui, refactor, daisyui, migration\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "scope": "dashboard",
+  "title": "migrate form inputs to DaisyUI select/input",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 8,
+    "deletions": 39
+  },
+  "files": [
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/SettingsPane.jsx",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,57 @@
+{
+  "sha": "5ddd3af",
+  "fullSha": "5ddd3af5540c1c47bc59867b513ff7f7a449978b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T18:44:07Z",
+  "commitDate": "2026-04-13T18:44:07Z",
+  "subject": "refactor(dashboard): custom-CSS cleanup round 2 + caught tag-chip regressions",
+  "body": "Immediate follow-up to the first custom-CSS cleanup round earlier\ntoday. Post-cleanup self-audit flagged five more Tailwind-replaceable\ncustom classes AND caught three consumers that were silently missed in\nthe earlier tag-color sweep.\n\n=== Additional Tailwind-utility migrations ===\n\n1. `.tag` base class deleted. The earlier round removed the 40+\n   `.tag-{name}` per-tag color rules and the `.tag-dynamic` CSS-variable\n   bridge but kept `.tag` as a shared layout class carrying padding,\n   border-radius, font-size, and font-weight. All five declarations\n   have direct Tailwind utility equivalents:\n     display: inline-block            -> inline-block\n     padding: 2px 8px                 -> px-2 py-0.5\n     border-radius: var(--radius-full)-> rounded-full\n     font-size: 12px                  -> text-xs\n     font-weight: 500                 -> font-medium\n   All 5 tag-chip JSX consumers now carry the full 5-utility class\n   string inline. There is NO `.tag` CSS class anywhere — chip layout\n   AND colors are both inline at each consumer.\n\n2. `.no-print` custom class -> Tailwind `print:hidden` variant. The\n   custom rule was a 1-line `@media print { display: none !important }`\n   block. Tailwind v4 ships a `print:` variant that generates an\n   equivalent rule automatically when `print:hidden` appears in source.\n   Migrated 7 consumers:\n     App.jsx ×4 (TabBar, FilterSidebar, DetailPane, SettingsPane\n                 wrappers — anything interactive that shouldn't print)\n     components/Toast.jsx (toast container)\n     components/Header.jsx (filter/settings/menu button row)\n   Verified `.print\\:hidden` ships in the built CSS after migration.\n\n3. `.filter-group-header` -> `flex items-center mb-1`. Plus the\n   descendant override `.filter-group-header label { margin-bottom: 0 }`\n   replaced with an explicit `mb-0` class on the inner <label> in JSX —\n   needed because the global `.filter-sidebar-inner label { margin-\n   bottom: 4px }` rule would otherwise apply to the label and push\n   the flex row taller than needed. Added a rationale comment at the\n   mb-0 site so the reason is visible.\n\n4. `.filter-date-group` -> `flex flex-col gap-1.5`. One consumer\n   (FilterSidebar.jsx date range wrapper), three declarations, all\n   Tailwind-replaceable.\n\n5. `.filter-empty-option` -> `text-base-content/40 cursor-default`.\n   One consumer (MultiSelect empty-options placeholder), two\n   declarations, both Tailwind-replaceable.\n\n=== Regression caught during the audit ===\n\nA sweep for stale `className=\"tag\"` patterns after the `.tag` class\ndeletion surfaced three JSX consumers that had been missed in the\nearlier tag-color cleanup round:\n\n  Health.jsx:199  <span className=\"tag tag-security\">security</span>\n  Health.jsx:270  <span className=\"tag tag-security\">security</span>\n  Timeline.jsx:507 <span className=\"tag tag-other shrink-0\">+{N}</span>\n\nThe first two are hardcoded \"security\" labels inside the security\nevent alerts; the third is a \"+N more\" badge for tags beyond the\nfirst three shown on a commit row. All three used the `.tag` +\n`.tag-{name}` CSS class combo, BOTH of which are deleted. The spans\nwere rendering as UNSTYLED text on any build — no background, no\npadding, no border-radius. Probably not noticed on a local dev\npreview but a visible regression on any deployed build.\n\nFixed all three to use the canonical tag-chip pattern:\n  className=\"inline-block px-2 py-0.5 rounded-full text-xs font-medium[ shrink-0]\"\n  style={getTagStyleObject('security'|'other')}\n\nHealth.jsx also gained a `getTagStyleObject` import (previously\nimported `getAuthorEmail`, `formatDate`, etc. from utils.js but not\n`getTagStyleObject` because the old `.tag tag-security` class combo\ndidn't need it).\n\n=== Strengthened regression guard ===\n\nThe source-level `.tag base class stays deleted` test in\nscripts/__tests__/daisyui-surfaces.test.mjs was previously weak — it\nonly checked that the 4 originally-known tag consumer files contained\nthe Tailwind class string at least once, and that `.tag { ... }`\nwasn't in styles.css. It did NOT sweep for other JSX files that might\nstill have stale `className=\"tag\"` references.\n\nRewritten to sweep every .jsx file in `dashboard/js/` and fail on any\n`className` attribute whose value contains:\n\n  a. `tag` as a bare space-delimited token (catches `className=\"tag\"`,\n     `className=\"tag shrink-0\"`, `className=\"tag tag-security\"`, etc.)\n\n  b. Any `tag-{name}` legacy per-tag class from a comprehensive list\n     of 34+ known names (feature, bugfix, security, refactor, etc.)\n     plus dynamic/breaking.\n\nComment-stripped so rationale blocks that intentionally mention the\nremoved classes don't false-trigger. Also added Health.jsx to the\n\"every consumer has the full Tailwind class string\" consumer list.\n\nThis test WOULD have caught the three missed consumers if it had\nexisted during the earlier round. Landing it now means future\nregressions of the same shape fail CI/test immediately.\n\n=== Documentation sync ===\n\nStale doc references in pre-existing comments/blocks fixed:\n\n  - docs/DAISYUI_V5_NOTES.md \"Tag chips\" section: JSX usage example\n    updated from `className=\"tag\"` to the full Tailwind class string.\n    Note about the `.tag` base class deletion added.\n  - dashboard/js/utils.js `getTagClass` removal comment: updated to\n    mention that the `.tag` base class was also deleted in a follow-up\n    pass the same day.\n  - dashboard/styles.css `.tag-{name}` removal block: updated to\n    reflect that the `.tag` base class is also gone.\n  - dashboard/js/components/Toast.jsx: the \"no-print class keeps\n    toasts out of PDF exports\" inline comment updated to mention the\n    `print:hidden` Tailwind variant migration.\n\n=== Build + test impact ===\n\n- dashboard/styles.css: 1456 -> 1455 lines.\n- dist/assets/index-*.css: unchanged ±100 bytes.\n- npm test: 57 -> 60 tests. 3 new assertions:\n    1. Strengthened `.tag` sweep (replaces the weaker per-file check\n       with a comprehensive JSX walker).\n    2. `.no-print` custom class stays deleted, 3 `print:hidden`\n       consumers carry the new variant.\n    3. Built CSS ships the `.print\\:hidden` utility rule.\n- playwright test --list: still enumerates 62 e2e tests — config\n  parses, specs discoverable.\n- vite build clean on every intermediate step.\n\n=== Verified invariants after round 2 ===\n\n- Zero `.tag` base class in styles.css.\n- Zero `.tag-{name}` per-tag rules (already invariant from round 1).\n- Zero `.tag-dynamic` CSS-variable bridge.\n- Zero `className=\"tag\"` / `className=\"tag ...\"` / `className=\"tag-...\"`\n  references in dashboard/js/**/*.jsx — verified by the new sweep test.\n- Zero `.no-print` custom class in styles.css.\n- Zero `className=\"...no-print...\"` consumers in JSX.\n- Zero `.filter-group-header` / `.filter-date-group` /\n  `.filter-empty-option` rules in styles.css.\n- All replacement Tailwind utilities (`inline-block`, `px-2`, `py-0.5`,\n  `rounded-full`, `text-xs`, `font-medium`, `print:hidden`, `flex`,\n  `items-center`, `mb-0`, `mb-1`, `flex-col`, `gap-1.5`,\n  `text-base-content/40`, `cursor-default`) ship in the built CSS.\n\nTags: ui, refactor, css, cleanup, daisyui, tailwind, audit, bugfix, a11y\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui",
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "scope": "dashboard",
+  "title": "custom-CSS cleanup round 2 + caught tag-chip regressions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 256,
+    "deletions": 62
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/components/DetailPane.jsx",
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/Header.jsx",
+    "dashboard/js/components/Toast.jsx",
+    "dashboard/js/sections/Contributors.jsx",
+    "dashboard/js/sections/Health.jsx",
+    "dashboard/js/sections/Tags.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/js/utils.js",
+    "dashboard/styles.css",
+    "docs/DAISYUI_V5_NOTES.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}
