@@ -1,0 +1,42 @@
+{
+  "sha": "1753149",
+  "fullSha": "1753149e0d948202bd946c8f77cfd75c81adebf8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T12:01:53Z",
+  "commitDate": "2026-04-10T12:01:53Z",
+  "subject": "fix(pwa): update banner not showing + button not working",
+  "body": "Two bugs:\n\n1. checkVersionUpdate() on initial load detected new versions but the\n   return value was discarded — hasUpdate never became true, so the\n   banner only appeared after backgrounding/foregrounding the tab.\n\n2. When version.json detected the change (not SW lifecycle), there was\n   no waiting service worker. updateServiceWorker(true) sent SKIP_WAITING\n   to nothing — no reload happened. Added 2s fallback to location.reload().\n\nTags: pwa, ux, bug\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: patch\n\nhttps://claude.ai/code/session_01BcrjMzrkT3CbZ9axt9gXnm",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "update banner not showing + button not working",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 26,
+    "deletions": 2
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "src/composables/usePWAUpdate.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 3,
+  "impact": "user-facing"
+}

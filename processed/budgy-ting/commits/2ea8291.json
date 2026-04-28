@@ -1,0 +1,51 @@
+{
+  "sha": "2ea8291",
+  "fullSha": "2ea829128c3ba8224c72a0584bc76c3367147e88",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T07:20:11Z",
+  "commitDate": "2026-04-10T07:20:11Z",
+  "subject": "fix(theme): compute meta colors from actual DaisyUI oklch values",
+  "body": "Meta theme-color hex values were estimated by hand, not calculated from\nthe DaisyUI theme CSS. Wrote oklch→sRGB converter and derived correct\nvalues from node_modules/daisyui/themes.css.\n\nLight themes use primary color, dark themes use base-100:\n- vivid: #45b5e6→#45aeee (cmyk primary), #0f1729→#0f172a (night base-100)\n- classic: #808080→#0d0d0d (lofi primary), #000000 unchanged (black base-100)\n- nature: #66CC8A→#66cc8a (case only), #1a2e1a→#1b1717 (forest base-100)\n\nTags: theme, daisyui, pwa, fix\nComplexity: 2\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01BPc1xJr4LVbLgvTxtZf2i1",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "compute meta colors from actual DaisyUI oklch values",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#45",
+    "#0",
+    "#808080",
+    "#000000",
+    "#66",
+    "#1"
+  ],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 11,
+    "deletions": 11
+  },
+  "files": [
+    "index.html",
+    "src/config/themes.ts",
+    "vite.config.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "user-facing"
+}

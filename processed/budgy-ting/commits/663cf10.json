@@ -1,0 +1,48 @@
+{
+  "sha": "663cf10",
+  "fullSha": "663cf10a06c44dae7afff6f08241f1adfc080bc9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T07:24:51Z",
+  "commitDate": "2026-04-10T07:24:51Z",
+  "subject": "refactor(theme): consolidate to single Vivid combo (cmyk/night)",
+  "body": "Remove classic (lofi/black) and nature (emerald/forest) combos.\nKeep the combo selection system functional — ThemeCombo interface,\nvalidCombo(), getCombo(), setCombo() all remain for future expansion.\nOnly one combo registered: Vivid (cmyk light / night dark).\n\nSync points updated:\n- themes.ts: single combo entry with inline instructions for adding more\n- index.css: only cmyk --default and night --prefersdark registered\n- index.html flash script: single combo in lookup object\n- Docs: CLAUDE.md, TODO.md, HISTORY.md, SESSION_NOTES.md\n\nTags: theme, daisyui, cleanup\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01BPc1xJr4LVbLgvTxtZf2i1",
+  "tags": [
+    "refactor",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "consolidate to single Vivid combo (cmyk/night)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 28,
+    "deletions": 48
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "index.html",
+    "src/config/themes.ts",
+    "src/index.css"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "8f50afa",
+  "fullSha": "8f50afa61882bcb944fb38f9862fcf8fe3ae24f9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T08:39:16Z",
+  "commitDate": "2026-04-10T08:39:16Z",
+  "subject": "refactor(debug): migrate DebugPill from inline styles to DaisyUI tokens",
+  "body": "The DebugPill was the last component with hardcoded hex colors. The\nassumption that it needed inline styles to survive CSS failure was\nwrong — the Vue DebugPill only mounts after Vue is running, which\nguarantees CSS is loaded. The pre-framework inline pill in index.html\n(which stays hardcoded) handles the CSS-failure case.\n\nChanges:\n- All inline :style objects replaced with Tailwind/DaisyUI classes\n  (bg-neutral, text-neutral-content, border-neutral-content/10, etc.)\n- Source/severity/status colors now use resolveThemeColor() to read\n  DaisyUI tokens (--color-primary, --color-info, --color-error, etc.)\n  so the debug panel adapts to any DaisyUI theme\n- Colors recompute reactively when isDark changes (theme switch)\n- Removed ~40 inline style objects from template\n\nTags: debug, theme, daisyui, refactor\nComplexity: 3\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01BPc1xJr4LVbLgvTxtZf2i1",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "migrate DebugPill from inline styles to DaisyUI tokens",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 88,
+    "deletions": 122
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "src/debug/DebugPill.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}
