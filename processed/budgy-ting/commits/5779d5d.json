@@ -1,0 +1,42 @@
+{
+  "sha": "5779d5d",
+  "fullSha": "5779d5ddc0bea631e59411bc61b45c1d387f9699",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T08:58:38Z",
+  "commitDate": "2026-04-18T08:58:38Z",
+  "subject": "test(pwa): add index.html literal-href tripwire from pattern doc",
+  "body": "Closes the ICON_CACHE_BUST tripwire by adding the one source-level test\nfrom the glow-props pattern doc that wasn't already in the suite.\niconCacheBustHtml() throws at build time on missing literals, but a unit\ntest fails the same drift in milliseconds without a full build.\n\nAlso refreshes SESSION_NOTES with the dist-level verification results.\n\nTags: pwa, test, icon-cache-bust\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: icon-cache-bust\nSemver: patch",
+  "tags": [
+    "test-unit"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "icon-cache-bust",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "add index.html literal-href tripwire from pattern doc",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 28,
+    "deletions": 28
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "src/iconCacheBust.test.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

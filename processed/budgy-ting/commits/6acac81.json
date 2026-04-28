@@ -1,0 +1,43 @@
+{
+  "sha": "6acac81",
+  "fullSha": "6acac8194605988813764e48ac7b644022188302",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T17:03:48Z",
+  "commitDate": "2026-04-10T17:03:48Z",
+  "subject": "fix(header): restore original text-primary style, not text-base-content",
+  "body": "Previous revert used text-base-content — the actual pre-gradient style\nwas text-primary with hover:text-primary/80 transition-colors.\n\nTags: ux, cleanup\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: ux\nSemver: patch\n\nhttps://claude.ai/code/session_01YKKtG3bLPmwxKSbzU6SFT4",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "ux",
+  "semver": "patch",
+  "scope": "header",
+  "title": "restore original text-primary style, not text-base-content",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "src/components/AppLayout.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "user-facing"
+}

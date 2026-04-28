@@ -1,0 +1,42 @@
+{
+  "sha": "5660f3e",
+  "fullSha": "5660f3efcc5b0f485dee428a215acd5e3a7b13d9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T09:38:07Z",
+  "commitDate": "2026-04-18T09:38:07Z",
+  "subject": "docs(claude): replace Triggers section with glow-props 48-trigger version",
+  "body": "Cross-fleet alignment per 2026-04-17 policy. Replaces the legacy 9\nsingle-word triggers (rev/aud/doc/tap/cln/perf/sec/dbg/imp + start/go)\nwith the redesigned 48-trigger / 8-group taxonomy, 6 cadence meta sweeps,\n7 reflective passes, and scope modifiers (branch/staged/file).\n\nAdded an AI Notes line documenting trigger-name vs repo-path collisions\n(docs/, src/config/, src/types/, src/db/, npm test, etc.) with a\nprecedence rule so future trigger runs aren't ambiguous.\n\nConfirm checks pass: exactly one ## Triggers heading, all 8 group tables\npresent, no leftover rev/aud/start/go references.\n\nTags: docs, claude-md, fleet-alignment\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "scope": "claude",
+  "title": "replace Triggers section with glow-props 48-trigger version",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 164,
+    "deletions": 49
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

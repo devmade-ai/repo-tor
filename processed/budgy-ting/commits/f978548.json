@@ -1,0 +1,51 @@
+{
+  "sha": "f978548",
+  "fullSha": "f978548c6c2eeeca9132aba0948bf3d368fd714e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T09:39:40Z",
+  "commitDate": "2026-04-17T09:39:40Z",
+  "subject": "feat(pwa): detect icon-only deploys, strengthen tripwire, dedupe precache",
+  "body": "Follow-up on cross-repo cleanup sweep — address every self-review item:\n\n- OS icon cache mitigation: new useIconRefresh composable watches iconsHash\n  in version.json and surfaces a reinstall banner when (a) the app is\n  running standalone AND (b) the current hash differs from the\n  last-acknowledged hash. \"Show how\" opens InstallInstructionsModal with\n  the reinstall collapsible pre-expanded (new expand-reinstall prop);\n  \"Dismiss\" acknowledges the current hash so the banner stops reappearing\n  until icons change again. First run after a clean install records the\n  current hash as acknowledged so users aren't flagged for icons they've\n  never seen another version of.\n- Version manifest: versionJsonPlugin now takes iconsHash and emits\n  { buildTime, iconsHash } so icon-only deploys become detectable without\n  relying on sw.js revision bumps.\n- Workbox precache dedup: dropped redundant includeAssets since\n  globPatterns already sweeps ico/png/svg from /public. Precache count\n  34 → 31 entries — favicon.ico, favicon-48x48.png, apple-touch-icon.png\n  no longer listed twice in sw.js.\n- Tripwire strengthened (iconCacheBust.test.ts, 6 → 9 tests):\n  • Source-level: scans the manifest.icons block and fails on any bare\n    string src (earlier version only checked 3 hardcoded paths, so a new\n    icon added without versioned() slipped through).\n  • Source-level: asserts versionJsonPlugin(ICONS_HASH) wiring.\n  • Dist-level: verifies sw.js precache has no duplicate URLs.\n  • Dist-level: verifies version.json carries iconsHash.\n  Verified by breaking the bare-string guard (test fails) then restoring\n  (test passes).\n- Save-as-PDF rationale: strengthened handlePrint() comment to explain\n  why the per-workspace actions menu beats the burger-menu alternative\n  — printing only makes sense on a workspace page, and a global burger\n  entry would either print nothing off-workspace or need route-aware\n  visibility. CLAUDE.md Project Status updated to match.\n- Docs: CLAUDE.md Project Status gained a PWA icon cache-busting bullet;\n  README.md tree lists the new composable; SESSION_NOTES rewritten.\n\nAll 115 tests pass, vue-tsc clean, npm run build emits versioned hrefs\nin dist/index.html, dist/manifest.webmanifest icon srcs, dist/sw.js\nprecache with zero duplicate URLs, and dist/version.json with iconsHash.\n\nTags: pwa, ux, infra, test, docs\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: cross-repo-cleanup\nSemver: minor",
+  "tags": [
+    "feature",
+    "ui",
+    "test-unit"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-repo-cleanup",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "detect icon-only deploys, strengthen tripwire, dedupe precache",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 341,
+    "deletions": 44
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/AppLayout.vue",
+    "src/components/InstallInstructionsModal.vue",
+    "src/composables/useIconRefresh.ts",
+    "src/iconCacheBust.test.ts",
+    "src/views/WorkspaceDetailView.vue",
+    "vite.config.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}
