@@ -1,0 +1,44 @@
+{
+  "sha": "1610c90",
+  "fullSha": "1610c90f61d00e1d9053187712b199c418fa1638",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T07:36:31Z",
+  "commitDate": "2026-04-13T07:36:31Z",
+  "subject": "feat(toast): Phase 2 — migrate Toast to DaisyUI toast + alert (unshadow .toast-*)",
+  "body": "Second of 10 phases from the DaisyUI component-class audit. This phase\nmigrates the toast notification system to DaisyUI's `toast` positioning\nwrapper + `alert alert-*` semantic variants, unshadowing the custom\n.toast-* classes that were defined in styles.css and silently\noverriding DaisyUI's built-in toast component.\n\nChanges:\n\nToast.jsx — ToastItem now renders as `<div className=\"alert alert-${type}\nshadow-lg transition-all duration-200 ease-out ...\">` with the\ntype-to-class mapping in a small ALERT_CLASS_BY_TYPE object (success ->\nalert-success, error -> alert-error, warning -> alert-warning, info ->\nalert-info). Enter/exit animations are now Tailwind transition utilities\n(opacity-0 translate-y-2 while exiting, opacity-100 translate-y-0\notherwise) instead of custom .toast-enter/.toast-exit keyframes. The\ndismiss button is now `btn btn-ghost btn-xs btn-circle`. ToastContainer\nuses `toast toast-bottom toast-center` (DaisyUI's positioning wrapper\nclasses) with an inline `style={{ zIndex: 'var(--z-toast)' }}` to pin\nthe stacking above other dashboard layers (DaisyUI's default z-index\ndoesn't stack above our debug pill or drawers).\n\nstyles.css — deleted ~65 lines of custom .toast-* CSS:\n  - .toast-container (positioning)\n  - .toast-item (layout, transitions)\n  - .toast-enter / .toast-exit (animation states)\n  - .toast-message\n  - .toast-dismiss / .toast-dismiss:hover\n  - .toast-success / .toast-error / .toast-info / .toast-warning\n    (type colors that duplicated DaisyUI alert-* exactly)\n\nAll replaced with a one-line comment pointing at the component file.\n\nWhy this fixes the shadowing:\n\nOur styles.css used to define .toast-container, .toast-item, etc.\nUNLAYERED, which means they won ALL priority contests against DaisyUI's\nown `.toast` / `.alert` definitions inside `@layer components`. Any\nfuture `className=\"toast toast-top\"` or `className=\"alert alert-error\"`\nusage elsewhere in the codebase would silently get our custom styles\ninstead of DaisyUI's component behavior. Deleting the custom classes\nmeans DaisyUI's real `.toast` and `.alert` classes now apply, which is\nwhat we actually want.\n\nWhat's preserved:\n\n- useToast() hook API and addToast/removeToast signatures — unchanged\n- Auto-dismiss timer semantics (duration=0 means persistent)\n- Two-stage isExiting state for animation-before-unmount ordering\n- ARIA role=\"alert\" for errors / role=\"status\" for non-errors\n- aria-live=\"assertive\"/\"polite\" for screen reader urgency\n- no-print class so toasts don't leak into PDF exports\n- z-index: var(--z-toast) (= 70 from our scale, above drawers and menus)\n\nBuild verification:\n  - npm test: 21 passing (no test regression)\n  - npm run build: passes, 84 modules\n  - DaisyUI .toast, .toast-bottom, .toast-center, .alert, .alert-success,\n    .alert-error, .alert-warning, .alert-info, .alert-soft all present\n    in built CSS\n  - Old .toast-item / .toast-dismiss / .toast-message / .toast-enter /\n    .toast-exit confirmed GONE from built CSS\n  - Toast.jsx useToast API still referenced in the JS bundle\n\nTags: ui, daisyui, refactor, a11y, toast\nComplexity: 2\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch\n\nhttps://claude.ai/code/session_018prUZYyhuCZQGS1azip9bG",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "scope": "toast",
+  "title": "Phase 2 — migrate Toast to DaisyUI toast + alert (unshadow .toast-*)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 59,
+    "deletions": 79
+  },
+  "files": [
+    "dashboard/js/components/Toast.jsx",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

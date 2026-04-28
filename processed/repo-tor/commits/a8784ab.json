@@ -1,0 +1,45 @@
+{
+  "sha": "a8784ab",
+  "fullSha": "a8784abed3e6165e6f0aa4e6594a1ac45205b27d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-11T11:49:15Z",
+  "commitDate": "2026-04-11T11:49:15Z",
+  "subject": "fix(debug): fix duplicate entries, HMR accumulation, clear state, source colors",
+  "body": "Four bugs found via deep audit:\n\n1. Duplicate entries on initial mount: setEntries(debugGetEntries()) +\n   debugSubscribe replay doubled every entry. The subscription replays\n   all current entries immediately, so the direct set was redundant.\n   Removed it — subscription alone handles initial population.\n\n2. Console interception HMR accumulation: console.error/warn patching\n   had no HMR guard. Each Vite hot reload re-captured the already-patched\n   methods as \"originals,\" creating nested wrapper chains. After N reloads,\n   each console.error produced N debug entries. Added __debugConsolePatched\n   window flag matching the existing __debugLogListenersAttached pattern.\n\n3. Clear button didn't reset reportText: if the visible textarea fallback\n   was showing (clipboard failed), clicking Clear emptied entries but left\n   the stale report text visible. Now resets reportText to null.\n\n4. Missing import/export source colors: App.jsx uses debugAdd('import',\n   ...) for file upload errors but SOURCE_COLORS had no entry, falling\n   back to default gray. Added colors for both import and export sources.\n\nTags: debug, bugfix\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01VJTP7qCmApamkAM8xREziS",
+  "tags": [
+    "bugfix",
+    "memory"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-system",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "fix duplicate entries, HMR accumulation, clear state, source colors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 40,
+    "deletions": 14
+  },
+  "files": [
+    "dashboard/js/components/DebugPill.jsx",
+    "dashboard/js/debugLog.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

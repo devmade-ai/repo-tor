@@ -1,0 +1,73 @@
+{
+  "sha": "c7a3469",
+  "fullSha": "c7a34699a6a3bec8d5c21d95cf19c45c87ed29f8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-12T07:52:36Z",
+  "commitDate": "2026-04-12T07:52:36Z",
+  "subject": "refactor(theme): complete DaisyUI v5 migration — all six reference phases",
+  "body": "Follow-up to the initial \"infrastructure + partial\" commit on this branch.\nUser requested no shortcuts, so this completes Phases 1-6 of the reference\ndoc (docs/implementations/THEME_DARK_MODE.md) in a single pass: full CSS\nvariable removal, component migration across 21 files, and cleanup.\n\nPhase 1 — Audit:\n  202 var(--bg-*/--text-*/--border-*/--color-*/--chart-grid/--glow-*/--shadow*)\n  references in styles.css, 166 text-themed-*/bg-themed-*/border-themed\n  references across 21 JSX files, 39 dark: Tailwind pairs across 10 JSX\n  files, and ~15 hardcoded rgba(45, 104, 255, ...) brand-blue values.\n\nPhase 2 — Custom variable removal (dashboard/styles.css):\n  Rewrote :root to hold ONLY non-theme tokens (spacing, radius, z-index,\n  fonts). Deleted the entire html.dark override block — DaisyUI's\n  [data-theme] selectors handle switching now. Bulk-replaced via\n  replace_all:\n    var(--bg-primary/secondary/tertiary/hover) →\n      var(--color-base-100/200/300/300)\n    var(--text-primary) → var(--color-base-content)\n    var(--text-secondary/tertiary/muted) →\n      color-mix(in oklab, var(--color-base-content) 80%/60%/40%, transparent)\n    var(--border-color/light) → var(--color-base-300/200)\n    var(--glow-primary) →\n      0 0 20px color-mix(in oklab, var(--color-primary) 25%, transparent)\n    var(--chart-grid) →\n      color-mix(in oklab, var(--color-base-content) 10%, transparent)\n    var(--color-primary-alpha) →\n      color-mix(in oklab, var(--color-primary) 10%, transparent)\n\n  Replaced hardcoded brand-blue rgba(45, 104, 255, X) values with color-mix\n  against var(--color-primary) — focus rings, btn-primary hover, drop-zone\n  states, tab-btn-active text-shadow, body::before techy grid background.\n  The brand accent now follows the active theme's primary color.\n\n  Deleted 3 legacy CSS blocks: Tailwind gray overrides (.bg-gray-50/100,\n  .text-gray-400/500/600/700/900, .border-gray-100/200, etc.), semantic\n  card backgrounds (.bg-amber-50, .bg-indigo-50, ..., .bg-red-50), and\n  semantic text colors (.text-green-600, .text-red-600, .text-amber-600,\n  .text-blue-600, .border-blue-500).\n\n  Deleted 8 utility class definitions: .text-themed-primary/secondary/\n  tertiary/muted, .bg-themed-primary/secondary/tertiary, .border-themed.\n\n  Swapped color: white / #1a1a1a / #fff hardcoded foregrounds to DaisyUI\n  *-content tokens in .toast-success/error/warning, .btn-primary,\n  .quick-guide-btn-primary, .filter-preset-btn:hover/.active,\n  .filter-mode-toggle button.active, .project-link-primary, .filter-badge.\n\n  .install-modal-note amber rgba literals → color-mix against warning.\n  .drop-zone-heading color: #e5e7eb → var(--color-base-content).\n\n  Print styles @media print intentionally keep hardcoded white/black/#e5e7eb\n  per the reference doc's Print Override section.\n\nPhase 3 — Component migration (21 JSX files, all 39 dark: pairs):\n  Zero dark: class names remain in JSX (only in migration comments).\n\n  166 text-themed-*/bg-themed-*/border-themed references migrated to\n  DaisyUI Tailwind utilities:\n    text-themed-primary → text-base-content\n    text-themed-secondary/tertiary/muted →\n      text-base-content/80, /60, /40\n    bg-themed-primary/secondary/tertiary → bg-base-100/200/300\n    border-themed → border-base-300\n\n  Summary.jsx Activity Snapshot cards: 4 data viz pastel bg/dark pairs →\n    bg-warning/15 + text-warning (after-hours),\n    bg-info/15 + text-info (weekend),\n    bg-accent/15 + text-accent (holiday),\n    bg-secondary/15 + text-secondary (complex).\n  Timeline.jsx complexity badges: purple/blue/gray tier colors →\n    bg-secondary/20 (high) / bg-info/20 (medium) / bg-base-300 (low).\n  Health.jsx security panels: all bg-red-50 dark:bg-red-900/20 + border-\n    red-200/800 + text-red-600/400 → bg-error/10 + border-error/40\n    + text-error.\n  HealthBars, HealthAnomalies, Contributors, Tags, Timing, Progress,\n    Discover: progress-bar rails → bg-base-300, hover states →\n    hover:bg-base-200 / hover:bg-base-300.\n\n  App.jsx embed override now sets --color-base-100 (DaisyUI token) instead\n  of the removed --bg-primary alias, and toggles data-theme alongside .dark.\n\n  Tags.jsx removed its per-component useChartTextColor hook and explicit\n  color: CHART_TEXT_COLOR overrides — now relies on ChartJS.defaults.color\n  (kept fresh by AppContext's darkMode effect) as the single source of\n  truth. Chart rebuilds on theme toggle via existing state.darkMode useMemo\n  dep.\n\nChart.js theme sync:\n  AppContext.jsx darkMode effect no longer reads removed --text-secondary /\n  --chart-grid. It reads DaisyUI's --color-base-content oklch token\n  directly and passes color-mix(in oklab, X 80%/10%, transparent) to\n  ChartJS.defaults.color / borderColor. Canvas parses color-mix() since\n  Chrome 111 / Firefox 113 / Safari 16.2 — same baseline as DaisyUI.\n\nPhase 5 — Verification:\n  TESTING_GUIDE.md Theme section rewritten with full 10-point checklist:\n  system preference, dual-layer attributes, flash prevention, cross-tab\n  sync, PWA status bar, charts, surface auto-switching, semantic tokens,\n  print override. Build passes and Vite preview serves correctly — DaisyUI\n  [data-theme=\"lofi\"] and [data-theme=\"black\"] selectors present in the\n  served CSS (verified via curl).\n\nPhase 6 — Cleanup:\n  Zero custom --bg-*/--text-*/--border-*/--color-primary-alpha/--chart-grid/\n  --glow-*/--shadow* variables remain anywhere in the codebase (verified\n  via comprehensive Grep — only remaining matches are migration comments).\n  Updated CLAUDE.md Frontend standards to enforce DaisyUI semantic tokens\n  and prohibit re-introducing the deleted variables.\n\nBuild: passes. CSS bundle 147.16 KB → 123.27 KB (−23.9 KB, −16%) from\ndeleted variables, gray overrides, and utility classes.\n\nDocs updated: CLAUDE.md, docs/SESSION_NOTES.md, docs/HISTORY.md,\ndocs/TODO.md, docs/TESTING_GUIDE.md, docs/USER_GUIDE.md.\n\nRemaining (optional) future work: replace raw Tailwind / custom-class\nelements with DaisyUI component classes (btn, card, input, badge) —\ntracked in docs/TODO.md. Not required for the migration to be complete.\n\nTags: theme, daisyui, refactor, ui, css, cleanup\nComplexity: 5\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-migration\nSemver: minor\n\nhttps://claude.ai/code/session_018prUZYyhuCZQGS1azip9bG",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 5,
+  "risk": "high",
+  "debt": "paid",
+  "epic": "theming",
+  "semver": "major",
+  "scope": "theme",
+  "title": "complete DaisyUI v5 migration — all six reference phases",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#1"
+  ],
+  "stats": {
+    "filesChanged": 29,
+    "additions": 766,
+    "deletions": 697
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/App.jsx",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/components/CollapsibleSection.jsx",
+    "dashboard/js/components/DropZone.jsx",
+    "dashboard/js/components/ErrorBoundary.jsx",
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/Header.jsx",
+    "dashboard/js/components/HealthAnomalies.jsx",
+    "dashboard/js/components/HealthBars.jsx",
+    "dashboard/js/components/HealthWorkPatterns.jsx",
+    "dashboard/js/components/InstallInstructionsModal.jsx",
+    "dashboard/js/components/QuickGuide.jsx",
+    "dashboard/js/main.jsx",
+    "dashboard/js/sections/Contributors.jsx",
+    "dashboard/js/sections/Discover.jsx",
+    "dashboard/js/sections/Health.jsx",
+    "dashboard/js/sections/Progress.jsx",
+    "dashboard/js/sections/Projects.jsx",
+    "dashboard/js/sections/Summary.jsx",
+    "dashboard/js/sections/Tags.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/js/sections/Timing.jsx",
+    "dashboard/styles.css",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

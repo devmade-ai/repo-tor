@@ -1,0 +1,56 @@
+{
+  "sha": "32934ec",
+  "fullSha": "32934ec0984ff1cb71c22a1a996af57fe380e9b6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-12T08:53:45Z",
+  "commitDate": "2026-04-12T08:53:45Z",
+  "subject": "fix(theme): restore custom CSS silently dropped by broken comment, finish semantic token migration",
+  "body": "The previous commit on this branch (c7a3469) claimed a 16% CSS bundle\nreduction (147 KB -> 123 KB). That reduction turned out to be a build\nartifact of a broken CSS comment, not a genuine savings.\n\nRoot cause:\n\nIn the rewritten :root block at the top of dashboard/styles.css, the\nmigration-rationale comment contained the literal text:\n\n    - Keep legacy --bg-*/--text-*/--border-* aliases: Rejected — ...\n\nThe `*/` sequence inside `--bg-*/--text-*` terminates the CSS comment\nearly (at `--bg-*`), and the parser sees everything after it as bad CSS.\nTailwind v4 / esbuild's minifier silently drops everything following the\nparse error, which meant ~27 KB of custom class definitions were never\nemitted to the built bundle:\n\n  - All .heatmap-* classes (intensity levels 0-4, cell, label, header,\n    grid, tooltip-inner)\n  - All .filter-multi-select* classes (dropdown, option, trigger)\n  - All .settings-pane* classes (overlay, header, content, close, title)\n  - All .detail-pane* classes (overlay, header, close, content, empty,\n    loading, subtitle, title)\n  - .root-error-message, .root-error-detail, .root-error-hint,\n    .error-boundary-card\n  - Several others\n\nThe build passed with no top-level errors — the \"Unexpected token Delim\n('*')\" was buried as Issue #1 inside the \"Found 62 warnings while\noptimizing generated CSS\" summary, alongside DaisyUI's unrelated\n@property / @keyframes warnings. The dashboard would have shipped with\nheatmaps, detail panes, settings panes, and filter multi-select all\nrendering without their custom CSS, falling back to browser defaults.\n\nFix:\n\n1. Rephrased the comment in dashboard/styles.css to avoid the `*/`\n   sequence. \"Keep legacy --bg-*/--text-*/--border-* aliases\" became\n   \"Keep legacy --bg, --text, --border aliases\" with a trailing note\n   warning future sessions never to write asterisk-slash inside CSS\n   comments.\n\n2. Added a CLAUDE.md Frontend checklist item prohibiting asterisk-slash\n   sequences inside CSS comments and explaining why.\n\n3. Added a detailed AI_MISTAKES.md entry with the smoke-test bash snippet\n   that would have caught this.\n\nVerification:\n\nAfter the fix, the built CSS is 150.6 KB (vs the misleading 123 KB from\nthe broken build, and vs the pre-migration 147.16 KB). The +3.5 KB delta\nis DaisyUI's theme selector blocks + semantic component classes being\nadded, partially offset by deleted custom variables. Verified all\ncritical custom class families are present via curl against the preview\nserver:\n\n  OK: .heatmap-0 .heatmap-1 .heatmap-2 .heatmap-3 .heatmap-4\n  OK: .heatmap-cell .heatmap-tooltip-inner\n  OK: .filter-multi-select .settings-pane .detail-pane\n  OK: .error-boundary-card .root-error-message\n  OK: .dashboard-header .card .tab-btn-active\n  OK: .btn-icon .btn-primary .toast-success .collapsible-header\n  Both [data-theme=\"lofi\"] and [data-theme=\"black\"] selectors present.\n\nSecond pass — additional semantic token migration (while I was in there):\n\nWhile investigating the root cause I also found several residual raw\nTailwind status colors that should have been migrated in the first pass\nbut were missed. Migrated:\n\n  Timing.jsx author threshold indicators\n    text-green-600/amber-600/red-600 -> text-success/warning/error\n  HealthAnomalies.jsx debt balance net indicator\n    text-red-500/green-500 -> text-error/success\n  Discover.jsx pin button\n    text-blue-500 hover:text-blue-500 -> text-primary hover:text-primary\n  Discover.jsx metric selector focus ring\n    focus:ring-blue-500 -> focus:ring-primary\n  Summary.jsx / Timeline.jsx / Progress.jsx / HealthWorkPatterns.jsx\n    hover:ring-blue-500 -> hover:ring-primary on stat cards\n\nAll these are semantic status / brand indicators, not data viz category\ncolors, so they belong in DaisyUI's semantic token system rather than\nraw Tailwind.\n\nDocumentation corrections:\n\nUpdated docs/SESSION_NOTES.md and docs/HISTORY.md to correct the false\n\"147.16 -> 123.27 KB (-16%)\" claim. Real numbers: 147.16 -> 150.6 KB\n(+3.5 KB, +2%). Added a \"Regression caught and fixed\" section to both\nexplaining what happened and why the first commit reported wrong\nnumbers.\n\nTags: theme, daisyui, bugfix, css, cleanup\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_018prUZYyhuCZQGS1azip9bG",
+  "tags": [
+    "hotfix",
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theming",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "restore custom CSS silently dropped by broken comment, finish semantic token migration",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#1"
+  ],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 83,
+    "deletions": 24
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/components/HealthAnomalies.jsx",
+    "dashboard/js/components/HealthWorkPatterns.jsx",
+    "dashboard/js/sections/Discover.jsx",
+    "dashboard/js/sections/Progress.jsx",
+    "dashboard/js/sections/Summary.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/js/sections/Timing.jsx",
+    "dashboard/styles.css",
+    "docs/AI_MISTAKES.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 4,
+  "impact": "user-facing"
+}

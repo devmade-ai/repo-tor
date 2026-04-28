@@ -1,0 +1,60 @@
+{
+  "sha": "68b1db5",
+  "fullSha": "68b1db522f7aa504af1c45be7050b0f8cd1de9e6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T06:51:01Z",
+  "commitDate": "2026-04-13T06:51:01Z",
+  "subject": "feat(theme): canva-grid alignment — oklchToHex module+tests, COLOR_KEY_OVERRIDES, debug flow tracing, Approach A/B docs",
+  "body": "After cross-referencing our theming against canva-grid's implementation\n(the sibling project using \"Approach B\" named combos), five patterns\nfrom canva-grid were worth adopting without changing our Approach A\nstorage shape. All implemented this pass.\n\n1. Extracted scripts/oklchToHex.mjs as a standalone module with 21 unit\n   tests via Node's built-in node:test runner (no Jest dependency —\n   node:test has been stable since Node 20, we're on Node 22). Tests\n   cover CSS Color Level 4 edge cases (boundary values, achromatic\n   colors, optional hue, alpha channel, whitespace, out-of-gamut\n   clamping, invalid input) and DaisyUI fixtures (nord primary,\n   autumn primary, dracula base-100, lofi base-300). npm test runs\n   the suite in ~150 ms.\n\n2. Fixed the L=1 percentage-vs-decimal edge case the old inlined\n   version had. Old heuristic: `if (L > 1) L /= 100`. Couldn't\n   distinguish `oklch(1 0 0)` (decimal, meaning white) from\n   `oklch(1% 0 0)` (percent, near-black). New regex captures the\n   percent character explicitly: `([\\d.]+)(%?)` and only divides by\n   100 when isPercent === true. Three dedicated tests pin the fix.\n   DaisyUI always uses percent form so this never triggered in\n   practice, but the fix is free and matches the CSS spec.\n\n3. Added COLOR_KEY_OVERRIDES to scripts/generate-theme-meta.mjs.\n   Default rule now matches the reference:\n     - Light themes: --color-primary (the brand accent)\n     - Dark themes: --color-base-100 (the main surface)\n   With overrides for monochrome/warm-minimal light themes whose\n   primary is near-black:\n     - lofi → --color-base-300 (→ #ebebeb, from canva-grid)\n     - caramellatte → --color-base-300 (→ #ffd6a7, our addition —\n       DaisyUI ships caramellatte with primary = oklch(0% 0 0)\n       literal black, a DaisyUI design decision)\n\n   New PWA status bar colors:\n     lofi          light  #ebebeb  base-300  (was #ffffff)\n     nord          light  #5e81ac  primary   (was #ffffff)\n     emerald       light  #66cc8a  primary   (was #ffffff)\n     caramellatte  light  #ffd6a7  base-300  (was #fff7ed)\n     black         dark   #000000  base-100  (unchanged)\n     dim           dark   #2a303c  base-100  (unchanged)\n     coffee        dark   #261b25  base-100  (unchanged)\n     dracula       dark   #282a36  base-100  (unchanged)\n\n   Light themes now have theme-appropriate brand colors instead of\n   uniform white. Mobile users see a distinct status bar per theme.\n\n4. Added theme-change flow tracing via debugLog. New `theme` source\n   color (lavender #c4b5fd) in DebugPill SOURCE_COLORS so theme\n   events are visually distinct from render errors and boot events\n   in the debug pill's log tab. themes.js imports debugAdd from\n   debugLog.js (zero-import module, no circular dependency risk)\n   and calls logThemeEvent('theme-applied', {dark, requested,\n   validated, skipPersist}) at the end of every applyTheme()\n   invocation. `requested !== validated` signals a stale or\n   cross-mode theme id was dispatched. Every theme-apply path gets\n   logged once: mount, toggle, picker click, cross-tab event, embed\n   override. Pattern from canva-grid's useDarkMode hook.\n\n5. Documented Approach A vs B tradeoff in CLAUDE.md Dashboard\n   Architecture section. We use Approach A (per-mode independent,\n   3 storage keys: darkMode/lightTheme/darkTheme) with 4 light + 4\n   dark = 16 possible (mode, theme) combinations. canva-grid and\n   other sibling projects use Approach B (named combos, 2 keys:\n   darkMode/themeCombo) with typically 2-5 combo options. Our\n   rationale: the dashboard is a utility app with no brand-coupled\n   theme pairings, so constraining users to pre-vetted combos is\n   unnecessarily restrictive compared to independent per-mode\n   selection. Tradeoff: slightly more complex picker UX (two\n   clicks: mode then theme) vs canva-grid's single-click combo\n   buttons.\n\nDeliberately NOT adopted from canva-grid (documented rationale):\n\n- Combo-based persistence (Approach B). Structural change that\n  would lose per-mode-independent theme choice. Conscious decision.\n- Theme picker in page header instead of burger menu. canva-grid's\n  inline join component is more discoverable but our dashboard\n  header is already crowded with tab nav, filter controls, and\n  settings. Burger menu placement is a deliberate UX decision.\n- Regex-based index.html rewrite. canva-grid uses\n  html.replace(/var combos = [^;]+;/, ...) which silently fails on\n  reformat. Our marker-based BEGIN/END GENERATED approach fails\n  loudly on missing markers and survives reformatting.\n- Manual npm run generate-theme-meta. canva-grid's generator runs\n  only on-demand. Ours runs as the first step of every dev/build/\n  build:lib so drift is impossible.\n\nFiles changed:\n\nNew:\n- scripts/oklchToHex.mjs (standalone module, improved parsing)\n- scripts/__tests__/oklchToHex.test.mjs (21 tests)\n\nModified:\n- scripts/generate-theme-meta.mjs (import oklchToHex, add\n  COLOR_KEY_OVERRIDES, per-theme colorKey in collected metadata,\n  richer stdout report)\n- dashboard/js/themes.js (import debugAdd, logThemeEvent helper,\n  call from applyTheme)\n- dashboard/js/components/DebugPill.jsx (add theme source color)\n- dashboard/js/generated/themeMeta.js (regenerated hex values)\n- dashboard/index.html (regenerated flash prevention META map)\n- package.json (add \"test\" script)\n- CLAUDE.md (Approach A vs B section)\n- docs/HISTORY.md + docs/SESSION_NOTES.md (full chronology)\n\nBuild + test:\n- npm test: 21 passing, 0 failing, 6 suites\n- npm run build: passes, 84 modules, CSS 157.40 → 160.06 KB\n  (+2.66 KB from new SOURCE_COLORS entry scanned into Tailwind)\n- Generator idempotent: second run reports all 4 files unchanged\n- themes.js loads cleanly via Node direct import with browser stub,\n  applyTheme() runs through debugAdd path without throwing\n- All 8 [data-theme=...] selectors present in built CSS\n- All 8 new hex values present in inline flash prevention META map\n- All 15 critical custom class families still emitted\n\nSide catch: tried to write `theme/*/object.js` inside a JSDoc block\ncomment in the test file during initial draft. The */ sequence inside\nthe path terminated the block comment early and produced a Node syntax\nerror. CLAUDE.md prohibits this and AI_MISTAKES has a 2026-04-12 entry\nfor the same mistake. Fixed by converting the header to // line\ncomments with a note explaining why. This is the third time this\nmistake happened in this session — every future block comment should\navoid filesystem paths containing stars.\n\nTags: theme, daisyui, test, refactor, debug, build\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: minor\n\nhttps://claude.ai/code/session_018prUZYyhuCZQGS1azip9bG",
+  "tags": [
+    "feature",
+    "build",
+    "test-unit"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theming",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "canva-grid alignment — oklchToHex module+tests, COLOR_KEY_OVERRIDES, debug flow tracing, Approach A/B docs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#5",
+    "#66",
+    "#000000",
+    "#2",
+    "#261",
+    "#282"
+  ],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 589,
+    "deletions": 72
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/index.html",
+    "dashboard/js/components/DebugPill.jsx",
+    "dashboard/js/generated/themeMeta.js",
+    "dashboard/js/themes.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "package.json",
+    "scripts/__tests__/oklchToHex.test.mjs",
+    "scripts/generate-theme-meta.mjs",
+    "scripts/oklchToHex.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

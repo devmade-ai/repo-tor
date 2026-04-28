@@ -1,0 +1,45 @@
+{
+  "sha": "d8ef996",
+  "fullSha": "d8ef996951065efa0d5bdafc89fa79285b6b2767",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T07:34:20Z",
+  "commitDate": "2026-04-13T07:34:20Z",
+  "subject": "feat(modal): Phase 1 — migrate QuickGuide + InstallInstructionsModal to DaisyUI modal",
+  "body": "First of 10 phases from the DaisyUI component-class audit. This phase\nmigrates the two self-contained modal components to DaisyUI's `modal`\ncomponent classes, eliminating ~35 custom CSS class definitions.\n\nChanges:\n\nQuickGuide.jsx — replaced bespoke .quick-guide-overlay + .quick-guide-modal\nwith DaisyUI's `<div className=\"modal modal-open\">` + `<div className=\"modal-box\">`\n+ `<div className=\"modal-backdrop\">` structure. Close button is now\n`btn btn-sm btn-circle btn-ghost` (absolutely positioned with Tailwind\nutilities). Skip/Next buttons are `btn btn-ghost btn-sm` / `btn btn-primary\nbtn-sm` in a `modal-action` footer. Pagination dots converted from\n.quick-guide-dot to inline Tailwind (w-2 h-2 rounded-full bg-primary /\nbg-base-300). Content text uses text-base-content / text-base-content/80\nfor the title/body hierarchy.\n\nModal-box width preserved via inline Tailwind (w-[min(420px,calc(100vw-32px))])\nso the small-screen responsive cap still applies. Padding adjusted from\npx-28-pt-32-pb-24 to the DaisyUI default with small overrides. Focus trap\nand useEscapeKey hooks unchanged — they operate on the ref-held\ncontainer regardless of its class.\n\nInstallInstructionsModal.jsx — same modal structure. The data-driven\nnumbered-step list is now a flex column with each step rendered as\n<li class=\"flex items-start gap-3\"> + a circular primary-tinted span for\nthe number. The optional warning note moves from .install-modal-note\nto `<div role=\"alert\" className=\"alert alert-warning alert-soft\">` —\nproper ARIA role AND DaisyUI alert component class. Benefits list keeps\nits leading checkmarks as Unicode characters in the text (was a\n::before pseudo-element before — simpler to put them in the JSX now\nthat the surrounding list is a flex column). Final \"Got it\" button is\n`btn btn-primary btn-block` inside a modal-action wrapper.\n\nstyles.css — deleted two blocks (~130 lines total):\n  - .quick-guide-overlay / .quick-guide-modal / .quick-guide-close /\n    .quick-guide-content / .quick-guide-icon / .quick-guide-title /\n    .quick-guide-body / .quick-guide-footer / .quick-guide-dots /\n    .quick-guide-dot / .quick-guide-dot.active / .quick-guide-actions /\n    .quick-guide-btn-primary / .quick-guide-btn-secondary + 3 keyframes\n  - .install-modal-overlay / .install-modal-backdrop / .install-modal /\n    .install-modal-header / .install-modal-steps / .install-modal-step /\n    .install-modal-step-number / .install-modal-note /\n    .install-modal-benefits / .install-modal-close\n\nEach block replaced with a one-line comment pointing at the component\nfile so future contributors know why the class was removed.\n\nPrint override (@media print) — updated the \"hide interactive chrome\nwhen printing\" rule from `.quick-guide-overlay, .quick-guide-modal` to\njust `.modal` (DaisyUI's wrapper class, which now hosts both QuickGuide\nand InstallInstructionsModal).\n\nWhat's preserved:\n\n- Focus trap via useFocusTrap — ref still threads through the modal-box\n- Escape-to-close via useEscapeKey — unchanged\n- Click-outside-to-close via onClick on .modal-backdrop — now a\n  semantically-named DaisyUI class instead of custom .quick-guide-overlay\n- Responsive width cap (min(420px, calc(100vw - 32px))) via inline\n  Tailwind arbitrary value — matches the pre-migration visual\n- Scroll lock via useScrollLock — unchanged (QuickGuide only)\n\nBuild + tests:\n  - npm test: 21 passing, 0 failing, ~160 ms\n  - npm run build: passes, 84 modules. CSS 160.06 → ~160 KB (tiny delta)\n  - DaisyUI modal, modal-box, modal-backdrop, modal-action, modal-open\n    classes all present in built CSS\n  - All 4 QuickGuide step titles and all 3 install-instruction UI\n    strings still present in built JS\n  - All deleted custom classes confirmed GONE from built CSS\n\nTags: ui, daisyui, refactor, a11y, modal\nComplexity: 2\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch\n\nhttps://claude.ai/code/session_018prUZYyhuCZQGS1azip9bG",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "scope": "modal",
+  "title": "Phase 1 — migrate QuickGuide + InstallInstructionsModal to DaisyUI modal",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 93,
+    "deletions": 271
+  },
+  "files": [
+    "dashboard/js/components/InstallInstructionsModal.jsx",
+    "dashboard/js/components/QuickGuide.jsx",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

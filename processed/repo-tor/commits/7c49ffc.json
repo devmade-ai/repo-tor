@@ -1,0 +1,42 @@
+{
+  "sha": "7c49ffc",
+  "fullSha": "7c49ffc2ff27f83706623be30e4bd3b5844a372e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-11T23:05:23Z",
+  "commitDate": "2026-04-11T23:05:23Z",
+  "subject": "feat(debug): add diagnoseFailure utility per DEBUG_SYSTEM.md spec",
+  "body": "Shared utility for distinguishing API failure modes: no-cors HEAD\nprobe differentiates CORS blocks (server reachable) from deployment\nfailures (server unreachable), with offline/browser-blocked fallback.\nExported from debugLog.js for use by diagnostic panel and error\nhandlers.\n\nTags: debug\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: debug-system\nSemver: minor\n\nhttps://claude.ai/code/session_01VJTP7qCmApamkAM8xREziS",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "debug-system",
+  "semver": "minor",
+  "scope": "debug",
+  "title": "add diagnoseFailure utility per DEBUG_SYSTEM.md spec",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 29,
+    "deletions": 1
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/debugLog.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "internal"
+}

@@ -1,0 +1,48 @@
+{
+  "sha": "3dca888",
+  "fullSha": "3dca888f0ccc399621b8ae927f053a32194932e1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T07:22:54Z",
+  "commitDate": "2026-04-13T07:22:54Z",
+  "subject": "feat(theme): burger menu stays open during theme picker interactions",
+  "body": "Closes the one actionable gap found in the glow-props comparison: our\nburger menu closed after every item click, including theme picker clicks,\nforcing users to reopen the menu to try a second theme. glow-props\ndeliberately omits the `data-close` attribute on theme controls so the\nmenu stays open — users can rapid-preview multiple themes in a single\nmenu session. Adopting the same UX.\n\nChanges:\n\n1. HamburgerMenu.handleItem() now takes the full item object and checks\n   item.keepOpen. Two paths:\n\n     - keepOpen: true → run the action immediately, skip close(), skip\n       the 150 ms setTimeout. Used for theme picker items and the\n       dark/light mode toggle so users can rapid-preview multiple themes\n       or switch modes then pick a theme without reopening the menu.\n\n     - default → close the menu first, then run the action after 150 ms\n       (matches the CSS fade animation so state changes from the action\n       don't cause visual glitches while the menu is fading out). Used\n       for Quick Guide, User Guide, Save as PDF, Install App, Update Now.\n\n   Shared error handling extracted into a runAction(action) helper so\n   both paths route errors through debugAdd('render', 'error', ...).\n\n   Call site updated from handleItem(item.action) to handleItem(item).\n   handleItem is internal to HamburgerMenu; no other callers.\n\n   JSDoc updated to document the new keepOpen item field.\n\n2. Header.jsx menuItems memo now sets keepOpen: true on:\n\n     - The dark/light mode toggle item. Users can toggle modes and then\n       pick a theme for the new mode in a single menu session. The theme\n       list below the toggle swaps to the new mode's themes when the\n       toggle action dispatches.\n\n     - All 4 theme picker items for the current mode. Clicking Nord →\n       theme applies, menu stays open, Nord is now marked active with\n       checkmark. Clicking Emerald → theme applies, menu stays open,\n       Emerald is now marked active. All 4 themes previewable in 4 clicks\n       from a single menu open.\n\n   Other menu items (Quick Guide, User Guide, Save as PDF, Install App,\n   Update Now) keep their existing close-then-act behavior — only theme\n   controls got keepOpen.\n\nWhy this is safe:\n\n- Menu items are keyed by item.label in HamburgerMenu's render loop, and\n  theme names are stable across re-renders. When activeThemeId changes\n  after a picker click, React reconciles the buttons in place — the\n  clicked button's DOM element is preserved, focus stays on it, only\n  icon/highlight/ariaLabel props update.\n\n- The ariaLabel change (\"Use Nord theme (Cool blue-gray)\" → \"Use Nord\n  theme (Cool blue-gray), currently active\") provides natural\n  screen-reader feedback confirming the theme was applied.\n\n- click-outside, Escape, and the backdrop click handler all still work\n  — keepOpen only suppresses the per-item auto-close. Users can always\n  dismiss the menu.\n\n- The 150 ms setTimeout path still applies to non-keepOpen items so\n  close-animation-vs-action ordering is preserved for those.\n\nThings from glow-props deliberately NOT adopted (documented in docs/HISTORY.md):\n\n- 35-theme catalog. Our curated 4+4 is the right tradeoff for a utility\n  app per the reference doc's own advice.\n- Random theme on load. Wrong for an analytics dashboard.\n- Auto-classify from color-scheme. Only helps with full catalogs; we\n  already validate against DaisyUI's classification.\n- Regex-based multi-file rewrite. Fragile to reformatting.\n- Manual generator invocation. We prebuild for dev/build/build:lib.\n\nBuild and tests:\n- npm test: 21 passing, 0 failing, 6 suites, ~145 ms\n- npm run build: passes, 84 modules. CSS 160.06 KB (unchanged — no\n  CSS change this pass). JS 555.75 → 556.03 KB (+0.28 KB for the\n  refactored handleItem logic + keepOpen: true literals).\n- Generator idempotent — all 4 downstream files report \"unchanged\"\n- Smoke test via vite preview + curl verified: keepOpen identifier\n  survived minification into the JS bundle; all 8 theme names,\n  descriptions, aria-labels, CSS theme selectors, and flash\n  prevention hex values still present; all 11 critical custom class\n  families still emitted.\n\nDocumentation updated:\n- docs/HISTORY.md — full entry with rationale for every not-adopted item\n- docs/SESSION_NOTES.md — sixth pass summary at the top\n- docs/TESTING_GUIDE.md — 4 new test scenarios: rapid-preview behavior,\n  mode toggle keepOpen, focus preservation after theme click, non-theme\n  items still close the menu\n- docs/USER_GUIDE.md — updated Theme section to mention rapid-preview\n\nTags: theme, daisyui, ui, a11y, refactor\nComplexity: 2\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: minor\n\nhttps://claude.ai/code/session_018prUZYyhuCZQGS1azip9bG",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "theming",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "burger menu stays open during theme picker interactions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 137,
+    "deletions": 18
+  },
+  "files": [
+    "dashboard/js/components/HamburgerMenu.jsx",
+    "dashboard/js/components/Header.jsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

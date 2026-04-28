@@ -1,0 +1,43 @@
+{
+  "sha": "960b9b8",
+  "fullSha": "960b9b87d6b6c301f0684007630eb90af71f1aa0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-11T23:10:44Z",
+  "commitDate": "2026-04-11T23:13:28Z",
+  "subject": "fix(debug): harden against circular refs, throwing toString, timer leaks",
+  "body": "Three defensive fixes for edge cases that could crash or warn:\n\n1. Circular references in entry details: JSON.stringify throws on\n   circular objects, crashing the Log tab (separate root, no\n   ErrorBoundary). Added safeStringify() in DebugPill and try/catch\n   in debugGenerateReport — both fall back to '[unserializable]'.\n\n2. Throwing toString in console interception: args.map(String) could\n   throw if an argument has a Proxy or throwing toString(). Added\n   safeString() wrapper — falls back to '[unstringifiable]'. Original\n   console output is unaffected (called before debugAdd).\n\n3. Timer leak in handleCopy: setTimeout for resetting copy label had\n   no cleanup. Added copyTimerRef with clearTimeout on unmount and\n   on re-click. Prevents React state-on-unmounted-component warning.\n\nTags: debug, bugfix\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01VJTP7qCmApamkAM8xREziS",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-system",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "harden against circular refs, throwing toString, timer leaks",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 30,
+    "deletions": 6
+  },
+  "files": [
+    "dashboard/js/components/DebugPill.jsx",
+    "dashboard/js/debugLog.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "internal"
+}

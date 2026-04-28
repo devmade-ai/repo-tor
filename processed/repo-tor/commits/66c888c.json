@@ -1,0 +1,48 @@
+{
+  "sha": "66c888c",
+  "fullSha": "66c888cdc70bc7da1fc993c6bae402070fba11c7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T07:44:03Z",
+  "commitDate": "2026-04-13T07:44:03Z",
+  "subject": "feat(card): Phase 5 — migrate .card to DaisyUI card + card-body (unshadow)",
+  "body": "Fifth of 10 phases from the DaisyUI component-class audit. This phase\neliminates the .card shadow of DaisyUI's built-in card component by\nmigrating all consumers and deleting the custom .card + related\nclasses from styles.css.\n\nChanges:\n\nCollapsibleSection.jsx — the most impactful file in this phase because\nit wraps every dashboard section on every tab. Structure now:\n\n  <div className=\"card bg-base-200 border border-base-300\">\n    <div className=\"card-body p-6 gap-0\">\n      <div className=\"collapsible-header\">...</div>\n      <div className=\"collapsible-content\">...</div>\n    </div>\n  </div>\n\ncard-body adds a DOM level but gives us DaisyUI's proper card structure.\n`p-6` (1.5rem) matches our previous 24px padding. `gap-0` overrides\nDaisyUI card-body's default 0.5rem flex gap which we don't want because\nour collapsible layout uses explicit margins.\n\nNOT migrating to DaisyUI's own `collapse` component — that's a stateless\nradio/checkbox mechanism that doesn't match React reducer state and\ndoesn't support our chevron rotation / max-height transition. Documented\nas a rejected alternative in the component file.\n\nApp.jsx — data-load error fallback migrated from .card to\n  <div role=\"alert\" className=\"card bg-base-200 border border-base-300\">\n    <div className=\"card-body items-center text-center\">\nThe outer role=\"alert\" was previously on the wrapper div (wrong element);\nmoved onto the card itself where it semantically belongs.\n\nErrorBoundary.jsx — section-level error fallback migrated the same way:\n  <div role=\"alert\" className=\"card bg-base-200 border border-base-300\">\n    <div className=\"card-body items-center text-center py-8\">\n\nProjects.jsx — two migrations:\n  1. loadError fallback: .card projects-error -> card bg-base-200 +\n     card-body items-center text-center py-8\n  2. ProjectCard component: .project-card -> card bg-base-200 border +\n     card-body p-4 gap-0 (tighter padding than CollapsibleSection since\n     project cards are denser, grid items)\n\nDiscover.jsx — metric cards in the \"Chew on this\" section migrated\nfrom .card to card bg-base-200 border + card-body p-5 gap-0.\n\nstyles.css — deleted ~35 lines:\n  - .card / .card:hover / .card.cursor-pointer:hover (was shadowing\n    DaisyUI's .card)\n  - .card-loading (orphaned — no JSX consumer)\n  - .projects-error (orphaned after the migration)\n  - .project-card / .project-card:hover (migrated to DaisyUI card)\n  - .error-boundary-card (orphaned)\n\nAll replaced with one-line comments pointing at the component files.\n\nWhat's preserved:\n\n- 24px-ish visual padding via card-body's p-6/p-5/p-4 modifiers\n- bg-base-200 surface color\n- border-base-300 subtle border\n- hover:border-primary/40 transition on ProjectCard (explicit Tailwind)\n- collapsible-header + collapsible-content layout unchanged\n- All existing role=\"alert\" / role=\"button\" semantics\n\nWhat changed visually:\n\n- card-body adds an inner DOM layer (no visual effect)\n- The hover:border-color primary animation is no longer on .card by\n  default — now only ProjectCard opts in via explicit hover:border-primary/40\n- The `.card.cursor-pointer:hover { box-shadow: 0 0 20px ... }` glow\n  effect from the old .card is not preserved — no current consumer\n  needs it (Summary.jsx stat-card uses hover:ring-primary instead)\n\nBuild verification:\n  - npm run build: passes\n  - DaisyUI .card and .card-body present in built CSS\n  - .project-card, .projects-error, .error-boundary-card, .card-loading\n    all confirmed GONE from built CSS\n\nTags: ui, daisyui, refactor, card\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-component-migration\nSemver: minor\n\nhttps://claude.ai/code/session_018prUZYyhuCZQGS1azip9bG",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "scope": "card",
+  "title": "Phase 5 — migrate .card to DaisyUI card + card-body (unshadow)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 128,
+    "deletions": 123
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/components/CollapsibleSection.jsx",
+    "dashboard/js/components/ErrorBoundary.jsx",
+    "dashboard/js/sections/Discover.jsx",
+    "dashboard/js/sections/Projects.jsx",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}
