@@ -1,0 +1,47 @@
+{
+  "sha": "89ac172",
+  "fullSha": "89ac172fd0be965b7b0eb3ef5ff532ffd071ef90",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T00:26:57Z",
+  "commitDate": "2026-04-09T00:26:57Z",
+  "subject": "feat(robustness): safety snap timeout, debug log deduplication",
+  "body": "Two hardening measures for production edge cases:\n\n1. BottomSheet safety snap timeout: If touchend is lost due to OS gesture\n   hijack (iOS swipe-back, Android nav) or browser bug, the sheet auto-\n   snaps to nearest position after 500ms of no touch events. Prevents\n   stuck-mid-drag state where sheet freezes at arbitrary height. Timer\n   resets on every touchmove, cleared on touchend/touchcancel, cleaned\n   up on unmount.\n\n2. Debug log deduplication: Consecutive identical messages (same source +\n   event + severity) are collapsed into a single entry with a count field\n   and updated timestamp. Prevents third-party console.warn/error spam\n   and React strict mode double-warnings from pushing real app entries\n   out of the 200-entry circular buffer. Count displayed as yellow 'x{n}'\n   badge in the Log tab and '(x{n})' suffix in text reports.\n\nTags: mobile, debug, robustness\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: debug-system\nSemver: minor\n\nhttps://claude.ai/code/session_01KWPHuYLV1weWg2cFm9VtjN",
+  "tags": [
+    "feature",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "debug-system",
+  "semver": "minor",
+  "scope": "robustness",
+  "title": "safety snap timeout, debug log deduplication",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 41,
+    "deletions": 5
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/BottomSheet.jsx",
+    "src/components/DebugPill.jsx",
+    "src/utils/debugLog.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

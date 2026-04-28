@@ -1,0 +1,47 @@
+{
+  "sha": "f6bccc6",
+  "fullSha": "f6bccc61e8b36720007ad0ee785b75b2236e90e1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-08T09:59:59Z",
+  "commitDate": "2026-04-08T09:59:59Z",
+  "subject": "feat(burger-menu): complete implementation per BURGER_MENU pattern",
+  "body": "Align BurgerMenu with glow-props BURGER_MENU.md implementation pattern:\nbackdrop ownership, MenuItem interface, close-then-act delay, version\nfooter, and theme toggle icons.\n\n- Extract useEscapeKey hook from inline keydown handler\n- Move backdrop from MobileLayout into BurgerMenu (z-40, cursor-pointer\n  for iOS Safari; parent header keeps z-50 for stacking context)\n- Add MenuItem interface: disabled, separator, destructive, external,\n  highlight, highlightColor, iconClass properties\n- Add close-then-act pattern: menu closes first, action fires after\n  150ms to prevent visual glitches with modal opens\n- Route action errors through window.__debugPushError when available\n- Add version footer prop (shows v0.1.0 from package.json)\n- Add sun/moon icons to dark/light toggle in MenuThemeSection\n- Add aria-label on theme toggle that updates with state\n- Add arrow key + Home/End keyboard navigation\n- Add no-print class to wrapper for print-to-PDF hiding\n\nTags: ui, burger-menu, a11y, mobile, pattern-alignment\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: burger-menu\nSemver: minor\n\nhttps://claude.ai/code/session_011MQhy7g7xUiNtQ2i94SRqB",
+  "tags": [
+    "feature",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "burger-menu",
+  "semver": "minor",
+  "scope": "burger-menu",
+  "title": "complete implementation per BURGER_MENU pattern",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 170,
+    "deletions": 92
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/BurgerMenu.jsx",
+    "src/components/MobileLayout.jsx",
+    "src/config/menuIcons.js",
+    "src/hooks/useEscapeKey.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

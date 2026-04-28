@@ -1,0 +1,47 @@
+{
+  "sha": "ab2632a",
+  "fullSha": "ab2632a4d3d0f280c11d7ce08a8d1861175d6853",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T00:35:47Z",
+  "commitDate": "2026-04-09T00:35:47Z",
+  "subject": "fix(ui): debug pill mobile positioning, copy feedback, BottomSheet simplification",
+  "body": "Six visual/UX/simplification fixes:\n\n1. DebugPill mobile positioning: Pill and expanded panel overlapped with\n   MobileNav dock at bottom:12px — invisible/untappable on mobile. Now\n   detects mobile via matchMedia('max-width: 1023px') and offsets to\n   bottom:72px. Responsive — updates on viewport change via listener.\n\n2. Copy feedback: Copy button shows 'Copied!' (green) or 'Failed' (red)\n   for 1.5s after click. Previously fired async clipboard operation with\n   zero visual indication to the user.\n\n3. Removed dead embed check: Inner DebugPillInner embed guard on line 84\n   was unreachable — mountDebugPill already skips mounting in embed mode.\n   Removed the inner check and the unused effects it triggered.\n\n4. Shared formatTime: Exported from debugLog.js, imported in DebugPill.\n   Eliminated duplicate HH:MM:SS.mmm formatting (was inline in both\n   DebugPill and debugGenerateReport).\n\n5. BottomSheet effectiveSnap falsy zero: snapPoint || SNAP_HALF treated\n   SNAP_CLOSED (0) as falsy, falling through to SNAP_HALF. Fixed with\n   nullish coalescing (??). Content maxHeight was wrong for closed sheets.\n\n6. BottomSheet handler merge: Identical handleTouchEnd and\n   handleTouchCancel collapsed into single finishTouch callback.\n\nTags: ui, ux, mobile, cleanup, simplification\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01KWPHuYLV1weWg2cFm9VtjN",
+  "tags": [
+    "bugfix",
+    "ui",
+    "simplify"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-system",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "debug pill mobile positioning, copy feedback, BottomSheet simplification",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 61,
+    "deletions": 33
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/BottomSheet.jsx",
+    "src/components/DebugPill.jsx",
+    "src/utils/debugLog.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}
