@@ -1,0 +1,50 @@
+{
+  "sha": "445749f",
+  "fullSha": "445749f07261720776be8e7180c7b5a493dc84de",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-06T21:46:00Z",
+  "commitDate": "2026-04-06T21:46:00Z",
+  "subject": "docs(implementations): backport ~70 field improvements from cross-repo audit",
+  "body": "Audited all 12 active devmade-ai repos for pattern implementation status.\nIdentified and backported innovations from field implementations into all 7\nreference pattern docs — APP_ICONS, BURGER_MENU, DEBUG_SYSTEM, DOWNLOAD_PDF,\nHTTPS_PROXY, PWA_SYSTEM, and THEME_DARK_MODE.\n\nMajor additions: extracted focus hooks, keyboard navigation, expanded browser\ndetection (7 Chromium browsers), module-level singleton for PWA state,\npre-React inline debug pill, console interception, generateReport in module,\nfetchWithRetry with rate-limit handling, oklch→hex build script, Zustand store\npattern, and custom SW section for non-Vite projects.\n\nTags: documentation, audit, implementations, cross-repo\nComplexity: 4\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pattern-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01TWRtgwM2KfYuNoaMzR7r4V",
+  "tags": [
+    "documentation",
+    "patterns"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pattern-alignment",
+  "semver": "minor",
+  "scope": "implementations",
+  "title": "backport ~70 field improvements from cross-repo audit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 1519,
+    "deletions": 233
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/implementations/APP_ICONS.md",
+    "docs/implementations/BURGER_MENU.md",
+    "docs/implementations/DEBUG_SYSTEM.md",
+    "docs/implementations/DOWNLOAD_PDF.md",
+    "docs/implementations/HTTPS_PROXY.md",
+    "docs/implementations/PWA_SYSTEM.md",
+    "docs/implementations/THEME_DARK_MODE.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}
