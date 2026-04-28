@@ -1,0 +1,46 @@
+{
+  "sha": "363342b",
+  "fullSha": "363342b300434d4da7e006232b80d918bede4483",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T14:44:43Z",
+  "commitDate": "2026-04-01T14:44:43Z",
+  "subject": "feat(theme): migrate LayoutTab, MediaTab, PlatformPreview, ExportButtons to DaisyUI",
+  "body": "Final batch of component migrations. LayoutTab indigo classes mapped to\nDaisyUI secondary tokens. MediaTab violet/red classes mapped to\nprimary/error. PlatformPreview and ExportButtons semantic UI tokens\nreplaced with DaisyUI base-content/base-* equivalents. All dark: class\npairs removed — DaisyUI handles light/dark automatically via data-theme.\n\nTags: theme, daisyui, components, migration\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-migration\nSemver: major\n\nhttps://claude.ai/code/session_01QDdpPbsw1PaMMrwihoc5hG",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "major",
+  "scope": "theme",
+  "title": "migrate LayoutTab, MediaTab, PlatformPreview, ExportButtons to DaisyUI",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 148,
+    "deletions": 148
+  },
+  "files": [
+    "src/components/ExportButtons.jsx",
+    "src/components/LayoutTab.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/PlatformPreview.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}
