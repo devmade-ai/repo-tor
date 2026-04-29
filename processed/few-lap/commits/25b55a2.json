@@ -1,0 +1,49 @@
+{
+  "sha": "25b55a2",
+  "fullSha": "25b55a23446f8df7fc645ae86df5135dcc58e3c5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T14:57:09Z",
+  "commitDate": "2026-04-01T14:57:09Z",
+  "subject": "feat(theme): add Uniwind + DaisyUI theme foundation",
+  "body": "Install Uniwind (v1.6.1) and Tailwind CSS (v4.2.2) as the new styling\nengine, replacing the custom StyleSheet-based theme system incrementally.\n\nDefine 7 DaisyUI v5 theme variants (cupcake, aqua, emerald, forest,\nnord, abyss, dracula) organized into 4 light/dark combos (Teal, Nature,\nNordic, Bold). Default combo is Teal (cupcake/aqua), closest match to\nthe original teal/amber brand identity.\n\nBoth old (useAppTheme) and new (Uniwind) systems coexist — components\nwill be migrated incrementally in subsequent PRs.\n\nTags: theme, daisyui, uniwind, tailwind, infrastructure\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: medium\nDebt: neutral\nEpic: daisyui-theme-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01EAwig8kSZ6S91pb3wP7tv4",
+  "tags": [
+    "feature",
+    "dependency-add",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "daisyui-theme-migration",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "add Uniwind + DaisyUI theme foundation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 1075,
+    "deletions": 7
+  },
+  "files": [
+    ".gitignore",
+    "app/_layout.tsx",
+    "metro.config.js",
+    "package-lock.json",
+    "package.json",
+    "src/global.css",
+    "src/lib/themeColors.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

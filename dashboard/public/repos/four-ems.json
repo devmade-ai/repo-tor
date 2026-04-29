@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-25T22:34:55.439Z",
+    "generatedAt": "2026-04-29T06:40:57.277Z",
     "repository": "four-ems",
     "scope": "four-ems",
     "repoCount": 1,
-    "commitCount": 109,
+    "commitCount": 111,
     "authors": {
       "devmade": {
         "name": "devmade",
@@ -13,7 +13,8 @@
     },
     "commitMonths": [
       "2026-02",
-      "2026-03"
+      "2026-03",
+      "2026-04"
     ]
   },
   "contributors": [
@@ -21,17 +22,19 @@
       "author_id": "devmade",
       "name": "devmade",
       "email": "devmade.ai@gmail.com",
-      "commits": 109,
+      "commits": 111,
       "avgComplexity": 1.75,
-      "avgUrgency": 2.35,
+      "avgUrgency": 2.34,
       "tagBreakdown": {
-        "merge": 25,
+        "merge": 26,
+        "ui": 20,
+        "feature": 23,
+        "dependency-add": 1,
         "docs": 22,
         "dependency-security": 1,
         "test-fix": 1,
         "types": 7,
         "bugfix": 29,
-        "feature": 22,
         "test-unit": 1,
         "lint": 1,
         "security": 6,
@@ -40,7 +43,6 @@
         "refactor": 5,
         "simplify": 1,
         "accessibility": 11,
-        "ui": 19,
         "comments": 1,
         "removal": 6,
         "ux": 15,
@@ -60,27 +62,27 @@
         "init": 3
       },
       "impactBreakdown": {
-        "internal": 53,
-        "user-facing": 37,
+        "internal": 54,
+        "user-facing": 38,
         "infrastructure": 17,
         "api": 2
       },
       "riskBreakdown": {
-        "low": 97,
+        "low": 99,
         "medium": 12,
         "high": 0
       },
       "debtBreakdown": {
         "added": 1,
-        "paid": 57,
-        "neutral": 51
+        "paid": 58,
+        "neutral": 52
       },
       "repos": [
         "four-ems"
       ],
       "repoCount": 1,
       "firstCommit": "2026-02-24T20:19:58Z",
-      "lastCommit": "2026-03-28T21:33:37Z"
+      "lastCommit": "2026-04-02T04:03:45Z"
     }
   ],
   "filterOptions": {
@@ -94,6 +96,7 @@
       "ci",
       "comments",
       "config",
+      "dependency-add",
       "dependency-security",
       "docs",
       "error-handling",
@@ -138,16 +141,18 @@
     ]
   },
   "summary": {
-    "totalCommits": 109,
+    "totalCommits": 111,
     "totalContributors": 1,
     "tagBreakdown": {
-      "merge": 25,
+      "merge": 26,
+      "ui": 20,
+      "feature": 23,
+      "dependency-add": 1,
       "docs": 22,
       "dependency-security": 1,
       "test-fix": 1,
       "types": 7,
       "bugfix": 29,
-      "feature": 22,
       "test-unit": 1,
       "lint": 1,
       "security": 6,
@@ -156,7 +161,6 @@
       "refactor": 5,
       "simplify": 1,
       "accessibility": 11,
-      "ui": 19,
       "comments": 1,
       "removal": 6,
       "ux": 15,
@@ -176,36 +180,37 @@
       "init": 3
     },
     "complexityBreakdown": {
-      "1": 61,
-      "2": 22,
+      "1": 62,
+      "2": 23,
       "3": 18,
       "4": 8,
       "5": 0
     },
     "urgencyBreakdown": {
       "1": 9,
-      "2": 64,
+      "2": 66,
       "3": 26,
       "4": 9,
       "5": 1
     },
     "impactBreakdown": {
-      "internal": 53,
-      "user-facing": 37,
+      "internal": 54,
+      "user-facing": 38,
       "infrastructure": 17,
       "api": 2
     },
     "riskBreakdown": {
-      "low": 97,
+      "low": 99,
       "medium": 12,
       "high": 0
     },
     "debtBreakdown": {
       "added": 1,
-      "paid": 57,
-      "neutral": 51
+      "paid": 58,
+      "neutral": 52
     },
     "epicBreakdown": {
+      "branding": 2,
       "documentation": 10,
       "security": 1,
       "ui-polish": 14,
@@ -235,14 +240,14 @@
       "initial-build": 1
     },
     "semverBreakdown": {
-      "patch": 84,
-      "minor": 23,
+      "patch": 85,
+      "minor": 24,
       "major": 2
     },
     "avgComplexity": 1.75,
-    "avgUrgency": 2.35,
+    "avgUrgency": 2.34,
     "repoCommitCounts": {
-      "four-ems": 109
+      "four-ems": 111
     },
     "hourlyHeatmap": {
       "matrix": [
@@ -278,7 +283,7 @@
           0,
           2,
           0,
-          0,
+          1,
           0,
           0
         ],
@@ -287,7 +292,7 @@
           0,
           0,
           0,
-          1,
+          2,
           2,
           0
         ],
@@ -467,8 +472,8 @@
         3,
         1,
         1,
-        2,
         3,
+        4,
         0,
         3,
         7,
@@ -494,17 +499,54 @@
         8,
         14,
         12,
-        19,
+        21,
         35,
         17
       ]
     },
     "codeStats": {
-      "additions": 49576,
-      "deletions": 3860,
-      "filesChanged": 778
+      "additions": 50900,
+      "deletions": 3868,
+      "filesChanged": 808
     },
     "monthly": {
+      "2026-04": {
+        "commits": 2,
+        "tags": {
+          "merge": 1,
+          "ui": 1,
+          "feature": 1,
+          "dependency-add": 1
+        },
+        "impact": {
+          "internal": 1,
+          "user-facing": 1,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 2,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 1,
+          "neutral": 1
+        },
+        "semver": {
+          "patch": 1,
+          "minor": 1,
+          "major": 0
+        },
+        "additions": 1324,
+        "deletions": 8,
+        "repos": {
+          "four-ems": 2
+        },
+        "avgComplexity": 1.5,
+        "avgUrgency": 2
+      },
       "2026-03": {
         "commits": 65,
         "tags": {
@@ -625,6 +667,43 @@
       }
     },
     "monthlyCommits": {
+      "2026-04": {
+        "commits": 2,
+        "tags": {
+          "merge": 1,
+          "ui": 1,
+          "feature": 1,
+          "dependency-add": 1
+        },
+        "impact": {
+          "internal": 1,
+          "user-facing": 1,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 2,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 1,
+          "neutral": 1
+        },
+        "semver": {
+          "patch": 1,
+          "minor": 1,
+          "major": 0
+        },
+        "additions": 1324,
+        "deletions": 8,
+        "repos": {
+          "four-ems": 2
+        },
+        "avgComplexity": 1.5,
+        "avgUrgency": 2
+      },
       "2026-03": {
         "commits": 65,
         "tags": {
@@ -745,6 +824,43 @@
       }
     },
     "weekly": {
+      "2026-W14": {
+        "commits": 2,
+        "tags": {
+          "merge": 1,
+          "ui": 1,
+          "feature": 1,
+          "dependency-add": 1
+        },
+        "impact": {
+          "internal": 1,
+          "user-facing": 1,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 2,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 1,
+          "neutral": 1
+        },
+        "semver": {
+          "patch": 1,
+          "minor": 1,
+          "major": 0
+        },
+        "additions": 1324,
+        "deletions": 8,
+        "repos": {
+          "four-ems": 2
+        },
+        "avgComplexity": 1.5,
+        "avgUrgency": 2
+      },
       "2026-W13": {
         "commits": 20,
         "tags": {
@@ -996,6 +1112,43 @@
       }
     },
     "daily": {
+      "2026-04-02": {
+        "commits": 2,
+        "tags": {
+          "merge": 1,
+          "ui": 1,
+          "feature": 1,
+          "dependency-add": 1
+        },
+        "impact": {
+          "internal": 1,
+          "user-facing": 1,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 2,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 1,
+          "neutral": 1
+        },
+        "semver": {
+          "patch": 1,
+          "minor": 1,
+          "major": 0
+        },
+        "additions": 1324,
+        "deletions": 8,
+        "repos": {
+          "four-ems": 2
+        },
+        "avgComplexity": 1.5,
+        "avgUrgency": 2
+      },
       "2026-03-28": {
         "commits": 11,
         "tags": {
@@ -1703,7 +1856,7 @@
     },
     "dateRange": {
       "earliest": "2026-02-24T20:19:58Z",
-      "latest": "2026-03-28T21:33:37Z"
+      "latest": "2026-04-02T04:03:45Z"
     },
     "security_events": [
       {
@@ -1739,6 +1892,120 @@
     ]
   },
   "commits": [
+    {
+      "sha": "c95cbc0",
+      "fullSha": "c95cbc09c3df1202c02858dc21dbab5670b36421",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-04-02T04:03:45Z",
+      "commitDate": "2026-04-02T04:03:45Z",
+      "subject": "Merge pull request #26 from devmade-ai/claude/update-header-icons-6JxAW",
+      "body": "Add icon generation pipeline and update app branding",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "branding",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #26 from devmade-ai/claude/update-header-icons-6JxAW",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#26"
+      ],
+      "stats": {
+        "filesChanged": 15,
+        "additions": 662,
+        "deletions": 4
+      },
+      "files": [
+        "assets/icon-source.svg",
+        "assets/images/adaptive-icon.png",
+        "assets/images/favicon.png",
+        "assets/images/icon-192.png",
+        "assets/images/icon-512.png",
+        "assets/images/icon.png",
+        "assets/images/splash-icon.png",
+        "package-lock.json",
+        "package.json",
+        "public/favicon.svg",
+        "public/pwa-1024x1024.png",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "scripts/generate-icons.mjs",
+        "vite.config.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "c910211",
+      "fullSha": "c910211b9289722a25a3af2452ef7c85ce2688bb",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-02T03:44:27Z",
+      "commitDate": "2026-04-02T03:44:27Z",
+      "subject": "feat(icons): unify all app icons with header four-squares design",
+      "body": "All icons now reflect the AppHeader brand icon — four white squares with\nopacity gradient on brand-blue background. Added Sharp-based icon generation\npipeline per glow-props spec: single SVG source at 400 DPI, outputs all\nneeded PNG sizes plus favicon.svg.\n\nTags: ui, pwa, branding\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: branding\nSemver: minor\n\nhttps://claude.ai/code/session_01JCXvnzbt3TDYtCQ9z4hJx3",
+      "tags": [
+        "ui",
+        "feature",
+        "dependency-add"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "branding",
+      "semver": "minor",
+      "scope": "icons",
+      "title": "unify all app icons with header four-squares design",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 15,
+        "additions": 662,
+        "deletions": 4
+      },
+      "files": [
+        "assets/icon-source.svg",
+        "assets/images/adaptive-icon.png",
+        "assets/images/favicon.png",
+        "assets/images/icon-192.png",
+        "assets/images/icon-512.png",
+        "assets/images/icon.png",
+        "assets/images/splash-icon.png",
+        "package-lock.json",
+        "package.json",
+        "public/favicon.svg",
+        "public/pwa-1024x1024.png",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "scripts/generate-icons.mjs",
+        "vite.config.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
     {
       "sha": "628cfe6",
       "fullSha": "628cfe6d5fd8c4ed2cdbc8125d77dbe751ee7013",

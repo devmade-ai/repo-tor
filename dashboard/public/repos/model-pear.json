@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-25T22:34:55.460Z",
+    "generatedAt": "2026-04-29T06:40:57.318Z",
     "repository": "model-pear",
     "scope": "model-pear",
     "repoCount": 1,
-    "commitCount": 335,
+    "commitCount": 356,
     "authors": {
       "devmade": {
         "name": "devmade",
@@ -15,7 +15,8 @@
       "2025-12",
       "2026-01",
       "2026-02",
-      "2026-03"
+      "2026-03",
+      "2026-04"
     ]
   },
   "contributors": [
@@ -23,26 +24,28 @@
       "author_id": "devmade",
       "name": "devmade",
       "email": "devmade.ai@gmail.com",
-      "commits": 335,
-      "avgComplexity": 2.03,
+      "commits": 356,
+      "avgComplexity": 2,
       "avgUrgency": 1.73,
       "tagBreakdown": {
-        "merge": 110,
-        "docs": 102,
-        "config": 16,
+        "merge": 115,
+        "docs": 107,
+        "bugfix": 49,
+        "ui": 66,
+        "refactor": 32,
+        "types": 4,
+        "feature": 64,
+        "monitoring": 1,
+        "ux": 19,
+        "config": 18,
+        "error-handling": 2,
         "removal": 18,
-        "bugfix": 40,
         "build": 2,
         "hosting": 3,
-        "ui": 58,
-        "feature": 61,
-        "ux": 17,
         "testing": 1,
-        "refactor": 28,
         "ci": 2,
         "cd": 1,
         "dependency-add": 1,
-        "types": 3,
         "test-unit": 7,
         "coverage": 1,
         "migration": 2,
@@ -54,7 +57,6 @@
         "style": 1,
         "accessibility": 2,
         "performance": 1,
-        "error-handling": 1,
         "architecture": 4,
         "planning": 2,
         "chore": 1,
@@ -73,27 +75,27 @@
         "init": 1
       },
       "impactBreakdown": {
-        "internal": 230,
-        "user-facing": 96,
-        "infrastructure": 9,
+        "internal": 238,
+        "user-facing": 103,
+        "infrastructure": 15,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 12,
+        "low": 33,
         "medium": 1,
         "high": 0
       },
       "debtBreakdown": {
         "added": 0,
-        "paid": 8,
-        "neutral": 5
+        "paid": 19,
+        "neutral": 15
       },
       "repos": [
         "model-pear"
       ],
       "repoCount": 1,
       "firstCommit": "2025-12-25T12:20:42+00:00",
-      "lastCommit": "2026-03-24T20:51:57Z"
+      "lastCommit": "2026-04-10T21:20:31Z"
     }
   ],
   "filterOptions": {
@@ -124,6 +126,7 @@
       "merge",
       "migration",
       "models",
+      "monitoring",
       "naming",
       "organization",
       "performance",
@@ -161,25 +164,27 @@
     ]
   },
   "summary": {
-    "totalCommits": 335,
+    "totalCommits": 356,
     "totalContributors": 1,
     "tagBreakdown": {
-      "merge": 110,
-      "docs": 102,
-      "config": 16,
+      "merge": 115,
+      "docs": 107,
+      "bugfix": 49,
+      "ui": 66,
+      "refactor": 32,
+      "types": 4,
+      "feature": 64,
+      "monitoring": 1,
+      "ux": 19,
+      "config": 18,
+      "error-handling": 2,
       "removal": 18,
-      "bugfix": 40,
       "build": 2,
       "hosting": 3,
-      "ui": 58,
-      "feature": 61,
-      "ux": 17,
       "testing": 1,
-      "refactor": 28,
       "ci": 2,
       "cd": 1,
       "dependency-add": 1,
-      "types": 3,
       "test-unit": 7,
       "coverage": 1,
       "migration": 2,
@@ -191,7 +196,6 @@
       "style": 1,
       "accessibility": 2,
       "performance": 1,
-      "error-handling": 1,
       "architecture": 4,
       "planning": 2,
       "chore": 1,
@@ -210,36 +214,41 @@
       "init": 1
     },
     "complexityBreakdown": {
-      "1": 172,
-      "2": 64,
-      "3": 41,
+      "1": 185,
+      "2": 70,
+      "3": 43,
       "4": 32,
       "5": 26
     },
     "urgencyBreakdown": {
-      "1": 124,
-      "2": 183,
-      "3": 24,
+      "1": 128,
+      "2": 199,
+      "3": 25,
       "4": 4,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 230,
-      "user-facing": 96,
-      "infrastructure": 9,
+      "internal": 238,
+      "user-facing": 103,
+      "infrastructure": 15,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 12,
+      "low": 33,
       "medium": 1,
       "high": 0
     },
     "debtBreakdown": {
       "added": 0,
-      "paid": 8,
-      "neutral": 5
+      "paid": 19,
+      "neutral": 15
     },
     "epicBreakdown": {
+      "debug-system": 6,
+      "z-index-scale": 5,
+      "app-icons": 4,
+      "pdf-download": 4,
+      "claude-md-alignment": 2,
       "claude-md-sync": 3,
       "docs-audit": 3,
       "vercel-deployment": 1,
@@ -247,14 +256,14 @@
       "ai-session-management": 1
     },
     "semverBreakdown": {
-      "patch": 10,
-      "minor": 1,
+      "patch": 28,
+      "minor": 4,
       "major": 0
     },
-    "avgComplexity": 2.03,
+    "avgComplexity": 2,
     "avgUrgency": 1.73,
     "repoCommitCounts": {
-      "model-pear": 335
+      "model-pear": 356
     },
     "hourlyHeatmap": {
       "matrix": [
@@ -372,7 +381,7 @@
           4,
           2,
           3,
-          0,
+          2,
           0
         ],
         [
@@ -381,7 +390,7 @@
           0,
           0,
           3,
-          3,
+          4,
           0
         ],
         [
@@ -399,7 +408,7 @@
           2,
           0,
           8,
-          0,
+          2,
           0
         ],
         [
@@ -408,7 +417,7 @@
           1,
           0,
           4,
-          9,
+          14,
           0
         ],
         [
@@ -417,7 +426,7 @@
           0,
           0,
           5,
-          0,
+          4,
           1
         ],
         [
@@ -435,7 +444,7 @@
           1,
           2,
           0,
-          2,
+          7,
           2
         ],
         [
@@ -444,7 +453,7 @@
           2,
           9,
           0,
-          1,
+          2,
           6
         ],
         [
@@ -453,7 +462,7 @@
           0,
           3,
           2,
-          1,
+          2,
           4
         ],
         [
@@ -488,16 +497,16 @@
         0,
         14,
         16,
-        10,
         12,
-        10,
-        11,
-        26,
-        8,
-        7,
-        11,
-        20,
         13,
+        10,
+        13,
+        31,
+        12,
+        7,
+        16,
+        21,
+        14,
         20,
         26
       ],
@@ -507,16 +516,60 @@
         23,
         47,
         88,
-        61,
+        82,
         51
       ]
     },
     "codeStats": {
-      "additions": 127626,
-      "deletions": 112897,
-      "filesChanged": 1129
+      "additions": 131355,
+      "deletions": 113312,
+      "filesChanged": 1247
     },
     "monthly": {
+      "2026-04": {
+        "commits": 21,
+        "tags": {
+          "merge": 5,
+          "docs": 5,
+          "bugfix": 9,
+          "ui": 8,
+          "refactor": 4,
+          "types": 1,
+          "feature": 3,
+          "monitoring": 1,
+          "ux": 2,
+          "config": 2,
+          "error-handling": 1
+        },
+        "impact": {
+          "internal": 8,
+          "user-facing": 7,
+          "infrastructure": 6,
+          "api": 0
+        },
+        "risk": {
+          "low": 21,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 11,
+          "neutral": 10
+        },
+        "semver": {
+          "patch": 18,
+          "minor": 3,
+          "major": 0
+        },
+        "additions": 3729,
+        "deletions": 415,
+        "repos": {
+          "model-pear": 21
+        },
+        "avgComplexity": 1.48,
+        "avgUrgency": 1.86
+      },
       "2026-03": {
         "commits": 6,
         "tags": {
@@ -716,6 +769,50 @@
       }
     },
     "monthlyCommits": {
+      "2026-04": {
+        "commits": 21,
+        "tags": {
+          "merge": 5,
+          "docs": 5,
+          "bugfix": 9,
+          "ui": 8,
+          "refactor": 4,
+          "types": 1,
+          "feature": 3,
+          "monitoring": 1,
+          "ux": 2,
+          "config": 2,
+          "error-handling": 1
+        },
+        "impact": {
+          "internal": 8,
+          "user-facing": 7,
+          "infrastructure": 6,
+          "api": 0
+        },
+        "risk": {
+          "low": 21,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 11,
+          "neutral": 10
+        },
+        "semver": {
+          "patch": 18,
+          "minor": 3,
+          "major": 0
+        },
+        "additions": 3729,
+        "deletions": 415,
+        "repos": {
+          "model-pear": 21
+        },
+        "avgComplexity": 1.48,
+        "avgUrgency": 1.86
+      },
       "2026-03": {
         "commits": 6,
         "tags": {
@@ -915,6 +1012,50 @@
       }
     },
     "weekly": {
+      "2026-W15": {
+        "commits": 21,
+        "tags": {
+          "merge": 5,
+          "docs": 5,
+          "bugfix": 9,
+          "ui": 8,
+          "refactor": 4,
+          "types": 1,
+          "feature": 3,
+          "monitoring": 1,
+          "ux": 2,
+          "config": 2,
+          "error-handling": 1
+        },
+        "impact": {
+          "internal": 8,
+          "user-facing": 7,
+          "infrastructure": 6,
+          "api": 0
+        },
+        "risk": {
+          "low": 21,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 11,
+          "neutral": 10
+        },
+        "semver": {
+          "patch": 18,
+          "minor": 3,
+          "major": 0
+        },
+        "additions": 3729,
+        "deletions": 415,
+        "repos": {
+          "model-pear": 21
+        },
+        "avgComplexity": 1.48,
+        "avgUrgency": 1.86
+      },
       "2026-W13": {
         "commits": 4,
         "tags": {
@@ -1306,6 +1447,50 @@
       }
     },
     "daily": {
+      "2026-04-10": {
+        "commits": 21,
+        "tags": {
+          "merge": 5,
+          "docs": 5,
+          "bugfix": 9,
+          "ui": 8,
+          "refactor": 4,
+          "types": 1,
+          "feature": 3,
+          "monitoring": 1,
+          "ux": 2,
+          "config": 2,
+          "error-handling": 1
+        },
+        "impact": {
+          "internal": 8,
+          "user-facing": 7,
+          "infrastructure": 6,
+          "api": 0
+        },
+        "risk": {
+          "low": 21,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 11,
+          "neutral": 10
+        },
+        "semver": {
+          "patch": 18,
+          "minor": 3,
+          "major": 0
+        },
+        "additions": 3729,
+        "deletions": 415,
+        "repos": {
+          "model-pear": 21
+        },
+        "avgComplexity": 1.48,
+        "avgUrgency": 1.86
+      },
       "2026-03-24": {
         "commits": 3,
         "tags": {
@@ -2305,11 +2490,999 @@
     },
     "dateRange": {
       "earliest": "2025-12-25T12:20:42+00:00",
-      "latest": "2026-03-24T20:51:57Z"
+      "latest": "2026-04-10T21:20:31Z"
     },
     "security_events": []
   },
   "commits": [
+    {
+      "sha": "e380851",
+      "fullSha": "e380851d2b9603b635a3aa92382007e81af009a2",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-04-10T21:20:31Z",
+      "commitDate": "2026-04-10T21:20:31Z",
+      "subject": "Merge pull request #115 from devmade-ai/claude/implement-debug-log-gSybn",
+      "body": "Add debug system with in-memory logging and floating diagnostic pill",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "debug-system",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #115 from devmade-ai/claude/implement-debug-log-gSybn",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#115"
+      ],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 943,
+        "deletions": 26
+      },
+      "files": [
+        "CLAUDE.md",
+        "apps/web/src/app.html",
+        "apps/web/src/lib/clipboardUtils.ts",
+        "apps/web/src/lib/components/DebugPill.svelte",
+        "apps/web/src/lib/debugLog.ts",
+        "apps/web/src/routes/+layout.svelte",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "90f4bc3",
+      "fullSha": "90f4bc3bbbed7b902156498952d54f22562f70ec",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T20:13:39Z",
+      "commitDate": "2026-04-10T20:13:39Z",
+      "subject": "docs(debug): note intentional omissions and alpha removal scope",
+      "body": "Add to SESSION_NOTES.md:\n- Two pattern items deliberately scoped out (diagnoseFailure utility\n  and embed mode skip) with rationale — prevents future sessions from\n  treating them as forgotten work.\n- Alpha removal note listing all files to delete when debug system\n  is retired post-alpha.\n\nTags: docs, debug\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_011693rELt3wTKg28uRw5BSR",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "debug-system",
+      "semver": "patch",
+      "scope": "debug",
+      "title": "note intentional omissions and alpha removal scope",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 11,
+        "deletions": 0
+      },
+      "files": [
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "d92c18f",
+      "fullSha": "d92c18fae1393fdcfc922f0345f4994642fe07ef",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T19:40:30Z",
+      "commitDate": "2026-04-10T19:40:30Z",
+      "subject": "fix(debug): log container fills panel, clipboard textarea fallback",
+      "body": "Two fixes from pattern compliance audit:\n\n- Log container: Replace fixed max-height: 360px with height: 100%\n  so the log area fills the full available panel space (~414px instead\n  of 360px). The env and pwa tabs already filled correctly via the\n  parent's overflow; only the log tab had this inconsistency.\n\n- Clipboard fallback: When all three clipboard methods fail (common\n  in mobile PWA webviews), show the debug report in a visible readonly\n  textarea with onFocus auto-select so users can manually copy. Per\n  pattern: \"show the report in a <textarea> with onFocus auto-select.\"\n  Includes a Dismiss button to close the fallback.\n\nTags: debug, clipboard, layout\nComplexity: 1\nUrgency: 1\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_011693rELt3wTKg28uRw5BSR",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "debug-system",
+      "semver": "patch",
+      "scope": "debug",
+      "title": "log container fills panel, clipboard textarea fallback",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 60,
+        "deletions": 5
+      },
+      "files": [
+        "apps/web/src/lib/components/DebugPill.svelte",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 1,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "2b7d2ca",
+      "fullSha": "2b7d2ca400204c37d8948357fe07341754fb81d6",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T19:32:33Z",
+      "commitDate": "2026-04-10T19:32:33Z",
+      "subject": "fix(debug): HMR double-wrap, re-entrancy guard, race condition, tick()",
+      "body": "Three bug fixes and one code quality improvement:\n\n- debugLog.ts: Store true original console.error/warn on window so HMR\n  module re-execution doesn't nest wrappers (each cycle was adding a\n  layer that duplicated log entries). Add re-entrancy guard flag on\n  console interception — prevents infinite recursion if any subscriber\n  or library calls console.error during a debugAdd callback chain.\n\n- +layout.svelte: Add `destroyed` flag to dynamic import callback.\n  Without it, if the layout unmounts before the import resolves, the\n  cleanup function runs with pill=null, then the import creates an\n  orphaned pill that's never destroyed.\n\n- DebugPill.svelte: Replace setTimeout(0) with Svelte's tick() for\n  auto-scroll — tick() waits for pending DOM updates to flush, which\n  is the correct Svelte primitive for \"act after DOM update\". Remove\n  redundant `entries = debugGetEntries()` before subscribe — the\n  subscriber's immediate delivery already handles initialisation.\n\nTags: debug, hmr, race-condition, svelte\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_011693rELt3wTKg28uRw5BSR",
+      "tags": [
+        "bugfix",
+        "refactor"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "debug-system",
+      "semver": "patch",
+      "scope": "debug",
+      "title": "HMR double-wrap, re-entrancy guard, race condition, tick()",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 44,
+        "deletions": 16
+      },
+      "files": [
+        "apps/web/src/lib/components/DebugPill.svelte",
+        "apps/web/src/lib/debugLog.ts",
+        "apps/web/src/routes/+layout.svelte",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "9fdb004",
+      "fullSha": "9fdb00438e888bd5001dd2fb6aa6a3319fa6ee59",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T19:23:45Z",
+      "commitDate": "2026-04-10T19:23:45Z",
+      "subject": "fix(debug): harden debug system — SSR safety, cleanup, type exports",
+      "body": "Audit and fix issues from initial implementation:\n\n- debugLog.ts: Wrap all browser side-effects (console interception,\n  global error listeners, pre-framework bridge) in typeof window guard\n  to prevent Node.js console patching during SSR build. Export\n  DebugSource, DebugSeverity, MAX_ENTRIES for consumers. Extract shared\n  formatDebugTimestamp() helper (eliminates duplication between report\n  generator and pill display). After bridge imports pre-framework\n  errors, remove inline listeners and clear buffer to prevent\n  double-capture. Add boot log entry on module init.\n\n- app.html: Store inline error/rejection listeners as named window\n  references (__debugInlineErrorHandler, __debugInlineRejectionHandler)\n  so debugLog.ts can remove them after takeover.\n\n- DebugPill.svelte: Use shared formatDebugTimestamp(). Show structured\n  entry.details below event text when present. Remove unnecessary\n  typeof window guard inside onMount. Type tab array with as-const for\n  type safety. Add stale-run guards after each async probe in PWA\n  diagnostics. Log boot confirmation on mount.\n\n- +layout.svelte: Dynamic import of DebugPill (confirmed debugLog.ts\n  absent from SSR bundle). Store pill reference, return cleanup\n  function for proper $destroy() on unmount.\n\nTags: debug, diagnostics, ssr, cleanup\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_011693rELt3wTKg28uRw5BSR",
+      "tags": [
+        "bugfix",
+        "types",
+        "refactor"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "debug-system",
+      "semver": "patch",
+      "scope": "debug",
+      "title": "harden debug system — SSR safety, cleanup, type exports",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 165,
+        "deletions": 108
+      },
+      "files": [
+        "apps/web/src/app.html",
+        "apps/web/src/lib/components/DebugPill.svelte",
+        "apps/web/src/lib/debugLog.ts",
+        "apps/web/src/routes/+layout.svelte",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "7bb3ec9",
+      "fullSha": "7bb3ec9773967a89afce9b03fbb396f9406a9fed",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T19:15:08Z",
+      "commitDate": "2026-04-10T19:15:08Z",
+      "subject": "feat(debug): add in-memory debug log system with floating pill",
+      "body": "Alpha-phase diagnostic tool following glow-props DEBUG_SYSTEM.md pattern.\nProvides runtime error visibility without external dependencies.\n\n- debugLog.ts: circular buffer (200 entries), typed sources/severities,\n  pub/sub with immediate delivery, console.error/warn interception,\n  global error/unhandledrejection capture, report generation with\n  URL redaction\n- clipboardUtils.ts: three-tier clipboard fallback (ClipboardItem Blob,\n  writeText, textarea execCommand) for all browser contexts\n- DebugPill.svelte: floating pill with inline styles (not Tailwind),\n  3 tabs (Log, Environment, PWA Diagnostics), mounted in separate\n  #debug-root outside SvelteKit tree for crash isolation\n- app.html: #debug-root div, pre-framework inline script with\n  window.__debugPushError() bridge and 20-second loading timeout\n- +layout.svelte: mounts DebugPill into #debug-root via new DebugPill()\n\nTags: debug, diagnostics, alpha, infrastructure\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: debug-system\nSemver: minor\n\nhttps://claude.ai/code/session_011693rELt3wTKg28uRw5BSR",
+      "tags": [
+        "feature",
+        "monitoring"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "debug-system",
+      "semver": "minor",
+      "scope": "debug",
+      "title": "add in-memory debug log system with floating pill",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 792,
+        "deletions": 26
+      },
+      "files": [
+        "CLAUDE.md",
+        "apps/web/src/app.html",
+        "apps/web/src/lib/clipboardUtils.ts",
+        "apps/web/src/lib/components/DebugPill.svelte",
+        "apps/web/src/lib/debugLog.ts",
+        "apps/web/src/routes/+layout.svelte",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "ca247d7",
+      "fullSha": "ca247d7ced6fcd73cccc16a8afa66cc7bf81055a",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-04-10T19:06:58Z",
+      "commitDate": "2026-04-10T19:06:58Z",
+      "subject": "Merge pull request #114 from devmade-ai/claude/implement-z-index-scale-CIOC3",
+      "body": "Standardize z-index values to glow-props Z_INDEX_SCALE",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "z-index-scale",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #114 from devmade-ai/claude/implement-z-index-scale-CIOC3",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#114"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 46,
+        "deletions": 17
+      },
+      "files": [
+        "apps/web/src/app.css",
+        "apps/web/src/lib/components/ComparisonView.svelte",
+        "apps/web/src/routes/+layout.svelte",
+        "apps/web/src/routes/structuring/[model]/+page.svelte",
+        "apps/web/tailwind.config.js",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "5289914",
+      "fullSha": "52899149b29f0169b629a57fcef36322c55f401a",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T17:38:45Z",
+      "commitDate": "2026-04-10T17:38:45Z",
+      "subject": "docs: fix stale click-to-close references, clarify print CSS for split modals",
+      "body": "HISTORY.md and SESSION_NOTES.md referenced click-to-close behavior that\nwas removed in the previous commit. Updated to reflect the actual state:\nbackdrops have no click handlers (preserves original modal behavior).\n\nAdded clarifying comment to the print CSS .fixed.inset-0 selector\nexplaining that modals now have two adjacent siblings matching the\nselector (backdrop + modal container), and the empty backdrop collapses\nharmlessly.\n\nTags: docs, z-index\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: z-index-scale\nSemver: patch\n\nhttps://claude.ai/code/session_01L9bYUdziLDmew97oAkb8w9",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "z-index-scale",
+      "semver": "patch",
+      "scope": null,
+      "title": "fix stale click-to-close references, clarify print CSS for split modals",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 5,
+        "deletions": 3
+      },
+      "files": [
+        "apps/web/src/app.css",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "1d1b9cc",
+      "fullSha": "1d1b9cc46c5ed04c170840a41c87e1b42c55f11f",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T17:30:33Z",
+      "commitDate": "2026-04-10T17:30:33Z",
+      "subject": "fix(ui): remove click-to-close from modal backdrops",
+      "body": "The previous commit added on:click handlers to the backdrop divs,\nintroducing click-outside-to-close behavior that didn't exist before.\nThis is a UX change, not a z-index structural change — the Save Modal's\ncancelSave clears user input, so an accidental outside click would\ndiscard typed text. Removed the handlers to keep this commit purely\nstructural (z-index normalization only, no behavior changes).\n\nBackdrops remain as separate z-40 divs with default pointer-events,\nwhich correctly blocks clicks from reaching page content underneath.\n\nTags: ui, z-index, ux\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: z-index-scale\nSemver: patch\n\nhttps://claude.ai/code/session_01L9bYUdziLDmew97oAkb8w9",
+      "tags": [
+        "bugfix",
+        "ui",
+        "ux"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "z-index-scale",
+      "semver": "patch",
+      "scope": "ui",
+      "title": "remove click-to-close from modal backdrops",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 2,
+        "deletions": 2
+      },
+      "files": [
+        "apps/web/src/lib/components/ComparisonView.svelte",
+        "apps/web/src/routes/structuring/[model]/+page.svelte"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "e551e68",
+      "fullSha": "e551e68d96a99f754018211746040baf2fd84941",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T17:26:18Z",
+      "commitDate": "2026-04-10T17:26:18Z",
+      "subject": "fix(ui): split modal backdrop (z-40) and modal (z-60) into adjacent siblings",
+      "body": "The previous commit placed the combined backdrop+modal div at z-60,\nviolating the glow-props Z_INDEX_SCALE rule: \"Backdrop is always z-40\nregardless of what it's behind.\" This matters for predictability — any\nfuture component relying on \"backdrop is at 40\" would be wrong.\n\nSplit both modals (Save Modal, Comparison View) into:\n- Backdrop div: fixed inset-0, bg-background/*, z-40, click-to-close\n- Modal container div: fixed inset-0, z-60, pointer-events-none\n- Modal card: pointer-events-auto (receives clicks through the container)\n\nTags: ui, z-index, infrastructure\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: z-index-scale\nSemver: patch\n\nhttps://claude.ai/code/session_01L9bYUdziLDmew97oAkb8w9",
+      "tags": [
+        "bugfix",
+        "ui",
+        "refactor"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "z-index-scale",
+      "semver": "patch",
+      "scope": "ui",
+      "title": "split modal backdrop (z-40) and modal (z-60) into adjacent siblings",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 19,
+        "deletions": 14
+      },
+      "files": [
+        "apps/web/src/lib/components/ComparisonView.svelte",
+        "apps/web/src/routes/structuring/[model]/+page.svelte",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "8bb0fc2",
+      "fullSha": "8bb0fc28d0fec4b29381500081d5b4b5c41b76bd",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T17:04:05Z",
+      "commitDate": "2026-04-10T17:04:05Z",
+      "subject": "refactor(ui): normalize z-index values to glow-props standard scale",
+      "body": "Audited and aligned all z-index values to the standardized Z_INDEX_SCALE\nfrom glow-props. The previous values were ad-hoc and didn't follow a\nconsistent layering system, risking stacking conflicts as new UI layers\n(toasts, debug overlays) are added.\n\nChanges:\n- Sticky header: z-40 → z-20 (Sticky headers layer)\n- Save Modal: z-50 → z-60 (Modal layer)\n- Comparison View modal: z-50 → z-60 (Modal layer)\n- Sticky thead z-10: already correct (Base content layer)\n- Extended Tailwind config with z-60/70/80 named utilities\n\nScale: 0-10 base, 20 sticky, 30 sheets, 40 backdrop, 50 menu,\n60 modal, 70 toast, 80 debug.\n\nTags: ui, z-index, infrastructure, tailwind\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: z-index-scale\nSemver: patch\n\nhttps://claude.ai/code/session_01L9bYUdziLDmew97oAkb8w9",
+      "tags": [
+        "refactor",
+        "ui",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "z-index-scale",
+      "semver": "patch",
+      "scope": "ui",
+      "title": "normalize z-index values to glow-props standard scale",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 35,
+        "deletions": 13
+      },
+      "files": [
+        "apps/web/src/lib/components/ComparisonView.svelte",
+        "apps/web/src/routes/+layout.svelte",
+        "apps/web/src/routes/structuring/[model]/+page.svelte",
+        "apps/web/tailwind.config.js",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "71b8eb1",
+      "fullSha": "71b8eb1113fa6f5c1002d250f6ef6f37862ead6c",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-04-10T16:55:15Z",
+      "commitDate": "2026-04-10T16:55:15Z",
+      "subject": "Merge pull request #113 from devmade-ai/claude/implement-app-icons-4cTCn",
+      "body": "Add app icons with SVG source and Sharp generation script",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "app-icons",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #113 from devmade-ai/claude/implement-app-icons-4cTCn",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#113"
+      ],
+      "stats": {
+        "filesChanged": 15,
+        "additions": 533,
+        "deletions": 20
+      },
+      "files": [
+        "CLAUDE.md",
+        "apps/web/src/app.html",
+        "apps/web/static/apple-touch-icon.png",
+        "apps/web/static/favicon.png",
+        "apps/web/static/icon-1024.png",
+        "apps/web/static/icon-192.png",
+        "apps/web/static/icon-512.png",
+        "apps/web/static/manifest.webmanifest",
+        "assets/icon-source.svg",
+        "docs/ARCHITECTURE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "package.json",
+        "pnpm-lock.yaml",
+        "scripts/generate-icons.mjs"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "4c946fa",
+      "fullSha": "4c946fa18140aca0fa446c6d3e4d46a1eb51ef96",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T16:50:44Z",
+      "commitDate": "2026-04-10T16:50:44Z",
+      "subject": "fix(icons): favicon type/sizes, manifest id, stale build commands",
+      "body": "- Add type=\"image/png\" and sizes=\"48x48\" to favicon link for proper\n  browser handling of non-ICO favicons\n- Add \"id\": \"/\" to manifest.webmanifest for stable PWA identity across\n  URL changes (prevents browsers treating the app as separate installs)\n- Add pnpm generate-icons to SESSION_NOTES.md build commands (was\n  already in CLAUDE.md but SESSION_NOTES.md copy was stale)\n\nTags: icons, meta, docs\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: app-icons\nSemver: patch\n\nhttps://claude.ai/code/session_01CAEv1WhXFsUQWnJwRk8p34",
+      "tags": [
+        "bugfix",
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "app-icons",
+      "semver": "patch",
+      "scope": "icons",
+      "title": "favicon type/sizes, manifest id, stale build commands",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 3,
+        "deletions": 1
+      },
+      "files": [
+        "apps/web/src/app.html",
+        "apps/web/static/manifest.webmanifest",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "9e51b30",
+      "fullSha": "9e51b304fd85e5ca352b85118908ef3273656937",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T16:46:37Z",
+      "commitDate": "2026-04-10T16:46:37Z",
+      "subject": "fix(icons): quality cleanup — meta tags, error handling, docs, SVG hygiene",
+      "body": "- Add <meta name=\"theme-color\"> for mobile browser chrome colour\n- Add sizes=\"180x180\" to apple-touch-icon link\n- Add SVG source existence check with meaningful error in generation script\n- Remove redundant rx=\"0\" ry=\"0\" from SVG rect\n- Fix inaccurate SVG comment (was \"overlapping ellipses\", is cubic bezier)\n- Update CLAUDE.md file structure with assets/, scripts/, static/ dirs\n- Add pnpm generate-icons to CLAUDE.md build commands\n- Fix ARCHITECTURE.md: static/ was incorrectly nested under src/\n\nTags: icons, meta, docs, cleanup\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: app-icons\nSemver: patch\n\nhttps://claude.ai/code/session_01CAEv1WhXFsUQWnJwRk8p34",
+      "tags": [
+        "bugfix",
+        "docs",
+        "error-handling"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "app-icons",
+      "semver": "patch",
+      "scope": "icons",
+      "title": "quality cleanup — meta tags, error handling, docs, SVG hygiene",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 54,
+        "deletions": 16
+      },
+      "files": [
+        "CLAUDE.md",
+        "apps/web/src/app.html",
+        "assets/icon-source.svg",
+        "docs/ARCHITECTURE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/generate-icons.mjs"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "3c1c098",
+      "fullSha": "3c1c0980e9b6f2c3d11a9a9dc80911cd01f41b3e",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T16:33:23Z",
+      "commitDate": "2026-04-10T16:33:23Z",
+      "subject": "feat(icons): add app icons — SVG source + Sharp generation pipeline",
+      "body": "Single SVG source (white pear on primary blue) generates all icon sizes\nvia Sharp at 400 DPI. PWA manifest, Apple touch icon, and favicon wired\nup in app.html. Regenerate anytime with `pnpm generate-icons`.\n\nTags: icons, pwa, assets, config\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: app-icons\nSemver: minor\n\nhttps://claude.ai/code/session_01CAEv1WhXFsUQWnJwRk8p34",
+      "tags": [
+        "feature",
+        "ui",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "app-icons",
+      "semver": "minor",
+      "scope": "icons",
+      "title": "add app icons — SVG source + Sharp generation pipeline",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 13,
+        "additions": 490,
+        "deletions": 17
+      },
+      "files": [
+        "apps/web/src/app.html",
+        "apps/web/static/apple-touch-icon.png",
+        "apps/web/static/favicon.png",
+        "apps/web/static/icon-1024.png",
+        "apps/web/static/icon-192.png",
+        "apps/web/static/icon-512.png",
+        "apps/web/static/manifest.webmanifest",
+        "assets/icon-source.svg",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "package.json",
+        "pnpm-lock.yaml",
+        "scripts/generate-icons.mjs"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "2c6c7e9",
+      "fullSha": "2c6c7e982c0b02c9d227473a7bdef1a3401d3822",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-04-10T16:26:58Z",
+      "commitDate": "2026-04-10T16:26:58Z",
+      "subject": "Merge pull request #112 from devmade-ai/claude/complete-pdf-download-7AuoE",
+      "body": "Add PDF export buttons and fix dark-theme print styling",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "pdf-download",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #112 from devmade-ai/claude/complete-pdf-download-7AuoE",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#112"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 214,
+        "deletions": 30
+      },
+      "files": [
+        "apps/web/src/app.css",
+        "apps/web/src/routes/pricing/+page.svelte",
+        "apps/web/src/routes/structuring/[model]/+page.svelte",
+        "docs/BUSINESS_GUIDE.md",
+        "docs/HISTORY.md",
+        "docs/README.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "4803bce",
+      "fullSha": "4803bcecbdb8727d391bbaecf3360cc973202097",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T15:56:10Z",
+      "commitDate": "2026-04-10T15:56:10Z",
+      "subject": "fix(print): improve print output quality — hide interactive UI, fix empty sections, add print-only heading",
+      "body": "Addresses remaining print output issues found during second-pass review:\n\n1. ComparisonManager wrapped in no-print — purely interactive UI (checkboxes,\n   rename, delete, import/export) is noise in a PDF\n2. Collapsed sections (Transfer Pricing, Advanced Analysis) now conditionally\n   hidden via class:no-print when collapsed — prevents empty card shells from\n   appearing when toggle buttons are hidden by print CSS\n3. Expanded sections preserve heading text via print-include class on toggle\n   buttons; chevron SVGs hidden in print since they reference interactive state\n4. Added .print-only utility class (hidden on screen, visible in print) and\n   .print-include class (keeps specific buttons visible in print)\n5. Pricing page: model selector tabs hidden in print, replaced with print-only\n   heading showing selected model name and icon for context\n6. docs/README.md updated to list PDF alongside JSON/CSV export\n\nTags: print, css, ux, cleanup, pdf\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pdf-download\nSemver: patch\n\nhttps://claude.ai/code/session_01WsnhVtrg3t35GkwdkGdzQf",
+      "tags": [
+        "bugfix",
+        "ui",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "pdf-download",
+      "semver": "patch",
+      "scope": "print",
+      "title": "improve print output quality — hide interactive UI, fix empty sections, add print-only heading",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 70,
+        "deletions": 16
+      },
+      "files": [
+        "apps/web/src/app.css",
+        "apps/web/src/routes/pricing/+page.svelte",
+        "apps/web/src/routes/structuring/[model]/+page.svelte",
+        "docs/HISTORY.md",
+        "docs/README.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "21d307f",
+      "fullSha": "21d307f40e7d66ce5d92a4438ad81f3baf82e81f",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T15:22:39Z",
+      "commitDate": "2026-04-10T15:22:39Z",
+      "subject": "fix(print): overhaul print CSS for dark theme — fix invisible text, align with glow-props pattern",
+      "body": "The existing print CSS only set `body { background: white; color: black }`\nbut Tailwind utility classes (text-foreground, bg-card, bg-secondary-light)\nstill resolved to dark theme values — producing white text on white paper\nand dark gray card backgrounds. This was a critical readability bug for\nanyone using the \"Save as PDF\" or \"Print / PDF\" features.\n\nFix: Override :root CSS variables with light-theme values in @media print\nso all Tailwind classes automatically resolve to print-friendly colors.\nAlso override hardcoded dark hex colors (secondary-light, secondary-dark),\nadd link styling, .print-avoid-break utility class, sticky→static override,\nsection/card/result-panel break-inside rules, and !important on\nprint-color-adjust. Full alignment with glow-props DOWNLOAD_PDF pattern.\n\nTags: print, css, bugfix, pdf, dark-theme\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pdf-download\nSemver: patch\n\nhttps://claude.ai/code/session_01WsnhVtrg3t35GkwdkGdzQf",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "pdf-download",
+      "semver": "patch",
+      "scope": "print",
+      "title": "overhaul print CSS for dark theme — fix invisible text, align with glow-props pattern",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 122,
+        "deletions": 23
+      },
+      "files": [
+        "apps/web/src/app.css",
+        "docs/BUSINESS_GUIDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "66b13b2",
+      "fullSha": "66b13b2f04f9349e1b708fd9c1f3cb5a8ba67076",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T13:05:39Z",
+      "commitDate": "2026-04-10T13:05:39Z",
+      "subject": "feat(pdf): add \"Save as PDF\" button to pricing and structuring calculators",
+      "body": "Both calculator pages now have a \"Save as PDF\" button that triggers\nwindow.print(), leveraging existing @media print CSS for clean output.\nButtons auto-hide during print preview via the no-print class.\n\nTags: pdf, ui, feature, pricing, structuring\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pdf-download\nSemver: minor\n\nhttps://claude.ai/code/session_01WsnhVtrg3t35GkwdkGdzQf",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "pdf-download",
+      "semver": "minor",
+      "scope": "pdf",
+      "title": "add \"Save as PDF\" button to pricing and structuring calculators",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 39,
+        "deletions": 8
+      },
+      "files": [
+        "apps/web/src/routes/pricing/+page.svelte",
+        "apps/web/src/routes/structuring/[model]/+page.svelte",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "f3385eb",
+      "fullSha": "f3385ebb9e8e29d88256a0a8530fa9fa556b1200",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-04-10T12:50:22Z",
+      "commitDate": "2026-04-10T12:50:22Z",
+      "subject": "Merge pull request #111 from devmade-ai/claude/remove-stale-note-VOqbm",
+      "body": "Replace stale glow-props AI Note with canonical Implementation Patterns section",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "claude-md-alignment",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #111 from devmade-ai/claude/remove-stale-note-VOqbm",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#111"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 41,
+        "deletions": 27
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "50ec58b",
+      "fullSha": "50ec58b121ab020983da12fe192db22beba2a5f9",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-10T12:46:03Z",
+      "commitDate": "2026-04-10T12:46:03Z",
+      "subject": "docs(claude): replace stale glow-props AI Note with implementation patterns section",
+      "body": "The \"Shared conventions with glow-props\" AI Note referenced \"suggested\nimplementations\" that no longer exist at that location. Replaced with\nthe canonical \"Implementation patterns — always fetch from glow-props\"\nnote, added the standard \"Implementation Patterns (Source of Truth)\"\nsection, and added a prohibition against creating local pattern copies.\n\nTags: docs, claude-md, glow-props, conventions\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: claude-md-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01BKt811JQgiqH6S9vsD9ypQ",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "claude-md-alignment",
+      "semver": "patch",
+      "scope": "claude",
+      "title": "replace stale glow-props AI Note with implementation patterns section",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 41,
+        "deletions": 27
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "internal"
+    },
     {
       "sha": "69c4ed0",
       "fullSha": "69c4ed01410c3e8d41c7d7e6d64bd78a15d78687",

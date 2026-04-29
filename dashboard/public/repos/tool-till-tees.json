@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-25T22:34:55.503Z",
+    "generatedAt": "2026-04-29T06:40:57.420Z",
     "repository": "tool-till-tees",
     "scope": "tool-till-tees",
     "repoCount": 1,
-    "commitCount": 83,
+    "commitCount": 105,
     "authors": {
       "devmade": {
         "name": "devmade",
@@ -13,7 +13,8 @@
     },
     "commitMonths": [
       "2026-02",
-      "2026-03"
+      "2026-03",
+      "2026-04"
     ]
   },
   "contributors": [
@@ -21,24 +22,28 @@
       "author_id": "devmade",
       "name": "devmade",
       "email": "devmade.ai@gmail.com",
-      "commits": 83,
-      "avgComplexity": 1.61,
-      "avgUrgency": 2.08,
+      "commits": 105,
+      "avgComplexity": 1.58,
+      "avgUrgency": 2.15,
       "tagBreakdown": {
-        "merge": 22,
-        "docs": 22,
-        "bugfix": 17,
+        "merge": 25,
+        "refactor": 9,
+        "test-unit": 10,
+        "bugfix": 23,
+        "security": 8,
+        "vulnerability": 1,
+        "docs": 38,
+        "comments": 1,
+        "hotfix": 1,
+        "types": 2,
+        "simplify": 1,
+        "feature": 11,
         "api": 5,
         "api-breaking": 1,
         "api-docs": 1,
         "validation": 1,
-        "security": 4,
-        "types": 1,
-        "feature": 10,
-        "test-unit": 2,
         "removal": 2,
         "config": 14,
-        "refactor": 5,
         "database": 3,
         "schema": 3,
         "ui": 3,
@@ -48,27 +53,27 @@
         "init": 2
       },
       "impactBreakdown": {
-        "internal": 44,
-        "user-facing": 5,
+        "internal": 58,
+        "user-facing": 6,
         "infrastructure": 26,
-        "api": 8
+        "api": 15
       },
       "riskBreakdown": {
-        "low": 71,
-        "medium": 12,
+        "low": 89,
+        "medium": 16,
         "high": 0
       },
       "debtBreakdown": {
-        "added": 0,
-        "paid": 27,
-        "neutral": 56
+        "added": 1,
+        "paid": 45,
+        "neutral": 59
       },
       "repos": [
         "tool-till-tees"
       ],
       "repoCount": 1,
       "firstCommit": "2026-02-16T11:34:37+00:00",
-      "lastCommit": "2026-03-28T21:33:14Z"
+      "lastCommit": "2026-04-25T19:25:28Z"
     }
   ],
   "filterOptions": {
@@ -77,12 +82,14 @@
       "api-breaking",
       "api-docs",
       "bugfix",
+      "comments",
       "config",
       "database",
       "dependency-add",
       "deploy",
       "docs",
       "feature",
+      "hotfix",
       "init",
       "merge",
       "refactor",
@@ -90,10 +97,12 @@
       "revert",
       "schema",
       "security",
+      "simplify",
       "test-unit",
       "types",
       "ui",
-      "validation"
+      "validation",
+      "vulnerability"
     ],
     "authors": [
       "devmade"
@@ -114,23 +123,27 @@
     ]
   },
   "summary": {
-    "totalCommits": 83,
+    "totalCommits": 105,
     "totalContributors": 1,
     "tagBreakdown": {
-      "merge": 22,
-      "docs": 22,
-      "bugfix": 17,
+      "merge": 25,
+      "refactor": 9,
+      "test-unit": 10,
+      "bugfix": 23,
+      "security": 8,
+      "vulnerability": 1,
+      "docs": 38,
+      "comments": 1,
+      "hotfix": 1,
+      "types": 2,
+      "simplify": 1,
+      "feature": 11,
       "api": 5,
       "api-breaking": 1,
       "api-docs": 1,
       "validation": 1,
-      "security": 4,
-      "types": 1,
-      "feature": 10,
-      "test-unit": 2,
       "removal": 2,
       "config": 14,
-      "refactor": 5,
       "database": 3,
       "schema": 3,
       "ui": 3,
@@ -140,36 +153,39 @@
       "init": 2
     },
     "complexityBreakdown": {
-      "1": 52,
-      "2": 17,
-      "3": 9,
+      "1": 67,
+      "2": 21,
+      "3": 12,
       "4": 4,
       "5": 1
     },
     "urgencyBreakdown": {
-      "1": 12,
-      "2": 53,
-      "3": 17,
-      "4": 1,
-      "5": 0
+      "1": 14,
+      "2": 67,
+      "3": 19,
+      "4": 4,
+      "5": 1
     },
     "impactBreakdown": {
-      "internal": 44,
-      "user-facing": 5,
+      "internal": 58,
+      "user-facing": 6,
       "infrastructure": 26,
-      "api": 8
+      "api": 15
     },
     "riskBreakdown": {
-      "low": 71,
-      "medium": 12,
+      "low": 89,
+      "medium": 16,
       "high": 0
     },
     "debtBreakdown": {
-      "added": 0,
-      "paid": 27,
-      "neutral": 56
+      "added": 1,
+      "paid": 45,
+      "neutral": 59
     },
     "epicBreakdown": {
+      "sancio-api-stability": 8,
+      "sun-sea-o-integration": 10,
+      "fleet-alignment": 4,
       "cross-repo-audit": 2,
       "documentation": 2,
       "api-naming-consistency": 4,
@@ -185,14 +201,14 @@
       "sancio-backend": 1
     },
     "semverBreakdown": {
-      "patch": 31,
-      "minor": 6,
+      "patch": 52,
+      "minor": 7,
       "major": 1
     },
-    "avgComplexity": 1.61,
-    "avgUrgency": 2.08,
+    "avgComplexity": 1.58,
+    "avgUrgency": 2.15,
     "repoCommitCounts": {
-      "tool-till-tees": 83
+      "tool-till-tees": 105
     },
     "hourlyHeatmap": {
       "matrix": [
@@ -264,7 +280,7 @@
           0,
           7,
           0,
-          0,
+          1,
           0,
           0
         ],
@@ -338,16 +354,16 @@
           2,
           5,
           0,
-          0
+          4
         ],
         [
           0,
           0,
           0,
           0,
+          1,
           0,
-          0,
-          0
+          2
         ],
         [
           0,
@@ -363,7 +379,7 @@
           1,
           0,
           0,
-          2,
+          3,
           0,
           0
         ],
@@ -372,9 +388,9 @@
           0,
           1,
           0,
+          5,
           0,
-          0,
-          1
+          6
         ],
         [
           0,
@@ -407,7 +423,7 @@
           0,
           0,
           0,
-          0,
+          3,
           0,
           0,
           0
@@ -421,7 +437,7 @@
         6,
         7,
         10,
-        7,
+        8,
         5,
         2,
         3,
@@ -429,32 +445,77 @@
         1,
         2,
         3,
-        7,
-        0,
-        5,
+        11,
         3,
-        2,
+        5,
+        4,
+        12,
         4,
         5,
         2,
-        0
+        3
       ],
       "byDay": [
         0,
         7,
         37,
-        4,
-        13,
+        7,
+        21,
         15,
-        7
+        18
       ]
     },
     "codeStats": {
-      "additions": 40599,
-      "deletions": 10923,
-      "filesChanged": 543
+      "additions": 43530,
+      "deletions": 12020,
+      "filesChanged": 645
     },
     "monthly": {
+      "2026-04": {
+        "commits": 22,
+        "tags": {
+          "merge": 3,
+          "refactor": 4,
+          "test-unit": 8,
+          "bugfix": 6,
+          "security": 4,
+          "vulnerability": 1,
+          "docs": 16,
+          "comments": 1,
+          "hotfix": 1,
+          "types": 1,
+          "simplify": 1,
+          "feature": 1
+        },
+        "impact": {
+          "internal": 14,
+          "user-facing": 1,
+          "infrastructure": 0,
+          "api": 7
+        },
+        "risk": {
+          "low": 18,
+          "medium": 4,
+          "high": 0
+        },
+        "debt": {
+          "added": 1,
+          "paid": 18,
+          "neutral": 3
+        },
+        "semver": {
+          "patch": 21,
+          "minor": 1,
+          "major": 0
+        },
+        "additions": 2931,
+        "deletions": 1097,
+        "repos": {
+          "tool-till-tees": 22
+        },
+        "avgComplexity": 1.45,
+        "avgUrgency": 2.41
+      },
       "2026-03": {
         "commits": 28,
         "tags": {
@@ -552,6 +613,51 @@
       }
     },
     "monthlyCommits": {
+      "2026-04": {
+        "commits": 22,
+        "tags": {
+          "merge": 3,
+          "refactor": 4,
+          "test-unit": 8,
+          "bugfix": 6,
+          "security": 4,
+          "vulnerability": 1,
+          "docs": 16,
+          "comments": 1,
+          "hotfix": 1,
+          "types": 1,
+          "simplify": 1,
+          "feature": 1
+        },
+        "impact": {
+          "internal": 14,
+          "user-facing": 1,
+          "infrastructure": 0,
+          "api": 7
+        },
+        "risk": {
+          "low": 18,
+          "medium": 4,
+          "high": 0
+        },
+        "debt": {
+          "added": 1,
+          "paid": 18,
+          "neutral": 3
+        },
+        "semver": {
+          "patch": 21,
+          "minor": 1,
+          "major": 0
+        },
+        "additions": 2931,
+        "deletions": 1097,
+        "repos": {
+          "tool-till-tees": 22
+        },
+        "avgComplexity": 1.45,
+        "avgUrgency": 2.41
+      },
       "2026-03": {
         "commits": 28,
         "tags": {
@@ -649,6 +755,51 @@
       }
     },
     "weekly": {
+      "2026-W17": {
+        "commits": 22,
+        "tags": {
+          "merge": 3,
+          "refactor": 4,
+          "test-unit": 8,
+          "bugfix": 6,
+          "security": 4,
+          "vulnerability": 1,
+          "docs": 16,
+          "comments": 1,
+          "hotfix": 1,
+          "types": 1,
+          "simplify": 1,
+          "feature": 1
+        },
+        "impact": {
+          "internal": 14,
+          "user-facing": 1,
+          "infrastructure": 0,
+          "api": 7
+        },
+        "risk": {
+          "low": 18,
+          "medium": 4,
+          "high": 0
+        },
+        "debt": {
+          "added": 1,
+          "paid": 18,
+          "neutral": 3
+        },
+        "semver": {
+          "patch": 21,
+          "minor": 1,
+          "major": 0
+        },
+        "additions": 2931,
+        "deletions": 1097,
+        "repos": {
+          "tool-till-tees": 22
+        },
+        "avgComplexity": 1.45,
+        "avgUrgency": 2.41
+      },
       "2026-W13": {
         "commits": 4,
         "tags": {
@@ -894,6 +1045,126 @@
       }
     },
     "daily": {
+      "2026-04-25": {
+        "commits": 11,
+        "tags": {
+          "merge": 2,
+          "refactor": 2,
+          "test-unit": 5,
+          "bugfix": 4,
+          "security": 1,
+          "vulnerability": 1,
+          "docs": 8,
+          "comments": 1,
+          "hotfix": 1
+        },
+        "impact": {
+          "internal": 7,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 4
+        },
+        "risk": {
+          "low": 9,
+          "medium": 2,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 9,
+          "neutral": 2
+        },
+        "semver": {
+          "patch": 11,
+          "minor": 0,
+          "major": 0
+        },
+        "additions": 1866,
+        "deletions": 348,
+        "repos": {
+          "tool-till-tees": 11
+        },
+        "avgComplexity": 1.45,
+        "avgUrgency": 2.64
+      },
+      "2026-04-23": {
+        "commits": 8,
+        "tags": {
+          "merge": 1,
+          "docs": 6,
+          "refactor": 1,
+          "types": 1,
+          "bugfix": 1,
+          "security": 3,
+          "test-unit": 3,
+          "simplify": 1,
+          "feature": 1
+        },
+        "impact": {
+          "internal": 5,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 3
+        },
+        "risk": {
+          "low": 6,
+          "medium": 2,
+          "high": 0
+        },
+        "debt": {
+          "added": 1,
+          "paid": 6,
+          "neutral": 1
+        },
+        "semver": {
+          "patch": 7,
+          "minor": 1,
+          "major": 0
+        },
+        "additions": 808,
+        "deletions": 451,
+        "repos": {
+          "tool-till-tees": 8
+        },
+        "avgComplexity": 1.38,
+        "avgUrgency": 2.25
+      },
+      "2026-04-22": {
+        "commits": 3,
+        "tags": {
+          "bugfix": 1,
+          "refactor": 1,
+          "docs": 2
+        },
+        "impact": {
+          "internal": 2,
+          "user-facing": 1,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 3,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 3,
+          "neutral": 0
+        },
+        "semver": {
+          "patch": 3,
+          "minor": 0,
+          "major": 0
+        },
+        "additions": 257,
+        "deletions": 298,
+        "repos": {
+          "tool-till-tees": 3
+        },
+        "avgComplexity": 1.67,
+        "avgUrgency": 2
+      },
       "2026-03-28": {
         "commits": 2,
         "tags": {
@@ -1426,9 +1697,29 @@
     },
     "dateRange": {
       "earliest": "2026-02-16T11:34:37+00:00",
-      "latest": "2026-03-28T21:33:14Z"
+      "latest": "2026-04-25T19:25:28Z"
     },
     "security_events": [
+      {
+        "sha": "afd2b6b",
+        "timestamp": "2026-04-25T19:10:52Z",
+        "subject": "fix(sancio): close cron auth fail-open; constant-time secret comparison"
+      },
+      {
+        "sha": "e89c094",
+        "timestamp": "2026-04-23T19:10:17Z",
+        "subject": "fix(cors): allowlist X-Dev-User-Id and X-Dev-User-Email on preflight"
+      },
+      {
+        "sha": "1f82153",
+        "timestamp": "2026-04-23T16:37:11Z",
+        "subject": "feat(auth): drop SANCIO_AUTH_BYPASS env var gate, opt-in arg alone controls bypass"
+      },
+      {
+        "sha": "5110d86",
+        "timestamp": "2026-04-23T07:23:31Z",
+        "subject": "feat(auth): sancio-scoped dev auth bypass for sun-sea-o AUTH_BYPASS_ENABLED"
+      },
       {
         "sha": "59dfa7e",
         "timestamp": "2026-03-19T21:57:04Z",
@@ -1452,6 +1743,1019 @@
     ]
   },
   "commits": [
+    {
+      "sha": "ded8f36",
+      "fullSha": "ded8f36d1314acf96cdc4279acf95cf382070602",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-04-25T19:25:28Z",
+      "commitDate": "2026-04-25T19:25:28Z",
+      "subject": "Merge pull request #26 from devmade-ai/claude/fix-api-404-errors-Y0WAL",
+      "body": "Fix Sancio routing and close cron auth fail-open",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "sancio-api-stability",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #26 from devmade-ai/claude/fix-api-404-errors-Y0WAL",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#26"
+      ],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 501,
+        "deletions": 102
+      },
+      "files": [
+        "API.md",
+        "CLAUDE.md",
+        "api/__tests__/sancio/cron.test.ts",
+        "api/__tests__/sancio/dispatcher.test.ts",
+        "api/sancio/[...slug].ts",
+        "docs/AI_MISTAKES.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "lib/routes/sancio/cron.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "89cf4d1",
+      "fullSha": "89cf4d13fc9a2561f9e765b3895d62172eb01860",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-25T19:18:49Z",
+      "commitDate": "2026-04-25T19:18:49Z",
+      "subject": "chore(sancio): test-helper consistency, spy hygiene, prefix-coupling note",
+      "body": "Four small cleanups surfaced during a fresh-eyes audit. None change\nbehavior; all close consistency or hygiene gaps.\n\n(1) cron.test.ts: replace inline buildEmptyModulesQuery() with\ncreateMockQueryBuilder() from _helpers.ts. The shared helper already\nsupports the bare-then/await shape these tests need (no .single()),\nand this matches every other sancio test in the file. Removes a\nduplicate mock-builder pattern.\n\n(2) cron.test.ts: consolidate process.env.CRON_SECRET cleanup into a\nsingle file-level afterEach. Previously both an inner afterEach (in\nthe helper-describe) and an outer afterEach ran the same delete on\nevery test in that block. Harmless but ugly.\n\n(3) dispatcher.test.ts: add afterAll to mockRestore the console.error\nspy. Vitest isolates test files today, so the leaked spy is harmless\nin the current setup, but it's a side effect that would silently\nswallow console.error in an unrelated suite if a future shared-runtime\nchange ever changes that isolation guarantee.\n\n(4) api/sancio/[...slug].ts: add a one-line note above SANCIO_PREFIX\nspelling out that the constant is coupled to the file's location on\ndisk and to vercel.json rewrites — there is no runtime check that\nwould catch a drift if either ever moves. Future-proofs the next\nreader against silently breaking routing by relocating the dispatcher.\n\n166/166 tests still pass; typecheck clean.\n\nTags: testing, refactor, hygiene, sancio\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sancio-api-stability\nSemver: patch",
+      "tags": [
+        "refactor",
+        "test-unit"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "sancio-api-stability",
+      "semver": "patch",
+      "scope": "sancio",
+      "title": "test-helper consistency, spy hygiene, prefix-coupling note",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 32,
+        "deletions": 29
+      },
+      "files": [
+        "api/__tests__/sancio/cron.test.ts",
+        "api/__tests__/sancio/dispatcher.test.ts",
+        "api/sancio/[...slug].ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "afd2b6b",
+      "fullSha": "afd2b6b26b3e0b49b948b76e64dc23ce8f2df4a9",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-25T19:10:52Z",
+      "commitDate": "2026-04-25T19:10:52Z",
+      "subject": "fix(sancio): close cron auth fail-open; constant-time secret comparison",
+      "body": "Both cron handlers (lib/routes/sancio/cron.ts) gated on\n`if (cronSecret && authHeader !== \"Bearer \" + cronSecret) return 401`.\nWhen CRON_SECRET was unset, the conditional short-circuited and the\nhandler ran unauthenticated — every HTTP caller could trigger real\nnotifications (nudge) and real module expirations (auto-expire). Vercel\nauto-sets the env var for production, so the practical exposure was\nlimited to misconfigured deployments and previews, but the gate was\nsilently absent on those.\n\nExtract isAuthorizedCron(authHeader) helper. Fail-closed on every\nunauthorized shape:\n- CRON_SECRET unset or empty\n- Authorization header missing or empty\n- Token does not match\n- Prefix wrong-cased (\"bearer ...\")\n- Trailing whitespace\n- Any length mismatch\n\nComparison via crypto.timingSafeEqual to avoid leaking the secret\nthrough string-comparison short-circuit timing. Length guard runs\nbefore timingSafeEqual (which throws on length mismatch); the expected\nlength is not itself a secret (CRON_SECRET is a fixed-length value\nprovisioned by Vercel and visible to anyone with project access).\n\nHelper stays local to cron.ts. The only callers are the two cron\nhandlers in this file; lifting it into lib/auth.ts would conflate\nunrelated auth schemes (JWT for user routes vs shared-secret for cron).\n\nTests (api/__tests__/sancio/cron.test.ts, new — 22 tests):\n- isAuthorizedCron helper across every input shape\n- Per-endpoint integration: gate rejects before any Supabase call,\n  OPTIONS preflight bypasses gate (CORS), non-GET returns 405, valid\n  bearer reaches handler body. Both nudge and autoExpire covered.\n\nDocs:\n- AI_MISTAKES.md: new entry recording the fail-open pattern\n  (`if (secret && doesNotMatch)` is one keyword off from correct and\n  inverts under unset secret; auth checks must be fail-closed by\n  construction).\n- API.md: cron section spells out the fail-closed behavior + constant-\n  time comparison.\n- USER_ACTIONS.md: drop the now-obsolete \"200 = fail-open\" outcome row\n  from the cron verification step (the gate now fail-closes regardless\n  of CRON_SECRET state).\n- SESSION_NOTES.md: updated to reflect the fix and the broader scope of\n  this branch (routing + cron auth).\n\nTags: bugfix, security, sancio, cron, testing, documentation\nComplexity: 2\nUrgency: 4\nImpact: api\nRisk: low\nDebt: paid\nEpic: sancio-api-stability\nSemver: patch",
+      "tags": [
+        "bugfix",
+        "security",
+        "vulnerability",
+        "test-unit",
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "sancio-api-stability",
+      "semver": "patch",
+      "scope": "sancio",
+      "title": "close cron auth fail-open; constant-time secret comparison",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 316,
+        "deletions": 21
+      },
+      "files": [
+        "API.md",
+        "api/__tests__/sancio/cron.test.ts",
+        "docs/AI_MISTAKES.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "lib/routes/sancio/cron.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 4,
+      "impact": "api"
+    },
+    {
+      "sha": "8173d3b",
+      "fullSha": "8173d3b460412664f2ea46224fb27fe937afe567",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-25T19:02:34Z",
+      "commitDate": "2026-04-25T19:02:34Z",
+      "subject": "docs(sancio): cover the CRON_SECRET fail-open in cron-routing verification",
+      "body": "Step 3's \"no auth → expect 401\" guidance assumed CRON_SECRET is set on\nthe target deployment. lib/routes/sancio/cron.ts opens with\n`if (cronSecret && authHeader !== ...)` — when the env var is unset the\nauth check is bypassed entirely and the handler runs with full side\neffects. Vercel auto-sets CRON_SECRET for production deployments but\nnot necessarily for preview/branch deployments, so the previous\nguidance had a hole: a user verifying on a preview without that env\nvar would get 200 + real notifications/expirations instead of 401.\n\nAdd a fourth outcome row covering the 200 case: stop testing, set the\nenv var, retry. Reader can now diagnose every response shape from the\ndoc alone.\n\nTags: documentation, sancio, cron, safety\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sancio-api-stability\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "sancio-api-stability",
+      "semver": "patch",
+      "scope": "sancio",
+      "title": "cover the CRON_SECRET fail-open in cron-routing verification",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 2,
+        "deletions": 0
+      },
+      "files": [
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "db3cc6a",
+      "fullSha": "db3cc6ab7fdafef1d44e58fd549047a5296ca6ae",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-25T19:01:30Z",
+      "commitDate": "2026-04-25T19:01:30Z",
+      "subject": "fix(sancio): percent-decode URL segments; correct cron verification guidance",
+      "body": "Two issues found on a follow-up audit of the req.url-based dispatcher:\n\n(1) Behavioral regression vs the previous implementation. The old code\nread req.query.slug, which Node's querystring parser had already\npercent-decoded — so a segment captured from \"/api/sancio/projects/foo%20bar\"\narrived at handlers as \"foo bar\". The new path-splitting approach skipped\nthat decode, leaving handlers to receive \"foo%20bar\" verbatim.\n\nFor the current Sancio routes (UUIDs + literal action words like \"status\",\n\"split\") there is no observable difference, but the semantics change is\nsilent and would bite the moment any segment ever held a space, slash,\nor other reserved char. Standard HTTP routing decodes path segments;\nthe dispatcher should too.\n\nFix: map decodeURIComponent over each segment (after split, so an encoded\n\"%2F\" stays as one segment rather than being split into two), wrapped in\na try/catch so malformed encoding (e.g. lone \"%\") returns [] → 404. Two\nnew dispatcher tests pin both behaviors.\n\n(2) Misleading cron verification in USER_ACTIONS.md. The previous\nguidance suggested running the cron endpoints manually with CRON_SECRET\n\"to verify routing.\" That is unsafe: nudge sends real notifications and\nauto-expire actually expires modules. Running them against production\nfires real user-visible side effects.\n\nReplace with side-effect-free verification: curl without Authorization,\nexpect 401 {\"error\":\"Unauthorized\"}. That response proves the dispatcher\nmatched the cron route and reached the handler's auth check, with no\nnotifications sent and no modules expired. The doc lists all three\ndistinguishable outcomes (401 = pass; sancio 404 = dispatch regression;\nHTML 404 = Vercel routing broken) so the user can read the failure mode\noff the response alone.\n\nTags: bugfix, sancio, dispatcher, testing, documentation, cron, safety\nComplexity: 2\nUrgency: 3\nImpact: api\nRisk: low\nDebt: paid\nEpic: sancio-api-stability\nSemver: patch",
+      "tags": [
+        "bugfix",
+        "test-unit",
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "sancio-api-stability",
+      "semver": "patch",
+      "scope": "sancio",
+      "title": "percent-decode URL segments; correct cron verification guidance",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 55,
+        "deletions": 7
+      },
+      "files": [
+        "api/__tests__/sancio/dispatcher.test.ts",
+        "api/sancio/[...slug].ts",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "api"
+    },
+    {
+      "sha": "31b58ea",
+      "fullSha": "31b58eaca671efdd68527d8486a5c3601269c18c",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-25T16:39:10Z",
+      "commitDate": "2026-04-25T16:39:10Z",
+      "subject": "docs(sancio): pin rename to Vercel build/edge layer; add cron verification curls",
+      "body": "Tightening pass on the prior fix:\n\n(1) Attribution: the catch-all key rename (slug → ...slug) does not come\nfrom @vercel/node — that package only parses req.query from the URL it\nreceives. The rename is in Vercel's build/edge routing layer, which\nrewrites incoming URLs onto the catch-all by appending a query string\nwhose key is the literal bracketed name from the filename. AI_MISTAKES\nand the dispatcher header now name the correct subsystem; the lesson\n(\"route from req.url, not req.query\") is unchanged. Investigation\nagainst @vercel/node's changelog and routing source did not pin the\nrename to a specific commit, but the rename is observable end-to-end\nvia req.url, which is what the fix relies on.\n\n(2) Cron verification: the cron endpoints (/api/sancio/cron/nudge,\n/auto-expire) share the dispatcher and were also broken, but Vercel\nonly invokes them on schedule (08:00 / 09:00 UTC). USER_ACTIONS.md now\nincludes manual verification curls using CRON_SECRET so the user can\nconfirm cron routing without waiting for the next scheduled run. Both\nhandlers are idempotent (no-op on modules not yet stale/expired), so\nrunning them outside the schedule is safe.\n\nTags: documentation, sancio, vercel, cron\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sancio-api-stability\nSemver: patch",
+      "tags": [
+        "docs",
+        "comments"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "sancio-api-stability",
+      "semver": "patch",
+      "scope": "sancio",
+      "title": "pin rename to Vercel build/edge layer; add cron verification curls",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 22,
+        "deletions": 14
+      },
+      "files": [
+        "api/sancio/[...slug].ts",
+        "docs/AI_MISTAKES.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "0dec537",
+      "fullSha": "0dec537a1c82f2f6d9595cac417aec91d50a7717",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-25T16:00:36Z",
+      "commitDate": "2026-04-25T16:00:36Z",
+      "subject": "docs(session): refresh SESSION_NOTES + USER_ACTIONS for the req.url routing fix",
+      "body": "SESSION_NOTES.md still described the previous branch's approach\n(`req.query.slug` normalization). USER_ACTIONS.md still listed verification\nsteps for the previous branch and a Vercel-support escalation procedure\nthat's no longer relevant — the failure was a runtime param-key rename,\nnot a platform routing bug.\n\nRewrite both for the current branch: explain the `slug` → `...slug`\nruntime change, the req.url-based fix, the new test contract, and the\npost-deploy verification (curls + log tailing for `[sancio] fallthrough`).\n\nTags: documentation, sancio, session-notes\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sancio-api-stability\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "sancio-api-stability",
+      "semver": "patch",
+      "scope": "session",
+      "title": "refresh SESSION_NOTES + USER_ACTIONS for the req.url routing fix",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 26,
+        "deletions": 39
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "0a4b976",
+      "fullSha": "0a4b976f95b9f4952fbaf70041af71da8f511cf8",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-25T15:54:02Z",
+      "commitDate": "2026-04-25T15:54:02Z",
+      "subject": "fix(sancio): route from req.url, not req.query, to survive Vercel param-key renames",
+      "body": "@vercel/node silently renamed the catch-all key from `slug` to `...slug`\n(literal three-dot prefix from the [...slug].ts filename), making\nreq.query.slug undefined for every Sancio request. Production logs\nshowed `url: '/api/sancio/projects?...slug=projects'` with\n`rawSlug: undefined` — the value lived at req.query[\"...slug\"]. Every\nsancio endpoint 404ed across all consuming frontends; CI was green\nbecause the dispatcher tests drove req.query.slug directly.\n\nSwitch routing to read req.url: strip the /api/sancio prefix, split the\nremainder on /, drop empties. req.url is HTTP-level state Vercel cannot\nrename out from under us. Drop the rawSlug field from the fallthrough\nlog; add queryKeys (key names only, not values, to avoid leaking auth\ntokens or PII) so a future framework rename is immediately visible in\nVercel logs.\n\nRewrite dispatcher tests to drive req.url shaped like production\n(including the `...slug=` rewrite query string) instead of synthetic\nreq.query.slug. Add a regression-guard test asserting that\nreq.query.slug alone does NOT dispatch — pinning the new contract so a\nfuture \"fallback to query\" change surfaces here.\n\nUpdate docs/AI_MISTAKES.md and CLAUDE.md with the lesson: for Vercel\ncatch-all routes, route from req.url, not req.query.\n\nTags: bugfix, sancio, vercel, dispatcher, testing, documentation\nComplexity: 2\nUrgency: 5\nImpact: api\nRisk: medium\nDebt: paid\nEpic: sancio-api-stability\nSemver: patch",
+      "tags": [
+        "hotfix",
+        "bugfix",
+        "test-unit",
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "sancio-api-stability",
+      "semver": "patch",
+      "scope": "sancio",
+      "title": "route from req.url, not req.query, to survive Vercel param-key renames",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 110,
+        "deletions": 54
+      },
+      "files": [
+        "CLAUDE.md",
+        "api/__tests__/sancio/dispatcher.test.ts",
+        "api/sancio/[...slug].ts",
+        "docs/AI_MISTAKES.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 5,
+      "impact": "api"
+    },
+    {
+      "sha": "d272085",
+      "fullSha": "d27208543327e867f1cbc40f7db3feb982f5718b",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-04-25T15:22:22Z",
+      "commitDate": "2026-04-25T15:22:22Z",
+      "subject": "Merge pull request #25 from devmade-ai/claude/fix-single-segment-routes-5pxl0",
+      "body": "Fix Sancio dispatcher 404s on single-segment routes",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "sun-sea-o-integration",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #25 from devmade-ai/claude/fix-single-segment-routes-5pxl0",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#25"
+      ],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 401,
+        "deletions": 41
+      },
+      "files": [
+        "API.md",
+        "CLAUDE.md",
+        "api/__tests__/sancio/dispatcher.test.ts",
+        "api/sancio/[...slug].ts",
+        "docs/AI_MISTAKES.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "50347b0",
+      "fullSha": "50347b0c46010beb3d0adf894d5eb3abfc5e0558",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-25T15:11:09Z",
+      "commitDate": "2026-04-25T15:11:09Z",
+      "subject": "docs(ai-mistakes): record `as string[]` cast as root cause pattern",
+      "body": "The dispatcher 404 bug was invisible to TS and the test suite because\nthe unsafe cast told both that the runtime contract matched the type.\nFuture AI work on framework-typed query params should normalize at the\nboundary, never `as`-cast away union arms.\n\nTags: docs, ai-mistakes, sancio, lessons-learned\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sun-sea-o-integration\nSemver: patch\n\nhttps://claude.ai/code/session_01KeVVr1G1A7zVa4Yi2NTmfT",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "sun-sea-o-integration",
+      "semver": "patch",
+      "scope": "ai-mistakes",
+      "title": "record `as string[]` cast as root cause pattern",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 8,
+        "deletions": 0
+      },
+      "files": [
+        "docs/AI_MISTAKES.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "e6bb08a",
+      "fullSha": "e6bb08a80e5121032aba558244e8c6e8b3544197",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-25T15:04:56Z",
+      "commitDate": "2026-04-25T15:04:56Z",
+      "subject": "fix(sancio): unblock single-segment routes; harden multi-segment routing",
+      "body": "Root cause: api/sancio/[...path].ts read `req.query.path as string[]`. The\ncast lied — Vercel's runtime delivers the catch-all param as a bare string\nfor single-segment URLs, so segments became \"projects\" instead of\n[\"projects\"], no segments[0] branch matched, and every single-segment\nsancio request fell through to the explicit 404. The per-handler tests\nimport resource handlers directly and bypass dispatch, so this never\nfailed a test.\n\nChanges:\n- Add normalizeSegments(raw) at the top of the dispatcher: handles\n  string[] (documented shape), bare string (split on / and filter\n  Boolean — covers single AND multi-segment string forms), and undefined.\n- Add a `console.error(\"[sancio] fallthrough\", { url, method, rawSlug,\n  segments })` line before the final 404 so any future regression\n  self-diagnoses in one Vercel-logs query.\n- vercel.json: drop \"framework\": \"vite\". Vite is auto-detected from\n  vite.config.ts; declaring it explicitly may invoke SPA-aware behavior\n  that interferes with file-based API routing on the platform.\n- Rename api/sancio/[...path].ts -> [...slug].ts (via git mv) and read\n  req.query.slug. `path` is generic and overlaps with Node/URL\n  conventions; `slug` rules out a Vercel-reserved query-key collision\n  and reads more clearly. Doc references in CLAUDE.md and API.md updated.\n\nTest coverage:\n- New api/__tests__/sancio/dispatcher.test.ts (45 tests). Mocks every\n  lib/routes/sancio/* module with named \"probe\" functions that record\n  their name + post-mutation req.query, then drives every documented\n  route shape through the dispatcher. Coverage:\n    * Input shape normalization: string[], bare string, slash-separated\n      string, leading/trailing slashes, missing slug, empty array.\n    * Route table: all 26 dispatch branches, asserting both the right\n      probe ran AND req.query.id was set for by-id routes.\n    * 404 fallthrough: 11 unknown-path cases plus a console.error\n      diagnostic assertion.\n    * CORS short-circuit: dispatcher returns early without invoking any\n      handler when cors() returns true.\n\nOperational follow-up:\n- docs/USER_ACTIONS.md: post-deploy verification curl set + Vercel\n  support escalation procedure (capture diverging x-vercel-id values\n  from a working single-segment call and a failing multi-segment call)\n  in case the platform 404 on multi-segment routes persists despite\n  the framework + rename changes.\n\nTags: sancio, routing, vercel, bugfix, testing, dispatcher\nComplexity: 3\nUrgency: 4\nImpact: api\nRisk: medium\nDebt: paid\nEpic: sun-sea-o-integration\nSemver: patch\n\nhttps://claude.ai/code/session_01KeVVr1G1A7zVa4Yi2NTmfT",
+      "tags": [
+        "bugfix",
+        "test-unit",
+        "docs",
+        "refactor"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "sun-sea-o-integration",
+      "semver": "patch",
+      "scope": "sancio",
+      "title": "unblock single-segment routes; harden multi-segment routing",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 393,
+        "deletions": 41
+      },
+      "files": [
+        "API.md",
+        "CLAUDE.md",
+        "api/__tests__/sancio/dispatcher.test.ts",
+        "api/sancio/[...slug].ts",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 4,
+      "impact": "api"
+    },
+    {
+      "sha": "f7b2f29",
+      "fullSha": "f7b2f296f7d9be204f647808fe42c2416461b092",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-04-23T19:41:41Z",
+      "commitDate": "2026-04-23T19:41:41Z",
+      "subject": "Merge pull request #24 from devmade-ai/claude/review-claude-md-RLvco",
+      "body": "Align CLAUDE.md with glow-props + implement sancio dev auth bypass",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "sun-sea-o-integration",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #24 from devmade-ai/claude/review-claude-md-RLvco",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#24"
+      ],
+      "stats": {
+        "filesChanged": 20,
+        "additions": 471,
+        "deletions": 313
+      },
+      "files": [
+        "CLAUDE.md",
+        "api/__tests__/auth.test.ts",
+        "api/__tests__/health.test.ts",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "lib/auth.ts",
+        "lib/cors.ts",
+        "lib/routes/sancio/agreement-actions.ts",
+        "lib/routes/sancio/agreements.ts",
+        "lib/routes/sancio/auth.ts",
+        "lib/routes/sancio/misc.ts",
+        "lib/routes/sancio/module-actions.ts",
+        "lib/routes/sancio/modules.ts",
+        "lib/routes/sancio/notes.ts",
+        "lib/routes/sancio/notifications.ts",
+        "lib/routes/sancio/projects.ts",
+        "lib/routes/sancio/proposals.ts",
+        "src/App.tsx"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "724e91c",
+      "fullSha": "724e91c376bf1ddf51bdcb346d4fc937e02edeef",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-23T19:30:26Z",
+      "commitDate": "2026-04-23T19:30:26Z",
+      "subject": "chore: fresh-eyes branch polish after cold audit",
+      "body": "Six small findings from the cold-review pass, none blocking:\n\n- CLAUDE.md: the Architecture line for lib/auth.ts now mentions the\n  temporary sancio bypass so a fresh reader sees it before hitting AI Notes.\n- lib/cors.ts: brief inline comment explaining why X-Dev-User-Id /\n  X-Dev-User-Email sit in the preflight allowlist and pointing at the\n  removal path.\n- api/__tests__/auth.test.ts: save and restore process.env around each\n  test instead of leaving SUPABASE_URL / SUPABASE_ANON_KEY set after the\n  suite runs. Vitest isolates workers so the risk was low, but hardening.\n- docs/USER_ACTIONS.md: expanded the removal-path step 3 run-on sentence\n  into sub-bullets so flip-day operator can tick each off.\n- docs/SESSION_NOTES.md: dropped point-in-time facts that silently rot\n  (\"19 commits ahead,\" \"95 tests passing\") in favour of durable wording.\n- src/App.tsx: typed the fetch-catch err as unknown and narrowed via\n  `instanceof Error` before reading .name. Promise.catch's signature types\n  the param as any so strict mode didn't flag the implicit any, but the\n  explicit unknown + narrowing reads clearer and matches the pattern the\n  rest of the repo uses for untrusted values.\n\nFlagged but intentionally not fixed (documented in the cold pass):\n- Preflight advertises dev headers to all allowed origins, not just\n  sun-sea-o. Per-origin preflight logic adds code for zero functional\n  benefit — no opt-in means no bypass regardless of what the preflight\n  advertises.\n- lib/auth.ts accepts any non-empty string as x-dev-user-id without UUID\n  validation. Code is slated for deletion; downstream DB UUID parse\n  failures are self-limiting for a dev tool.\n\nTags: documentation, tests, cors, claude-md, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sun-sea-o-integration\nSemver: patch",
+      "tags": [
+        "docs",
+        "refactor",
+        "types"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "sun-sea-o-integration",
+      "semver": "patch",
+      "scope": null,
+      "title": "fresh-eyes branch polish after cold audit",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 25,
+        "deletions": 7
+      },
+      "files": [
+        "CLAUDE.md",
+        "api/__tests__/auth.test.ts",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "lib/cors.ts",
+        "src/App.tsx"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "326c85c",
+      "fullSha": "326c85cf20f1ddd699b77ac725bb4a48d98af30c",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-23T19:15:59Z",
+      "commitDate": "2026-04-23T19:15:59Z",
+      "subject": "docs: wrap-up after CORS fix — removal path includes cors.ts revert",
+      "body": "Two doc tightenings caught by the session sweep:\n- USER_ACTIONS.md removal path didn't include reverting lib/cors.ts dev-header\n  allowlist. Future-owner following the list literally would leave orphaned\n  CORS config for headers nothing sends anymore. Added the cors.ts revert and\n  the matching health.test.ts assertion to step 3.\n- SESSION_NOTES.md rewritten one commit too early — missed the CORS fix and\n  the sun-sea-o source verification. Added a block covering both.\n\nTags: documentation, user-actions, session-notes, wrap-up\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sun-sea-o-integration\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "sun-sea-o-integration",
+      "semver": "patch",
+      "scope": null,
+      "title": "wrap-up after CORS fix — removal path includes cors.ts revert",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 5,
+        "deletions": 1
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "e89c094",
+      "fullSha": "e89c0949fad169d5a0bcb28533acf7b701ff11da",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-23T19:10:17Z",
+      "commitDate": "2026-04-23T19:10:17Z",
+      "subject": "fix(cors): allowlist X-Dev-User-Id and X-Dev-User-Email on preflight",
+      "body": "Without this, browsers strip both headers from sun-sea-o's preflighted\nsancio requests and the bypass silently 401s on every call. The surface\npass on the auth-bypass work caught it — unit tests cover the function\nbehavior but never the browser preflight path.\n\nVerified sun-sea-o/src/api/client.ts sends exactly `X-Dev-User-Id` +\n`X-Dev-User-Email` (PascalCase hyphenated) with the BYPASS_USER UUID\n00000000-0000-0000-0000-000000000001 — matches what lib/auth.ts reads\nand what the test data uses.\n\nUpdated the health.test.ts preflight assertion to match the new header\nlist. Other CORS tests unchanged.\n\nTags: cors, auth, sancio, dev-bypass, bugfix\nComplexity: 1\nUrgency: 4\nImpact: api\nRisk: low\nDebt: paid\nEpic: sun-sea-o-integration\nSemver: patch",
+      "tags": [
+        "bugfix",
+        "security",
+        "test-unit"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "sun-sea-o-integration",
+      "semver": "patch",
+      "scope": "cors",
+      "title": "allowlist X-Dev-User-Id and X-Dev-User-Email on preflight",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 7,
+        "deletions": 2
+      },
+      "files": [
+        "api/__tests__/health.test.ts",
+        "lib/cors.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 4,
+      "impact": "api"
+    },
+    {
+      "sha": "1bb8f66",
+      "fullSha": "1bb8f66c1661d6ede5d5434f7be50a93ec002969",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-23T19:00:18Z",
+      "commitDate": "2026-04-23T19:00:18Z",
+      "subject": "docs: clear completed sun-sea-o USER_ACTIONS sync entry",
+      "body": "The sun-sea-o docs were updated in that repo's b5ed99b (per branch owner's\nconfirmation — sun-sea-o is 19 commits ahead of main with the coordinated\nstate documented). Removing the stale action from this repo's list; the\nremoval-path entry for the first real release remains.\n\nTags: documentation, user-actions, housekeeping\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sun-sea-o-integration\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "sun-sea-o-integration",
+      "semver": "patch",
+      "scope": null,
+      "title": "clear completed sun-sea-o USER_ACTIONS sync entry",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 10
+      },
+      "files": [
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "8b56b4d",
+      "fullSha": "8b56b4d210e925f8c03e5b6aa23e74b4adbe409f",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-23T18:57:05Z",
+      "commitDate": "2026-04-23T18:57:05Z",
+      "subject": "docs: refresh session docs after auth-bypass + fleet sweep",
+      "body": "Three small doc updates after the session's work lands:\n- SESSION_NOTES.md: rewrite to cover both threads on this branch — the\n  glow-props alignment + fleet sweep, and both iterations of the sancio\n  auth bypass. Replaces the stale note that only described the alignment.\n- TODO.md: drop the completed \"Add tests for lib/auth.ts\" item —\n  api/__tests__/auth.test.ts now covers valid JWT, invalid JWT, missing\n  Authorization header, plus the bypass matrix.\n- CLAUDE.md: add an AI Notes bullet pointing to the sancio dev bypass so\n  future sessions don't rediscover `{ allowDevBypass: true }` on 25 call\n  sites without context. Flags that it's a pre-release dev tool scheduled\n  for deletion, not a pattern to extend.\n\nTags: documentation, session-notes, todo, claude-md\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "fleet-alignment",
+      "semver": "patch",
+      "scope": null,
+      "title": "refresh session docs after auth-bypass + fleet sweep",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 32,
+        "deletions": 18
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "1f82153",
+      "fullSha": "1f82153253599cd090ba5f4213f1cd0879821381",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-23T16:37:11Z",
+      "commitDate": "2026-04-23T16:37:11Z",
+      "subject": "feat(auth): drop SANCIO_AUTH_BYPASS env var gate, opt-in arg alone controls bypass",
+      "body": "The env gate was added as defense-in-depth plus a kill-switch. In practice:\n- The kill-switch requires a redeploy anyway (Vercel env change is not instant\n  without one), so it has no speed advantage over a code change.\n- The defense-in-depth only helps if the wrong call site gets `allowDevBypass:\n  true` merged — unlikely given review, and the mistake is still caught by the\n  \"non-sancio routes unaffected\" test.\n- The activation friction is real: every fresh Vercel deploy / preview env /\n  project clone needs a manual env var set, and a single misconfigured env\n  produces silent 401s on every sancio call from sun-sea-o.\n\nThis project is pre-first-release with a plan to delete the bypass code\nentirely before real auth ships. The env gate buys little for that timeline.\nRemoving it so the deployed sun-sea-o works end-to-end from the moment the\nbackend deploy lands.\n\nChanges:\n- lib/auth.ts: drop env check, update JSDoc to describe single-gate design\n  and the now-simplified removal procedure.\n- api/__tests__/auth.test.ts: drop two env-gate tests (env unset, non-\"true\"\n  env value) and update titles on remaining 6 tests.\n- docs/USER_ACTIONS.md: drop the Vercel env var activation entry entirely.\n  Replace with a follow-up action for sun-sea-o's USER_ACTIONS.md (which\n  currently references the env var as \"the second gate\" and is now stale).\n  Simplify the removal path — no env var to remove, just the code.\n\nThe 25 sancio call sites still pass `{ allowDevBypass: true }` — no change\nneeded there.\n\nTags: auth, sancio, dev-bypass, simplification\nComplexity: 2\nUrgency: 2\nImpact: api\nRisk: medium\nDebt: paid\nEpic: sun-sea-o-integration\nSemver: patch",
+      "tags": [
+        "simplify",
+        "security",
+        "test-unit",
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "sun-sea-o-integration",
+      "semver": "patch",
+      "scope": "auth",
+      "title": "drop SANCIO_AUTH_BYPASS env var gate, opt-in arg alone controls bypass",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 39,
+        "deletions": 75
+      },
+      "files": [
+        "api/__tests__/auth.test.ts",
+        "docs/USER_ACTIONS.md",
+        "lib/auth.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "api"
+    },
+    {
+      "sha": "5110d86",
+      "fullSha": "5110d86727db5a4a86e518fe90f1c2d835068056",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-23T07:23:31Z",
+      "commitDate": "2026-04-23T07:23:31Z",
+      "subject": "feat(auth): sancio-scoped dev auth bypass for sun-sea-o AUTH_BYPASS_ENABLED",
+      "body": "Closes the backend half of the sun-sea-o dev auth bypass. When the frontend\nships with AUTH_BYPASS_ENABLED=true it sends X-Dev-User-Id + X-Dev-User-Email\ninstead of Authorization: Bearer, and every sancio call 401s until the\nbackend also accepts those headers.\n\nDesign:\n- Two-gate: opt-in arg `{ allowDevBypass: true }` AND env `SANCIO_AUTH_BYPASS=true`.\n  Either alone has no effect, so a forgotten opt-in committed to main cannot\n  become a production backdoor without the env var, and an accidentally-set\n  env var cannot affect non-sancio routes.\n- Call-site opt-in instead of URL-prefix check: scoping is explicit in code\n  review, doesn't couple auth to routing, and fails closed for any new sancio\n  route added without the opt-in.\n- X-Dev-User-Email is ignored server-side — UUID is the identity.\n- All 25 sancio call sites (across 10 route files) pass allowDevBypass:true.\n  Non-sancio call sites (api/forms/*, api/submissions/*) unchanged — still\n  require JWT regardless of env state.\n\nTests cover the full matrix: env+opt-in+header → bypass; env+opt-in+no header\n→ JWT fallthrough; env+no opt-in+header → 401 (non-sancio case); no env+opt-in\n+header → 401 (env gate); non-\"true\" env values → 401; empty header → 401;\nvalid JWT passthrough unchanged; invalid JWT still 401 even with bypass env on.\n\nUSER_ACTIONS.md updated with the Vercel env var step and the full removal\npath for first real release (both sides must flip together).\n\nTags: auth, sancio, dev-bypass, sun-sea-o\nComplexity: 3\nUrgency: 3\nImpact: api\nRisk: medium\nDebt: added\nEpic: sun-sea-o-integration\nSemver: minor",
+      "tags": [
+        "feature",
+        "security",
+        "test-unit",
+        "docs"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "added",
+      "epic": "sun-sea-o-integration",
+      "semver": "minor",
+      "scope": "auth",
+      "title": "sancio-scoped dev auth bypass for sun-sea-o AUTH_BYPASS_ENABLED",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 13,
+        "additions": 229,
+        "deletions": 25
+      },
+      "files": [
+        "api/__tests__/auth.test.ts",
+        "docs/USER_ACTIONS.md",
+        "lib/auth.ts",
+        "lib/routes/sancio/agreement-actions.ts",
+        "lib/routes/sancio/agreements.ts",
+        "lib/routes/sancio/auth.ts",
+        "lib/routes/sancio/misc.ts",
+        "lib/routes/sancio/module-actions.ts",
+        "lib/routes/sancio/modules.ts",
+        "lib/routes/sancio/notes.ts",
+        "lib/routes/sancio/notifications.ts",
+        "lib/routes/sancio/projects.ts",
+        "lib/routes/sancio/proposals.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "api"
+    },
+    {
+      "sha": "3749ce8",
+      "fullSha": "3749ce83ec065b67d3ec84899d8bb37576e73e6c",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-22T23:49:51Z",
+      "commitDate": "2026-04-22T23:49:51Z",
+      "subject": "fix(splash): abort health-check fetch on unmount per TIMER_LEAKS pattern",
+      "body": "`pattern-audit` flagged src/App.tsx as deviating from glow-props TIMER_LEAKS\ncontract — the health-check fetch had no cleanup. Added an AbortController,\npassed the signal to fetch, and abort in the effect cleanup. AbortError is\nfiltered so the status doesn't flip to \"error\" when the abort is deliberate.\n\nTags: splash, pwa-patterns, cleanup, react\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+      "tags": [
+        "bugfix",
+        "refactor"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "fleet-alignment",
+      "semver": "patch",
+      "scope": "splash",
+      "title": "abort health-check fetch on unmount per TIMER_LEAKS pattern",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 6,
+        "deletions": 2
+      },
+      "files": [
+        "src/App.tsx"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "2bbbd77",
+      "fullSha": "2bbbd77053530960017d0a1edc9276bddae21384",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-22T23:38:24Z",
+      "commitDate": "2026-04-22T23:38:24Z",
+      "subject": "docs(claude): move Prohibitions before Triggers to match glow-props order",
+      "body": "`align` trigger identified section-order drift — glow-props orders AI Notes →\nProhibitions → Triggers, ours had AI Notes → Triggers → Prohibitions. Moved\nProhibitions block (and its reminder) to sit between AI Notes and Triggers.\n\nTags: documentation, alignment, claude-md, fleet\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "fleet-alignment",
+      "semver": "patch",
+      "scope": "claude",
+      "title": "move Prohibitions before Triggers to match glow-props order",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 20,
+        "deletions": 20
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "eae250d",
+      "fullSha": "eae250d0cac6a541b8be6a39920d853376b17ec6",
+      "author_id": "devmade",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-04-22T23:15:00Z",
+      "commitDate": "2026-04-22T23:15:00Z",
+      "subject": "docs(claude): align CLAUDE.md with glow-props fleet standard",
+      "body": "Bring CLAUDE.md into structural parity with glow-props while preserving\ntool-till-tees-specific content (Project Overview, Tech Stack, Architecture,\nEnv Vars, project AI Notes). Added Communication section, Timer and\nSubscription Cleanup subsection, Implementation Patterns section pointing to\nglow-props as source of truth, and the 48-trigger grouped system with meta\nsweeps + reflective passes. Removed HISTORY.md doc and inline PWA/Debug\nspecs (now fetched from glow-props docs/implementations/).\n\nTags: documentation, alignment, claude-md, fleet\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "fleet-alignment",
+      "semver": "patch",
+      "scope": "claude",
+      "title": "align CLAUDE.md with glow-props fleet standard",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 231,
+        "deletions": 276
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
     {
       "sha": "eb9e7d0",
       "fullSha": "eb9e7d0f610366e5ff2c4fc103eeef6d295d5a44",
