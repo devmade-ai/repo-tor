@@ -1,0 +1,44 @@
+{
+  "sha": "4ad7e17",
+  "fullSha": "4ad7e1719c3372c14516c99fb5299772874f9e17",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T08:07:54Z",
+  "commitDate": "2026-04-04T08:07:54Z",
+  "subject": "fix(web): resolve React hydration mismatch error #418",
+  "body": "Browser APIs (window.matchMedia, navigator.onLine, window.__pwaPromptReceived)\nwere being called at module scope or during render, producing different values\non server vs client and triggering React error #418 on hydration.\n\nChanges:\n- usePWAInstall: Convert module-level `isStandalone` constant to\n  `checkIsStandalone()` function, called only inside useEffect\n- usePWAInstall: Move `getPromptWasReceived()` from render-time call\n  to useEffect-managed state\n- useOnlineStatus: Default to `true` (SSR-safe) and sync actual\n  navigator.onLine value in useEffect\n\nTags: hydration, pwa, web, bugfix\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: patch\n\nhttps://claude.ai/code/session_01MQNjzz5kPEg68WcyZKFnp7",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "web",
+  "title": "resolve React hydration mismatch error #418",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#418"
+  ],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 22,
+    "deletions": 12
+  },
+  "files": [
+    "src/hooks/useOnlineStatus.ts",
+    "src/hooks/usePWAInstall.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

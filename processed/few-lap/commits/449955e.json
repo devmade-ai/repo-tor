@@ -1,0 +1,49 @@
+{
+  "sha": "449955e",
+  "fullSha": "449955ed82dfca860c5ec3c42544e4e43af7eaef",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T13:21:34Z",
+  "commitDate": "2026-04-04T13:21:34Z",
+  "subject": "refactor(theme): replace hardcoded PRICE_COLORS with DaisyUI theme tokens",
+  "body": "Staleness indicators and toast backgrounds now use theme-aware colors\nthat adapt to light/dark mode. Maps fresh→success, aging→info,\nstale→warning via STALENESS_COLOR_KEYS lookup.\n\n- PRICE_COLORS (static hex) → STALENESS_COLOR_KEYS (theme key mapping)\n- PriceDisplay: resolves staleness color via useTheme().colors\n- PriceEditor: same pattern, colors already available from useTheme\n- Toast: success/warning backgrounds now use themeColors.success/warning\n  instead of hardcoded #16A34A/#CA8A04\n\nTags: theme, refactor, consistency, ui\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme\nSemver: patch\n\nhttps://claude.ai/code/session_018snuiWWAgENJSvKGNun8tc",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "replace hardcoded PRICE_COLORS with DaisyUI theme tokens",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#16"
+  ],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 32,
+    "deletions": 18
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "src/components/admin/PriceEditor.tsx",
+    "src/components/station/PriceDisplay.tsx",
+    "src/components/ui/Toast.tsx",
+    "src/lib/themeColors.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

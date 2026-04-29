@@ -1,0 +1,55 @@
+{
+  "sha": "c63fcb9",
+  "fullSha": "c63fcb902d93b682dbaa511252dd6e4cee781135",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-03T23:34:34Z",
+  "commitDate": "2026-04-03T23:34:34Z",
+  "subject": "refactor(pwa): comprehensive PWA implementation alignment",
+  "body": "Compared few-lap PWA with synctone's implementation and strengthened\nevery PWA file to match best practices from both projects.\n\nKey changes:\n- usePWAUpdate: module-level singleton (persists across navigation),\n  getRegistration() over register(), 30s false-positive suppression,\n  user-controlled SKIP_WAITING instead of auto skipWaiting()\n- usePWAInstall: triple-layer beforeinstallprompt capture, module-level\n  event consumption, granular 8-type browser detection, richer API\n- sw.js: user-controlled activation, 3-tier caching (static/dynamic/fonts),\n  branded offline fallback page\n- manifest.json: display_override, scope, lang, dir\n- +html.tsx: __pwaPromptReceived flag in early capture\n- _layout.tsx: early SW registration + backup prompt capture at module scope\n- InstallInstructionsModal: Chromium desktop/Android/iOS, 90-day cooldown,\n  Chrome-on-iOS redirect to Safari, analytics tracking\n- vercel.json: explicit SW/manifest rewrites, Service-Worker-Allowed,\n  Content-Type headers, must-revalidate cache control\n- config.ts: JUST_UPDATED_SUPPRESS_MS constant\n\nTags: pwa, refactor, architecture, alignment\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01SzwWDKFZ8WhqtTpdYCiqct",
+  "tags": [
+    "refactor",
+    "migration",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pwa-alignment",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "comprehensive PWA implementation alignment",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 860,
+    "deletions": 393
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/+html.tsx",
+    "app/_layout.tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "public/manifest.json",
+    "public/sw.js",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/constants/config.ts",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "vercel.json"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

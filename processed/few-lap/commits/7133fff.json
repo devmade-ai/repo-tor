@@ -1,0 +1,48 @@
+{
+  "sha": "7133fff",
+  "fullSha": "7133fff3bcbec00a99c2ac2e8ebe579a624fae11",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T22:17:48Z",
+  "commitDate": "2026-04-05T22:17:48Z",
+  "subject": "refactor(ui): replace hardcoded hex colors and inline styles with DaisyUI theme tokens and Tailwind utilities",
+  "body": "Debug pill severity/source colors were hardcoded hex that didn't adapt to light/dark theme.\nInline styles on several components duplicated what Tailwind classes already provide.\nCentralizing color mappings in themeColors.ts follows the established STALENESS_COLOR_KEYS pattern.\n\n- Add DEBUG_SEVERITY_COLOR_KEYS and DEBUG_SOURCE_COLOR_KEYS to themeColors.ts\n- Remove SEVERITY_COLORS, SOURCE_COLORS hardcoded maps from DebugPill.tsx\n- Remove duplicate levelColor map from PwaDiagnosticsTab\n- Convert FuelMapWeb no-token fallback to View/Text with Tailwind classes\n- Replace InstallInstructionsModal inline maxHeight with max-h-[40vh] className\n- Replace LocationSearch inline minHeight/justifyContent with className\n- Remove unused useWindowDimensions import from InstallInstructionsModal\n\nTags: refactor, ui, tailwind, daisyui, theme, cleanup\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theme-integration\nSemver: patch\n\nhttps://claude.ai/code/session_01VJGL4EBYzHhRdw1gp7EMHL",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-integration",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "replace hardcoded hex colors and inline styles with DaisyUI theme tokens and Tailwind utilities",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 92,
+    "deletions": 67
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/debug/DebugPill.tsx",
+    "src/lib/themeColors.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

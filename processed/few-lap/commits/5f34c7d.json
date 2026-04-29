@@ -1,0 +1,46 @@
+{
+  "sha": "5f34c7d",
+  "fullSha": "5f34c7d25c9979d821fc84ad2915148b66187b26",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T13:28:08Z",
+  "commitDate": "2026-04-04T13:28:08Z",
+  "subject": "style(map): use theme info/infoContent for search center dot",
+  "body": "Replace hardcoded #4285F4 (Google Maps blue) with DaisyUI info/infoContent\ntheme tokens so the search center dot adapts to light/dark mode. Shadow\nglow also derives from the info color at 50% opacity.\n\nTags: map, theme, consistency\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: map\nSemver: patch\n\nhttps://claude.ai/code/session_018snuiWWAgENJSvKGNun8tc",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "map",
+  "semver": "patch",
+  "scope": "map",
+  "title": "use theme info/infoContent for search center dot",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#4285"
+  ],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 21,
+    "deletions": 24
+  },
+  "files": [
+    "src/components/map/FuelMap.tsx",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/constants/mapMarkers.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "dff6630",
+  "fullSha": "dff6630f45fc1d83a8d65eb8162ace8c30ea57f5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T13:51:59Z",
+  "commitDate": "2026-04-04T13:51:59Z",
+  "subject": "fix(map): revert station labels to collision-aware placement",
+  "body": "text-allow-overlap: true caused price labels to stack unreadably when\nclusters break apart. Restored text-allow-overlap: false with\ntext-optional: true — circles always render, labels hide when they\nwould overlap. Cluster count labels keep overlap: true (always needed).\n\nTags: map, ui\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: map\nSemver: patch\n\nhttps://claude.ai/code/session_018snuiWWAgENJSvKGNun8tc",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "map",
+  "semver": "patch",
+  "scope": "map",
+  "title": "revert station labels to collision-aware placement",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 6,
+    "deletions": 2
+  },
+  "files": [
+    "src/components/map/FuelMapWeb.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

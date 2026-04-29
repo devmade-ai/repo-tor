@@ -1,0 +1,46 @@
+{
+  "sha": "b6dd286",
+  "fullSha": "b6dd286b230d3a7db6b9cb6042a8a6b66ef51c7a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-03T23:42:45Z",
+  "commitDate": "2026-04-03T23:42:45Z",
+  "subject": "fix(pwa): review fixes — recovery script, Chromium install gap, dead code",
+  "body": "Self-review found 4 issues in the PWA alignment commit:\n\n1. Recovery script broken (high): SW no longer auto-skipWaits, so\n   r.update() installed new SW but it never activated. Fixed: script\n   now sends SKIP_WAITING to waiting/installing workers after update.\n\n2. Chromium install gap (medium): \"Install app\" menu item did nothing\n   for Chromium without native prompt (90-day cooldown). Fixed:\n   needsManualInstructions now includes Chromium when hasNativePrompt\n   is false.\n\n3. Removed dead canInstall from usePWAInstall return (duplicated\n   hasNativePrompt).\n\n4. Removed dead applyUpdate() from usePWAUpdate (no longer imported).\n\nTags: pwa, fix, review, cleanup\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01SzwWDKFZ8WhqtTpdYCiqct",
+  "tags": [
+    "bugfix",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-alignment",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "review fixes — recovery script, Chromium install gap, dead code",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 38,
+    "deletions": 29
+  },
+  "files": [
+    "app/+html.tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

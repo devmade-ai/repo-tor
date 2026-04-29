@@ -1,0 +1,48 @@
+{
+  "sha": "34ca138",
+  "fullSha": "34ca138b31cb43d2239087aa3b7fb6c037dab8f2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T13:12:53Z",
+  "commitDate": "2026-04-04T13:12:53Z",
+  "subject": "refactor(map): centralize marker styling constants and fix cross-platform inconsistencies",
+  "body": "Extract all map marker magic numbers (sizes, colors, strokes, typography)\ninto src/constants/mapMarkers.ts — single source of truth shared across\nFuelMap, FuelMapWeb, and StationMarker. Fixes native search dot using\nhardcoded #ffffff border instead of theme primaryContent. Improves\ncluster/station visual hierarchy (radius gap 20 vs 16, font gap 13 vs 11).\n\nTags: map, ui, refactor, consistency\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: map\nSemver: patch\n\nhttps://claude.ai/code/session_018snuiWWAgENJSvKGNun8tc",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "map",
+  "semver": "patch",
+  "scope": "map",
+  "title": "centralize marker styling constants and fix cross-platform inconsistencies",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 139,
+    "deletions": 43
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/map/FuelMap.tsx",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/map/StationMarker.tsx",
+    "src/constants/mapMarkers.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

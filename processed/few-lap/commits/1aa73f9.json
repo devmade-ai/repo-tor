@@ -1,0 +1,48 @@
+{
+  "sha": "1aa73f9",
+  "fullSha": "1aa73f924cf91317dbbb40ed68b21cf837585912",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T06:30:41Z",
+  "commitDate": "2026-04-04T06:30:41Z",
+  "subject": "feat(pwa): close remaining gaps from synctone comparison",
+  "body": "Fresh comparison against synctone identified 6 remaining items:\n\n- apple-touch-icon: <link rel=\"apple-touch-icon\"> for iOS home screen\n- Favicon: <link rel=\"icon\"> tags (48px, 192px) for browser tabs\n- noscript: styled fallback for JS-disabled browsers\n- CSP: migrated from <meta> to Vercel response header (stronger —\n  adds frame-src: none, object-src: none, base-uri: self)\n- Icon rewrites: explicit Vercel rewrites for /favicon.png and\n  /assets/images/ to prevent catch-all serving HTML\n- PWA diagnostics: new \"PWA\" tab in DebugPill with active checks\n  (manifest fetch + validation, icon checks, SW status, HTTPS,\n  standalone mode, beforeinstallprompt)\n\nTags: pwa, security, debug, ux\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01SzwWDKFZ8WhqtTpdYCiqct",
+  "tags": [
+    "feature",
+    "security",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-alignment",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "close remaining gaps from synctone comparison",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 176,
+    "deletions": 15
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/+html.tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/debug/DebugPill.tsx",
+    "vercel.json"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}
