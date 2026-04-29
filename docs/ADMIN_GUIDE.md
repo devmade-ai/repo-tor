@@ -240,38 +240,24 @@ reports/
 
 ## Multi-Repository Aggregation
 
-Combine data from multiple repositories into a single view.
+Cross-repo aggregation runs automatically as part of `npm run dev` and
+`npm run build` — `scripts/aggregate-processed.js` reads every directory
+under `processed/` (excluding `EXCLUDED_REPOS`) and writes
+`dashboard/public/data.json` plus `dashboard/public/data-commits/<month>.json`
+per-month commit files. Aggregator output is gitignored as a build artefact;
+see `docs/DATA_OPERATIONS.md` for the full pipeline (extract → AI analyze
+→ merge → aggregate) and `CLAUDE.md` for the architecture notes.
 
-### Basic Aggregation
+To trigger aggregation manually for inspection:
 
 ```bash
-# Aggregate all repos in reports/
-node scripts/aggregate.js reports/*
-
-# Aggregate specific repos
-node scripts/aggregate.js reports/repo-a reports/repo-b
-
-# Specify output directory
-node scripts/aggregate.js reports/* --output=combined
-```
-
-### Output
-
-Aggregated data is written to the output directory:
-
-```
-aggregated/
-  metadata.json      # Aggregation info, repo list
-  commits.json       # All commits with repo_id
-  contributors.json  # Combined contributors across repos
-  files.json         # Files by repo
-  summary.json       # Cross-repo metrics
-  data.json          # Combined file for dashboard
+node scripts/aggregate-processed.js
 ```
 
 ### Author Identity Mapping
 
-When the same person uses different emails across repositories, use an author map to normalize identities:
+When the same person uses different emails across repositories, the aggregator
+normalises identities via `config/author-map.json`:
 
 1. Copy the example configuration:
    ```bash
@@ -294,28 +280,21 @@ When the same person uses different emails across repositories, use an author ma
    }
    ```
 
-3. Run aggregation with the author map:
-   ```bash
-   node scripts/aggregate.js reports/* --author-map=config/author-map.json
-   ```
-
-Contributors will be grouped by their canonical identity, with:
-- `author_id` - The normalized identifier (e.g., "john-doe")
-- `primaryName` - The canonical display name
-- `emails` - All email addresses associated with this author
-- `repos` - List of repositories they contributed to
+3. Run a build (or `node scripts/aggregate-processed.js` manually). Contributors
+   will be grouped by their canonical identity in the dashboard summary.
 
 ### Aggregated Metrics
 
-The aggregated summary includes:
+`dashboard/public/data.json` summary includes:
 
 | Metric | Description |
 |--------|-------------|
-| `totalRepos` | Number of repositories combined |
-| `totalCommits` | Sum of commits across all repos |
-| `totalContributors` | Unique contributors (normalized if using author map) |
-| `repoBreakdown` | Commit counts per repository |
-| `monthlyCommits.repos` | Monthly breakdown by repository |
+| `metadata.repoCount` | Number of repositories aggregated |
+| `metadata.commitCount` | Total commits across all repos |
+| `contributors[].commits` | Per-contributor commit counts (normalised by author-map) |
+| `summary.repoCommitCounts` | Commit counts per repository |
+| `summary.weekly` / `daily` / `monthly` | Time-windowed aggregations for charts |
+| `summary.tagBreakdown` / `complexityBreakdown` / etc. | Categorical distributions |
 
 ## Commit Type Detection
 

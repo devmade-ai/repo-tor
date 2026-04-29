@@ -14,7 +14,7 @@
 import { execFileSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import { parseCommitMessage, extractBreakingChange } from './lib/commit-parsing.js';
+import { extractBreakingChange } from './lib/commit-parsing.js';
 import { toKebabCase, writeJson } from './lib/utils.js';
 
 // === Argument Parsing ===
@@ -88,10 +88,7 @@ function extractCommits() {
     const [shortHash, authorName, authorEmail, authorDate, subject, ...bodyLines] = lines;
 
     const body = bodyLines.join('\n').trim();
-    const parsed = parseCommitMessage(subject);
-
-    // Check for breaking change in body
-    const hasBreakingChange = extractBreakingChange(subject, body) || parsed.breaking;
+    const hasBreakingChange = extractBreakingChange(subject, body);
 
     commits.push({
       sha: shortHash,

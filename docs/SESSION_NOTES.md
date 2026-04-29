@@ -88,6 +88,24 @@ Detailed history lives in the git log (`git log --oneline` / `git log -p`).
    canonical paths, and bundle no longer contains the legacy
    identifiers (`files_changed`, etc.). Real browser coverage is a
    CI concern; documented in TODO under "Browser test coverage".
+8. **Cold-pass cleanup** (this session, fresh-eyes branch audit).
+   Three findings, all fixed:
+     - `scripts/lib/commit-parsing.js` had two exports (`parseCommitMessage`,
+       `extractReferences`) that lost their last callers in step 5.
+       Module reduced from 62 to 23 lines, exporting only
+       `extractBreakingChange`. The breaking-change `!` marker
+       detection (previously routed through `parseCommitMessage`)
+       was folded into `extractBreakingChange` directly. Callers in
+       `extract.js` and `extract-api.js` simplified accordingly.
+     - `docs/ADMIN_GUIDE.md` "Multi-Repository Aggregation" section
+       referenced a non-existent `scripts/aggregate.js` taking
+       `reports/*` CLI args. Rewrote to reflect the actual flow:
+       aggregator runs at build time, reads `processed/`, writes
+       `dashboard/public/{data.json,data-commits/}`. Author-map
+       guidance updated similarly.
+     - `docs/TESTING_GUIDE.md` claimed "one automated layer" — now
+       lists all 5 test files (88 tests / ~290ms), with auto-skip
+       behaviour for `dist/`-dependent assertions explained.
 
 **Why the build-artefact change matters:**
 

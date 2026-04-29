@@ -4,15 +4,19 @@ Guidelines and checklists for testing features from a user perspective.
 
 ## Automated coverage
 
-Source-level tripwire only — the project currently has one automated layer:
+Source- and build-output-level tripwires (no browser, no transpilation, run on every clone without setup):
 
-| Layer | Command | Runtime | Catches |
-|-------|---------|---------|---------|
-| **Source-level tripwire** | `npm test` | ~250ms | DaisyUI class-name regressions, dead marker classes, hardcoded Tailwind color shades, v4 cruft (`-bordered`), built-CSS shipping checks, oklch→hex unit tests |
+| Test file | Catches |
+|-----------|---------|
+| `scripts/__tests__/daisyui-surfaces.test.mjs` | DaisyUI class-name regressions, dead marker classes, hardcoded Tailwind color shades, v4 cruft (`-bordered`), built-CSS shipping checks |
+| `scripts/__tests__/oklchToHex.test.mjs` | oklch → hex colour-space conversion correctness for theme-meta generation |
+| `scripts/__tests__/icon-cache-bust.test.mjs` | PWA icon cache-bust pipeline integrity (Vite plugin, manifest sync, version coupling) |
+| `scripts/__tests__/aggregate-output.test.mjs` | Re-introduction of dashboard-unused fields, missing strip helper, resurrection of removed `repos/` output, drift detection (any new commit field must be in `KNOWN_COMMIT_FIELDS` allowlist) |
+| `scripts/__tests__/build-output.test.mjs` | Built `dist/` integrity — required HTML hooks, manifest keys, sw.js precache routes, JS bundle still fetches canonical paths AND no longer contains stripped legacy identifiers |
 
-The `node:test` runner walks `scripts/__tests__/*.test.mjs`. No browser, no transpilation, runs on every clone without setup. The `daisyui-surfaces.test.mjs` file is the source-of-truth for what JSX must contain after the DaisyUI migration; the manual checklists further down this file describe the behaviours to verify by hand.
+Run `npm test` (~300ms total). The `node:test` runner walks `scripts/__tests__/*.test.mjs`. Tests with `dist/`-dependent assertions auto-skip when the build hasn't run.
 
-Browser-based runtime / visual regression coverage was removed 2026-04-15 — see `docs/TODO.md` "Browser test coverage" for the future re-introduction plan (Playwright was tried in April 2026 but never produced any baselines because the sandbox session that added it had no Chromium binary).
+Browser-based runtime / visual regression coverage was removed 2026-04-15 — see `docs/TODO.md` "Browser test coverage" for the future re-introduction plan (Playwright was tried in April 2026 but never produced any baselines because the sandbox session that added it had no Chromium binary; JSDOM was tried 2026-04-29 but jsdom's `ResourceLoader` API and React 19 + Chart.js's canvas dependency made it impractical).
 
 ## Testing Principles
 

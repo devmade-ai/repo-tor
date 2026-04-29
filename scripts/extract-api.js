@@ -37,7 +37,7 @@ import { fileURLToPath } from 'url';
 
 const execFileAsync = promisify(execFileCb);
 
-import { parseCommitMessage, extractBreakingChange } from './lib/commit-parsing.js';
+import { extractBreakingChange } from './lib/commit-parsing.js';
 import { toKebabCase, writeJson } from './lib/utils.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -327,9 +327,6 @@ function detailToCommit(item, details) {
     const authorEmail = details.commit.author?.email || `${details.author?.login || 'unknown'}@users.noreply.github.com`;
     const authorDate = details.commit.author?.date || new Date().toISOString();
 
-    // Parse conventional commit format
-    const parsed = parseCommitMessage(subject);
-
     return {
       sha: item.sha.substring(0, 7),
       author_id: authorEmail.toLowerCase(),
@@ -346,7 +343,7 @@ function detailToCommit(item, details) {
       debt: null,            // Null - AI will assess (added|paid|neutral)
       epic: null,            // Null - AI will assign free-text grouping label
       semver: null,          // Null - AI will assess (patch|minor|major)
-      has_breaking_change: parsed.breaking || extractBreakingChange(subject, body),
+      has_breaking_change: extractBreakingChange(subject, body),
       // Fix: filesChanged should directly use files array length, not gate on stats.total
       // which is the sum of additions+deletions (unrelated to file count)
       stats: {
