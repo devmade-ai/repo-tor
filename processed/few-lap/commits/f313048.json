@@ -1,0 +1,46 @@
+{
+  "sha": "f313048",
+  "fullSha": "f3130482c25fca469d833482914e463aeb6fbe7f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T00:07:44Z",
+  "commitDate": "2026-04-02T00:07:44Z",
+  "subject": "feat(theme): replace theme combos with curated set for fuel app",
+  "body": "Replace all 4 original combos (Teal, Nature, Nordic, Bold) with 5 new\ncombos selected for readability, trustworthiness, and extended use:\n\n1. Forest (default): lemonade + abyss — green, natural\n2. Nordic: nord + night — cool, calm, serene\n3. Corporate: corporate + business — professional, blue\n4. Cafe: caramellatte + coffee — warm, cozy\n5. Silk: silk + sunset — elegant, modern\n\nDropped combos and why:\n- cupcake/aqua (Teal): warm cream bg clashes with utility app\n- emerald/forest (Nature): forest's brown bg feels muddy\n- cupcake/dracula (Bold): dracula's pink primary doesn't fit fuel app\n\nAll 10 DaisyUI themes (5 light + 5 dark) defined with exact oklch\nvalues from daisyui@5.5.19. Hex lookup table updated for Mapbox.\n\nTags: theme, daisyui, ux, design\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: daisyui-theme-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01EAwig8kSZ6S91pb3wP7tv4",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "daisyui-theme-migration",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "replace theme combos with curated set for fuel app",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 447,
+    "deletions": 302
+  },
+  "files": [
+    "CLAUDE.md",
+    "metro.config.js",
+    "src/components/ui/TutorialModal.tsx",
+    "src/global.css",
+    "src/lib/themeColors.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

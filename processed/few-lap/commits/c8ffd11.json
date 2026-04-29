@@ -1,0 +1,50 @@
+{
+  "sha": "c8ffd11",
+  "fullSha": "c8ffd1150653908767531cd75b82a00c82d5596a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T15:04:24Z",
+  "commitDate": "2026-04-01T15:04:24Z",
+  "subject": "refactor(theme): migrate 9 simple components to Uniwind + DaisyUI tokens",
+  "body": "Convert ErrorState, PriceTrend, FuelTypeSelector, RadiusSelector,\nMapErrorBoundary, StationMarker, CoordinatePicker, UpdatePrompt,\nand DebugPill from StyleSheet.create() + useAppTheme to Uniwind\nclassName with DaisyUI semantic classes (bg-base-100, text-primary,\nborder-base-300, etc.).\n\nComponents now use useTheme().colors for hex values needed by\nFontAwesome icons, ActivityIndicator, and Mapbox marker styling.\nStyleSheet retained only for platform-specific shadows, animations,\nand hairline borders that can't be expressed in className.\n\nTags: theme, daisyui, uniwind, refactor, migration\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: daisyui-theme-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01EAwig8kSZ6S91pb3wP7tv4",
+  "tags": [
+    "refactor",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-theme-migration",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "migrate 9 simple components to Uniwind + DaisyUI tokens",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 153,
+    "deletions": 363
+  },
+  "files": [
+    "src/components/admin/CoordinatePicker.tsx",
+    "src/components/map/MapErrorBoundary.tsx",
+    "src/components/map/StationMarker.tsx",
+    "src/components/pwa/UpdatePrompt.tsx",
+    "src/components/search/FuelTypeSelector.tsx",
+    "src/components/search/RadiusSelector.tsx",
+    "src/components/station/PriceTrend.tsx",
+    "src/components/ui/ErrorState.tsx",
+    "src/debug/DebugPill.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

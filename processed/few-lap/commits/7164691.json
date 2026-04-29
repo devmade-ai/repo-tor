@@ -1,0 +1,47 @@
+{
+  "sha": "7164691",
+  "fullSha": "71646916e4b6ef4e108f8840361099d146e150e1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T01:18:03Z",
+  "commitDate": "2026-04-02T01:18:03Z",
+  "subject": "fix(pwa): resolve bottom sheet overlap and enable debug in all envs",
+  "body": "InstallPrompt was rendered in root _layout.tsx alongside BottomSheet,\nboth competing for the same z-index space on web, causing a visual\ndouble-sheet. Moved InstallPrompt into the home screen with explicit\nz-index layering above the BottomSheet.\n\nAlso enabled debug system in all environments (not just __DEV__) for\nalpha-phase diagnostics, and softened the ALPHA header badge styling.\n\nTags: pwa, ui, debug, bottom-sheet\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pwa-fixes\nSemver: patch\n\nhttps://claude.ai/code/session_016aoh6y6rxMijMFgoTTyWgD",
+  "tags": [
+    "bugfix",
+    "ui",
+    "monitoring"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pwa-fixes",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "resolve bottom sheet overlap and enable debug in all envs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 24,
+    "deletions": 13
+  },
+  "files": [
+    "app/(tabs)/_layout.tsx",
+    "app/(tabs)/index.tsx",
+    "app/_layout.tsx",
+    "src/components/ui/BottomSheet.tsx",
+    "src/debug/debugLog.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

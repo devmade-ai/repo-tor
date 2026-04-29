@@ -1,0 +1,43 @@
+{
+  "sha": "ddb5c20",
+  "fullSha": "ddb5c20242481979e2b398f23daf23c48784921c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T01:28:36Z",
+  "commitDate": "2026-04-02T01:28:36Z",
+  "subject": "feat(ui): float address search bar above map on mobile web",
+  "body": "Moved LocationSearch from inside the BottomSheet to a floating bar at the\ntop of the screen, above the map. This gives the search input permanent\nvisibility without competing with the bottom sheet for space.\n\nBottom sheet now contains only filters and station list. Search bar has\na shadow for legibility over the map background.\n\nTags: ui, mobile-web, layout\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: pwa-fixes\nSemver: minor\n\nhttps://claude.ai/code/session_016aoh6y6rxMijMFgoTTyWgD",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "pwa-fixes",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "float address search bar above map on mobile web",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 33,
+    "deletions": 15
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "src/components/search/LocationSearch.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}
