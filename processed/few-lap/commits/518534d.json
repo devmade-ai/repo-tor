@@ -1,0 +1,54 @@
+{
+  "sha": "518534d",
+  "fullSha": "518534d4f3bed8f1b838c2523c1f4564ea8e4913",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-03T19:15:48Z",
+  "commitDate": "2026-04-03T19:15:48Z",
+  "subject": "refactor(theme): simplify to Forest only with dark/light toggle",
+  "body": "Remove multi-theme combo system (Nordic, Corporate, Cafe, Silk) — keep only\nForest (lemonade/abyss) with dark/light toggle. Reduces complexity by ~490\nlines across CSS, theme config, hook, and UI. Theme combos can be re-added\nlater if needed.\n\nAlso cleans up stale TODO items: moves user-action items (pipeline run, Expo\nupgrade, Mapbox proxy) to USER_ACTIONS.md, removes irrelevant items (PDF\ndownload, theme combos, global.css dedup).\n\nTags: theme, simplification, cleanup, docs\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-simplification\nSemver: minor\n\nhttps://claude.ai/code/session_01AGUUNvfYM9GCGDwCdjRKLw",
+  "tags": [
+    "refactor",
+    "simplify",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-simplification",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "simplify to Forest only with dark/light toggle",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 82,
+    "deletions": 572
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/_layout.tsx",
+    "docs/HISTORY.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "docs/USER_ACTIONS.md",
+    "docs/USER_GUIDE.md",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/components/ui/TutorialModal.tsx",
+    "src/global.css",
+    "src/hooks/useTheme.ts",
+    "src/lib/themeColors.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

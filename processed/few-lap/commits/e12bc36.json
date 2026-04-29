@@ -1,0 +1,52 @@
+{
+  "sha": "e12bc36",
+  "fullSha": "e12bc362feb4103c31f35045acfb0a2f87647e9c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-03T19:50:25Z",
+  "commitDate": "2026-04-03T19:50:25Z",
+  "subject": "fix(pwa): fix post-deployment broken app state",
+  "body": "After every Vercel deployment, the PWA got stuck showing no header, no map,\nno data, and an offline banner. The only recovery was clearing app data.\n\nRoot causes:\n- sw.js was a static file that never changed between deployments, so the\n  browser never detected a new SW and never showed an update banner\n- staleWhileRevalidate for HTML served cached old HTML referencing new JS\n  bundle hashes not yet in cache\n- SW returned empty Response('', {status: 503}) for failed JS fetches,\n  causing silent partial rendering (components fail without visible errors)\n- No self-recovery mechanism — with no header visible, users were stuck\n\nFixes:\n- SW: Build-time version injection (inject-sw-version.mjs) so browser\n  detects new SW after each deployment\n- SW: Auto skipWaiting() on install — broken UI can't show \"Update\" banner\n- SW: Network-first for HTML navigation — always fresh HTML when online\n- SW: Versioned cache names — old caches cleaned on activation\n- SW: Removed silent 503 fallback — let JS errors propagate naturally\n- SW: Proper offline fallback page for navigation requests\n- usePWAUpdate: controllerchange listener auto-reloads when new SW activates\n- +html.tsx: Inline recovery script forces immediate SW update check +\n  fallback cache clear after 15s if app fails to mount\n- _layout.tsx: Sets __appHealthy flag for recovery script coordination\n\nTags: pwa, service-worker, deployment, offline, recovery\nComplexity: 4\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa\nSemver: patch\n\nhttps://claude.ai/code/session_01VJoghQD12eyCw7vhqQpKbC",
+  "tags": [
+    "bugfix",
+    "hotfix",
+    "caching",
+    "error-handling"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "fix post-deployment broken app state",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 221,
+    "deletions": 131
+  },
+  "files": [
+    "app/+html.tsx",
+    "app/_layout.tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "package.json",
+    "public/sw.js",
+    "scripts/inject-sw-version.mjs",
+    "src/hooks/usePWAUpdate.ts",
+    "vercel.json"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 4,
+  "impact": "user-facing"
+}

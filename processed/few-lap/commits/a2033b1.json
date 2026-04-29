@@ -1,0 +1,41 @@
+{
+  "sha": "a2033b1",
+  "fullSha": "a2033b1c690cde3052dd042656e2bed277b0bcca",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-03T22:24:29Z",
+  "commitDate": "2026-04-03T22:24:29Z",
+  "subject": "fix(map): location marker not appearing due to effect timing race",
+  "body": "The search center marker (blue dot) was never created because the marker\nuseEffect ran on mount before the map init effect set mapRef.current.\nSince searchCenterLocation never changes for the default/initial location,\nthe effect never re-ran. Added a mapReady state flag set after map init\nso the marker effect re-triggers once the map is available.\n\nTags: map, bugfix, web\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: map-markers\nSemver: patch\n\nhttps://claude.ai/code/session_016Dr8zkHsC7yuLAqvzMMnJG",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "map-markers",
+  "semver": "patch",
+  "scope": "map",
+  "title": "location marker not appearing due to effect timing race",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 10,
+    "deletions": 2
+  },
+  "files": [
+    "src/components/map/FuelMapWeb.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}
