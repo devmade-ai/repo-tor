@@ -52,13 +52,12 @@ function git(args, cwd) {
 function extractCommits() {
   console.log('Extracting commits...');
 
-  // Custom format for parsing.
-  // Full hash is needed only for the stats merge below (`git log --numstat`
-  // emits %H boundaries); we keep it as a transient lookup key but do not
-  // persist it to the commit object — dashboard uses the 7-char `sha`.
+  // Custom format for parsing. The numstat pass below uses %h (short hash)
+  // for COMMIT_BOUNDARY too, so stats can be indexed directly by `commit.sha`
+  // — git's %h abbreviation is deterministic within a repo (same `core.abbrev`
+  // and object database for both `git log` invocations).
   const delimiter = '---COMMIT_DELIMITER---';
   const format = [
-    '%H',      // full hash (transient — used to merge stats by COMMIT_BOUNDARY)
     '%h',      // short hash
     '%an',     // author name
     '%ae',     // author email
@@ -82,23 +81,17 @@ function extractCommits() {
   const commitBlocks = logOutput.split(delimiter).filter(Boolean);
   const commits = [];
 
-  // Side map: short sha -> full sha. Used only by the stats merge below
-  // so we can skip persisting fullSha onto every commit object.
-  const fullShaByShortSha = new Map();
-
   for (const block of commitBlocks) {
     const lines = block.trim().split('\n');
-    if (lines.length < 6) continue;
+    if (lines.length < 5) continue;
 
-    const [hash, shortHash, authorName, authorEmail, authorDate, subject, ...bodyLines] = lines;
+    const [shortHash, authorName, authorEmail, authorDate, subject, ...bodyLines] = lines;
 
     const body = bodyLines.join('\n').trim();
     const parsed = parseCommitMessage(subject);
 
     // Check for breaking change in body
     const hasBreakingChange = extractBreakingChange(subject, body) || parsed.breaking;
-
-    fullShaByShortSha.set(shortHash, hash);
 
     commits.push({
       sha: shortHash,
@@ -129,11 +122,11 @@ function extractCommits() {
   //   - `git diff-tree --numstat`: Rejected — needs per-commit calls for boundary handling
   console.log(`Extracting stats for ${commits.length} commits (batched)...`);
 
-  const numstatArgs = ['log', '--all', '--numstat', '--format=COMMIT_BOUNDARY:%H'];
+  const numstatArgs = ['log', '--all', '--numstat', '--format=COMMIT_BOUNDARY:%h'];
   if (excludeMerges) numstatArgs.push('--no-merges');
   const numstatOutput = git(numstatArgs);
   if (numstatOutput) {
-    const statsByFullSha = new Map();
+    const statsByShortSha = new Map();
     let currentSha = null;
     let currentStats = { additions: 0, deletions: 0, files: [] };
 
@@ -141,7 +134,7 @@ function extractCommits() {
       if (line.startsWith('COMMIT_BOUNDARY:')) {
         // Save previous commit's stats
         if (currentSha) {
-          statsByFullSha.set(currentSha, { ...currentStats, filesChanged: currentStats.files.length });
+          statsByShortSha.set(currentSha, { ...currentStats, filesChanged: currentStats.files.length });
         }
         currentSha = line.substring('COMMIT_BOUNDARY:'.length).trim();
         currentStats = { additions: 0, deletions: 0, files: [] };
@@ -163,13 +156,12 @@ function extractCommits() {
     // Alternatives: Sentinel value at end of output — rejected because it couples
     //   parsing logic to git format assumptions
     if (currentSha) {
-      statsByFullSha.set(currentSha, { ...currentStats, filesChanged: currentStats.files.length });
+      statsByShortSha.set(currentSha, { ...currentStats, filesChanged: currentStats.files.length });
     }
 
-    // Merge stats into commits (look up full sha via side map — fullSha is
-    // intentionally not persisted on the commit object)
+    // Merge stats into commits — both passes use %h so we can index directly
     for (const commit of commits) {
-      const stats = statsByFullSha.get(fullShaByShortSha.get(commit.sha));
+      const stats = statsByShortSha.get(commit.sha);
       if (stats) {
         commit.stats = {
           filesChanged: stats.filesChanged,

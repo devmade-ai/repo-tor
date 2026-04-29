@@ -450,7 +450,7 @@ function generateAggregation(commits, scope, repoCount = 1) {
 //
 // If the dashboard later needs one of these, restore by removing it from this list —
 // processed/ retains every field, so a re-aggregation will republish it.
-const DASHBOARD_UNUSED_FIELDS = [
+export const DASHBOARD_UNUSED_FIELDS = [
   'fullSha',
   'committer',
   'commitDate',
@@ -589,4 +589,9 @@ function main() {
   }
 }
 
-main();
+// Run main() only when invoked as a CLI; do nothing on `import { ... }`.
+// Required because tests + strip-dead-fields.mjs import DASHBOARD_UNUSED_FIELDS
+// from this file; without this guard, importing would run a full aggregation.
+if (process.argv[1] === __filename) {
+  main();
+}

@@ -43,17 +43,51 @@ Detailed history lives in the git log (`git log --oneline` / `git log -p`).
    fields as 1.2 MB of inert pass-through. Source fix:
      - `extract.js`, `extract-api.js`, `fix-malformed.js` no longer
        emit those 7 fields. `extractReferences` import removed (dead).
-       `extract.js` git format trimmed (8 fields, was 10) — committer
-       name/email/date no longer extracted at all. `fullSha` kept as
-       transient stats-merge key via a side map; not persisted.
+       `extract.js` git format trimmed (originally 10 fields → 6) —
+       committer name/email/date no longer extracted at all; `%H` full
+       hash also dropped after refactoring `statsByFullSha` to
+       `statsByShortSha` (both `git log` invocations use `%h`, indexed
+       directly without a side map).
      - One-time clean: 4034 of 4183 existing `processed/*.json` files
        had at least one dead field; all stripped. 26,058 fields removed.
        JSON formatting preserved (matched original Node output via
        `ensure_ascii=False`); diff is 39,336 deletions / 185 insertions.
-     - New tripwire: `scripts/__tests__/aggregate-output.test.mjs`
-       (7 tests) catches re-introduction of any dead field, the
-       deletion of stripCommitForDashboard, the resurrection of
-       `dashboard/public/repos/` output, and missing required fields.
+     - Strip script preserved as `scripts/strip-dead-fields.mjs`.
+       Idempotent. Imports `DASHBOARD_UNUSED_FIELDS` from the aggregator
+       (single source of truth — main() only runs when invoked as CLI,
+       guarded by `process.argv[1] === __filename`).
+     - Tripwire: `scripts/__tests__/aggregate-output.test.mjs`
+       (8 tests) catches re-introduction of any dead field, deletion
+       of stripCommitForDashboard, resurrection of `dashboard/public/
+       repos/` output, missing required fields, AND any new field
+       appearing in commits that's not in the explicit
+       `KNOWN_COMMIT_FIELDS` allowlist (proactive drift detection).
+6. **Legacy schema normalized + utils.js fallbacks removed** (this
+   session, approach-pass discovery). 44 of 4183 commits used a
+   pre-migration shape: `message` (not `subject`+`body`),
+   `files_changed`/`lines_added`/`lines_deleted` (not nested `stats`).
+   Dashboard handled them via fallback chains in `utils.js` —
+   backcompat shims that CLAUDE.md prohibits. Fix:
+     - 44 commits normalized to the canonical shape via inline
+       migration. `message` split into `subject`/`body`. snake_case
+       stats moved into `stats`. Missing fields filled with null
+       (AI-analyzed) or best-effort defaults (`files: []`,
+       `author: {name: <local-part>, email: author_id}`).
+     - `getFilesChanged`/`getCommitSubject`/`getAdditions`/
+       `getDeletions` simplified from 3-step fallback chains to
+       single-line property reads.
+     - `KNOWN_COMMIT_FIELDS` allowlist tightened (legacy field names
+       no longer permitted; drift detector will fail if they reappear).
+7. **Build-output tripwire** (this session, approach-pass shortcut).
+   Container has no browser; Playwright Chromium download blocked;
+   JSDOM + Vite-built React 19 + Chart.js bundle is non-trivial to
+   set up and Chart.js needs canvas. Best honest proxy:
+   `scripts/__tests__/build-output.test.mjs` (6 tests) verifies
+   `dist/` contains required files (HTML hooks, manifest keys,
+   data.json, sw.js routes, JS bundle), bundle still fetches the
+   canonical paths, and bundle no longer contains the legacy
+   identifiers (`files_changed`, etc.). Real browser coverage is a
+   CI concern; documented in TODO under "Browser test coverage".
 
 **Why the build-artefact change matters:**
 

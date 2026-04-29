@@ -27,22 +27,15 @@ import assert from 'node:assert/strict';
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { DASHBOARD_UNUSED_FIELDS } from '../aggregate-processed.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const REPO_ROOT = join(__dirname, '..', '..');
 
-// Mirror of DASHBOARD_UNUSED_FIELDS in scripts/aggregate-processed.js.
-// Keep these arrays in sync.
-const DEAD_FIELDS = [
-  'fullSha',
-  'committer',
-  'commitDate',
-  'scope',
-  'is_conventional',
-  'references',
-  'title',
-];
+// Single source of truth — imported from the aggregator. Keeping a single
+// canonical list means a future field addition only needs to change one place.
+const DEAD_FIELDS = DASHBOARD_UNUSED_FIELDS;
 
 // Fields the dashboard reads from every commit. Kept minimal — only fields
 // that are universally present (verified 2026-04-29 via direct scan of all
@@ -61,6 +54,36 @@ const REQUIRED_FIELDS = [
   'repo_id',
   'stats',
 ];
+
+// Drift-detection allowlist: every field name that may legitimately appear
+// on a commit in `dashboard/public/data-commits/*.json`. If a new field
+// shows up that is not listed here AND not stripped by
+// DASHBOARD_UNUSED_FIELDS, the test fails — forcing an explicit decision:
+// either confirm it's consumed by the dashboard (add to allowlist) or
+// remove it from emit (add to DASHBOARD_UNUSED_FIELDS).
+//
+// Last reviewed: 2026-04-29.
+const KNOWN_COMMIT_FIELDS = new Set([
+  // canonical fields, present in all or most commits
+  'sha',
+  'author_id',
+  'author',
+  'timestamp',
+  'subject',
+  'body',
+  'tags',
+  'complexity',
+  'urgency',
+  'impact',
+  'risk',
+  'debt',
+  'epic',
+  'semver',
+  'has_breaking_change',
+  'stats',
+  'files',
+  'repo_id',
+]);
 
 const AGGREGATOR_SRC = join(REPO_ROOT, 'scripts/aggregate-processed.js');
 const PUBLIC_DIR = join(REPO_ROOT, 'dashboard/public');
@@ -150,5 +173,28 @@ test('dashboard/public/repos/ does not exist (per-repo files removed)', { skip: 
   assert.ok(
     !existsSync(REPOS_DIR),
     'dashboard/public/repos/ exists — per-repo output should be removed',
+  );
+});
+
+// Proactive drift detection: every field that lands in dashboard JSON must
+// be explicitly listed in KNOWN_COMMIT_FIELDS. Catches an 8th-or-later dead
+// field at build time instead of after it ships.
+test('every field on emitted commits is explicitly known', { skip: !buildHasRun && 'build has not run' }, () => {
+  const monthFiles = readdirSync(DATA_COMMITS_DIR).filter((f) => f.endsWith('.json'));
+  const observedFields = new Set();
+  for (const file of monthFiles) {
+    const data = JSON.parse(readFileSync(join(DATA_COMMITS_DIR, file), 'utf8'));
+    for (const commit of data.commits) {
+      for (const key of Object.keys(commit)) observedFields.add(key);
+    }
+  }
+
+  const unknown = [...observedFields].filter((f) => !KNOWN_COMMIT_FIELDS.has(f));
+  assert.deepEqual(
+    unknown,
+    [],
+    `Unknown commit fields appearing in data-commits/: ${unknown.join(', ')}. ` +
+    `Either add to KNOWN_COMMIT_FIELDS (if the dashboard uses it) or to ` +
+    `DASHBOARD_UNUSED_FIELDS in scripts/aggregate-processed.js (if it's dead).`,
   );
 });
