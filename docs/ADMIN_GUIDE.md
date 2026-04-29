@@ -448,6 +448,17 @@ The aggregation script (`scripts/aggregate-processed.js`) writes to `dashboard/p
 
 **Excluded repos:** The aggregation script has a hardcoded `EXCLUDED_REPOS` set (currently: `chatty-chart`). Repos in this set are skipped even if their `processed/` directory exists. To modify the list, edit the `EXCLUDED_REPOS` constant in `scripts/aggregate-processed.js`.
 
+## Analytics
+
+The deployed dashboard ships with Google Analytics 4 (property `G-8CLE4P0DQK`) wired into `dashboard/index.html`. The `gtag.js` snippet loads asynchronously in `<head>` after the theme flash prevention script and auto-tracks `page_view` on initial load.
+
+- **Scope:** Fires on every page load of the deployed dashboard, including `?embed=` iframes when the embed URL is opened in a browser. Local dev (`npm run dev`) also fires events because the snippet is unconditional — filter by `localhost` hostname in the GA dashboard if you want to exclude dev traffic.
+- **Property ID:** Hardcoded in `dashboard/index.html`. To change it, edit both `<script src="...?id=...">` and `gtag('config', '...')` in the GA block in `<head>`.
+- **PII:** GA4 anonymizes IPs by default. The dashboard sends no custom user identifiers — only the standard automatic events (page_view, scroll, file_download, etc.).
+- **No service worker caching:** The `googletagmanager.com` script is intentionally not added to the Workbox `runtimeCaching` rules — analytics scripts should always come fresh from the network.
+
+To disable analytics entirely, remove the two `<script>` blocks tagged "Google Analytics (gtag.js)" in `dashboard/index.html`.
+
 ## Refreshing Data
 
 To update the dashboard with latest commits:

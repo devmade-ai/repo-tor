@@ -4,7 +4,18 @@ Manual steps that require user action (external dashboards, credentials, configu
 
 ## Pending Actions
 
-None currently.
+### Verify Google Analytics traffic on the live dashboard
+
+**What:** GA4 property `G-8CLE4P0DQK` is now wired into `dashboard/index.html` (added on the `claude/add-google-analytics-9B0aw` branch). Once merged and deployed to Vercel, confirm pageviews are arriving.
+
+**Steps:**
+1. Open the live dashboard: <https://repo-tor.vercel.app/>
+2. Sign in to <https://analytics.google.com/> with the Google account that owns property `G-8CLE4P0DQK`
+3. Open **Reports → Realtime** — you should see at least one active user (yourself) within ~30 seconds
+4. (Optional) Add a filter in **Admin → Data Settings → Data Filters** to exclude `localhost` traffic from the production stream so dev sessions don't pollute metrics
+5. (Optional) Confirm that `?embed=` iframe loads on consuming sites also report — they currently do, since the GA snippet has no embed-mode skip
+
+If no traffic appears: check browser DevTools → Network for a request to `https://www.googletagmanager.com/gtag/js?id=G-8CLE4P0DQK` and a follow-up `collect?...` POST to `google-analytics.com`. Ad blockers will suppress both.
 
 ## Completed Actions
 

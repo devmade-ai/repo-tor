@@ -1,12 +1,24 @@
 # Session Notes
 
 Compact context snapshot for AI continuity. Updated 2026-04-29 after
-moving aggregator output from tracked artefact to gitignored build step.
+adding Google Analytics 4 to the dashboard.
 Detailed history lives in the git log (`git log --oneline` / `git log -p`).
 
 ## Current State
 
-**Branch:** `claude/align-components-27ypY`.
+**Branch:** `claude/add-google-analytics-9B0aw`.
+
+**This session:** Added GA4 snippet (`G-8CLE4P0DQK`) to
+`dashboard/index.html` in `<head>`, after the theme flash prevention
+script and before `</head>`. Async load — non-blocking. Auto-tracks
+page_view via `gtag('config', ...)`. No embed-mode skip (intentional —
+embedded iframes count as pageviews; can be filtered in GA dashboard
+if needed). Updated `docs/ADMIN_GUIDE.md` with a new "Analytics"
+section explaining scope, property ID location, PII handling, and
+disable instructions. Added pending verification step to
+`docs/USER_ACTIONS.md` for confirming traffic flow post-deploy.
+
+**Previous branch:** `claude/align-components-27ypY`.
 
 **Recent work (oldest first):**
 
