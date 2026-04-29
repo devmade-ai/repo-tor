@@ -1,0 +1,43 @@
+{
+  "sha": "94c9622",
+  "fullSha": "94c9622e4900385f39e7bd536cc5abf02de34583",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-06T05:49:29Z",
+  "commitDate": "2026-04-06T05:49:29Z",
+  "subject": "fix(pwa): improve update check UX — immediate feedback, error handling",
+  "body": "Three issues in the initial implementation:\n1. \"Checking...\" label was invisible — menu closes before check starts\n2. Network errors falsely reported \"up to date\" instead of an error\n3. No immediate feedback — 1.5s silence after tap\n\nFix: checkForUpdates() now returns 'found' | 'up-to-date' | 'error'\ndiscriminated union. BurgerMenu shows immediate \"Checking...\" toast,\nthen replaces it with the appropriate result message. Removed unused\nisChecking destructure since the menu is closed during the check.\n\nTags: pwa, ux, bug-fix\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-updates\nSemver: patch\n\nhttps://claude.ai/code/session_01Gv6uyMLMvAT8QWVxYdZdhM",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-updates",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "improve update check UX — immediate feedback, error handling",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 21,
+    "deletions": 13
+  },
+  "files": [
+    "src/components/ui/BurgerMenu.tsx",
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

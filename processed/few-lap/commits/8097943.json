@@ -1,0 +1,42 @@
+{
+  "sha": "8097943",
+  "fullSha": "8097943c14a368b09a717009557d1674e617b675",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T12:07:27Z",
+  "commitDate": "2026-04-09T12:07:27Z",
+  "subject": "docs: correct Mapbox token restriction docs after research",
+  "body": "USER_ACTIONS had wrong instructions: said to edit the default token\n(can't be restricted), used wildcard syntax (not supported), and\nomitted Referer-based fragility. Updated with accurate steps, known\nlimitations (Brave Shields/Ghostery break it), and cross-reference\nto Vercel proxy alternative in TODO.\n\nTODO updated to say Vercel serverless function instead of Supabase\nEdge Function, with decision-pending note on proxy vs URL restrictions.\n\nTags: documentation, security, mapbox\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: security-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01NznLYRXfKT1d4frhKMrwtU",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "security-hardening",
+  "semver": "patch",
+  "scope": null,
+  "title": "correct Mapbox token restriction docs after research",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 24,
+    "deletions": 11
+  },
+  "files": [
+    "docs/TODO.md",
+    "docs/USER_ACTIONS.md"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

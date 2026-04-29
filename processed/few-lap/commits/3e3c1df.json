@@ -1,0 +1,43 @@
+{
+  "sha": "3e3c1df",
+  "fullSha": "3e3c1df8833050dbad6cf732b08036235705bf5d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T11:05:43Z",
+  "commitDate": "2026-04-09T11:05:43Z",
+  "subject": "fix(security): enable RLS on PostGIS spatial_ref_sys table",
+  "body": "PostGIS creates spatial_ref_sys in the public schema when the extension\nis enabled. Without RLS, it's accessible to the anon role via PostgREST\nwith no authorization filtering. Enable RLS with a read-only policy\nsince PostGIS functions need to read coordinate system definitions.\n\nTags: security, database, rls, postgis\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: security-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01NznLYRXfKT1d4frhKMrwtU",
+  "tags": [
+    "feature",
+    "security",
+    "vulnerability"
+  ],
+  "complexity": 1,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "security-hardening",
+  "semver": "minor",
+  "scope": "security",
+  "title": "enable RLS on PostGIS spatial_ref_sys table",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 17,
+    "deletions": 0
+  },
+  "files": [
+    "supabase/migrations/20260409000001_enable_rls_spatial_ref_sys.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

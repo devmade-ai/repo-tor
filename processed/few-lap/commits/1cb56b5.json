@@ -1,0 +1,41 @@
+{
+  "sha": "1cb56b5",
+  "fullSha": "1cb56b5ddd0963465a7958adbb252e662735cb31",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T13:29:09Z",
+  "commitDate": "2026-04-17T13:29:09Z",
+  "subject": "chore(sw): precache apple-touch-icon.png",
+  "body": "iOS fetches the apple-touch-icon when a user adds the PWA to their home\nscreen. Precaching it in the install step (alongside icon-192 and\nicon-512) ensures the app shell is complete offline from first visit.\n\nTags: pwa, service-worker, icons\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pwa-polish\nSemver: patch\n\nhttps://claude.ai/code/session_01MmYgkDuYLSCs1giR4bz6kF",
+  "tags": [
+    "caching"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pwa-polish",
+  "semver": "patch",
+  "scope": "sw",
+  "title": "precache apple-touch-icon.png",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 0
+  },
+  "files": [
+    "public/sw.js"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "user-facing"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "9dcf0c9",
+  "fullSha": "9dcf0c9585b1bc471d2f246938ebb8a6b2344553",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T13:51:30Z",
+  "commitDate": "2026-04-17T13:51:30Z",
+  "subject": "feat(a11y): arrow keys + aria-controls on burger menu",
+  "body": "Arrow/Home/End cycle between focusable menu items while the menu is\nopen. Home jumps to the first, End to the last; ArrowUp wraps past the\ntop, ArrowDown wraps past the bottom. Handler attaches to the menu\ncontainer (via containerRef) and short-circuits on native.\n\nSelector-based query (same as useFocusTrap) instead of role=\"menuitem\"\n— this menu is a WAI-ARIA disclosure, not a role=\"menu\" application\nmenu (see file header for rationale). role=\"menuitem\" without a parent\nrole=\"menu\" would be invalid ARIA and contradict the documented design.\n\naria-controls wires the trigger to the panel. Panel id is spread\nweb-only; on native, the Pressable doesn't receive unknown props.\naria-expanded continues to come from accessibilityState.expanded.\nThe panel is conditionally mounted — aria-controls resolves at\nactivation time per WAI-ARIA, so the stale reference is fine.\n\nTheme toggle task was already implemented (lines 266-286) — no\nchanges needed there.\n\nTags: a11y, keyboard, aria\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: a11y-polish\nSemver: patch\n\nhttps://claude.ai/code/session_01MmYgkDuYLSCs1giR4bz6kF",
+  "tags": [
+    "feature",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "a11y-polish",
+  "semver": "patch",
+  "scope": "a11y",
+  "title": "arrow keys + aria-controls on burger menu",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 51,
+    "deletions": 0
+  },
+  "files": [
+    "src/components/ui/BurgerMenu.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}
