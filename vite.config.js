@@ -151,7 +151,7 @@ export default defineConfig({
       // Requirement: data.json (2.68MB) must NOT be precached — exceeds Workbox 2MB limit
       // Approach: Exclude *.json from includeAssets, list only small static assets explicitly
       // data.json is handled via runtimeCaching with NetworkFirst instead
-      includeAssets: ['assets/images/*.png', 'projects.json', 'repos/*.json'],
+      includeAssets: ['assets/images/*.png', 'projects.json'],
       manifest: {
         name: 'Git Analytics Dashboard',
         short_name: 'Git Analytics',
