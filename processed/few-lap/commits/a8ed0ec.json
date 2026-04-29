@@ -1,0 +1,43 @@
+{
+  "sha": "a8ed0ec",
+  "fullSha": "a8ed0ecbd69593ea8891abc37e8ddb862fe36100",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T03:57:58Z",
+  "commitDate": "2026-04-02T03:57:58Z",
+  "subject": "refactor(layout): square map with overlay bottom sheet",
+  "body": "Map is now a fixed square (screenWidth × screenWidth) at the top of the\nscreen. Bottom sheet is absolutely positioned and slides up from below\nthe map to overlay it when expanded.\n\nPrevious: flex column split where the sheet couldn't overlay the map,\njust pushed it up — not a real bottom sheet experience.\n\nBottomSheet changes:\n- Back to position:absolute + translateY (supports useNativeDriver:true)\n- Accepts mapHeight prop to know where to start\n- snapHalf: translateY = mapHeight (sheet sits below the map)\n- snapFull: translateY = 56px (sheet covers map, map peeks at top)\n- zIndex: 30 (sheets/drawers level per glow-props z-index scale)\n\nHome screen changes:\n- Map section: fixed height = screenWidth (square)\n- Container: position:relative + overflow:hidden as stacking context\n- Passes mapHeight to BottomSheet\n\nTags: layout, bottom-sheet, map, mobile-web\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: mobile-web-ux\nSemver: minor\n\nhttps://claude.ai/code/session_01RBZUEqgK8QgZ1mLi6mQrb9",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "mobile-web-ux",
+  "semver": "minor",
+  "scope": "layout",
+  "title": "square map with overlay bottom sheet",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 87,
+    "deletions": 83
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "src/components/ui/BottomSheet.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,54 @@
+{
+  "sha": "6e08d45",
+  "fullSha": "6e08d458ef7757a7f62f94a3567070efc8b67ca0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T09:02:57Z",
+  "commitDate": "2026-04-02T09:02:57Z",
+  "subject": "fix: full audit sweep — 23 fixes across review, quality, docs, mobile, hygiene, perf, security, debug",
+  "body": "Critical:\n- Remove unused KEYBOARD_DETECTION_THRESHOLD_PX import from BottomSheet\n- Fix iOS Safari auto-zoom: LocationSearch input fontSize 15→16px\n- Fix TESTING_GUIDE: snap positions 3→2, theme combos 4→5\n\nHigh:\n- Extract shared handlePanRelease/handlePanGrant helpers (dedupe pan logic)\n- Fix map.once('load') race — cleanup prevents stale GeoJSON on rapid updates\n- Fix handleStationClickRef redundant initializer in FuelMapWeb\n- Add debugAdd for geocoding failures in LocationSearch\n\nMedium:\n- Remove web-only CSS from nativeStyles (cursor/touchAction unused on native)\n- Replace hardcoded radius<50 with RADIUS_OPTIONS constant\n- Remove incorrect getItemLayout — StationCard has variable height\n- Add crossorigin to Mapbox CDN stylesheet (SRI preparation)\n- Add noopener,noreferrer to window.open in navigation.ts\n- Remove incorrect accessibilityRole=\"summary\" from BottomSheetWeb\n- Replace unused debug sources (navigation/render) with search/pwa\n- Fix HISTORY theme combo descriptions to match actual implementation\n\nTags: audit, bugfix, security, accessibility, hygiene, debug, docs\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-web\nSemver: patch\n\nhttps://claude.ai/code/session_01BDnXbhNkte8zvsWJnek99T",
+  "tags": [
+    "bugfix",
+    "security",
+    "accessibility",
+    "monitoring"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-web",
+  "semver": "patch",
+  "scope": null,
+  "title": "full audit sweep — 23 fixes across review, quality, docs, mobile, hygiene, perf, security, debug",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 132,
+    "deletions": 82
+  },
+  "files": [
+    "app/+html.tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/components/station/StationList.tsx",
+    "src/components/ui/BottomSheet.tsx",
+    "src/debug/DebugPill.tsx",
+    "src/debug/debugLog.ts",
+    "src/lib/navigation.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

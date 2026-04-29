@@ -1,0 +1,42 @@
+{
+  "sha": "8cba91b",
+  "fullSha": "8cba91bae84a7a92ff5b4581de0167f152488490",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T21:32:09Z",
+  "commitDate": "2026-04-02T21:32:09Z",
+  "subject": "fix(theme): make MapErrorBoundary reactive to theme changes",
+  "body": "Extract fallback UI into a functional MapFallback component that uses\nuseTheme() hook. The class-based error boundary (required by React)\nnow renders this functional component, so fallback colors update\ncorrectly when the user switches themes.\n\nPreviously, MapErrorBoundary used a static THEME_HEX lookup with\nAppearance.getColorScheme() — it read colors once and never updated.\n\nTags: theme, map, error-boundary\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: patch\n\nhttps://claude.ai/code/session_01JiHLm7X1zVwrcYAJuVaPFN",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-system",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "make MapErrorBoundary reactive to theme changes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 23,
+    "deletions": 23
+  },
+  "files": [
+    "src/components/map/MapErrorBoundary.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

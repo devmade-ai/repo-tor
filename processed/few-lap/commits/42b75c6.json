@@ -1,0 +1,59 @@
+{
+  "sha": "42b75c6",
+  "fullSha": "42b75c6a5a483fb3cd77bb4442cf6faf65779ef7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T19:05:39Z",
+  "commitDate": "2026-04-02T19:05:39Z",
+  "subject": "refactor(audit): full audit sweep — 16 findings fixed across 9 triggers",
+  "body": "Audit findings addressed:\n\nCritical:\n- Fix missing setSearchOpen in useMemo deps by splitting it out entirely\n- Split searchOpen into dedicated SearchModalProvider to prevent\n  FilterContext over-subscription causing unnecessary re-renders\n\nArchitecture:\n- Extract shared ModalBackdrop component (replaces 3 duplicate modal patterns)\n- Extract shared useEscapeKey hook (replaces 3 duplicate Escape handlers)\n- BurgerMenu, HeaderFilters, and search modal all use ModalBackdrop now\n\nUX/Mobile:\n- Add hitSlop to all header buttons for WCAG AA 44px touch targets\n- Fix fuel type toggle (no deselect on re-tap, use All to deselect)\n- Change search Modal to conditional rendering (not always mounted)\n\nCode quality:\n- Delete dead FuelTypeSelector.tsx and RadiusSelector.tsx\n- Import shared constants in LocationSearch (remove local dupes)\n- Add debug logging for filter changes, search modal, location selection\n- Validate persisted fuel type ID against loaded fuel types\n- Fix recent searches React key to include label for uniqueness\n\nDocumentation:\n- Update CLAUDE.md architecture and project status\n- Update USER_GUIDE.md (header dropdowns, search modal, 50/50 split)\n- Update TESTING_GUIDE.md (new test scenarios and regression checklist)\n- Update README.md status description\n- Update SESSION_NOTES.md with current session context\n\nTags: audit, refactor, ui, ux, mobile, perf, docs\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: home-layout\nSemver: minor\n\nhttps://claude.ai/code/session_01WVyDTypj9oQmpr5yGNMmMP",
+  "tags": [
+    "refactor",
+    "accessibility",
+    "performance",
+    "monitoring"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "home-layout",
+  "semver": "minor",
+  "scope": "audit",
+  "title": "full audit sweep — 16 findings fixed across 9 triggers",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 16,
+    "additions": 410,
+    "deletions": 440
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "app/(tabs)/_layout.tsx",
+    "app/(tabs)/index.tsx",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md",
+    "src/components/search/FuelTypeSelector.tsx",
+    "src/components/search/HeaderFilters.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/components/search/RadiusSelector.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/components/ui/ModalBackdrop.tsx",
+    "src/contexts/FilterContext.tsx",
+    "src/hooks/useEscapeKey.ts",
+    "src/hooks/useSearchModal.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

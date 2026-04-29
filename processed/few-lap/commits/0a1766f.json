@@ -1,0 +1,43 @@
+{
+  "sha": "0a1766f",
+  "fullSha": "0a1766f62a2f21f3373b77daeffb77eb16f1af68",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T02:52:37Z",
+  "commitDate": "2026-04-02T02:52:37Z",
+  "subject": "refactor(layout): split layout replaces full-screen map overlay",
+  "body": "Previous: Map filled entire screen with absolute-positioned bottom sheet\noverlay. On mobile web the map overflowed the viewport, the bottom sheet\nwas invisible, and there was no indication it existed.\n\nCurrent: Flex column layout — map on top (flex:1), station list panel\non bottom (animated height). Panel is always visible with a drag handle\nlabeled \"Stations\". Two snap points: half (55%, default) and full (90%).\n\nBottomSheet rewritten:\n- Animates height instead of translateY — no absolute positioning\n- Panel grows upward (map shrinks), panel shrinks (map grows)\n- Two snap points instead of three (removed peek)\n- Content PanResponder: drag down at scroll top collapses, drag up\n  when not full expands, content scrolling never blocked\n- Keyboard handling preserved (expand to full, restore on dismiss)\n\nHome screen:\n- Map section with flex:1 + position:relative contains the map,\n  floating search bar, and error banners\n- BottomSheet is a sibling below the map, not an overlay\n- Removed all absolute positioning between map and sheet\n\nTags: layout, bottom-sheet, mobile-web, refactor\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-web-ux\nSemver: minor\n\nhttps://claude.ai/code/session_01RBZUEqgK8QgZ1mLi6mQrb9",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "mobile-web-ux",
+  "semver": "minor",
+  "scope": "layout",
+  "title": "split layout replaces full-screen map overlay",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 177,
+    "deletions": 195
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "src/components/ui/BottomSheet.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}
