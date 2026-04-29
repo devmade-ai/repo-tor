@@ -41,13 +41,26 @@ if (!existsSync(PROCESSED_DIR)) {
   process.exit(1);
 }
 
+// Defensive: commit filenames written by merge-analysis.js are sha-based.
+// Validate before joining paths so a corrupted or malicious entry (e.g.
+// `../foo.json`) can't escape the commits directory.
+const COMMIT_FILENAME = /^[0-9a-f]{7,40}\.json$/i;
+// Repo names come from config/repos.json (kebab-case alphanumerics).
+const REPO_DIRNAME = /^[a-z0-9][a-z0-9_-]*$/i;
+
 let scanned = 0;
 let modified = 0;
 let fieldsStripped = 0;
+let skipped = 0;
 
-const repoDirs = readdirSync(PROCESSED_DIR).filter((d) =>
-  statSync(join(PROCESSED_DIR, d)).isDirectory(),
-);
+const repoDirs = readdirSync(PROCESSED_DIR).filter((d) => {
+  if (!REPO_DIRNAME.test(d)) {
+    console.warn(`  skipping non-conforming repo dirname: ${d}`);
+    skipped += 1;
+    return false;
+  }
+  return statSync(join(PROCESSED_DIR, d)).isDirectory();
+});
 
 // Pass 1: read + parse every file. If any fails to parse, abort BEFORE
 // writing anything — partial writes on a mid-run JSON.parse crash leave
@@ -64,6 +77,11 @@ for (const repo of repoDirs.sort()) {
 
   for (const file of entries.sort()) {
     if (!file.endsWith('.json')) continue;
+    if (!COMMIT_FILENAME.test(file)) {
+      console.warn(`  skipping non-conforming commit filename: ${repo}/${file}`);
+      skipped += 1;
+      continue;
+    }
     const path = join(commitsDir, file);
     const content = readFileSync(path, 'utf-8');
     let data;
@@ -114,4 +132,5 @@ try {
   );
 }
 
-console.log(`Scanned: ${scanned} | Modified: ${modified} | Fields stripped: ${fieldsStripped}`);
+const skippedNote = skipped > 0 ? ` | Skipped (non-conforming names): ${skipped}` : '';
+console.log(`Scanned: ${scanned} | Modified: ${modified} | Fields stripped: ${fieldsStripped}${skippedNote}`);
