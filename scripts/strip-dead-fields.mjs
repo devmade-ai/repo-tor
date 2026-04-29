@@ -40,6 +40,10 @@ const repoDirs = readdirSync(PROCESSED_DIR).filter((d) =>
   statSync(join(PROCESSED_DIR, d)).isDirectory(),
 );
 
+// Pass 1: read + parse every file. If any fails to parse, abort BEFORE
+// writing anything — partial writes on a mid-run JSON.parse crash leave
+// processed/ in an inconsistent half-stripped state.
+const planned = [];
 for (const repo of repoDirs.sort()) {
   const commitsDir = join(PROCESSED_DIR, repo, 'commits');
   let entries;
@@ -53,7 +57,12 @@ for (const repo of repoDirs.sort()) {
     if (!file.endsWith('.json')) continue;
     const path = join(commitsDir, file);
     const content = readFileSync(path, 'utf-8');
-    const data = JSON.parse(content);
+    let data;
+    try {
+      data = JSON.parse(content);
+    } catch (e) {
+      throw new Error(`Failed to parse ${path}: ${e.message}. Aborting before any writes.`);
+    }
     scanned += 1;
 
     let changed = 0;
@@ -65,11 +74,16 @@ for (const repo of repoDirs.sort()) {
     }
 
     if (changed > 0) {
-      writeFileSync(path, JSON.stringify(data, null, 2));
-      modified += 1;
-      fieldsStripped += changed;
+      planned.push({ path, data, changed });
     }
   }
+}
+
+// Pass 2: write only after all files parsed cleanly.
+for (const { path, data, changed } of planned) {
+  writeFileSync(path, JSON.stringify(data, null, 2));
+  modified += 1;
+  fieldsStripped += changed;
 }
 
 console.log(`Scanned: ${scanned} | Modified: ${modified} | Fields stripped: ${fieldsStripped}`);

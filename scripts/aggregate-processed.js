@@ -592,6 +592,9 @@ function main() {
 // Run main() only when invoked as a CLI; do nothing on `import { ... }`.
 // Required because tests + strip-dead-fields.mjs import DASHBOARD_UNUSED_FIELDS
 // from this file; without this guard, importing would run a full aggregation.
-if (process.argv[1] === __filename) {
+// realpathSync resolves both sides through symlinks (npx, monorepo tools,
+// container-mounted volumes can otherwise produce paths that compare unequal
+// even though they reference the same file).
+if (fs.realpathSync(process.argv[1]) === fs.realpathSync(__filename)) {
   main();
 }

@@ -83,7 +83,9 @@ function extractCommits() {
 
   for (const block of commitBlocks) {
     const lines = block.trim().split('\n');
-    if (lines.length < 5) continue;
+    // Format produces 6 fields (%h %an %ae %aI %s %b) joined by %n; even
+    // an empty body yields 6 split elements (trailing empty string from %b).
+    if (lines.length < 6) continue;
 
     const [shortHash, authorName, authorEmail, authorDate, subject, ...bodyLines] = lines;
 
