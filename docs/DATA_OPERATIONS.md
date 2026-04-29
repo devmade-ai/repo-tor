@@ -113,14 +113,15 @@ Use when: Starting fresh, schema changes, or need to reprocess everything.
 rm -rf processed/
 rm -rf reports/
 
-# Delete dashboard aggregated data
-rm -f dashboard/commits.json dashboard/public/data.json dashboard/summary.json dashboard/metadata.json dashboard/contributors.json dashboard/files.json
+# Delete dashboard aggregated data (gitignored build output — regenerated on next build)
+rm -f dashboard/public/data.json
+rm -rf dashboard/public/data-commits
 ```
 
 **What gets deleted:**
 - `processed/` - All AI-analyzed commits and manifests
 - `reports/` - All raw extracted data
-- `dashboard/*.json` - Aggregated dashboard data
+- `dashboard/public/{data.json,data-commits/}` - Aggregator build artefacts (gitignored; `npm run dev`/`npm run build` regenerates them)
 
 **What's preserved:**
 - `config/repos.json` - List of tracked repos
@@ -175,21 +176,25 @@ ls processed/<repo>/commits/ # Completed commits
 - [ ] No blank fields — all fields populated with best-guess values
 - [ ] Tags reflect FULL message content (subject + body)
 
-### Step 5: Aggregate to Dashboard
+### Step 5: Aggregate to Dashboard (optional — happens automatically on next build)
 
-Combine all `processed/` data into dashboard files:
+The aggregator runs as a build step on `npm run dev` and `npm run build`. Run it manually only if you want to inspect output before committing:
 
 ```bash
 node scripts/aggregate-processed.js
 ```
 
+Aggregator output (`dashboard/public/data.json`, `dashboard/public/data-commits/`) is gitignored — it's regenerated from `processed/` on every build.
+
 ### Step 6: Commit Changes
 
 ```bash
-git add processed/ dashboard/
+git add processed/
 git commit -m "chore: hatch the chicken - full extraction"
 git push
 ```
+
+Note: `dashboard/` aggregator output is gitignored; nothing under `dashboard/public/{data.json,data-commits/}` needs to be staged.
 
 ---
 
@@ -283,19 +288,25 @@ rm -f reports/<repo>/files.json reports/<repo>/contributors.json reports/<repo>/
 rm -rf pending/<repo>/
 ```
 
-### Step 4: Re-aggregate to Dashboard
+### Step 4: Re-aggregate to Dashboard (optional — happens automatically on next build)
+
+Re-aggregation runs as a build step on `npm run dev` / `npm run build`. Run it manually only to inspect output before committing:
 
 ```bash
-node scripts/aggregate.js
+node scripts/aggregate-processed.js
 ```
+
+Aggregator output (`dashboard/public/data.json`, `dashboard/public/data-commits/`) is gitignored.
 
 ### Step 5: Commit Changes
 
 ```bash
-git add processed/ dashboard/
+git add processed/
 git commit -m "chore: feed the chicken - X new commits"
 git push
 ```
+
+Note: `dashboard/` aggregator output is gitignored; nothing under `dashboard/public/{data.json,data-commits/}` needs to be staged.
 
 ### Key Differences from "Hatch"
 

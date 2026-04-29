@@ -1,0 +1,33 @@
+{
+  "sha": "8b56b4d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T18:57:05Z",
+  "subject": "docs: refresh session docs after auth-bypass + fleet sweep",
+  "body": "Three small doc updates after the session's work lands:\n- SESSION_NOTES.md: rewrite to cover both threads on this branch — the\n  glow-props alignment + fleet sweep, and both iterations of the sancio\n  auth bypass. Replaces the stale note that only described the alignment.\n- TODO.md: drop the completed \"Add tests for lib/auth.ts\" item —\n  api/__tests__/auth.test.ts now covers valid JWT, invalid JWT, missing\n  Authorization header, plus the bypass matrix.\n- CLAUDE.md: add an AI Notes bullet pointing to the sancio dev bypass so\n  future sessions don't rediscover `{ allowDevBypass: true }` on 25 call\n  sites without context. Flags that it's a pre-release dev tool scheduled\n  for deletion, not a pattern to extend.\n\nTags: documentation, session-notes, todo, claude-md\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 32,
+    "deletions": 18
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "internal"
+}

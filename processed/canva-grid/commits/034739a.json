@@ -1,0 +1,44 @@
+{
+  "sha": "034739a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T23:00:23Z",
+  "subject": "refactor(ui): migrate all form inputs to DaisyUI component classes",
+  "body": "Replace hand-rolled Tailwind form styling with DaisyUI component classes\nacross all form input types. Custom CSS was unreliable (wrong pseudo-element\nnames, browser-specific hacks) and inconsistent across components.\n\nMigrated:\n- 5 checkboxes (StyleTab) → checkbox checkbox-primary checkbox-sm\n- 2 selects (StyleTab) → select select-bordered select-sm\n- 5 text inputs (4 files) → input input-bordered input-sm\n- 3 textareas (3 files) → textarea textarea-bordered textarea-sm\n\nCSS cleanup:\n- Removed accent-color checkbox hack (DaisyUI handles via --input-color)\n- Removed blanket transition:all on form elements (caused jank, conflicts)\n- Narrowed focus-visible to exclude DaisyUI-classed elements (no double outline)\n- Added DaisyUI form input guidelines to CLAUDE.md AI Notes\n\nTags: ui, daisyui, forms, cleanup, docs\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_019qr8PY5KVKAazhwwjZfsMr",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 12,
+    "additions": 69,
+    "deletions": 47
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/AIPromptHelper.jsx",
+    "src/components/ContentTab.jsx",
+    "src/components/FreeformEditor.jsx",
+    "src/components/PlatformPreview.jsx",
+    "src/components/SaveLoadModal.jsx",
+    "src/components/StyleTab.jsx",
+    "src/components/TemplatesTab.jsx",
+    "src/index.css"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,38 @@
+{
+  "sha": "d6aae91",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T06:38:05Z",
+  "subject": "fix(pwa): code quality fixes + wire checkForUpdate into UI",
+  "body": "Code quality:\n- Remove redundant if (!deferredPrompt) inside already-guarded block\n- Pass browser parameter to trackInstallEvent() instead of re-detecting\n- Extract 1500ms settle delay to UPDATE_CHECK_SETTLE_MS named constant\n- Remove unused export from CHROMIUM_BROWSERS (nothing imports it)\n\nWire checkForUpdate into UI:\n- App.jsx: destructure checkForUpdate/checking from usePWAUpdate\n- MobileLayout: \"Check for Updates\" burger menu item with toast feedback\n  (hidden when update already detected, disabled while checking)\n- DesktopLayout: header button with animate-spin while checking, toast\n  feedback on result, replaces update button slot when no update detected\n- Toast messages: \"You're on the latest version\" (success), \"Update\n  available\" (info), \"Could not check\" (warning), \"Not available\" (info)\n\nTags: pwa, ui, code-quality, burger-menu\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa-reliability\nSemver: minor\n\nhttps://claude.ai/code/session_01AC1UWyZGqVwHGuu6SPJr72",
+  "tags": [
+    "refactor",
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pwa-reliability",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 56,
+    "deletions": 16
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/App.jsx",
+    "src/components/DesktopLayout.jsx",
+    "src/components/MobileLayout.jsx",
+    "src/hooks/usePWAInstall.js",
+    "src/hooks/usePWAUpdate.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

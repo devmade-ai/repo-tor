@@ -1,0 +1,36 @@
+{
+  "sha": "0900065",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T13:56:18Z",
+  "subject": "fix(theme): replace remaining hardcoded colors with theme tokens",
+  "body": "Audit found 6 files with hardcoded hex/rgba colors that should use\ntheme-aware values from useTheme().colors.\n\nChatListItem.tsx:\n- Convert module-level StyleSheet.create (locked to THEME_HEX.luxury)\n  to createCardStyles(colors) function pattern\n- Replace hardcoded rgba(212, 115, 108, ...) with withAlpha(colors.error, ...)\n\nhome.tsx:\n- Replace #FFFFFF on Update button with colors.successContent\n  (text on success-colored background)\n\nToneSelector.tsx:\n- Replace #FFFFFF \"Add\" button text with colors.primaryContent\n- Replace #FFFFFF selected tone border/text with colors.base100\n- Add useTheme() to ToneButton inner component\n\nMessageInfoModal.tsx:\n- Replace #FFFFFF tone label text with colors.neutralContent\n  (light in all themes, contrasts with saturated tone backgrounds)\n- Add useTheme() import and hook call\n\nTags: theme, cleanup, code-quality\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: patch\n\nhttps://claude.ai/code/session_01B19ShhBXLzVzbptkz9Tuew",
+  "tags": [
+    "bugfix",
+    "ui",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 33,
+    "deletions": 27
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "components/ChatListItem.tsx",
+    "components/MessageInfoModal.tsx",
+    "components/ToneSelector.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

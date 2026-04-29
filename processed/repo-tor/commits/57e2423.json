@@ -1,0 +1,31 @@
+{
+  "sha": "57e2423",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-16T00:45:50Z",
+  "subject": "docs(claude): scope note — index.html pre-React hex/inline-style is out of policy",
+  "body": "Retrospective on the 3-audit-pass cleanup noticed a clarity gap: the\nCLAUDE.md hex-literal and inline-style rules say \"in JSX or JS data\nconstants\" and \"in JSX\" respectively, but a future reviewer looking\nat `dashboard/index.html` would see inline `style=\"...\"` blocks with\nhex literals (`#333`, `#2D68FF`, `#767676`, `#e5e7eb`, `#f59e0b`)\nand a `@keyframes spin` block, and might think the policy was being\nviolated.\n\nThose inline styles are INTENTIONAL:\n\n  - Pre-React loading spinner (lines ~108-117) renders before\n    `createRoot()` executes, before the main CSS bundle loads.\n    A Tailwind-class-based spinner would be invisible in that\n    pre-React loading window because the class names wouldn't\n    resolve yet.\n  - `<noscript>` fallback (~line 116) renders only when JavaScript\n    is disabled entirely — the CSS bundle also depends on JS (via\n    Vite's module loading), so Tailwind classes wouldn't work.\n  - `@keyframes spin` inline `<style>` block provides the spinner\n    animation without needing the external CSS file to load.\n  - PWA early-capture warnings (~line 321) in the flash-prevention\n    script use inline hex for the same reason.\n\nAdded a \"Scope note\" sub-bullet to the hex-literal exception list in\nCLAUDE.md explaining that `dashboard/index.html` is a separate layer\nwith its own pre-React rules. Future reviewers now have explicit\ndocumentation saying \"yes, that's intentional, don't refactor it.\"\n\nThis is a pure documentation clarification — no code change, no test\nchange. Build and tests unaffected (63/63 pass).\n\nTags: documentation, audit, policy, scope\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 0
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

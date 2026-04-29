@@ -1,0 +1,44 @@
+{
+  "sha": "a201530",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-03T21:00:08Z",
+  "subject": "refactor(ui): replace 16 independent themes with 2 combo presets (Mono/Luxe)",
+  "body": "Simplify DaisyUI theme selection from 16 independently selectable themes\n(8 light + 8 dark) to 2 curated combos: Mono (lofi/black) and Luxe\n(fantasy/luxury). Users pick a combo; dark/light toggle switches between\nthe paired themes. Reduces cognitive load from 16 choices to 2.\n\n- Replace lightThemes/darkThemes arrays with themeCombos in daisyuiThemes.js\n- Simplify useDarkMode hook: combo selection instead of independent per-mode\n- Convert ThemeSelector from dropdown to inline button group (2 buttons)\n- Update MenuThemeSection in MobileLayout for combo list\n- Delete unused ThemeList.jsx component\n- Update index.html flash prevention script for combo-based lookup\n- Update generate-theme-meta.mjs for combo structure\n- Reduce DaisyUI themes in index.css from 16 to 4 (lofi, black, fantasy, luxury)\n- localStorage keys: darkMode (bool) + themeCombo (id), replacing lightTheme/darkTheme\n\nTags: ui, themes, daisyui, simplification\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: theme-combos\nSemver: minor\n\nhttps://claude.ai/code/session_01EqpN3XSLMVsh7D8VXtffyC",
+  "tags": [
+    "refactor",
+    "simplify",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theme-combos",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 12,
+    "additions": 224,
+    "deletions": 429
+  },
+  "files": [
+    "CLAUDE.md",
+    "index.html",
+    "scripts/generate-theme-meta.mjs",
+    "src/App.jsx",
+    "src/components/DesktopLayout.jsx",
+    "src/components/MobileLayout.jsx",
+    "src/components/ReaderMode.jsx",
+    "src/components/ThemeList.jsx",
+    "src/components/ThemeSelector.jsx",
+    "src/config/daisyuiThemes.js",
+    "src/hooks/useDarkMode.js",
+    "src/index.css"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,31 @@
+{
+  "sha": "8173d3b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-25T19:02:34Z",
+  "subject": "docs(sancio): cover the CRON_SECRET fail-open in cron-routing verification",
+  "body": "Step 3's \"no auth → expect 401\" guidance assumed CRON_SECRET is set on\nthe target deployment. lib/routes/sancio/cron.ts opens with\n`if (cronSecret && authHeader !== ...)` — when the env var is unset the\nauth check is bypassed entirely and the handler runs with full side\neffects. Vercel auto-sets CRON_SECRET for production deployments but\nnot necessarily for preview/branch deployments, so the previous\nguidance had a hole: a user verifying on a preview without that env\nvar would get 200 + real notifications/expirations instead of 401.\n\nAdd a fourth outcome row covering the 200 case: stop testing, set the\nenv var, retry. Reader can now diagnose every response shape from the\ndoc alone.\n\nTags: documentation, sancio, cron, safety\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sancio-api-stability\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "sancio-api-stability",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 0
+  },
+  "files": [
+    "docs/USER_ACTIONS.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,32 @@
+{
+  "sha": "64e2c6c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T20:48:54Z",
+  "subject": "docs(styles): trim styles.css from 521 → 164 lines",
+  "body": "Audit finding #13 — styles.css carried ~360 lines of \"tombstone\"\ncomments documenting CSS classes that were deleted during the\n2026-04-13/14 vanilla-DaisyUI sweep. Each deleted class had a\nmulti-line block describing what it used to do and what it migrated\nto, layered on top of months of similar archaeology from earlier\nrefactors.\n\nThe tombstones served their purpose (helped reviewers verify nothing\nwas missed during the sweep) but they're now dead context — every\ndeleted class is gone, every consumer is on DaisyUI utilities, and\nthe migration history lives in HISTORY.md and git log. Keeping them\ninflates the file 3.4x with no consumer benefit.\n\nKept (everything in the file is still load-bearing):\n  - @import \"tailwindcss\"\n  - @source not data dirs (phantom utility prevention)\n  - DaisyUI @plugin block with BEGIN/END GENERATED markers\n    (unchanged — generator regenerates this on every build)\n  - @custom-variant dark\n  - @layer base color-scheme\n  - :root design tokens (spacing, z-index scale, radius, fonts)\n    — z-index comment retained at full length per #18\n  - body safe-area padding + bg/color\n  - Element-selector exceptions block:\n      * { font-family: var(--font-sans) } reset\n      h1, h2, h3 { font-family: var(--font-mono) } headings\n      body::before { decorative grid background }\n    Each rule keeps a one-paragraph rationale (down from\n    multi-paragraph blocks) so the \"why this is a documented\n    exception\" context survives.\n  - @media print { element selectors only }\n  - @media (prefers-reduced-motion: reduce) { universal selector }\n\nRemoved:\n  - ~50 deleted-class tombstone comments (.tag, .panel, .timeline-dot,\n    .filter-sidebar, .drop-zone, .toast, .modal, .skeleton,\n    .heatmap-*, .collapsible-*, .stat-*, .tab-btn-*,\n    .scrollbar-hide, .filter-badge, .install-modal-*, .root-error-*,\n    .error-boundary-card, .project-*, .quick-guide-*, .show-more-btn,\n    .hamburger-*, ...) — every one of these classes is gone from the\n    JSX. The migration target is documented in the consumer file's\n    requirement/approach comment block instead.\n  - Dead \"Deleted blocks that used to live here\" archaeology paragraphs\n    pointing at Tailwind gray overrides, semantic card backgrounds,\n    text color overrides, and `.dashboard-enter` animations — none of\n    these have left a trace in JSX or CSS.\n  - Verbose 4-paragraph element-selector exceptions intro shrunk to\n    one paragraph per rule (still documents alternative rejected).\n\nBuild: 147.09 kB → 147.17 kB (+0.08 kB, comment-stripped CSS but\nslightly different whitespace after rewrite). Functionally identical.\n60/60 tests pass — including the styles.css allowlist test, which\nconfirms zero custom CSS classes remain.\n\nTags: documentation, cleanup, css\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: vanilla-daisyui-cleanup\nSemver: patch",
+  "tags": [
+    "documentation",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "vanilla-daisyui-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 46,
+    "deletions": 403
+  },
+  "files": [
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

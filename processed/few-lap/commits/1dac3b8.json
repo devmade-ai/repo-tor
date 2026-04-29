@@ -1,0 +1,32 @@
+{
+  "sha": "1dac3b8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T06:38:03Z",
+  "subject": "perf(pwa): content-hash SW_BUILD over dist/_expo/static/ bundles",
+  "body": "SW_BUILD used to be an ISO timestamp injected on every deploy, which\nmeant STATIC_CACHE / DYNAMIC_CACHE names rotated on every build — even\nwhen no shipped content changed. The activate handler's name-based\ncleanup then wiped every user's cache on every deploy, defeating the\npurpose of precaching, and every user got an \"update available\" prompt\nfor noop deploys.\n\nNew approach: SHA-256 over every file under dist/_expo/static/ (sorted\nrecursive walk, filename + bytes in the digest), truncated to 12 hex\nchars. Same content → same version → identical SW bytes → browser's\nbyte-compare detects no change → no spurious update prompt, cache\npersists. Changed content → new version → SW updates as expected.\n\nFail-loud if the __SW_BUILD_VERSION__ placeholder is missing (idempotent\nre-run on same dist/ or public/sw.js drift).\n\nTags: pwa, performance, caching, fail-loud\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-polish\nSemver: patch",
+  "tags": [
+    "performance",
+    "caching"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 65,
+    "deletions": 18
+  },
+  "files": [
+    "scripts/inject-sw-version.mjs"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,38 @@
+{
+  "sha": "009d056",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T21:31:49Z",
+  "subject": "feat(pwa): full install detection sync + ChunkLoadError prevention",
+  "body": "Closes all remaining gaps between budgy-ting and the glow-props\nPWA_SYSTEM pattern:\n\nInstall detection (usePWAInstall.ts):\n- Browser detection expanded from 3 to 7 Chromium browsers\n  (+ opera, samsung, vivaldi, arc)\n- Brave detection uses navigator.brave existence check instead of\n  UA string (Brave Mobile strips \"Brave\" from UA)\n- CHROMIUM_BROWSERS exported constant as single source of truth\n- iOS non-Safari detection: CriOS/FxiOS/EdgiOS caught before the\n  Safari check to avoid misclassifying iOS Chrome as Safari\n- display-mode: standalone change listener detects install via\n  browser menu (not just the native beforeinstallprompt flow)\n- installed-via-browser analytics event type added\n\nInstall instructions (InstallInstructionsModal.vue):\n- iOS non-Safari redirect tells users to open Safari with\n  explanation of why other browsers can't install\n- Chromium fallback instructions for when native prompt fails\n  (Chrome suppresses for 90 days after dismissal)\n- \"Why install?\" benefits section (offline, home screen, fullscreen)\n- Per-browser warning notes (Brave Shields, Firefox desktop)\n\nDeployment resilience (router/index.ts):\n- lazyRetry() wrapper on all 5 lazy route imports — reloads once\n  on ChunkLoadError (stale chunk 404 during deploy window)\n- sessionStorage flag prevents infinite reload loops\n\nTags: pwa, install, ux, resilience\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa-system\nSemver: minor\n\nhttps://claude.ai/code/session_01JjbdKNBLFZ6CmJkVqngkqm",
+  "tags": [
+    "feature",
+    "ui",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pwa-system",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 219,
+    "deletions": 33
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/InstallInstructionsModal.vue",
+    "src/composables/usePWAInstall.ts",
+    "src/router/index.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

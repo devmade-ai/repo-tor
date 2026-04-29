@@ -1,0 +1,31 @@
+{
+  "sha": "7eb2b66",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-08T09:46:57Z",
+  "subject": "docs(claude): align CLAUDE.md with glow-props Implementation Patterns",
+  "body": "Sync shared scaffolding terminology and add the standard Implementation\nPatterns section from glow-props so downstream AI assistants know to\nfetch patterns remotely instead of looking for local copies.\n\n- Rename \"Suggested Implementations\" → \"Implementation Patterns\" in\n  scaffolding description\n- Replace stale \"Sister project reference\" AI Note with implementation\n  patterns fetch-from-source note\n- Add \"Implementation Patterns (Source of Truth)\" section with fetch\n  commands and rules after Triggers\n- Add prohibition against creating local pattern file copies\n\nTags: docs, alignment, claude-md\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-project-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_011MQhy7g7xUiNtQ2i94SRqB",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-project-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 20,
+    "deletions": 2
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

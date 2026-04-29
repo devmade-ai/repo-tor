@@ -1,0 +1,31 @@
+{
+  "sha": "6a558bc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T23:03:37Z",
+  "subject": "docs(todo): sun-sea-o fully resolved (correction)",
+  "body": "Live re-verification against the sun-sea-o repo (last push 2026-04-21,\nsame day as the parallel re-validation run) shows all items in my\nprevious TODO are already done. The parallel-validation agent ran\nagainst a stale snapshot; a subsequent push landed the outstanding\nitems.\n\nVerified live:\n- index.html line 7 has <link rel=\"apple-touch-icon\" href=\"/apple-touch-icon.png\" />\n- src/components/common/InstallInstructionsModal.tsx lines 122-128\n  has the \"Already installed and the icon looks outdated?\" <details>\n  collapsible with platform-tailored reinstall steps\n- src/utils/debugLog.ts has all 6 DEBUG_SYSTEM hardening items:\n  * id: number field on DebugEntry (line 26) with nextId++ (line 50)\n  * details?: Record<string, unknown> (lines 32, 47)\n  * DebugSource extensibility via (string & {}) (line 19)\n  * debugGenerateReport() exported from module (line 144)\n  * redactUrl() + redactUrlsInText() with ?[redacted] (lines 107-118)\n  * window.__debugLogListenersAttached HMR guard (line 163)\n  * subscribe() replay with try/catch per-subscriber (line 81)\n  * notify loop with try/catch per-subscriber (line 90)\n- CLAUDE.md lines 697-699 has EVENT_BUS \"Not Applicable Patterns\"\n  entry with rationale (Supabase realtime serves as de-facto bus)\n- Hardcoded color migration complete. Only src/components/agreements/\n  PdfPreview.tsx uses print:text-gray-* utilities — documented\n  intentional print-media fallback in file header comment.\n\nUpdates:\n- sun-sea-o section replaced with \"FULLY RESOLVED\" summary + evidence\n- Gap Matrix sun-sea-o row: all Pass (DEBUG Partial->Pass, THEME\n  Partial->Pass, ICON_CACHE_BUST Partial->Pass, EVENT_BUS Missing->N/A)\n- Cross-Cutting Gaps summary moved sun-sea-o to \"Fully clean\" tier\n- 16 cross-cutting bullets updated to reflect sun-sea-o completion\n\nTags: documentation, audit, todo, correction, cross-fleet\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01Mx2aebqgqtBaC611uxsp7q",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 25,
+    "deletions": 58
+  },
+  "files": [
+    "docs/TODO.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

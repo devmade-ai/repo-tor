@@ -1,0 +1,34 @@
+{
+  "sha": "6dba61b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-08T12:01:49Z",
+  "subject": "refactor(hooks): simplify useFocusTrap to pure Tab-trapping",
+  "body": "useFocusTrap previously did three things: focus first element on\nactivate, trap Tab/Shift+Tab at boundaries, and restore focus on\ndeactivate. The first and third are redundant with useDisclosureFocus\nwhich already handles initial focus (via rAF) and return-to-trigger\n(on close). No other consumers — modals use native <dialog> focus trap.\n\nStripped to just Tab boundary wrapping. Removes useRef import and\n~15 lines of redundant focus management.\n\nAlso tracks App.jsx stale closure Escape handlers (lines 332-338)\nin TODO.md — discovered during burger menu review.\n\nTags: a11y, hooks, cleanup, burger-menu\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: burger-menu\nSemver: patch\n\nhttps://claude.ai/code/session_011MQhy7g7xUiNtQ2i94SRqB",
+  "tags": [
+    "refactor",
+    "simplify",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "burger-menu",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 9,
+    "deletions": 24
+  },
+  "files": [
+    "docs/TODO.md",
+    "src/hooks/useFocusTrap.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 1,
+  "impact": "internal"
+}

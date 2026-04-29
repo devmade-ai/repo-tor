@@ -1,0 +1,38 @@
+{
+  "sha": "3108b60",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T21:54:53Z",
+  "subject": "fix(audit): Phases 5, 7 — UX/mobile fixes and performance",
+  "body": "Phase 5 — UX/Mobile:\n- Root error boundary: already present (ErrorBoundary export from expo-router)\n- Touch targets: increase header button minHeight 32→36, hitSlop 6→8 vertical\n  (effective 52px, exceeds 44px WCAG AA minimum)\n- Search button: add maxWidth 200 to prevent excessive width on tablets\n- Station detail: add \"Go Back\" button to error/not-found state (router.back())\n- LocationSearch: reduce suggestion dropdown maxHeight 220→160 for keyboard\n\nPhase 7 — Performance:\n- FuelMapWeb: memoize stationsToGeoJSON via useMemo (perf #8: O(n) conversion\n  only runs when stations array changes, not on other effect deps)\n- StationList: share single Animated.Value across 4 skeleton cards\n  (perf #20: 4 concurrent animation loops → 1)\n- index.tsx: depend on search parameter values directly instead of doSearch\n  callback identity (perf #23: compound filter changes now batch into one\n  debounced search instead of two)\n\nTags: audit, ux, mobile, performance, accessibility\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: audit-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01JiHLm7X1zVwrcYAJuVaPFN",
+  "tags": [
+    "bugfix",
+    "performance",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "audit-sweep",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 55,
+    "deletions": 25
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "app/station/[id].tsx",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/search/HeaderFilters.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/components/station/StationList.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

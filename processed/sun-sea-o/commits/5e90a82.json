@@ -1,0 +1,39 @@
+{
+  "sha": "5e90a82",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T02:47:07Z",
+  "subject": "polish(ui): audit LOW items — radius tokens, focus ring offsets, tablist ARIA",
+  "body": "Close out the LOW-severity findings from the visual/a11y audit. Each item\nis a small correctness or polish improvement.\n\n- SigningStatus.tsx / SequenceSignOff.tsx: add explanatory comments for\n  the intentional inline-default-rounded / full-width-rounded-none\n  distinction and the `flex-col items-start` on SequenceSignOff's\n  multi-line info alert. The pattern wasn't wrong — it was just undocumented.\n- ModuleSummaryCard.tsx + ContractUploadPreview.tsx: swap `rounded-lg`\n  for DaisyUI's `rounded-box` token. They resolve to the same pixel value\n  today but `rounded-box` is the theme-controlled radius variable, so\n  future theme changes (different border-radius) won't leave these two\n  surfaces stuck at a fixed size.\n- Modal.tsx close button: add `focus:ring-offset-2`. At 44px with\n  `btn-circle`, the circular border was clipping the focus ring; the\n  offset pushes the ring outside the radius so keyboard focus is visible.\n- DebugPill.tsx: add `role=\"tablist\"` + `aria-label=\"Debug views\"` on the\n  tab container, `role=\"tab\"` + `aria-selected` on each tab button, and\n  aria-labels on the Copy / Clear action buttons. The pill lives in a\n  separate React root so screen readers treated it as an island of\n  unlabeled buttons; now the tab pattern is announced correctly.\n- Input.tsx / TextArea.tsx: add `block` to the `label-text font-medium`\n  wrapper. DaisyUI's `label-text` is inline-block by default; on narrow\n  (320px) viewports the label could wrap inline next to the input. `block`\n  forces the label to always stack above.\n\nNot changed (verification-blockers — require browser / device):\n- The focus-ring offset on Modal close is a best-effort fix based on the\n  known clipping behavior of circular focus rings. Real-device verification\n  is still needed.\n\nTags: polish, a11y, ui, daisyui\nComplexity: 2\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch",
+  "tags": [
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 8,
+    "additions": 23,
+    "deletions": 11
+  },
+  "files": [
+    "src/components/agreements/SequenceSignOff.tsx",
+    "src/components/common/DebugPill.tsx",
+    "src/components/common/Input.tsx",
+    "src/components/common/Modal.tsx",
+    "src/components/common/TextArea.tsx",
+    "src/components/modules/ContractUploadPreview.tsx",
+    "src/components/modules/ModuleSummaryCard.tsx",
+    "src/components/modules/SigningStatus.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 1,
+  "impact": "user-facing"
+}

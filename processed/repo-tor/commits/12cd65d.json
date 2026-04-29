@@ -1,0 +1,32 @@
+{
+  "sha": "12cd65d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T23:12:37Z",
+  "subject": "refactor(styles): drop * font-family reset — use body class=\"font-sans\"",
+  "body": "Removes one of the three element-selector exceptions in styles.css.\nThe `*` font-family reset existed because adding `font-sans` to every\nJSX element individually would be repetitive boilerplate — but the\nsame effect is achievable by setting `font-sans` on a single ancestor\nelement (body) and letting CSS inheritance do the propagation.\n\nBefore:\n  dashboard/styles.css:\n    * { font-family: var(--font-sans); }\n  dashboard/index.html:\n    <body>\n\nAfter:\n  dashboard/styles.css:  (rule removed)\n  dashboard/index.html:\n    <body class=\"font-sans\">\n\nWhy this works:\n  - Tailwind v4's `.font-sans` utility emits\n    `font-family: var(--font-sans)` (verified by grepping the built\n    CSS bundle). The variable is defined in `:root` at line 95 of\n    styles.css and Tailwind v4 auto-detects `--font-sans` /\n    `--font-mono` as theme tokens by naming convention.\n  - CSS inheritance propagates font-family from body to every\n    descendant element by default. The previous `*` universal\n    selector was doing explicit per-element application of the same\n    value inheritance would have done anyway.\n  - The `h1, h2, h3 { font-family: var(--font-mono) }` rule at line\n    141 still overrides the inherited sans-serif for headings, so\n    heading typography is unchanged. (That rule is a separate\n    exception that will be addressed in a follow-on commit.)\n\nVerified:\n  - Build clean (879.95 kB → 879.97 kB, +0.02 kB for the one added\n    class string in the HTML)\n  - `.font-sans{font-family:var(--font-sans)}` rule present in the\n    built CSS bundle\n  - 60/60 tests pass\n\nCLAUDE.md element-selector exception list updated — the numbered\nlist dropped from 3 entries to 2, with a note explaining where the\nold `*` exception went. The 4th-pass exception-list consolidation\ncommit will tidy up the list further once the h1/h2/h3 removal and\nErrorBoundary conversion land.\n\nTags: cleanup, css, vanilla-daisyui\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 10,
+    "deletions": 13
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

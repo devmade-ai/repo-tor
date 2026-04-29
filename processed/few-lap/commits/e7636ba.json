@@ -1,0 +1,33 @@
+{
+  "sha": "e7636ba",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T06:37:40Z",
+  "subject": "fix(pwa): precache every icon + tiered fail-loud for missing precached files",
+  "body": "Two hardenings to the icon-hash infrastructure surfaced by the edges /\nskipped audit passes:\n\n1. public/sw.js PRECACHE_ASSETS now includes /favicon.png and the 1024\n   maskable icon alongside the existing 192 / 512 / apple-touch entries.\n   Previously, a user who installed the PWA while online and then went\n   offline could hit missing-icon cases during Chrome WebAPK generation\n   or home-screen icon rendering. All install-time-referenced icons are\n   now cache-populated on SW install.\n\n2. scripts/inject-icon-hashes.mjs: a URL in SW_EXPECTED_URLS whose file\n   is missing from dist/ is now a hard error (the SW would fail\n   cache.addAll() at install, silently breaking offline mode for users).\n   Lazy-cached-only icons still warn. Plus a sanity check at script\n   load that SW_EXPECTED_URLS ⊆ ICON_URLS catches typos before they\n   ship.\n\nTags: pwa, service-worker, fail-loud, precache\nComplexity: 2\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pwa-polish\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 47,
+    "deletions": 5
+  },
+  "files": [
+    "public/sw.js",
+    "scripts/inject-icon-hashes.mjs"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

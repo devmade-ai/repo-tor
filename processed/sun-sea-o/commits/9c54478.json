@@ -1,0 +1,43 @@
+{
+  "sha": "9c54478",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T23:46:14Z",
+  "subject": "refactor(ui): reduce custom-code footprint — shared HeadingInput, formFieldId, trim redundant memoization",
+  "body": "Seven findings from the custom-code reduction audit, applied after verifying\neach against the surrounding call sites. No new custom Tailwind/CSS — only\nextractions of pre-existing patterns and drops of overhead that wasn't\ncarrying its weight.\n\n- ContractUploadPreview: pulse dot → `loading loading-spinner`.\n- HeadingInput (new): deduped the inline-heading editable-input class chain\n  between AgreementHeader and ProjectDetailPage. ~150 chars per call site\n  removed; the class chain lives in one annotated place.\n- NotificationBell: kept the inline item button's manual focus ring (can't\n  adopt `btn btn-ghost` without breaking the multi-line `<li>` layout); the\n  top-of-file comment now explains why.\n- ProjectListPage: hoisted inline `useCallback(() => setToast(''), [])` out\n  of JSX, matching ProjectDetailPage's pattern.\n- ToneSelector: `useMemo(() => getRecentTones(), [])` → `useState(getRecentTones)`\n  lazy-init. Drops a `useMemo` import; prevents per-keystroke I/O that pure\n  inlining would have introduced. `customRecentTones` filter inlined (O(≤20)).\n- useProjectRole: removed `useMemo` wrapper. Two `===` + object-literal are\n  nanoseconds; every consumer destructures `{ isCreator }` immediately so\n  object-reference churn doesn't propagate.\n- formFieldId (new): extracted the duplicated label→slug helper used by\n  Input + TextArea into `src/utils/formFieldId.ts`.\n\nAudit buckets 3 (backcompat cleanup) and 4 (maps / translations / conversions)\nproduced no actionable findings — theme-key migration is still needed;\nSTATUS_BADGE and API wrappers are justified.\n\nVerified: `tsc -b` clean, `npm run lint` clean, `npm test` → 22 passing\n(3 dist-level tests auto-skipped as expected with no `dist/`).\n\nTags: refactor, cleanup, daisyui, code-quality\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: custom-code-reduction\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "custom-code-reduction",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 12,
+    "additions": 114,
+    "deletions": 64
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "src/components/agreements/AgreementHeader.tsx",
+    "src/components/common/HeadingInput.tsx",
+    "src/components/common/Input.tsx",
+    "src/components/common/NotificationBell.tsx",
+    "src/components/common/TextArea.tsx",
+    "src/components/common/ToneSelector.tsx",
+    "src/components/modules/ContractUploadPreview.tsx",
+    "src/hooks/useProjectRole.ts",
+    "src/pages/ProjectDetailPage.tsx",
+    "src/pages/ProjectListPage.tsx",
+    "src/utils/formFieldId.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

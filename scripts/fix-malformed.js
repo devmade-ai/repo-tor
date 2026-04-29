@@ -56,13 +56,9 @@ function extractCommitMetadata(repoPath, sha) {
   try {
     // Get commit info using git log
     const format = [
-      '%H',      // full sha
       '%an',     // author name
       '%ae',     // author email
-      '%cn',     // committer name
-      '%ce',     // committer email
       '%aI',     // author date ISO
-      '%cI',     // commit date ISO
       '%s',      // subject
       '%b'       // body
     ].join('%x00');
@@ -73,11 +69,11 @@ function extractCommitMetadata(repoPath, sha) {
     ).trim();
 
     const parts = output.split('\x00');
-    if (parts.length < 8) {
+    if (parts.length < 4) {
       return null;
     }
 
-    const [fullSha, authorName, authorEmail, committerName, committerEmail, authorDate, commitDate, subject, ...bodyParts] = parts;
+    const [authorName, authorEmail, authorDate, subject, ...bodyParts] = parts;
     const body = bodyParts.join('\x00').trim();
 
     // Get stats
@@ -102,12 +98,9 @@ function extractCommitMetadata(repoPath, sha) {
     }
 
     return {
-      fullSha,
       author: { name: authorName, email: authorEmail },
       author_id: authorEmail,
-      committer: { name: committerName, email: committerEmail },
       timestamp: authorDate,
-      commitDate,
       subject,
       body,
       stats

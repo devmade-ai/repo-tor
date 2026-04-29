@@ -1,0 +1,36 @@
+{
+  "sha": "abfa57a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T07:48:47Z",
+  "subject": "refactor(cleanup): drop dead exports; extract StyleTab cell-override helpers",
+  "body": "clean-trigger findings resolved:\n\n- downloadDiagnosticImage: Inlined into its sole DEV-gated call site in\n  ExportButtons.jsx and removed from exportHelpers.js. The 3-line helper\n  shipped in every prod bundle despite being DEV-only. Inlining drops\n  the `saveAs` import from exportHelpers.js entirely (ExportButtons\n  already imports it), so no dev-only code reaches production.\n\n- MIME_TYPES: Dropped the `export` keyword — the constant was only\n  referenced internally by captureAsBlob and imported-but-unused in\n  ExportButtons. Removed the unused import and the direct unit test\n  (an internal constant doesn't need a public contract test; format\n  behavior is covered by manual export tests in TESTING_GUIDE.md).\n\n- StyleTab cell-override duplication: Added `updateCellBackground` and\n  `updateCellFrame` helpers mirroring the existing `updateCellOverlay` /\n  `updateCellPadding` pattern. Replaces 5 inline `{ ...obj, [key]: ... }`\n  blocks with one-line callbacks. Kept two helpers instead of one\n  generic because backgrounds (scalar value) and frames (merged object)\n  have different semantics, and each writes to a different parent\n  callback (onLayoutChange vs onFrameChange).\n\n- pruneOrphanedKeys: Reviewed and kept as-is. The prior finding claimed\n  a single call site, but it has 5 inside cleanupOrphanedCells. Inlining\n  would duplicate the NaN-guarded loop 5x. Already module-private.\n\nNet -18 LOC. All 138 unit tests pass, ESLint clean, prod build succeeds.\n\nTags: cleanup, refactor, exports, style-tab, export-helpers\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: clean-sweep-2026-04\nSemver: patch\n\nhttps://claude.ai/code/session_012r7JyJzHjENMhqhWtdGywz",
+  "tags": [
+    "refactor",
+    "removal",
+    "simplify"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "clean-sweep-2026-04",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 50,
+    "deletions": 68
+  },
+  "files": [
+    "src/components/ExportButtons.jsx",
+    "src/components/StyleTab.jsx",
+    "src/utils/__tests__/exportHelpers.test.js",
+    "src/utils/exportHelpers.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,44 @@
+{
+  "sha": "049f544",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T21:03:56Z",
+  "subject": "feat(icons): new stacked-modules icon driven by DaisyUI business tokens",
+  "body": "Replaces the slate-and-white S lettermark (leftover from pre-DaisyUI) with a\nthree-bar stack representing the product's core concept: agreements assembled\nfrom independent text modules. Colours are DaisyUI `business` theme tokens\n(accent / secondary / base-content on base-100), so the icon aesthetic aligns\nwith the installed-PWA chrome and any future theme tweak flows in on the next\n`npm run generate-icons`.\n\n- `public/icon-source.svg` is now a token template (`{{business.*}}`\n  placeholders) — zero hex literals.\n- `scripts/daisyTokens.mjs` extracts the oklch→hex helper shared by\n  `generate-icons.mjs` (token substitution) and `generate-theme-meta.mjs`\n  (combo metaColor verification), so one math bug can't drift between scripts.\n- `generate-icons.mjs` resolves `{{themeName.token-name}}` at build time,\n  fails loud on unknown tokens or malformed `{{…}}`.\n- CLAUDE.md APP_ICONS section reflects the new pipeline + current design.\n\nTags: pwa, icons, ui, refactor\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: minor",
+  "tags": [
+    "feature",
+    "ui",
+    "refactor",
+    "build"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-system",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 11,
+    "additions": 159,
+    "deletions": 92
+  },
+  "files": [
+    "CLAUDE.md",
+    "public/apple-touch-icon.png",
+    "public/favicon.ico",
+    "public/favicon.png",
+    "public/icon-192.png",
+    "public/icon-512.png",
+    "public/icon-source.svg",
+    "public/icon.png",
+    "scripts/daisyTokens.mjs",
+    "scripts/generate-icons.mjs",
+    "scripts/generate-theme-meta.mjs"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

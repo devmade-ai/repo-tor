@@ -1,0 +1,40 @@
+{
+  "sha": "bf9d6e0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T10:10:29Z",
+  "subject": "refactor(theme): migrate ExportModal, Toast, TutorialModal, WorkspaceManager to Tailwind",
+  "body": "Convert 4 more components from custom CSS to Tailwind utility classes.\nDelete ~460 lines of CSS. WorkspaceManager.css and TutorialModal.css\nfully eliminated. Toast.css reduced to keyframes only.\n\nTags: theme, tailwind, migration, components\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 8,
+    "additions": 68,
+    "deletions": 459
+  },
+  "files": [
+    "src/App.css",
+    "src/components/importExport/ExportModal.tsx",
+    "src/components/ui/Toast.css",
+    "src/components/ui/Toast.tsx",
+    "src/components/ui/TutorialModal.css",
+    "src/components/ui/TutorialModal.tsx",
+    "src/components/workspaces/WorkspaceManager.css",
+    "src/components/workspaces/WorkspaceManager.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

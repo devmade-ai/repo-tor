@@ -1,0 +1,32 @@
+{
+  "sha": "76a6221",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T14:12:35Z",
+  "subject": "fix(burger-menu): visibleItems as computed, update session notes",
+  "body": "visibleItems was a function called in the template on every render —\nconverted to computed for caching per Vue best practice. SESSION_NOTES.md\nrewritten to reflect complete session state.\n\nTags: burger-menu, cleanup, docs\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: glow-props-sync\nSemver: patch\n\nhttps://claude.ai/code/session_01HStghTVMRxyymnHn4AWxUi",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "glow-props-sync",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 28,
+    "deletions": 20
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "src/components/BurgerMenu.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}

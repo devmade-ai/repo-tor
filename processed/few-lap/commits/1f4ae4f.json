@@ -1,0 +1,34 @@
+{
+  "sha": "1f4ae4f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T06:38:13Z",
+  "subject": "feat(theme): declare color-scheme so native form controls match theme",
+  "body": "Native browser widgets (scrollbars, default checkboxes, autofill tint,\ndefault buttons) were rendering against the OS-default scheme rather\nthan the active DaisyUI theme — visible on dark-mode users with the\ndefault-light system pref and vice versa.\n\nTwo-part fix:\n1. <meta name=\"color-scheme\" content=\"light dark\"> in +html.tsx declares\n   both modes are supported. Browser picks based on system preference\n   for the pre-React paint — no flash before JS boots.\n2. useTheme sets document.documentElement.style.colorScheme on each\n   theme change so the explicit user choice overrides the system\n   default once React is up.\n\nCSS-on-html.dark was rejected as an alternative because it depends on\nhow Uniwind surfaces the theme in the DOM (not a public contract).\n\nTags: theme, a11y, ux\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-polish\nSemver: patch",
+  "tags": [
+    "feature",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 16,
+    "deletions": 0
+  },
+  "files": [
+    "app/+html.tsx",
+    "src/hooks/useTheme.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "user-facing"
+}

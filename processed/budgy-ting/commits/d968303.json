@@ -1,0 +1,31 @@
+{
+  "sha": "d968303",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T11:03:57Z",
+  "subject": "docs: mark EVENT_BUS as evaluated and skipped",
+  "body": "Reviewed budgy-ting's communication patterns against the glow-props\nEVENT_BUS pattern. The app uses standard Vue emit() for parent-child,\nstorage events for cross-tab, DOM events for PWA, and debugLog's own\npub/sub. No service-layer pub/sub needs exist — no module copy-pastes\nlistener/emit boilerplate. EVENT_BUS pattern is not needed.\n\nAll glow-props patterns are now complete:\n- CLAUDE.md align: done\n- APP_ICONS: done (density 400, separate maskable)\n- BURGER_MENU: done (arrow keys, z-index, theme toggle)\n- DEBUG_SYSTEM: done (console interception, PWA tab, inline pill, circular buffer, DaisyUI migration)\n- DOWNLOAD_PDF: done (Save as PDF button)\n- PWA_SYSTEM: done (visibility checks, suppression, diagnostics)\n- THEME_DARK_MODE: done (full DaisyUI migration)\n- EVENT_BUS: evaluated, skipped (not needed)\n\nTags: docs\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: glow-props-sync\nSemver: patch\n\nhttps://claude.ai/code/session_01BPc1xJr4LVbLgvTxtZf2i1",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "glow-props-sync",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}

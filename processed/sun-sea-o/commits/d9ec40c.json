@@ -1,0 +1,31 @@
+{
+  "sha": "d9ec40c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T23:48:23Z",
+  "subject": "docs(claude): declare DEBUG_SYSTEM + DOWNLOAD_PDF + TIMER_LEAKS + HTTPS_PROXY in Adopted Patterns",
+  "body": "Pattern-audit follow-up: the Adopted Patterns section covered only 7 of\nglow-props' 11 patterns explicitly. Four patterns were implemented in\ncode (or correctly N/A) but undocumented in the table.\n\nAdded three \"implemented\" sections:\n\n- DEBUG_SYSTEM — already shipped across src/utils/debugLog.ts +\n  src/components/common/DebugPill.tsx. Declaration covers: typed\n  numeric id for stable React keys + dedup, (string & {}) source\n  fallback, HMR-guarded global listeners, subscriber replay + per-\n  listener isolation, 3-method clipboard fallback, separate React\n  root for stylesheet-failure resilience.\n\n- DOWNLOAD_PDF — already shipped via PdfPreview.tsx + index.css @media\n  print rules + pdfVerifications.ts for the 12-char verification code.\n  Declaration covers: no external PDF lib, no server round-trip, the\n  print:text-gray-* / print:text-black overrides (already documented\n  in the Hardcoded-color exceptions table), theme-aware print path.\n\n- TIMER_LEAKS — already verified conformant by the `race` audit\n  (commit-trail earlier in this session). Declaration inventories\n  every timer site (Toast, BurgerMenu, DebugPill, ModuleEditor,\n  PwaInstallPrompt, usePWAUpdate, AppLayout), every event listener\n  site (Modal, NotificationBell, AppLayout online/offline, hooks),\n  every Supabase realtime channel, and both HMR guards\n  (__debugLogListenersAttached + PWA singleton equivalent).\n\nAdded one \"Not Applicable\" entry:\n\n- HTTPS_PROXY — targets Node.js scripts behind corporate proxies;\n  sun-sea-o is browser-only, so N/A. Revisit only if a Node.js\n  build/CI script ever needs proxied external API access.\n\nAll 11 glow-props patterns now have an explicit status declaration.\nNo code changes — documentation only. Tests + lint + tsc still clean.\n\nTags: docs, alignment, claude-md, pattern-audit\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 71,
+    "deletions": 0
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 1,
+  "impact": "internal"
+}

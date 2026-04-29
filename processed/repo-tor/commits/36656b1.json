@@ -1,0 +1,37 @@
+{
+  "sha": "36656b1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-16T17:35:29Z",
+  "subject": "fix(pwa): strengthen icon cache-bust — assertions, warning, tripwire, user note",
+  "body": "Self-review pass on the cache-bust fix. Five changes addressing real bugs,\noverstated rationale, missing test coverage, and missing user comms.\n\nvite.config.js — `iconCacheBustHtml` no longer fails silently:\n  Original used `String.replace` on literal hrefs. When the literal isn't\n  found, replace returns the original string with no error — a future\n  reformat of dashboard/index.html (single-quoted attrs, attribute\n  reorder, query already present, leading slash dropped) would have\n  shipped a manifest with versioned icons but a <head> with un-versioned\n  ones, surfacing only on the next icon change after deploy. Plugin now\n  walks an explicit REPLACEMENTS table and throws with a clear message\n  pointing at the affected literal.\n\nvite.config.js — `iconVersion` warns on missing icons:\n  Previously returned '0' silently if a file was missing. A deleted-by-\n  accident icon would have shipped with `?v=0` and 404'd at runtime. Now\n  console.warn'd at config-load time pointing at `npm run generate-icons`.\n  Doesn't throw — fresh-clone dev runs legitimately have no icons before\n  the first generate, and CI builds always run generate first.\n\nvite.config.js — corrected `cleanupOutdatedCaches` rationale:\n  Original commit message and comment claimed it \"drops the previous\n  build's precache entries on activation.\" That's wrong per Workbox\n  source — it only deletes cache stores whose names use a different\n  `workbox-precache-*` prefix (cross-major-version cleanup). Same-prefix\n  entries with stale revisions are already replaced by Workbox's normal\n  install flow. Option is still kept (defends against future Workbox\n  major bumps); comment now describes what it actually does.\n\nscripts/__tests__/icon-cache-bust.test.mjs — new tripwire (9 tests):\n  Two layers, mirroring the daisyui-surfaces pattern. Source assertions\n  always run: iconCacheBustHtml plugin defined, wired before VitePWA in\n  plugins[], workbox.cleanupOutdatedCaches:true, /^v$/ in\n  ignoreURLParametersMatching, dashboard/index.html still contains the\n  exact literal hrefs the plugin replaces. Built-output assertions skip\n  with a logged warning when dist/ is absent, otherwise verify every\n  manifest icon URL has ?v=<8-hex>, every <link rel=\"icon|apple-touch-icon\">\n  href has ?v=<8-hex>, no un-versioned icon URLs leaked through, and\n  dist/sw.js contains both cleanupOutdatedCaches() and /^v$/ inside\n  ignoreURLParametersMatching. Test count 65 -> 74.\n\nInstallInstructionsModal.jsx — OS-cache user-facing note:\n  Added a collapsed <details> block (\"Already installed and the icon\n  looks outdated?\") explaining in plain language that the OS keeps app\n  icons cached separately from the browser, so clearing site data alone\n  won't refresh them — the user must remove the app first. Collapsed by\n  default to avoid confusing first-time installers; discoverable for the\n  small subset who hit the issue.\n\ndocs — HISTORY.md gets a strengthening entry AND the original cache-bust\nnarrative is corrected in place (cleanupOutdatedCaches rationale).\nSESSION_NOTES.md updated with current state.\n\nVerified: `vite build` clean; `npm test` 74/74 pass against fresh dist;\nmanifest, HTML link tags, and SW all carry the expected versioned URLs +\nworkbox config.\n\nTags: pwa, caching, icons, workbox, testing, ux, refactor\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-resilience\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "test-unit",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-resilience",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 373,
+    "deletions": 38
+  },
+  "files": [
+    "dashboard/js/components/InstallInstructionsModal.jsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/__tests__/icon-cache-bust.test.mjs",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

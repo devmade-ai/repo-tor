@@ -1,0 +1,36 @@
+{
+  "sha": "55a8deb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T21:26:55Z",
+  "subject": "feat(theme): auto-generate hex colors from DaisyUI oklch definitions",
+  "body": "Add build script (scripts/generate-theme-colors.mjs) that reads oklch\nvalues from daisyui/theme/object.js and converts to hex via culori\n(CSS Color Level 4 gamut mapping). Replaces manual oklch→hex conversion\nthat had incorrect values for out-of-sRGB-gamut themes (abyss was\nsignificantly wrong — #6FE744 should have been #BEFF00).\n\nAlso adds runtime meta theme-color update in useTheme.ts so browser\nchrome color changes when user switches themes.\n\n- Build script reads from daisyui npm package (devDep)\n- culori (devDep) for accurate CSS Color Level 4 gamut mapping\n- npm run gen:theme-colors to regenerate after DaisyUI upgrades\n- useTheme: updates both meta[name=\"theme-color\"] tags on theme change\n- Light themes use primary, dark themes use base200 for meta color\n\nTags: theme, pwa, build-script, colors\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: theme-system\nSemver: minor\n\nhttps://claude.ai/code/session_01JiHLm7X1zVwrcYAJuVaPFN",
+  "tags": [
+    "feature",
+    "build"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theme-system",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 326,
+    "deletions": 43
+  },
+  "files": [
+    "package-lock.json",
+    "package.json",
+    "scripts/generate-theme-colors.mjs",
+    "src/hooks/useTheme.ts",
+    "src/lib/themeColors.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,33 @@
+{
+  "sha": "6c724c6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T07:41:46Z",
+  "subject": "fix(theme): migrate DebugPill to DaisyUI semantic tokens",
+  "body": "Replace all hardcoded hex colors and rgba values in DebugPill.css with\nDaisyUI CSS variable references (var(--color-base-*), var(--color-error),\netc.) and color-mix() for opacity variants. DebugPill now theme-aware —\nadapts to both dark and light mode.\n\nDebugPill.tsx severity colors (info/success/warn/error) now read from\nDaisyUI computed styles via getCSSColor(). Source colors remain as a\n20-color data visualization palette (DaisyUI only provides ~10 semantic\ncolors, insufficient for 20 distinct log sources).\n\nTags: theme, daisyui, debug, cleanup\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 69,
+    "deletions": 49
+  },
+  "files": [
+    "src/components/debug/DebugPill.css",
+    "src/components/debug/DebugPill.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

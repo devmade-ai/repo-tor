@@ -1,0 +1,37 @@
+{
+  "sha": "6152007",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T21:47:00Z",
+  "subject": "fix(audit): Phase 1 — quick wins from full audit sweep",
+  "body": "Fix 6 issues found across rev, aud, and perf audits:\n\n1. LocationSearch.tsx: Fix import typo — SEARCH_SEARCH_DEBOUNCE_MS → SEARCH_DEBOUNCE_MS\n   (rev #1: would crash at runtime when user types in search)\n\n2. useTheme.ts: Remove redundant isDark/colors deps from theme effect\n   (rev #12, perf #1: effect fired twice per theme change)\n   Compute meta color from resolved themeName instead of isDark/colors\n\n3. FuelMapWeb.tsx: Narrow paint effect deps to colors.primary/primaryContent\n   (perf #7: 6 GPU paint operations fired on any colors object change)\n\n4. useFuelTypes.ts: Stabilize fuelTypes array reference via serialized ID key\n   (perf #5: new array ref on every render caused FilterContext cascade\n   re-renders across HeaderFilters, HomeScreen, StationList)\n\n5. usePersistedState.ts: Remove non-null assertion on resolved value\n   (aud #1: initialize to defaultValue instead of using resolved!)\n\n6. useSearchModal.tsx: Add type annotation to useMemo for clarity\n   (aud #17: memoization is correct — callbacks are stable useCallback refs)\n\nTags: audit, performance, bugfix, hooks\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: audit-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01JiHLm7X1zVwrcYAJuVaPFN",
+  "tags": [
+    "bugfix",
+    "performance"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "audit-sweep",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 38,
+    "deletions": 11
+  },
+  "files": [
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/hooks/useFuelTypes.ts",
+    "src/hooks/usePersistedState.ts",
+    "src/hooks/useSearchModal.tsx",
+    "src/hooks/useTheme.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

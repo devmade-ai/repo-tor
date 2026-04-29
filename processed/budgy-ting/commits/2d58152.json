@@ -1,0 +1,39 @@
+{
+  "sha": "2d58152",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T20:53:56Z",
+  "subject": "test: cover useDialogA11y stack + transactionDirty helper",
+  "body": "Adds the two test items queued in docs/TODO.md after the a11y and\nforms passes introduced non-trivial behaviour worth pinning.\n\nSetup\n- happy-dom added as devDep so composable tests can touch document\n  and addEventListener. ~100 KB addition; existing engine tests\n  already ran under node env and are env-agnostic so they pass\n  unchanged under happy-dom.\n- vitest config gains `environment: 'happy-dom'`.\n\nuseDialogA11y.test.ts — 7 tests covering the stack refactor from\nthe a11y pass:\n- isDialogOpen() initial state\n- push on mount / pop on unmount\n- LIFO nesting\n- Escape routes only to the topmost entry (the regression the stack\n  was introduced to fix)\n- non-Escape keys don't trigger close\n- body-scroll lock applies on first push, stays locked through\n  nested mounts, releases on the last pop\n- lock-release restores pre-existing inline styles instead of\n  hard-resetting (important — other code may have set overflow\n  before the dialog opened)\n\nTests mount minimal components via createApp/h directly — no\n@vue/test-utils dependency added.\n\ntransactionDirty.test.ts — 12 tests. Required a small refactor:\nthe isDirty computation that was inline in TransactionEditModal.vue\nmoved to a pure helper `src/components/transactionDirty.ts`\n(`isTransactionDirty(original, local) → boolean`). Component now\ncalls the helper via the existing computed. No behaviour change.\n\nCoverage:\n- Baseline: local mirrors original → not dirty\n- Each field in isolation: description, date, amount, classification\n- Direction flip (isIncome toggle) with same magnitude → dirty\n- Zero-amount ambiguity → NOT dirty (signed 0 == unsigned 0)\n- Tag add, remove, reorder → each dirty\n- Fresh-copy tags with same contents → not dirty\n- Positive-amount income also covered\n\nTotal test count: 116 → 135 (+19).\n\nType-check clean. All green.\n\nTags: tests, dialog, dirty-state, refactor\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
+  "tags": [
+    "test-unit",
+    "refactor",
+    "dependency-add"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 395,
+    "deletions": 21
+  },
+  "files": [
+    "package-lock.json",
+    "package.json",
+    "src/components/TransactionEditModal.vue",
+    "src/components/transactionDirty.test.ts",
+    "src/components/transactionDirty.ts",
+    "src/composables/useDialogA11y.test.ts",
+    "vite.config.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}

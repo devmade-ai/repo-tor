@@ -1,0 +1,34 @@
+{
+  "sha": "772bcda",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T22:18:13Z",
+  "subject": "fix(theme): remove unused themes from Uniwind extraThemes config",
+  "body": "metro.config.js registered 10 DaisyUI themes in extraThemes, but only\nlemonade and abyss have @variant blocks in global.css. Uniwind tried to\nresolve CSS variables for the 8 missing themes (nord, night, corporate,\nbusiness, caramellatte, coffee, silk, sunset) and logged an error for\nevery missing variable on every CSS rule — producing 3000+ error lines\nduring build.\n\nAlso trimmed the matching THEME_NAMES list in generate-theme-colors.mjs.\n\nTags: config, theme, build, cleanup\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: patch\n\nhttps://claude.ai/code/session_012XKgFf1bk2mbCokBUhTzaa",
+  "tags": [
+    "bugfix",
+    "build",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 6,
+    "deletions": 8
+  },
+  "files": [
+    "metro.config.js",
+    "scripts/generate-theme-colors.mjs"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

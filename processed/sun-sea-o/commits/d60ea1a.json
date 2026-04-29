@@ -1,0 +1,35 @@
+{
+  "sha": "d60ea1a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T00:40:05Z",
+  "subject": "refactor(storage): extract safeStorage utility, migrate all consumers",
+  "body": "Four call sites each reinvented their own try/catch wrapper around\nlocalStorage (theme.ts inlined safeGet/safeSet, recentTones.ts,\nTemplateSelector.tsx, usePWAInstall.ts analytics). Consolidate per the\nglow-props THEME_DARK_MODE pattern so there's one place to handle\nSecurityError (sandboxed iframes, disabled storage, enterprise lockdowns)\n— and one place to add telemetry later if we need visibility into\nstorage failures.\n\n- New src/utils/safeStorage.ts: safeStorageGet/Set/Remove. String-only\n  API — callers still own (de)serialization.\n- theme.ts: drop inline safeGet/safeSet, import shared wrappers.\n- recentTones.ts: now safe in sandboxed iframes; JSON-parse errors handled\n  locally (array shape validation stays with the caller).\n- TemplateSelector.tsx: upload-hash dedup + record now use safeStorage;\n  readHashes helper deduplicates the parse+validate logic.\n- usePWAInstall.ts (analytics): migrate localStorage calls; sessionStorage\n  dismiss tracking left inline since the pattern scopes safeStorage to\n  localStorage and only two sessionStorage sites exist.\n\nTags: refactor, storage, pattern-compliance\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 71,
+    "deletions": 43
+  },
+  "files": [
+    "src/components/modules/TemplateSelector.tsx",
+    "src/hooks/usePWAInstall.ts",
+    "src/utils/recentTones.ts",
+    "src/utils/safeStorage.ts",
+    "src/utils/theme.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

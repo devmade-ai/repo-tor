@@ -1,0 +1,33 @@
+{
+  "sha": "eabbef9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T09:19:57Z",
+  "subject": "refactor(pwa): use UA for reinstall platform detection; refresh session notes",
+  "body": "The reinstall collapsible previously classified platform from\ninstructions.browser (display string). That string includes (iOS)/\n(Mobile)/(Desktop) for Safari and Firefox but NOT for Chrome/Edge/Brave/\nOpera — bare \"Chrome\" covers both desktop and Android. Android Chromium\nusers who hit the manual-install fallback (5-second diagnostic timeout\nwhen beforeinstallprompt doesn't fire) would see desktop reinstall\nsteps (\"click ⋮ menu → Uninstall\") instead of the Android flow.\n\nSwitch getReinstallSteps() to navigator.userAgent directly. No new\ndependency on hook internals, covers all Android Chromium cases.\n\nAlso refresh docs/SESSION_NOTES.md from the stale ESLint-session\nsnapshot to reflect this session's work.\n\nTags: pwa, ui, docs\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-icon-cache-bust\nSemver: patch\n\nhttps://claude.ai/code/session_011TWPGXDkRiZaPZVUcwLDCd",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-icon-cache-bust",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 40,
+    "deletions": 28
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "src/components/InstallInstructionsModal.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

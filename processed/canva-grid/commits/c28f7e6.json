@@ -1,0 +1,50 @@
+{
+  "sha": "c28f7e6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T23:17:05Z",
+  "subject": "fix(ui): replace invisible low-opacity tinted backgrounds with base surfaces",
+  "body": "Low-opacity tinted backgrounds (bg-primary/10, bg-secondary/15, bg-error/10,\nbg-success/10, bg-warning/10) become invisible on dark DaisyUI themes where\nthe base background is near-black. ~45 instances across 16 components.\n\nReplaced with bg-base-200/bg-base-300 — DaisyUI semantic surface colors that\nguarantee contrast on all themes. Colored text (text-primary, text-error, etc.)\ncarries semantic meaning instead of background tint.\n\nFixed: LayoutTab, ExportButtons, ContentTab, FreeformEditor, DesktopLayout,\nMobileLayout, PlatformPreview, TemplatesTab, MiniCellGrid, MediaTab,\nSaveLoadModal, BurgerMenu, EmptyStateGuide, ErrorBoundary, InstallInstructionsModal.\n\nTags: ui, contrast, accessibility, dark-theme, daisyui\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: theme-contrast\nSemver: patch\n\nhttps://claude.ai/code/session_019qr8PY5KVKAazhwwjZfsMr",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theme-contrast",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 18,
+    "additions": 94,
+    "deletions": 53
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/HISTORY.md",
+    "src/components/BurgerMenu.jsx",
+    "src/components/ContentTab.jsx",
+    "src/components/DesktopLayout.jsx",
+    "src/components/EmptyStateGuide.jsx",
+    "src/components/ErrorBoundary.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/FreeformEditor.jsx",
+    "src/components/InstallInstructionsModal.jsx",
+    "src/components/LayoutTab.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/MiniCellGrid.jsx",
+    "src/components/MobileLayout.jsx",
+    "src/components/PlatformPreview.jsx",
+    "src/components/SaveLoadModal.jsx",
+    "src/components/TemplatesTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 4,
+  "impact": "user-facing"
+}

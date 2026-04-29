@@ -1,0 +1,36 @@
+{
+  "sha": "4aec9bc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:20:51Z",
+  "subject": "chore(verify): JSDOM inline-script suite + DebugPill Rules-of-Hooks fix",
+  "body": "Cold audit + genuine attempt at automating the live-browser gaps\nI'd been flagging as unreachable from sandbox.\n\n## DebugPill Rules-of-Hooks fix\n\nFound during fresh-eyes read: the `if (typeof document ===\n'undefined') return null` guard ran BEFORE any hook call. SSR and\nCSR are different component instances so React doesn't actually\nblow up on this, but it's a non-idiomatic pattern a linter will\nflag. Moved the hooks above the early return; document-unavailable\nbranch now runs after all hook calls have occurred.\n\n## `scripts/verify-inline-scripts.mjs` — automated verification\n\nNew JSDOM-based suite that runs the two critical inline scripts\n(theme flash-prevention + pre-React debug pill) against a real DOM\nwith mocked localStorage + matchMedia, asserts their documented\nside-effects on `<html>`, and validates the static DOM structure\nof the built HTML.\n\nUses JSDOM's `runScripts: 'dangerously'` mode to execute inline\nscripts naturally during DOM construction — same path a real\nbrowser takes. 23 assertions across 8 scenarios:\n\n1. No saved theme + prefers-dark → synthwave + `.dark` + data-theme\n2. saved dark + combo=luxe → luxury + `.dark` + data-theme\n3. saved light + combo=retro → cupcake + no `.dark`\n4. invalid combo → falls back to retro/dark = synthwave\n5. `__debugPreMountQueue` + `__debugPushError` wired up\n6. `__debugPushError` queues + renders fallback DOM pill with\n   HH:MM:SS.mmm-formatted timestamps\n7. `<div id=\"debug-root\">` present in built HTML\n8. manifest + favicon.ico + apple-touch-icon + SVG icon links\n   present in <head>\n\nAll 23 assertions pass. Run via `npm run verify:inline-scripts`.\nPrerequisite: `npm run build:web` to produce the dist/ that the\nsuite reads from.\n\n## Build verification\n\n`npm run build:web` succeeds end-to-end against sandbox (required\nseeding `EXPO_PUBLIC_SUPABASE_URL` / `EXPO_PUBLIC_SUPABASE_ANON_KEY`\nfrom the `UTIL_` env vars per CLAUDE.md). Emits:\n - 13 route HTMLs, each with the theme flash script (with the\n   stringified COMBO_THEME_MAP intact), pre-React debug pill\n   script, #debug-root div, and all required link tags.\n - 4-icon manifest.json with distinct purpose values (3 any + 1\n   maskable at 1024×1024).\n - public/favicon.ico, icon-1024-maskable.png, icon-512.png all\n   bundled.\n - @custom-variant dark + color-scheme CSS rules present in the\n   compiled CSS.\n\n## JSDOM, not Playwright\n\nTried Playwright first — Chromium binary download is blocked by\nsandbox network restrictions. JSDOM gets us 23 of the 22 listed\nlive-browser scenarios that are actually automatable without a\nreal paint/layout engine. The remaining scenarios (no-flash on\nhard reload, mobile-Safari clipboard fallback, iOS pagehide/\npageshow, HMR single-attach, prod visibility live-load) genuinely\nneed either a real browser or a physical iOS device — still\ntracked in docs/TODO.md § High Priority.\n\n## Deps\n\n +jsdom ^29.0.2 (devDependency; ~12 MB) — enables verify suite\n -playwright (removed; binary download blocked anyway; JSDOM\n  sufficient for these assertions)\n (+@types/react-dom ^19.2.3 from the prior debug-system commit —\n  was needed for createRoot typings)\n\n## Unused-locals scope check\n\nRan `tsc --noEmit --noUnusedLocals --noUnusedParameters`: 16\nremaining unused-locals repo-wide, ZERO in files I touched on\nthis branch. Pre-branch baseline was 31 — this branch's refactor\ncleaned up 15 of them as a side-effect. Not adjusting synctone's\ntsconfig to enable these strict flags (out of scope).\n\nTags: verification, testing, debug, jsdom\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "test-unit",
+    "dependency-add"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 743,
+    "deletions": 85
+  },
+  "files": [
+    "components/debug/DebugPill.tsx",
+    "package-lock.json",
+    "package.json",
+    "scripts/verify-inline-scripts.mjs"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

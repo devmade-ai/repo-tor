@@ -1,0 +1,35 @@
+{
+  "sha": "6705fdf",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T08:57:12Z",
+  "subject": "docs(theme): rewrite THEME_DARK_MODE.md for DaisyUI-based approach",
+  "body": "The old implementation guide described custom CSS variable semantic tokens\nand React hooks that none of the three projects actually use. All three\n(glow-props, canva-grid, few-lap) use DaisyUI's theme system instead.\n\nRewritten from scratch based on actual code across all three projects:\ndual-layer theming (.dark + data-theme), per-mode theme persistence,\ncatalog patterns, validation, flash prevention, cross-tab sync, and\nUniwind for React Native.\n\nTags: documentation, theme, dark-mode, daisyui, refactor\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: docs-organization\nSemver: patch\n\nhttps://claude.ai/code/session_01HoZf1sn3s7HFAdrXTdCf66",
+  "tags": [
+    "documentation",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "docs-organization",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 426,
+    "deletions": 258
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/implementations/THEME_DARK_MODE.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

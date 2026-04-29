@@ -1,0 +1,45 @@
+{
+  "sha": "ab151a5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T22:53:20Z",
+  "subject": "fix(ui): redesign icon waves and replace gradient bubbles with solid primary",
+  "body": "Icon: Replace straight vertical lines with actual sine wave curves to convey\ntone/sound. Shift gradient midpoint so cyan reads more clearly. Remove\nredundant back shadow bubble. Angle tail slightly left for natural feel.\n\nChat bubbles: Replace primary→primaryContent gradient with solid bg-primary.\nThe gradient caused uneven text contrast — dark text disappeared at the bottom\nof longer messages. Solid primary gives consistent readability with\nprimaryContent text throughout. Updated tone tag overlay to use primaryContent\ninstead of neutral for better blending on primary surface.\n\nAlso replaced gradient on Create Chat buttons (home + desktop sidebar) and\nsend button for consistency. Removed unused LinearGradient imports from\nBubbleContent, ComposeBar, home, and DesktopLayout.\n\nTags: ui, icons, theme, code-quality\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: uniwind-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01Gh9v3fwMHqZP5MbcrUgRuY",
+  "tags": [
+    "bugfix",
+    "ui",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "uniwind-migration",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 13,
+    "additions": 53,
+    "deletions": 87
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "assets/icon-source.svg",
+    "assets/images/adaptive-icon.png",
+    "assets/images/favicon.png",
+    "assets/images/icon.png",
+    "assets/images/splash-icon.png",
+    "components/BubbleContent.tsx",
+    "components/ComposeBar.tsx",
+    "components/DesktopLayout.tsx",
+    "public/apple-touch-icon.png",
+    "public/icon-192.png",
+    "public/icon-512.png",
+    "public/icon.svg"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

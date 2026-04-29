@@ -1,0 +1,32 @@
+{
+  "sha": "157ff82",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-03T11:02:34Z",
+  "subject": "feat(ui): direction-aware bottom sheet snap thresholds",
+  "body": "Snap thresholds now depend on drag direction, using 5vh past the\nsnap point you're leaving. Dragging up: SNAP_CLOSED+5 for half,\nSNAP_HALF+5 for full. Dragging down: SNAP_FULL-5 for half,\nSNAP_HALF-5 for close. Makes the sheet feel more responsive to\nthe user's intent.\n\nTags: ui, mobile, bottom-sheet, ux\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mobile-ux\nSemver: minor\n\nhttps://claude.ai/code/session_013VpRhxUqeVjB4rcLxF9nU8",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "mobile-ux",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 27,
+    "deletions": 9
+  },
+  "files": [
+    "src/components/BottomSheet.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

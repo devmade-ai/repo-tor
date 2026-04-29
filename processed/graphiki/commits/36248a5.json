@@ -1,0 +1,40 @@
+{
+  "sha": "36248a5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T10:39:11Z",
+  "subject": "chore: delete 9 empty CSS files after Tailwind migration",
+  "body": "Remove CSS files that contain only migration comments or are empty.\nAll styles have been migrated to Tailwind utility classes in their\nrespective TSX components. CSS imports were already removed by the\nmigration agents.\n\nRemaining CSS files (515 lines total):\n- index.css (23) — Tailwind/DaisyUI setup\n- App.css (298) — base setup, safe-area padding, mobile menu,\n  shared modal/label-badge, animations, mobile media queries\n- DetailDrawer.css (114) — open/close transitions, bottom sheet\n- Toast.css (49) — keyframes, mobile safe-area overrides\n- TimelineView.css (31) — pseudo-elements, checkbox accent-color\n\nTags: theme, cleanup, css-deletion\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "removal",
+    "refactor"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 9,
+    "additions": 0,
+    "deletions": 13
+  },
+  "files": [
+    "src/components/analysis/AnalysisModal.css",
+    "src/components/conventions/ConventionsModal.css",
+    "src/components/debug/DebugPill.css",
+    "src/components/duplicates/DuplicateScannerModal.css",
+    "src/components/importExport/MergeReview.css",
+    "src/components/pwa/InstallInstructionsModal.css",
+    "src/components/query/QueryBuilder.css",
+    "src/components/ui/LabelSuggestions.css",
+    "src/components/workspaces/WorkspaceManager.css"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

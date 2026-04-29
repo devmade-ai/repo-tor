@@ -1,0 +1,34 @@
+{
+  "sha": "39a0af7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T00:49:07Z",
+  "subject": "docs: theme chunk wrap-up — session notes, tests, TODO, CLAUDE.md",
+  "body": "- SESSION_NOTES.md: rewritten for the 2026-04-21 session (DaisyUI + theme\n  module, safeStorage, pre-React chrome alignment, React-19 lint cleanup).\n  Captures what's done, current state, and key context for the next\n  session (no UI toggle yet, slate-* utilities pending Chunk 9, three-way\n  duplication of theme defaults documented).\n- TESTING_GUIDE.md: new \"Theme\" section with 6 scenarios before the Login\n  Flow (first paint no-FOUC, stored preference persistence, cross-tab\n  sync, OS fallback, iOS status bar, DebugPill observability). Regression\n  checklist gains 6 theme-related items including a lint=0 gate.\n- TODO.md: Chunk 8 (UI toggle), Chunk 9 (DaisyUI semantic-class migration),\n  Chunk 10 (optional generate-theme-meta script). Places the theme roadmap\n  above deployment items so it's visible in context.\n- CLAUDE.md (Adopted Patterns → THEME_DARK_MODE): PWA manifest rationale,\n  pre-React chrome mechanism, CSP caveat, three-place duplication note.\n  New SAFE_STORAGE entry covers the shared utility + consumer list.\n\nTags: docs, session-notes, testing, pattern-docs\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: theme-dark-mode\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 117,
+    "deletions": 15
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

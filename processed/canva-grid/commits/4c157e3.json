@@ -1,0 +1,34 @@
+{
+  "sha": "4c157e3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-08T19:22:18Z",
+  "subject": "fix(debug): dedup error listeners, fix stale-run stuck state, simplify notify",
+  "body": "1. Duplicate error capture: inline script's error/unhandledrejection listeners\n   now use named handlers so debugLog.js can removeEventListener after takeover.\n   Prevents every error being logged twice (once in __debugErrors, once in debugLog).\n2. PWA diagnostics stale-run: early returns from isStale() guards now call\n   setRunning(false), preventing \"Running...\" from getting stuck permanently.\n3. notify() signature: removed unused `entry` param — no subscriber consumed it.\n\nTags: debug, bugfix, cleanup\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01KWPHuYLV1weWg2cFm9VtjN",
+  "tags": [
+    "bugfix",
+    "simplify"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 26,
+    "deletions": 14
+  },
+  "files": [
+    "index.html",
+    "src/components/DebugPill.jsx",
+    "src/utils/debugLog.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

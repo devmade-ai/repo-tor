@@ -1,0 +1,31 @@
+{
+  "sha": "68e0bf6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:31:08Z",
+  "subject": "fix(dark-mode): replace invalid 'black' print-theme fallback with 'night'",
+  "body": "AppLayout's onAfterPrint restored data-theme via\n`dataset.printTheme || 'black'`. 'black' is not among the themes\nregistered in src/index.css (cmyk, night) — if onAfterPrint ever\nfires without a matching onBeforePrint (or if printTheme stored an\nempty string because data-theme was absent at print time), DaisyUI\nsilently falls back to its default theme instead of the user's\noriginal dark theme. Replaced with 'night' — the correct dark-theme\nfallback, reachable only when printWasDark was 'true'.\n\nNarrow edge case but easy to get right. Single-line change.\n\nOther findings from the dark-mode sweep were either intentional\ndesign (pre-framework inline debug pill renders dark by design —\nper glow-props DEBUG_SYSTEM pattern; the diagnostic surface must\nbe CSS-independent and visually distinct from app theme), require\nbrowser-level contrast measurement rather than code changes, or\nthe agent itself flagged as \"no action needed\".\n\nType-check clean. 116/116 tests pass. Production build succeeds.\n\nTags: dark-mode, daisyui, print, fallback\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 6,
+    "deletions": 1
+  },
+  "files": [
+    "src/components/AppLayout.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}

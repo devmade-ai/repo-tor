@@ -1,0 +1,45 @@
+{
+  "sha": "1e82da2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T07:03:09Z",
+  "subject": "refactor(dashboard): Phase 3 — revert @theme/@utility, use stock Tailwind",
+  "body": "Part of the vanilla-DaisyUI sweep. Removes every custom @theme token\nand @utility directive from styles.css, restoring stock Tailwind\nutilities at every JSX consumer.\n\nDeleted from styles.css:\n  @theme block:\n    --text-8, --text-9, --text-10, --text-11, --text-13\n    --shadow-tooltip, --shadow-dropdown, --shadow-dropzone-glow\n  @utility directives:\n    grid-heatmap-m, grid-heatmap-d\n    w-modal-responsive, max-w-viewport-margin, min-h-hero\n    text-shadow-primary-glow\n\nJSX replacements:\n  text-8/9/10/11 → text-xs (12px)\n  text-13 → text-sm (14px)\n  shadow-tooltip → shadow-lg\n  shadow-dropdown → shadow-xl\n  shadow-dropzone-glow → ring-2 ring-primary ring-offset-2\n  text-shadow-primary-glow → font-semibold (no glow)\n  grid-heatmap-m/d → flex + grid-cols-7 restructure\n  w-modal-responsive → DaisyUI modal-box default\n  max-w-viewport-margin → DaisyUI modal-box default\n  min-h-hero → min-h-screen\n\nTiming heatmap restructured:\n  - Weekly heatmap: dropped per-cell count text (too small to read\n    at 16px cells with 12px text). Tooltip still shows count.\n  - Full heatmap: restructured from `grid-cols-[36px_repeat(7,1fr)]`\n    to flex with fixed label column + inner grid-cols-7 for day cells\n  - All cells drop inline text labels — tooltip-only count display\n\nTests: 61/61 pass. daisyui-surfaces.test.mjs TabBar Phase 7 assertion\nupdated from /text-shadow-primary-glow/ to /font-semibold/ to match\nthe new vanilla active-tab style.\n\nVerified: vite build clean (3.43s), no arbitrary bracket values or\n@theme/@utility references remain in dashboard/js.\n\nTags: refactor, ui, tailwind, daisyui, cleanup, vanilla\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui",
+    "simplify"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-v5-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 13,
+    "additions": 52,
+    "deletions": 136
+  },
+  "files": [
+    "dashboard/js/components/DropZone.jsx",
+    "dashboard/js/components/EmbedRenderer.jsx",
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/HamburgerMenu.jsx",
+    "dashboard/js/components/HeatmapTooltip.jsx",
+    "dashboard/js/components/InstallInstructionsModal.jsx",
+    "dashboard/js/components/QuickGuide.jsx",
+    "dashboard/js/components/SettingsPane.jsx",
+    "dashboard/js/components/TabBar.jsx",
+    "dashboard/js/sections/Projects.jsx",
+    "dashboard/js/sections/Timing.jsx",
+    "dashboard/styles.css",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

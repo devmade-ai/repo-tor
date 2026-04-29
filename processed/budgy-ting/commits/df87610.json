@@ -1,0 +1,31 @@
+{
+  "sha": "df87610",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T20:54:52Z",
+  "subject": "i18n(chart): browser-locale axis + tooltip dates in CashflowGraph",
+  "body": "Replaces ApexCharts' built-in format strings ('dd MMM' and\n'dd MMM yyyy') with custom formatters backed by\ntoLocaleDateString(undefined, …). ApexCharts' internal format string\nalways emits English month abbreviations regardless of browser\nlocale; a custom formatter defers to the OS/browser preference.\n\nMatches the formatting scheme already used elsewhere:\n- useFormat.formatDateForDisplay uses toLocaleDateString(undefined, …)\n- CashflowGraph tooltip Y values + SR chart summary use\n  toLocaleString(undefined, …)\nSo the chart axes are now the last place picking up the locale.\n\nEffect today: zero visible change — the entire UI is still English,\nso English month abbreviations were consistent. The value is\nforward-looking: the moment any user-facing copy is translated,\nthe chart axes track the locale automatically without a separate\nchange.\n\nClears the corresponding item from docs/TODO.md (Internationalization\nsection).\n\nType-check clean. 135/135 tests pass. Production build succeeds.\n\nTags: i18n, chart, apexcharts, locale\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
+  "tags": [
+    "i18n"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 16,
+    "deletions": 2
+  },
+  "files": [
+    "src/components/CashflowGraph.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}

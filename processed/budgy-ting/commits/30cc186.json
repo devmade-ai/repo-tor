@@ -1,0 +1,40 @@
+{
+  "sha": "30cc186",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T20:39:12Z",
+  "subject": "test+chore: pure helper extractions + comment trims",
+  "body": "Concrete actions from the \"overall happy?\" self-review.\n\nTesting (actionable gaps from wrap #2)\n- Extracted formatStorageSize + reconcileRemoveRow to\n  src/lib/reviewHelpers.ts. Both were inline in views with no tests.\n- Added 10 tests in src/lib/reviewHelpers.test.ts: KB/MB/GB boundaries\n  for size formatting; tagInputIndex shift/clear/stable cases;\n  currentPage clamp-to-bounds for removeRow.\n- WorkspaceListView and ImportStepReview now import the helpers;\n  ImportStepReview's removeRow collapses from 10 lines to 3.\n- Test count: 135 → 145 (+10).\n\nSkipped the radiogroup arrow-key focus test in TODO.md — mounting\nWorkspaceForm for one assertion pulls in DateInput, router, the\nvalidation composable, and `nextTick` focus semantics. Return on\ninvestment is low vs. writing the plain test. Same story for the\ndebounced runway watcher and loadStorageUsage's async branch —\nqueued in TODO rather than force-fit into happy-dom.\n\nUI smoke (wrap #1 — partial)\n- Ran `vite dev` against the branch; server booted in 1050 ms and\n  served index.html (9 KB). Strictly weaker than opening a browser,\n  but confirms the module graph compiles in dev mode (not just\n  build) — the HMR guards, async components, and template updates\n  at least parse.\n\nComment trims (wrap #6)\n- CashflowGraph chartSummary: 10-line Requirement/Approach/Alts\n  preamble → 3 lines. Value of the sentence-form-over-data-table\n  argument was low.\n- useDialogA11y top docblock: 19 lines → 7. The \"per-instance\n  listener was the old design\" line is the one load-bearing detail;\n  the rest was restating Vue lifecycle.\n- WorkspaceDashboard chart-split preamble: 6 lines → 3.\n\nLeft untrimmed: HMR dispose blocks (usePWAInstall, usePWAUpdate,\ndebugLog, useDarkMode), the chartSummary *function body* comment\non locale formatting, and TransactionEditModal isDirty comment\nreferencing the pure helper. All explain non-obvious WHY.\n\nNot fixed: scope-creep framing in earlier commit messages (wrap\n#1 on bundle-impact wording), mid-branch regression (wrap #3 —\nhistory stands), and the a11y audits' surface-sampling nature\n(wrap #5). None retroactively fixable without history rewrites or\nadditional audits.\n\nType-check clean. 145/145 tests pass. Production build succeeds.\n\nTags: tests, refactor, docs, cleanup\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
+  "tags": [
+    "test-unit",
+    "refactor",
+    "comments"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 8,
+    "additions": 162,
+    "deletions": 54
+  },
+  "files": [
+    "docs/TODO.md",
+    "src/components/CashflowGraph.vue",
+    "src/composables/useDialogA11y.ts",
+    "src/lib/reviewHelpers.test.ts",
+    "src/lib/reviewHelpers.ts",
+    "src/views/WorkspaceDashboard.vue",
+    "src/views/WorkspaceListView.vue",
+    "src/views/import-steps/ImportStepReview.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}

@@ -1,0 +1,31 @@
+{
+  "sha": "4de44a7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T19:22:26Z",
+  "subject": "perf(pwa): pause SW update polling when tab is hidden",
+  "body": "Current setInterval runs even when the tab is backgrounded, wasting\nwork and battery. Add a module-level visibilitychange listener that\nclears the interval on hidden and resumes with an immediate check on\nvisible. Also skip starting the interval at init time if the tab is\nalready hidden.\n\nAttached inside initUpdateDetection() alongside the controllerchange\nlistener, so the existing _initialized guard prevents duplicate\nlisteners under HMR and Platform.OS !== 'web' still gates native\nbuilds.\n\nTags: pwa, performance, hooks\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-polish\nSemver: patch",
+  "tags": [
+    "performance"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 44,
+    "deletions": 6
+  },
+  "files": [
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

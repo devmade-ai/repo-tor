@@ -1,0 +1,31 @@
+{
+  "sha": "8986625",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T21:55:15Z",
+  "subject": "docs(claude): add reuse trigger — custom-vs-stdlib balance + reusability + speculative code",
+  "body": "Gap in the quality group: `simplify` covers \"could this specific bit be\nsimpler\" but doesn't answer \"how much of our code is custom that\nshouldn't be / reusable that isn't / solving problems we don't have.\"\n\nNew trigger:\n- `reuse` / `rus` — audits custom-vs-stdlib balance, extract-for-reuse\n  opportunities, premature generality, speculative parameters, defensive\n  checks for impossible states, unused configurability.\n\nDistinction from `simplify`: simplify is tactical (smaller form of this\ncode); reuse is strategic (should this code exist / be reusable / be\ngeneralized at all).\n\nTrigger count: 41 → 42. Renumbered ops/design/fleet groups accordingly.\n\nTags: documentation, triggers, claude-md\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: triggers-redesign\nSemver: minor\n\nhttps://claude.ai/code/session_013TSNyXMQiUmG4hPbycbrZT",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "triggers-redesign",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 15,
+    "deletions": 14
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

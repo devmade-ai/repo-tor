@@ -127,32 +127,51 @@ export function debugGenerateReport() {
     return lines.join('\n');
 }
 
+// --- HMR cleanup wiring ---
+// Requirement: When Vite hot-reloads this module, every listener and console
+//   patch installed by the previous instance must be released before the new
+//   instance attaches its own. Without explicit dispose, listeners and patched
+//   console methods accumulate across hot-reloads (the existing window-flag
+//   guards prevent double-attach but never release the originals).
+// Approach: Module-level AbortController for the two window listeners +
+//   captured original console methods + an import.meta.hot.dispose block that
+//   aborts, restores, and clears the window guards so the next module load
+//   re-runs the attach paths cleanly.
+// Alternatives:
+//   - Per-listener removeEventListener with named handlers: Rejected — more
+//     boilerplate, error-prone if a handler is missed.
+//   - Skip dispose, rely on guards alone: Rejected — guards prevent double
+//     attach on the SAME page lifecycle, but stale handlers from the old
+//     module instance keep firing into the dead module's closure.
+const debugAbortController = new AbortController();
+let originalConsoleError = null;
+let originalConsoleWarn = null;
+
 // --- Console interception ---
 // Requirement: Capture React warnings, library errors, and any console output automatically
 // Approach: Patch console.error and console.warn at module load time. Original methods are
 //   preserved and called first so DevTools output is unchanged.
-// HMR guard: Without this, each Vite hot reload re-captures the already-patched console
-//   methods as "originals," creating nested wrapper chains. After N reloads, each
-//   console.error call produces N debug entries. The guard ensures patching happens once.
+// HMR guard: belt-and-suspenders with the dispose block above — guard prevents
+//   double-attach if dispose ever misfires, dispose actively unpatches on hot-reload.
 // Alternatives:
 //   - Explicit debugAdd calls everywhere: Rejected — misses third-party library errors
 //   - window.onerror only: Rejected — doesn't capture console.warn (React warnings)
 if (!window.__debugConsolePatched) {
     window.__debugConsolePatched = true;
-    const originalError = console.error;
-    const originalWarn = console.warn;
+    originalConsoleError = console.error;
+    originalConsoleWarn = console.warn;
 
     function safeString(val) {
         try { return String(val); } catch { return '[unstringifiable]'; }
     }
 
     console.error = (...args) => {
-        originalError.apply(console, args);
+        originalConsoleError.apply(console, args);
         debugAdd('global', 'error', args.map(safeString).join(' '));
     };
 
     console.warn = (...args) => {
-        originalWarn.apply(console, args);
+        originalConsoleWarn.apply(console, args);
         debugAdd('global', 'warn', args.map(safeString).join(' '));
     };
 }
@@ -160,7 +179,8 @@ if (!window.__debugConsolePatched) {
 // --- Global error capture ---
 // Requirement: Capture crashes before React mounts
 // Approach: window.error and unhandledrejection listeners installed at module load time.
-//   HMR guard prevents duplicate listeners during development.
+//   AbortController signal removes them on HMR dispose; window guard prevents
+//   double-attach if dispose ever misfires.
 if (!window.__debugLogListenersAttached) {
     window.__debugLogListenersAttached = true;
 
@@ -170,11 +190,11 @@ if (!window.__debugLogListenersAttached) {
             lineno: e.lineno,
             colno: e.colno,
         });
-    });
+    }, { signal: debugAbortController.signal });
 
     window.addEventListener('unhandledrejection', (e) => {
         debugAdd('global', 'error', `Unhandled rejection: ${e.reason}`);
-    });
+    }, { signal: debugAbortController.signal });
 }
 
 // --- Bridge pre-existing inline pill errors ---
@@ -197,4 +217,16 @@ if (Array.isArray(window.__debugErrors) && window.__debugErrors.length > 0) {
 window.__debugPushError = function (msg, stack) {
     debugAdd('global', 'error', msg, stack ? { stack } : undefined);
 };
+
+// HMR teardown: release listeners, restore console, clear guards. Runs before
+// the new module instance loads, so the new instance starts from a clean slate.
+if (import.meta.hot) {
+    import.meta.hot.dispose(() => {
+        debugAbortController.abort();
+        if (originalConsoleError) console.error = originalConsoleError;
+        if (originalConsoleWarn) console.warn = originalConsoleWarn;
+        delete window.__debugConsolePatched;
+        delete window.__debugLogListenersAttached;
+    });
+}
 

@@ -1,0 +1,35 @@
+{
+  "sha": "bbaa90b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T14:39:01Z",
+  "subject": "feat(pwa): apply standardized install/update patterns to implementation",
+  "body": "Applies all patterns from the cross-repo audit to glow-props' actual pwa.js:\n- Data-driven getInstallInstructions() replaces hardcoded HTML strings\n- Benefits section in install modal (offline, dock, full-screen)\n- appinstalled event listener cleans up state on successful install\n- Focus trap on install modal for keyboard accessibility\n- Reusable showToast() with DaisyUI semantic colors and exit animation\n- Coarse browser detection with iOS/macOS split inside instructions\n- backdrop-blur-sm on modal, 1s Safari/Firefox fallback timeout\n\nTags: pwa, install, accessibility, ux, standardization\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa-system\nSemver: minor\n\nhttps://claude.ai/code/session_0113x2dhJ4gD9iUKygB9gLjt",
+  "tags": [
+    "feature",
+    "ux",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pwa-system",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 316,
+    "deletions": 89
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/pwa.js"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

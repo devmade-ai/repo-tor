@@ -1,0 +1,32 @@
+{
+  "sha": "9c534b8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T22:08:57Z",
+  "subject": "fix(docs): update TutorialModal + CLAUDE.md for ThemeSelector",
+  "body": "TutorialModal.jsx line 182: \"Click the sun/moon button\" was stale after\nThemeSelector replaced the simple dark mode toggle. Updated to describe\nthe new theme selector dropdown.\n\nCLAUDE.md line 556: useDarkMode.js description updated from \"Dark mode\ntoggle\" to \"Dark mode + per-mode DaisyUI theme selection\" to reflect\nthe hook's expanded responsibility.\n\nTags: docs, tutorial, theme\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01QDdpPbsw1PaMMrwihoc5hG",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/TutorialModal.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

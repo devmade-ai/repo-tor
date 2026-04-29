@@ -1,0 +1,49 @@
+{
+  "sha": "574ae0d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-20T00:14:53Z",
+  "subject": "feat(debug): centralize caught-error logging via logError helper",
+  "body": "Closes the last deferred item from the debug-report sweep. Across the\ncodebase, ~21 catch sites called showToast() (or setError on state)\nbut never logged the underlying exception to debugLog. Same class of\nblind spot as the oklch + worker-console fixes: the underlying failure\nexists only in the user-facing toast, which the user may dismiss before\nreporting anything.\n\nutils/errorLog.ts (new)\n- logError(source, event, err): normalizes unknown err to\n  `${message}\\n${stack}` for Error instances, String() for anything\n  else, and calls debugLog(source, 'error', event, details).\n- Does NOT toast. Logging and user-facing feedback stay orthogonal\n  so the same helper fits both toast-emitting catches and state-\n  storing catches (ImportModal setError, useTagSuggestions setError,\n  etc.). Coupling them would force every caller to plumb showToast\n  through, and would break for non-toasting catches.\n- 4 unit tests: Error with stack, Error without stack, non-Error\n  coercion (string/object/null/undefined), single side-effect contract.\n\nCallsites updated (21 total):\n- App.tsx (5): node create, arc create, bulk delete, duplicate node,\n  delete node from context menu.\n- NodeDetail (2): save, delete.\n- ArcDetail (2): save, delete.\n- DetailPanel (3): bulk add/remove label, bulk set property.\n- WorkspaceManager (3): create, rename, delete.\n- AnalysisPanel (1): algorithm failure (includes algorithm name in\n  event for easier diagnosis).\n- ImportModal (3): JSON parse/validate, import apply, undo import.\n- SmartMatchingStep (1): embedding + matching pipeline.\n- DuplicateScannerModal (3): scan, node merge, arc merge.\n- useTagSuggestions (2): engine init, suggestLabels.\n- useEmbeddingEngine (1): engine init.\n\nSkipped (intentional, documented):\n- safeStorage, propertyUtils (JSON parse fallback), DebugPill/\n  ExportModal/ConventionsModal clipboard fallbacks, usePWAInstall\n  analytics — silence IS the contract; no log needed.\n- main.tsx, useGraphData, usePWAUpdate, seedService, eventBus,\n  cssColor — already log via debugLog.\n- Worker catches post error messages back to main via the existing\n  message protocol; console.warn/error inside workers are already\n  forwarded via workerDebugLog.ts from the previous commit.\n\n330 tests pass (up from 326). Lint + build clean.\n\nDocs\n- CLAUDE.md: errorLog.ts added to the utils block.\n- docs/SESSION_NOTES.md: new section describing the change.\n- docs/TODO.md: central error-logging item removed (done).\n\nTags: feature, debug, observability, error-handling, refactor\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: alpha-debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_015rKh5k6MFgfyjNZDfGaWzV",
+  "tags": [
+    "feature",
+    "monitoring",
+    "error-handling",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "alpha-debug-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 16,
+    "additions": 155,
+    "deletions": 21
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/App.tsx",
+    "src/components/analysis/AnalysisPanel.tsx",
+    "src/components/duplicates/DuplicateScannerModal.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/importExport/SmartMatchingStep.tsx",
+    "src/components/panels/ArcDetail.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/panels/NodeDetail.tsx",
+    "src/components/workspaces/WorkspaceManager.tsx",
+    "src/hooks/useEmbeddingEngine.ts",
+    "src/hooks/useTagSuggestions.ts",
+    "src/utils/errorLog.test.ts",
+    "src/utils/errorLog.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

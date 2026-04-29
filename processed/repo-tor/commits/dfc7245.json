@@ -1,0 +1,31 @@
+{
+  "sha": "dfc7245",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T22:38:38Z",
+  "subject": "perf(timeline): handleCardClick builds only the count it needs",
+  "body": "Audit finding #15 — `Timeline.handleCardClick('contributors')` was\nbuilding a `{ email: { name, count } }` object map by iterating\nevery filtered commit, then sorting the values, then reading\n`sorted.length` off the sorted array to pass as a subtitle to\n`openDetailPane`. The full `filteredCommits` array is passed through\nas the detail-pane payload anyway — the detail pane does its own\nper-author aggregation downstream — so the intermediate map and the\nsort were allocating + mutating work whose only output was a\nsingle integer (unique-author count).\n\nReplaced with:\n\n    const uniqueAuthors = new Set(filteredCommits.map(getAuthorEmail)).size;\n\nOne pass over the email stream, one Set, zero intermediate objects,\nzero sort. Behaviour is identical (same subtitle string, same\npayload). On a 10k-commit repo this drops the allocation profile\nfrom O(n) objects + O(k log k) sort to O(n) Set inserts.\n\n`getAuthorName` import still used at line 187 (commit-row author\nname rendering in the commit list) — not touched.\n\nBuild clean (880.14 kB → 880.01 kB, -0.13 kB from the slightly\nshorter callback body), 60/60 tests pass.\n\nTags: performance, cleanup, audit\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "performance"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 9,
+    "deletions": 10
+  },
+  "files": [
+    "dashboard/js/sections/Timeline.jsx"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

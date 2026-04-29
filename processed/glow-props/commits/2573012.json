@@ -1,0 +1,33 @@
+{
+  "sha": "2573012",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T04:09:16Z",
+  "subject": "fix(spacing): resolve 5 spacing issues across both pages",
+  "body": "1. Hero top padding (index.html): Reduced from 3rem to 2rem total gap\n   between nav and hero h1. Previous 2rem hero padding + 1rem Pico main\n   padding was excessive, especially on mobile.\n\n2. Section separation (index.html): Increased section margin-bottom from\n   1rem to 2.5rem. Pico's default 1rem created weaker inter-section gaps\n   than the 1.5rem intra-section subtitle gap, inverting visual hierarchy.\n\n3. Vertical rhythm (project.html): Unified hero, meta-grid, and doc-tabs\n   bottom margins to 1.5rem. Previous values (1rem, 2rem, 1.5rem) created\n   inconsistent spacing between content blocks at the same hierarchy level.\n\n4. Footer double spacing (both pages): Added last-child margin reset.\n   Pico's body > footer padding-block (1rem) combined with p margin-bottom\n   (1rem) doubled the bottom space.\n\n5. Back link (project.html): Added .back-link class with smaller font size\n   to visually de-emphasize navigation and differentiate from hero content.\n\nTags: ui, spacing, css, layout\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: header-polish\nSemver: patch\n\nhttps://claude.ai/code/session_014wBL3hWTyiurDZphoiUrxE",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "header-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 53,
+    "deletions": 4
+  },
+  "files": [
+    "project.html",
+    "styles.css"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

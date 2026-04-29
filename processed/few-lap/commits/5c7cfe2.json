@@ -1,0 +1,42 @@
+{
+  "sha": "5c7cfe2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T23:23:44Z",
+  "subject": "refactor(ui): convert StyleSheet.create to Tailwind className across 8 components",
+  "body": "StyleSheet.create duplicated what Tailwind className already provides for layout, spacing,\ntypography, and theme colors. Reserved StyleSheet only for properties that need it: custom\nshadows, z-index positioning, StyleSheet.hairlineWidth, withAlpha(), and Animated values.\n\nEliminated StyleSheet entirely:\n- MapErrorBoundary: 3 styles → 0, removed useTheme() import\n- PriceDisplay: 4 styles → 0\n- LocationSearch: 13 styles → 0\n- InstallInstructionsModal: 19 styles → 0\n- HeaderFilters: 10 styles → 0\n\nReduced StyleSheet:\n- BurgerMenu: 7 styles → 2 (DROPDOWN_CARD + hairlineWidth separator)\n- Toast: 6 styles → 2 (container positioning + toast shadow)\n- StationList: 9 styles → 1 (listContent safe area padding)\n\nNet: -500 lines removed, +148 lines added.\n\nTags: refactor, ui, tailwind, daisyui, cleanup, stylesheet\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: theme-integration\nSemver: patch\n\nhttps://claude.ai/code/session_01VJGL4EBYzHhRdw1gp7EMHL",
+  "tags": [
+    "refactor",
+    "ui",
+    "simplify"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theme-integration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 10,
+    "additions": 148,
+    "deletions": 500
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/map/MapErrorBoundary.tsx",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/search/HeaderFilters.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/components/station/PriceDisplay.tsx",
+    "src/components/station/StationList.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/components/ui/Toast.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

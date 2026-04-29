@@ -1,0 +1,36 @@
+{
+  "sha": "32771c7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T12:22:20Z",
+  "subject": "refactor(ux): move restore-from-backup to burger menu",
+  "body": "Extracted restore logic into useRestoreWorkspace composable. Burger\nmenu now has \"Restore from backup\" item — always accessible from any\npage. Workspace list header simplified to just \"New Workspace\".\nEmpty state keeps \"Restore from file\" as a discovery affordance,\ncalling the injected trigger from AppLayout via provide/inject.\n\nTags: ux, burger-menu, refactor\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: data-management\nSemver: minor\n\nhttps://claude.ai/code/session_01BcrjMzrkT3CbZ9axt9gXnm",
+  "tags": [
+    "refactor",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "data-management",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 160,
+    "deletions": 117
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "src/components/AppLayout.vue",
+    "src/composables/useRestoreWorkspace.ts",
+    "src/views/WorkspaceListView.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

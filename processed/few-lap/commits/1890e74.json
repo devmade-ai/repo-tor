@@ -1,0 +1,32 @@
+{
+  "sha": "1890e74",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T07:49:05Z",
+  "subject": "debug(pwa): temporarily enable DebugPill in all environments",
+  "body": "Enable debug pill and logging in production builds for PWA testing.\nThree changes, all marked TEMPORARY with revert instructions:\n\n1. _layout.tsx: DebugPill loaded unconditionally (was __DEV__ only)\n2. debugLog.ts debugAdd(): __DEV__ gate removed (was no-op in prod)\n3. debugLog.ts global error capture: __DEV__ gate removed\n\nRevert after verifying PWA on deployed site.\n\nTags: debug, pwa, temporary\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: added\nEpic: pwa-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01SzwWDKFZ8WhqtTpdYCiqct",
+  "tags": [
+    "monitoring"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "added",
+  "epic": "pwa-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 10,
+    "deletions": 9
+  },
+  "files": [
+    "app/_layout.tsx",
+    "src/debug/debugLog.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

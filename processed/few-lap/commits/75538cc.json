@@ -1,0 +1,33 @@
+{
+  "sha": "75538cc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T23:14:30Z",
+  "subject": "feat(theme): change default theme combo from Teal to Nordic",
+  "body": "Nordic (nord light / abyss dark) is now the default combo. Updated\nDEFAULT_COMBO constant and the mandatory light/dark CSS variants\nin global.css to use nord/abyss values.\n\nThe +html.tsx body background automatically picks up the change via\nresolveThemeName(DEFAULT_COMBO, true) — no manual update needed.\n\nTags: theme, daisyui, ux\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: daisyui-theme-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01EAwig8kSZ6S91pb3wP7tv4",
+  "tags": [
+    "ui",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "daisyui-theme-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 43,
+    "deletions": 43
+  },
+  "files": [
+    "src/global.css",
+    "src/lib/themeColors.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

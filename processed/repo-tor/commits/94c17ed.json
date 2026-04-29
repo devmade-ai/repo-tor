@@ -1,0 +1,37 @@
+{
+  "sha": "94c17ed",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T11:36:50Z",
+  "subject": "fix: add /embed path route for cross-origin iframe support",
+  "body": "The X-Frame-Options: SAMEORIGIN header (audit fix H4, 19e1e21)\nblocked cross-origin iframes, breaking embeds in see-veo and other\napps. Vercel matches headers by path only, not query params, so\nthe /?embed= route couldn't be exempted.\n\nSolution: Add /embed path with X-Frame-Options exempted in vercel.json.\nNew URL format: /embed?charts=id1,id2 (cross-origin safe).\nLegacy /?embed= still works for same-origin use.\n\nChanges:\n- vercel.json: restore SAMEORIGIN, exempt /embed and /embed.js paths\n- App.jsx: detect embed mode from /embed path + ?charts= param\n- index.html: skip debug pill on /embed path\n- EMBED_REFERENCE.md: document new /embed URL format\n\nNote: see-veo needs to update EMBED_BASE or iframe URLs to use\n/embed?charts= instead of /?embed= for cross-origin to work.\n\nTags: security, embed, bugfix\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: embed-system\nSemver: patch\n\nhttps://claude.ai/code/session_01NJidJUBTVXpGasGxA8qzhJ",
+  "tags": [
+    "bugfix",
+    "security"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "embed-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 48,
+    "deletions": 10
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/js/App.jsx",
+    "docs/EMBED_REFERENCE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "vercel.json"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 4,
+  "impact": "user-facing"
+}

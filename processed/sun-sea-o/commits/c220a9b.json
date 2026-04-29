@@ -1,0 +1,41 @@
+{
+  "sha": "c220a9b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T22:03:41Z",
+  "subject": "chore(pwa): close remaining gaps — HMR guard, typed versioned, docs, tests",
+  "body": "Addresses every deferred / out-of-scope item from the PWA hardening\nsession: HMR listener safety, regex coverage, type safety, test depth,\nand documentation for both manual QA and end-users.\n\nsrc/lib/pwa.ts:\n- initPwaGlobalListeners now guards on window.__pwaGlobalListenersAttached,\n  not a module-scoped _globalInit variable. Module-scope resets on Vite\n  HMR and would re-attach visibilitychange + controllerchange listeners\n  each hot reload, duplicating fires. Window-scope survives module\n  re-evaluation — same shape as src/utils/debugLog.ts's listener guard.\n- _resetPwaStateForTesting() exported so vitest can isolate module state\n  between tests. Underscore-prefixed + \"ForTesting\" named to surface\n  misuse in code search.\n\nsrc/types/browser.d.ts:\n- Declares Window.__pwaGlobalListenersAttached alongside the existing\n  debugLog guard flag.\n\nvite.config.ts:\n- versioned() is now typed on a literal union (`IconPath`) derived from\n  ICON_PATHS as const — a typo like versioned('typo.png') fails at\n  compile time instead of silently shipping `?v=undefined`. Runtime\n  throw added as belt-and-braces.\n- Final-sweep ICON_LINK_RE widened to cover `mask-icon` (Safari pinned\n  tabs) and `apple-touch-startup-image` (iOS splash). A future <link\n  rel=\"mask-icon\"> added without updating REPLACEMENTS now throws at\n  build time instead of leaking un-versioned.\n\nsrc/__tests__/iconCacheBust.test.ts:\n- 6 new source-level tripwires: sha256 (not timestamp) hashing,\n  REPLACEMENTS-literal-missing throw, un-versioned-sweep throw,\n  regex covers every icon-bearing rel, versioned() runtime throw.\n\nsrc/__tests__/pwaSingleton.test.ts:\n- 14 new unit tests for the lib/pwa.ts singleton. Covers the 30s\n  suppression window, hasUpdate / offlineReady transitions + auto-\n  dismiss with vi.useFakeTimers, snapshot referential stability\n  (critical for useSyncExternalStore), subscribe/unsubscribe +\n  listener-isolation-on-throw, and checkForUpdate() 'no-sw' branch.\n  Inline sessionStorage shim avoids pulling jsdom/happy-dom for a\n  tiny test suite.\n\ntsconfig.test.json:\n- Added DOM + DOM.Iterable libs so transitive imports from src/lib/\n  type-check under the test project. Added src/types/**/* to include\n  so Window.__pwaGlobalListenersAttached augmentation resolves.\n\ndocs/TESTING_GUIDE.md:\n- 8 new manual scenarios covering Chunk 9 + 10: visibility-based update\n  detection, 30s suppression, Check for updates menu item, controller-\n  change reload guard, manifest identity fields, offline icon render,\n  hash stability across rebuilds, Install modal outdated-icon\n  disclosure. Regression checklist extended with 10 new PWA items.\n\ndocs/USER_GUIDE.md:\n- New \"Installing Sancio as an App\" section (platform notes for\n  iOS / macOS / Android / Firefox + guidance on stale-icon issues).\n- New \"Checking for Updates\" section explaining auto-detection vs\n  manual Check for updates, with plain-language typed-result copy.\n\n25 tests total. Build + lint + typecheck + tests all clean.\n\nTags: pwa, testing, documentation, infrastructure, hardening\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_01Qj2ueAEuobTogrBRFwAXvc",
+  "tags": [
+    "bugfix",
+    "types",
+    "test-unit",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-hardening",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 8,
+    "additions": 471,
+    "deletions": 14
+  },
+  "files": [
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md",
+    "src/__tests__/iconCacheBust.test.ts",
+    "src/__tests__/pwaSingleton.test.ts",
+    "src/lib/pwa.ts",
+    "src/types/browser.d.ts",
+    "tsconfig.test.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -37,7 +37,7 @@ import { fileURLToPath } from 'url';
 
 const execFileAsync = promisify(execFileCb);
 
-import { parseCommitMessage, extractBreakingChange, extractReferences } from './lib/commit-parsing.js';
+import { extractBreakingChange } from './lib/commit-parsing.js';
 import { toKebabCase, writeJson } from './lib/utils.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -327,31 +327,14 @@ function detailToCommit(item, details) {
     const authorEmail = details.commit.author?.email || `${details.author?.login || 'unknown'}@users.noreply.github.com`;
     const authorDate = details.commit.author?.date || new Date().toISOString();
 
-    // Extract committer info
-    const committerName = details.commit.committer?.name || details.committer?.login || authorName;
-    const committerEmail = details.commit.committer?.email || authorEmail;
-    const committerDate = details.commit.committer?.date || authorDate;
-
-    // Parse conventional commit format
-    const parsed = parseCommitMessage(subject);
-
-    // Extract references from message
-    const references = extractReferences(subject, body);
-
     return {
       sha: item.sha.substring(0, 7),
-      fullSha: item.sha,
       author_id: authorEmail.toLowerCase(),
       author: {
         name: authorName,
         email: authorEmail
       },
-      committer: {
-        name: committerName,
-        email: committerEmail
-      },
       timestamp: authorDate,
-      commitDate: committerDate,
       subject: subject,
       body: body,
       tags: [],              // Empty - AI will populate
@@ -360,11 +343,7 @@ function detailToCommit(item, details) {
       debt: null,            // Null - AI will assess (added|paid|neutral)
       epic: null,            // Null - AI will assign free-text grouping label
       semver: null,          // Null - AI will assess (patch|minor|major)
-      scope: parsed.scope,
-      title: parsed.title,
-      is_conventional: parsed.is_conventional,
-      has_breaking_change: parsed.breaking || extractBreakingChange(subject, body),
-      references: references,
+      has_breaking_change: extractBreakingChange(subject, body),
       // Fix: filesChanged should directly use files array length, not gate on stats.total
       // which is the sum of additions+deletions (unrelated to file count)
       stats: {

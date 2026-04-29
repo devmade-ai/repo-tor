@@ -1,0 +1,31 @@
+{
+  "sha": "de90717",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T22:30:29Z",
+  "subject": "docs(claude): align CLAUDE.md with glow-props (missing rules + cleanup patterns)",
+  "body": "Fleet-alignment pass via `align` trigger. Backfills six items that\ndrifted from glow-props CLAUDE.md:\n\nCommunication\n- \"Work, not process\" — don't opine on branching/PR/git process\n\nCode Standards\n- New \"Timer and Subscription Cleanup\" subsection covering paired\n  cleanup for setTimeout/setInterval/addEventListener/subscribe, Vue 3\n  Composition API pairing (onMounted/onBeforeUnmount, onScopeDispose),\n  plain-module AbortController/dispose(), and HMR-safe guards with\n  import.meta.hot.dispose(). References glow-props TIMER_LEAKS.md.\n\nAI Notes\n- \"All code is yours\" — all repo work is prior assistant work; don't\n  hedge authorship or investigate as third-party.\n\nProhibitions (three new entries)\n- No mention of branches/PRs/squash/rebase/merge/force-push unless\n  user raises it first\n- No \"out of scope\" framing — work is doable or blocked on input\n- No opinions on git history editing, branch strategy, PR size,\n  review flow, or commit structure\n\nLocal strengthenings (ABSOLUTE RULE on AskUserQuestion, Z-Index Scale,\nDaisyUI sync points, Project Status, EVENT_BUS not-applicable note)\nkept as intentional divergences per align comparison.\n\nTags: docs, claude-md, fleet-alignment\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 13,
+    "deletions": 0
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

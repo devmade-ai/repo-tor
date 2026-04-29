@@ -1,0 +1,36 @@
+{
+  "sha": "1e19858",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T23:19:48Z",
+  "subject": "chore(dashboard): delete 5 stale aggregate artefacts at dashboard/ root",
+  "body": "Resolves the `scripts/aggregate.js` data-flow investigation that was\nparked in TODO.md after the first audit pass.\n\nInvestigation findings:\n\n  1. **scripts/aggregate.js is NOT dead code.** It's the\n     multi-repository aggregation script for the @data / admin\n     persona, documented in 4 places:\n       - docs/ADMIN_GUIDE.md (primary workflow guide, 4 references)\n       - docs/DATA_OPERATIONS.md (1 reference)\n       - docs/DISCOVERY_SESSION.md (persona mapping)\n       - docs/CODE_REVIEW.md (review notes)\n     It's a hand-run CLI tool, not part of any npm script or CI\n     workflow. No repository has an automated pipeline around it.\n\n  2. **aggregate.js does NOT write to dashboard/.** Its default\n     output directory is `aggregated/` (hardcoded at line 21:\n     `let outputDir = 'aggregated'`). The docs show examples using\n     `--output=combined` and similar — none target `dashboard/`.\n\n  3. **The 5 stale JSON files at dashboard/ root are artefacts of a\n     deprecated workflow.** Specifically:\n       - dashboard/commits.json       (870 kB)\n       - dashboard/contributors.json  (2 kB)\n       - dashboard/files.json         (87 kB)\n       - dashboard/metadata.json      (1 kB)\n       - dashboard/summary.json       (2 kB)\n     First committed 2026-02-11 (`546f487` merge PR #61), last\n     touched 2026-04-02 (`6fc20cf` chatty-chart purge). Not gitignored.\n     Zero consumers anywhere in the tree:\n       - `grep -rn '/commits\\.json\\|/contributors\\.json|...' dashboard/\n         scripts/ vite*.js package.json | grep -v public/data` finds\n         only self-references (the JSON files contain old commit\n         messages that quote these filenames as text, not as imports).\n       - `dashboard/js/` grep for any runtime loader: zero matches.\n     These files were the output of an OLDER aggregate.js invocation\n     (probably `--output=dashboard`) back when the dashboard loaded\n     from `dashboard/commits.json` at runtime, before the 2026-02\n     restructure to `dashboard/public/data/` served by Vite.\n     `scripts/aggregate-processed.js` now writes to\n     `dashboard/public/` (verified — line 28:\n     `DEFAULT_OUTPUT = path.join(__dirname, '..', 'dashboard', 'public')`),\n     which is the ONLY data-flow feeding the runtime dashboard.\n\nAction taken:\n\n  - Deleted the 5 stale JSON files. Total reclaimed: ~960 kB.\n  - `aggregate.js` kept as-is — it's a documented tool with a real\n    consumer (the admin/maintainer persona). Its header comment\n    block still describes its intended use and doesn't need\n    \"consumer documentation\" since the docs already have it.\n  - `aggregate-processed.js` kept as-is — it's the active runtime\n    data pipeline.\n  - TODO.md investigation entry removed (resolved).\n\nVerified after deletion:\n  - Build clean (879.95 kB → 879.86 kB — the PWA precache dropped\n    0.09 kB because the 5 files were being precached by the service\n    worker's default glob)\n  - 60/60 tests pass\n  - Dashboard still loads data from `dashboard/public/data/*.json`\n    via the existing data-loading path in App.jsx (unchanged)\n\nTags: cleanup, dead-code, investigation, audit\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 0,
+    "deletions": 27580
+  },
+  "files": [
+    "dashboard/commits.json",
+    "dashboard/contributors.json",
+    "dashboard/files.json",
+    "dashboard/metadata.json",
+    "dashboard/summary.json",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "d6d7927",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:44:06Z",
+  "subject": "fix(export): wrap-pass follow-up — callback safety, sunset signal, regression doc",
+  "body": "Addresses every wrap-pass finding (13 items) including the items the wrap\nitself flagged as deferred or out-of-scope.\n\nCallback safety (#2):\n- New safeWarn() helper wraps every onWarning?.(...) call in try/catch.\n  Without it, a buggy caller-supplied callback throwing during partial-weight\n  failure handling would cascade into the per-font .catch (which calls\n  onWarning again), producing an unhandled rejection that aborts the entire\n  export. Two tests cover the path: throwing onWarning during per-font\n  failure and during partial-weight failure — both must NOT break the\n  export and surviving weights must still inline.\n\nTest coverage (#3):\n- New pwaCleanup.test.js (3 tests): happy path calls delete for both\n  pre-rename names; missing globalThis.caches is a no-op (non-PWA env);\n  rejected delete is swallowed (idempotent on missing cache).\n\nTest fixture cleanup (#8, #9):\n- Replaced the leaky `_text` field on the Blob mock with a\n  WeakMap<Blob, string> lookup. Mock now uses real `new Blob([text])`;\n  source recovered by reference, not by faking a field that doesn't exist\n  on real Blobs.\n- Removed the dead `_resetFontEmbedCache` export from fontEmbed.js.\n  jest.resetModules() in beforeEach already gives a fresh module instance\n  with empty caches; the explicit reset call was redundant. Per CLAUDE.md\n  \"Don't add features beyond what the task requires.\"\n\nAssumption documentation (#5, #6):\n- Code comment in ExportButtons near activeFontIds derivation flags the\n  title+body assumption: if a future feature adds per-element font\n  selection, this derivation must collect those font IDs too — otherwise\n  exports silently fall back to system fonts.\n- Code comment in fontEmbed flags the Google Fonts ACAO assumption:\n  if they ever stop returning Access-Control-Allow-Origin: *, every fetch\n  rejects with CORS error and the warn-and-degrade path produces system-\n  font output. Mitigation: the SW runtime cache buffers existing entries.\n\nBundle tripwire (#10):\n- New src/__tests__/bundleSize.test.js (4 tests). Reads dist/assets/,\n  asserts: each vendor-* chunk exists, app `index-*.js` stays under 500KB\n  (well above current 349KB but well below pre-split 1099KB), pdf-lib\n  stays in vendor-pdf (largest dep — must stay isolated from the app\n  chunk). If a future dep is added without updating manualChunks in\n  vite.config.js, this test fails before the regression ships.\n\nSunset verification (#13):\n- DebugPill PWA Diagnostics tab now shows an `SW Caches` row enumerating\n  caches.keys() and flagging stale pre-rename names with status `warn`.\n  Concrete signal: when no debug report shows that warning for ~30 days\n  (~Oct 2026), pwaCleanup.js is safe to remove.\n- TODO.md sunset entry rewritten with that mechanism + step-by-step\n  removal sequence (5 steps).\n\nRegression scenario (#4):\n- TESTING_GUIDE.md new test E8 — exact steps to verify the exported PNG/\n  JPG/PDF renders with the chosen Google Fonts (not system fallback).\n  Includes DebugPill log + cache row checks. Specifies the diagnostic\n  drill-down if step 7 (visual font check) ever fails.\n\nIn-environment verification (#1):\n- Started dev server, fetched index.html (crossorigin attribute\n  confirmed), fontEmbed.js + exportHelpers.js + ExportButtons.jsx via\n  Vite's module graph (full wiring confirmed). Production build's\n  minified `index-*.js` confirmed to contain `font-embed-warning`\n  (Is bridge), the getEmbeddedFontCSS({onWarning:...}) call (Ds), and\n  `fontEmbedCSS:o` in the toCanvas options. Browser-visual verification\n  (open exported file, check rendered font) is the user's step,\n  documented as TESTING_GUIDE.md E8.\n\nTest count: 153 → 164 (added: 2 onWarning-throw, 3 pwaCleanup, 4 bundle,\nplus 2 fontEmbed restructured for callback-safety coverage minus 0).\n\nTags: export, fonts, callback-safety, pwa, debug-pill, tests, bundle, claude-md, docs\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: mobile-export-fidelity\nSemver: patch\n\nhttps://claude.ai/code/session_01QRw1MjzQ87B6weXuqwvz19",
+  "tags": [
+    "bugfix",
+    "error-handling",
+    "test-unit",
+    "documentation"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-export-fidelity",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 10,
+    "additions": 303,
+    "deletions": 55
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "src/__tests__/bundleSize.test.js",
+    "src/components/DebugPill.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/utils/__tests__/fontEmbed.test.js",
+    "src/utils/__tests__/pwaCleanup.test.js",
+    "src/utils/fontEmbed.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

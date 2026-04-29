@@ -1,0 +1,36 @@
+{
+  "sha": "b2f9538",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T01:25:55Z",
+  "subject": "feat(pwa): strengthen hooks — concurrent guard, pattern alignment, full browser coverage",
+  "body": "usePWAUpdate:\n- Add _isChecking module-level guard to checkForUpdate() preventing\n  concurrent calls from overlapping (double-tap protection).\n\nusePWAInstall — full alignment with glow-props PWA_SYSTEM.md pattern:\n- Expand browser detection from 5 to 9 types (add Opera, Samsung\n  Internet, Vivaldi, Arc). Samsung/Opera ordered before Chrome in UA\n  checks since their UA strings contain both identifiers.\n- Export CHROMIUM_BROWSERS constant as single source of truth.\n- Add BROWSER_DISPLAY_NAMES map for UI rendering.\n- Brave detection uses 'brave' in navigator (UA stripped on mobile).\n- Display-mode change listener catches browser-menu installs where\n  appinstalled event doesn't fire.\n- 5-second diagnostic timeout on Chromium: logs warning with manifest/SW\n  status, falls back to manual instructions (Chrome suppresses prompt\n  for 90 days after user dismissal).\n- trackInstallEvent() localStorage analytics (prompted/installed/\n  dismissed/installed-via-browser), capped at 50 entries.\n- install() wrapped in try/catch — Chrome throws DOMException if\n  prompt() is called twice on the same event.\n- iOS non-Safari cross-redirect in getInstallInstructions() — tells\n  users to open in Safari with explanation why.\n- Install instructions for Samsung Internet and Opera.\n- Vivaldi/Arc fall through to generic Chromium instructions.\n- Effect deps corrected to include supportsAutoInstall and browser.\n\nTags: pwa, hooks, browser-detection, analytics, error-handling\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa-reliability\nSemver: minor\n\nhttps://claude.ai/code/session_01AC1UWyZGqVwHGuu6SPJr72",
+  "tags": [
+    "feature",
+    "error-handling",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pwa-reliability",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 203,
+    "deletions": 66
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/hooks/usePWAInstall.js",
+    "src/hooks/usePWAUpdate.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

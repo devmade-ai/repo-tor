@@ -1,0 +1,33 @@
+{
+  "sha": "77aeb84",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T20:10:45Z",
+  "subject": "chore: post-removal hygiene — stale Playwright/min-h-[60vh] refs in comments",
+  "body": "Two leftover stale references from previous sweeps that the\npost-removal grep caught:\n\n#1 — daisyui-surfaces.test.mjs header comment (lines 5-25)\n  The test file's documentation block referenced \"the full\n  browser-runtime test lives in dashboard/e2e and runs under\n  Playwright in CI\" and \"JSDOM full app bootstrap... duplicates\n  Playwright's E2E coverage.\" Both Playwright and dashboard/e2e\n  were deleted in the previous commit, so the comment was lying\n  about the test infrastructure. Rewrote to describe the current\n  state: this is the project's only automated layer; browser-runtime\n  tests were removed 2026-04-15 with notes in HISTORY.md and TODO.md\n  for the future re-introduction plan.\n\n#2 — styles.css drop-zone migration comment (lines 442-446)\n  Said `.drop-zone-container → min-h-[60vh] flex flex-col justify-center`\n  but Phase 3 of the vanilla-DaisyUI sweep (1e82da2) replaced the\n  arbitrary `min-h-[60vh]` with stock `min-h-screen`. Updated the\n  comment to match the actual current code.\n\nBoth are pure documentation hygiene — no behavior change.\n\nVerified:\n  - vite build clean (3.12s)\n  - 60/60 tests pass\n  - Grep for `playwright|@playwright|dashboard/e2e|test:e2e|test:visual|theme-baselines|browser-runtime`\n    in scripts/, dashboard/js/, dashboard/styles.css, dashboard/index.html\n    returns zero hits\n\nTags: chore, hygiene, docs\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: dependency-cleanup\nSemver: patch",
+  "tags": [
+    "documentation",
+    "comments"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dependency-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 13,
+    "deletions": 13
+  },
+  "files": [
+    "dashboard/styles.css",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "internal"
+}

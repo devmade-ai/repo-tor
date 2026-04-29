@@ -1,0 +1,40 @@
+{
+  "sha": "719b279",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T16:39:21Z",
+  "subject": "fix(mobile): 6 mobile UX fixes from frontend.mobile sweep",
+  "body": "High-severity\n1. Restore error alert no longer sits behind iOS keyboard.\n   AppLayout.vue fixed div was `bottom-20` (80px). On iOS with the\n   on-screen keyboard or home indicator, the alert fell into the\n   obscured zone. Now `bottom: calc(1.5rem + env(safe-area-inset-bottom))`.\n\nMedium-severity\n2. Modal-box scrollability made explicit.\n   DaisyUI's `.modal-box` doesn't guarantee overflow-y:auto. On small\n   phones, TransactionEditModal in edit mode with many tags + ML\n   suggestions could exceed 90vh and trap the user. Added\n   `max-h-[90vh] overflow-y-auto` to TransactionEditModal,\n   InstallInstructionsModal, TutorialModal, and ConfirmDialog for\n   consistency.\n3. Body scroll locked while any dialog is open.\n   Centralized in useDialogA11y — first push to the dialog stack saves\n   current inline styles and sets body/html overflow:hidden plus\n   overscroll-behavior:contain; last pop restores them. Eliminates\n   ghost-scroll under modals, prevents iOS rubber-band exposing page\n   edges, and stops pull-to-refresh firing under overlays.\n4. Pull-to-refresh gated behind dialog stack.\n   usePullToRefresh imports isDialogOpen() from useDialogA11y and\n   bails at touchstart if any dialog is up. A downward drag inside\n   a modal or sheet no longer triggers a page refresh instead of\n   scrolling the sheet contents.\n5. ErrorAlert dismiss button now a 40×40 touch target.\n   Was a bare 16px icon with no padding — impossible to tap\n   reliably on mobile. Wrapped the X in the project's standard\n   40×40 flex container (matches other close buttons).\n\nLow-severity\n6. Tag removal X buttons bumped 20×20 → 28×28.\n   TransactionEditModal tag chips had 20px close buttons — below\n   the 44px recommendation and inconsistent with other close\n   buttons. 28×28 keeps chip compactness while improving tappability.\n   Focus-visible ring added.\n\nType-check clean. 116/116 tests pass. Production build succeeds.\n\nUI verification note: body-scroll-lock and P2R gating need manual\nverification on a real mobile device. Open TransactionEditModal,\ntry to pull down on the backdrop — should not scroll the page or\ntrigger refresh. Open BottomSheet on workspace detail, same test.\nDismiss alert on iOS with keyboard open — alert should stay visible.\n\nTags: mobile, ios, pwa, modal, scroll-lock, touch-targets, a11y\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: ux-polish\nSemver: minor",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 8,
+    "additions": 79,
+    "deletions": 14
+  },
+  "files": [
+    "src/components/AppLayout.vue",
+    "src/components/ConfirmDialog.vue",
+    "src/components/ErrorAlert.vue",
+    "src/components/InstallInstructionsModal.vue",
+    "src/components/TransactionEditModal.vue",
+    "src/components/TutorialModal.vue",
+    "src/composables/useDialogA11y.ts",
+    "src/composables/usePullToRefresh.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "82d5a8e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T15:34:52Z",
+  "subject": "refactor(theme): remove old theme system, complete DaisyUI migration",
+  "body": "Delete the entire old theme infrastructure:\n- useAppTheme.ts (AppThemeProvider, useAppTheme, useThemeMode, useThemedStyles)\n- constants/Colors.ts (LightTheme, DarkTheme, AppColors brand/price)\n- components/Themed.tsx (legacy themed Text/View wrappers)\n- components/useColorScheme.ts/.web.ts (system color scheme hooks)\n\nRewrite app/_layout.tsx: remove AppThemeProvider wrapper, build React\nNavigation theme directly from useTheme().colors hex values.\n\nUpdate BurgerMenu: remove useThemeMode import, use only useTheme() for\nisDark state and toggleMode function.\n\nUpdate docs: HISTORY.md (migration changelog), SESSION_NOTES.md (current\nstate), TODO.md (add RNR adoption and theme expansion items).\n\nTags: theme, daisyui, uniwind, cleanup, refactor\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: daisyui-theme-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01EAwig8kSZ6S91pb3wP7tv4",
+  "tags": [
+    "refactor",
+    "removal",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-theme-migration",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 10,
+    "additions": 99,
+    "deletions": 293
+  },
+  "files": [
+    "app/_layout.tsx",
+    "components/Themed.tsx",
+    "components/useColorScheme.ts",
+    "components/useColorScheme.web.ts",
+    "constants/Colors.ts",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/hooks/useAppTheme.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

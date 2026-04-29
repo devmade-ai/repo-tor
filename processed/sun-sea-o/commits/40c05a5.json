@@ -1,0 +1,35 @@
+{
+  "sha": "40c05a5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-20T23:47:52Z",
+  "subject": "refactor(debug): harden DEBUG_SYSTEM — 10-part refactor per pattern",
+  "body": "Applies the glow-props DEBUG_SYSTEM pattern end-to-end:\n\nsrc/utils/debugLog.ts (rewritten):\n- A) DebugEntry gains numeric `id` (auto-incrementing) for stable React\n     keys + dedup.\n- B) DebugEntry gains optional `details: Record<string, unknown>` for\n     structured post-mortem payloads. debugLog() takes an optional 4th arg.\n- C) DebugSource is now a union with `(string & {})` fallback — known\n     sources keep autocomplete, ad-hoc strings work without enum edits.\n- F) `debugGenerateReport()` moved out of DebugPill into the module;\n     reusable by any consumer.\n- G) URL query strings redacted in reports — both the env URL line and\n     any URL-ish substring inside entry events / stringified details.\n- H) Global listeners (console.error/warn interception, window error +\n     unhandledrejection) are now installed exactly once via the\n     `window.__debugLogListenersAttached` flag, preventing HMR duplicates.\n     The old `window.onerror = …` + `addEventListener('error', …)` double\n     wiring is gone.\n- I) `subscribe()` now replays existing entries to each new subscriber\n     so late-mounting consumers see the full boot sequence.\n- J) Every subscriber invocation is wrapped in try/catch — one throwing\n     listener can't break the rest. `clearEntries()` now sends a 'clear'\n     signal via the same notify path (cleaner than the previous\n     `message === '__clear__'` sentinel).\n\nThe internal `message` field is renamed to `event` to match the pattern.\nAll external callers pass strings positionally, so no call-site changes\nwere needed outside DebugPill.\n\nsrc/components/common/DebugPill.tsx (rewritten):\n- D) Every Tailwind class replaced with inline `CSSProperties` style\n     objects. The pill renders in an isolated React root (#debug-root),\n     so a Tailwind build failure or delayed CSS load no longer affects\n     its rendering.\n- E) New \"PWA\" tab alongside Log/Env. Runs live diagnostics on open:\n     HTTPS, network, SW support + registration state, manifest fetch +\n     validation, standalone mode, beforeinstallprompt receipt. A\n     monotonic run counter drops stale results if the tab is closed\n     mid-probe.\n- Entries are keyed by the new numeric `id` field.\n- `Copy` now calls `debugGenerateReport()` from the module.\n- `details` payload displayed inline on log entries.\n\nsrc/types/browser.d.ts:\n- Window gains optional `__debugLogListenersAttached` flag so the HMR\n  guard is type-safe.\n\nTags: debug, refactor, diagnostics, fleet-alignment\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
+  "tags": [
+    "refactor",
+    "monitoring",
+    "types"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-docs",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 365,
+    "deletions": 192
+  },
+  "files": [
+    "src/components/common/DebugPill.tsx",
+    "src/types/browser.d.ts",
+    "src/utils/debugLog.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

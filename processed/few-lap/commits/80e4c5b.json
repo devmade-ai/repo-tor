@@ -1,0 +1,34 @@
+{
+  "sha": "80e4c5b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T13:49:38Z",
+  "subject": "chore(debug): 4 cleanups from cold pass — docs drift + shadowing + dead alias",
+  "body": "Fresh-eyes branch audit after the ship sweep. Found mostly clean code;\nfour small cleanups worth applying:\n\nCOLD1 — debugLog.ts:207 debugAdd docstring claimed \"No-op in\nproduction\" but the TEMPORARY marker immediately below removed that\ngate for PWA alpha. A reader skimming the docstring would conclude\n\"this is safe in prod, nothing logs\" and skip a PII review. Rewrote\nto describe actual behaviour + cross-ref the TODO entry.\n\nCOLD2 — debugLog.ts:143 removed the dead `MAX_ENTRIES` alias that\njust re-named the imported DEBUG_MAX_ENTRIES. Single-callsite; the\nimport name is already clear.\n\nCOLD3 — consoleCapture.ts describeConsoleArgs docstring clarified\nthat the `args` field in details holds only args[1..], not the full\nconsole.* args array. A reader could otherwise interpret the field\nas the whole argument list.\n\nCOLD5 — debugLog.ts:278 renamed `const window = Dimensions.get('window')`\nto `const windowDims`. The function body deliberately reaches for\nglobalThis.navigator / globalThis.location to dodge the shadow; a\nfuture edit using `window.foo` expecting the browser global would\nsilently get the Dimensions object. Removes the trap.\n\nSkipped (confirmed correct / YAGNI / sub-threshold):\n- COLD4: reentrant flag at function scope vs module — paranoia for\n  an impossible partial-install scenario (PATCHED_MARK is atomic).\n- COLD6: DebugPill.tsx at 493 lines, under the 500 \"consider\n  extraction\" threshold. LogRow is a reasonable future extraction.\n- COLD7–COLD15: noted in the sweep report.\n\ntsc 0, jest 96/96, expo web build clean.\n\nTags: debug, docs, cleanup, readability\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "documentation",
+    "removal",
+    "comments"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 22,
+    "deletions": 9
+  },
+  "files": [
+    "src/debug/consoleCapture.ts",
+    "src/debug/debugLog.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "internal"
+}

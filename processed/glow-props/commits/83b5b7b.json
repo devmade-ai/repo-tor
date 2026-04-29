@@ -1,0 +1,32 @@
+{
+  "sha": "83b5b7b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T15:01:53Z",
+  "subject": "docs: trigger-sweep fixes — strip narrative timestamps, correct repo-tor DOWNLOAD_PDF, expand HMR bullet",
+  "body": "Ran 6 parallel trigger passes (hacks, undone, patterns, doc-cleanup,\ndocs, risk+cold, patterns+comments) against the branch diff. Most\nclean. Applying the real findings:\n\nA. docs/TODO.md: strip \"(verified missing 2026-04-22 — earlier agent\n   claim was wrong)\" from model-pear preamble. Forensic context\n   belongs in git log, not in the doc post-merge. (hacks finding #1)\n\nB. docs/TODO.md: strip \"(corrected 2026-04-22)\" from synctone bonus\n   finding header. Same reasoning. (hacks finding #2)\n\nC. docs/TODO.md: strip \"(on this branch)\" from TIMER_LEAKS upstreamed\n   note; change \"Once this branch merges to main\" to \"Once merged to\n   main\". Branch-scoped phrasing rots after merge. (hacks finding #3)\n\nD. docs/TODO.md line 28: fix stale repo-tor preamble claim. Previous\n   text said \"New small gap: DOWNLOAD_PDF partial (missing .no-print\n   class + dedicated print button)\" which contradicted the Gap Matrix\n   (Pass) and the per-repo section (FULLY RESOLVED). Rewrote to\n   reflect the actual state: DOWNLOAD_PDF complete via\n   Header.jsx:187 'Save as PDF' button + print:hidden Tailwind\n   variant (documented design choice, intentionally no .no-print\n   class). (docs trigger WARNING)\n\nE. docs/TODO.md Cross-Cutting Gap #16: removed repo-tor from the\n   \"DOWNLOAD_PDF gap\" list and added it to the Pass list alongside\n   canva-grid, budgy-ting, sun-sea-o. Same correction as D.\n   (docs trigger WARNING, related)\n\nF. CLAUDE.md § Timer and Subscription Cleanup: expand HMR bullet\n   to also mention `import.meta.hot.dispose()` for frameworks that\n   expose it. The pattern doc covers this but the CLAUDE.md summary\n   was incomplete. (cold trigger nit)\n\nSkipped:\n- TIMER_LEAKS.md Key Lesson #7 wording rewording (cold nit): the\n  existing wording is already clear about \"avoid when better\n  primitives exist\"; the suggested rewrite doesn't meaningfully\n  improve precision.\n- see-veo DebugBanner \"Add PWA Diagnostics tab\" phrasing (cold nit):\n  current text is sufficient; the agent wanted \"(using existing\n  diagnostics.ts infrastructure)\" which is implied.\n- CLAUDE.md AI Notes about TutorialModal.jsx and sharp (cold nit +\n  warning): pre-existing, not introduced by this branch. Out of\n  scope. Worth a separate cleanup pass.\n- Synctone downstream precedence (risk MEDIUM): synctone's local\n  `### Timer and Subscription Cleanup` section will become redundant\n  once this merges, but that's tracked in synctone's CLAUDE.md\n  alignment chunk in docs/TODO.md. Not a blocker for this PR.\n\nTags: documentation, todo, audit, correction, cross-fleet\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01Mx2aebqgqtBaC611uxsp7q",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 7,
+    "deletions": 7
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

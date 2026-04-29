@@ -1,0 +1,33 @@
+{
+  "sha": "e001ceb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T22:48:30Z",
+  "subject": "docs(audit): monitoring entries, verification checklist, history rollup",
+  "body": "Audit finding #13 — add a file-size monitoring backlog entry for\n`useTimelineCharts.js` (416 lines, 84 headroom) and `AppContext.jsx`\n(338 lines after the split) so a future session gets a hint before\neither file drifts over the 500-line soft-limit again.\n\nAlso rolls up the full second-pass documentation so the two audit\npasses are discoverable from SESSION_NOTES / HISTORY / TODO without\nhaving to read 8 commit messages individually:\n\n- `docs/TODO.md`:\n  * Post-sweep-verification item #4 added — covers the second-pass\n    browser checks: chartHeight utility rounding (2px deltas on\n    Timing/Tags), body bg/color removal across all 8 themes, the\n    AppContext / appReducer split (filters still apply, cross-tab\n    sync, theme toggle), and the Timeline handleCardClick\n    micro-optimization.\n  * New \"File-size monitoring\" section with two forward-looking\n    entries for useTimelineCharts.js and AppContext.jsx. Each entry\n    gives concrete split guidance so a future session doesn't have\n    to re-discover the extraction boundary.\n  * Footer rewritten to describe both audit passes (13 + 8 commits,\n    18 + 20 findings) and the final file-size posture (every section\n    + shared component + state file under 500 lines).\n\n- `docs/SESSION_NOTES.md`:\n  * Second-pass commit list expanded from 2 entries + \"see git log\"\n    to all 8 commits with one-line summaries, so a future session\n    can trace the branch history entirely from this file.\n  * New \"Current file-size posture\" subsection listing the largest\n    files in each category — quickly answers \"is this file at risk\n    of violating the soft-limit?\" for a future reviewer.\n\n- `docs/HISTORY.md`:\n  * New \"Second audit-cleanup pass\" entry at the top of the\n    2026-04-15 section, with paragraph-per-commit summaries\n    covering all 8 second-pass commits. The existing first-pass\n    entries remain unchanged below the new entry.\n\nVerified final file-size posture:\n  dashboard/js/AppContext.jsx                338 lines\n  dashboard/js/appReducer.js                 285 lines (new)\n  dashboard/js/hooks/useTimelineCharts.js    416 lines (monitored)\n  dashboard/styles.css                       177 lines\n\nEvery section component (`sections/*.jsx`) and every shared\ncomponent (`components/*.jsx`) is under the 500-line soft-limit.\nThe only files over 300 lines are AppContext (338), App (490),\nProgress (479), Timing (437), Discover (430), useTimelineCharts\n(416), Timeline (390), Health (378), Summary (366), FilterSidebar\n(326), Contributors (307) — none over 500.\n\nBuild clean, 60/60 tests pass.\n\nTags: documentation, audit, todo\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 156,
+    "deletions": 16
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

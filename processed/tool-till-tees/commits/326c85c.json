@@ -1,0 +1,32 @@
+{
+  "sha": "326c85c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:15:59Z",
+  "subject": "docs: wrap-up after CORS fix — removal path includes cors.ts revert",
+  "body": "Two doc tightenings caught by the session sweep:\n- USER_ACTIONS.md removal path didn't include reverting lib/cors.ts dev-header\n  allowlist. Future-owner following the list literally would leave orphaned\n  CORS config for headers nothing sends anymore. Added the cors.ts revert and\n  the matching health.test.ts assertion to step 3.\n- SESSION_NOTES.md rewritten one commit too early — missed the CORS fix and\n  the sun-sea-o source verification. Added a block covering both.\n\nTags: documentation, user-actions, session-notes, wrap-up\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sun-sea-o-integration\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "sun-sea-o-integration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 5,
+    "deletions": 1
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,39 @@
+{
+  "sha": "7d92a24",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T04:14:35Z",
+  "subject": "chore(wrap): strengthens + docs from wrap-up pass",
+  "body": "Four concrete code fixes + documentation updates from the `wrap`\nreflective pass.\n\nCode (cheap strengthens)\n1. AppLayout burger-menu dark-mode icon: text-base-content/40 → /60\n   on light-theme state (matches the /40 audit's spirit — the icon\n   was missed because the iconClass was assembled conditionally).\n2. CashflowGraph async import now has an errorComponent. Previously\n   a failed chunk fetch rendered nothing silently; now shows a\n   small \"Couldn't load the chart. Refresh the page and try again.\"\n   fallback with role=\"alert\". Covers offline after SW cache\n   eviction, stale deployment, CDN blip.\n3. ImportStepReview.removeRow now bound-checks currentPage after\n   splicing. Removing the last row on the last page previously left\n   the pager pointing past totalPages (harmless but confusing — the\n   list appeared blank until Previous was clicked).\n4. WorkspaceListView.refreshList now re-runs loadStorageUsage so\n   pull-to-refresh updates the storage indicator — users pulling\n   after a large import expected the quota to reflect the new size.\n\nDocs\n- TESTING_GUIDE.md: added \"Automated tests\" section (vitest/happy-dom\n  env note, coverage highlights) and \"Performance-sensitive manual\n  checks\" (chart lazy-load Network-tab check, cash-on-hand debounce).\n- TODO.md: added 3 Testing items for the new code this push didn't\n  cover (storage indicator helpers, removeRow, runway debounce), 2\n  A11y / Dark mode items (dark-theme contrast verification of the\n  /40→/60 bumps, ChartLoadError component visual check), and 1\n  Refactor item (move transactionDirty.ts out of src/components/).\n\nType-check clean. 135/135 tests pass. Production build succeeds.\n\nTags: docs, a11y, error-handling, pagination, pwa, storage\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "ui",
+    "error-handling",
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 57,
+    "deletions": 6
+  },
+  "files": [
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "src/components/AppLayout.vue",
+    "src/views/WorkspaceDashboard.vue",
+    "src/views/WorkspaceListView.vue",
+    "src/views/import-steps/ImportStepReview.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "user-facing"
+}

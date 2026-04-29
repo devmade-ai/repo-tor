@@ -1,0 +1,41 @@
+{
+  "sha": "76e82eb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-06T06:12:44Z",
+  "subject": "refactor(ui): standardize button styling and fix hardcoded rgba",
+  "body": "DaisyUI component classes (btn, card, badge) are unavailable in\nUniwind — only Tailwind utility classes + DaisyUI color tokens work.\nThe manual bg-primary + rounded + padding pattern is correct for this\nExpo/RN Web project, but values were inconsistent across 9 files.\n\nStandardized to consistent system:\n- Full-width primary actions: rounded-xl py-3.5 (Save, Update, Validate)\n- Compact primary: rounded-xl px-5 py-2.5 (Try Again, Bulk Import)\n- Toggle pills: rounded-full py-2.5 px-4 (Paste/Upload, fuel type)\n- Outlined/ghost: rounded-xl (Import More)\n- Disabled opacity: opacity-60 everywhere (was 50/60/70)\n\nAlso fixed DebugPill log row using hardcoded rgba(128,128,128,0.15) —\nreplaced with border-base-300 className, matching the component's own\nconvention of className for colors, StyleSheet for non-color properties.\n\nTags: ui, refactor, consistency, cleanup\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01Gv6uyMLMvAT8QWVxYdZdhM",
+  "tags": [
+    "refactor",
+    "ui",
+    "style"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-audit",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 9,
+    "additions": 13,
+    "deletions": 15
+  },
+  "files": [
+    "app/admin/bulk-import.tsx",
+    "app/admin/bulk-update.tsx",
+    "app/admin/index.tsx",
+    "app/admin/station/[id].tsx",
+    "src/components/admin/CoordinatePicker.tsx",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/station/StationList.tsx",
+    "src/components/ui/ErrorState.tsx",
+    "src/debug/DebugPill.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

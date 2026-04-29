@@ -1,0 +1,40 @@
+{
+  "sha": "ef2da9f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T02:41:50Z",
+  "subject": "fix(a11y): restore WCAG 2.5.5 touch targets + theme-aware skip link",
+  "body": "The DaisyUI migration inadvertently regressed several mobile touch targets\nand broke the keyboard skip-to-content link's theme adaptation. All caught\nby the post-migration a11y/mobile/dark-mode audit.\n\n- src/index.css: .skip-to-content reads `var(--color-primary)` +\n  `var(--color-primary-content)` instead of hardcoded #1e293b / #fff. DaisyUI\n  exposes these per theme, so the focused skip pill now has high contrast\n  against both corporate and business page surfaces (it was near-invisible\n  on business's #202020 page bg before).\n- NotificationBell.tsx: \"Mark all read\" btn-xs (24-28px) → btn-sm +\n  min-h-[44px]. Delete icon btn-sm btn-square (32px) gets min-h-[44px]\n  min-w-[44px]. Both failed WCAG 2.5.5.\n- PwaInstallPrompt.tsx: Install / How-to-Install CTAs swap from naked\n  `btn btn-sm` (32px) to `<Button size=\"sm\">` (40px with the wrapper's\n  WCAG override). Dismiss btn-sm btn-circle (32px) gets min-h-[44px]\n  min-w-[44px].\n- Input.tsx: every form input gets `min-h-[44px] text-base`. DaisyUI's\n  input-bordered defaults to 40px / 14px — iOS Safari auto-zooms on focus\n  when font-size < 16px. text-base (16px) + 44px height fixes both.\n- TextArea.tsx: text-base added (no height override — textareas are\n  multi-row by nature).\n- ProposeChangeForm.tsx + ModuleEditor.tsx content textareas + AddNoteForm\n  note textarea: text-base added on the direct DaisyUI `textarea\n  textarea-bordered` usage (these bypass the TextArea wrapper).\n- AddNoteForm.tsx source select: min-h-[44px] text-base on\n  `select select-bordered`.\n\nNet: every primary form input on mobile now prevents iOS auto-zoom + meets\nWCAG 2.5.5; every icon button in the migrated code path now hits 44×44.\n\nTags: fix, a11y, mobile, wcag, ios-safari\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 8,
+    "additions": 20,
+    "deletions": 17
+  },
+  "files": [
+    "src/components/common/Input.tsx",
+    "src/components/common/NotificationBell.tsx",
+    "src/components/common/PwaInstallPrompt.tsx",
+    "src/components/common/TextArea.tsx",
+    "src/components/modules/AddNoteForm.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/components/modules/ProposeChangeForm.tsx",
+    "src/index.css"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "user-facing"
+}

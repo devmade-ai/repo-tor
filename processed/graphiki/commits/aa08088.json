@@ -1,0 +1,36 @@
+{
+  "sha": "aa08088",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T07:56:25Z",
+  "subject": "fix(theme): replace color: white with DaisyUI -content tokens",
+  "body": "Every element using a DaisyUI semantic background color now uses its\nmatching -content token for text instead of hardcoded white. This\nensures correct contrast in all themes (e.g., pastel primary is light\npurple — white text on it would have poor contrast).\n\nFixes: app-alpha-badge, btn-update-banner, view-switcher-tab.active,\nqb-mode-toggle.active, qb-logic-toggle:hover, qb-mode-btn.active,\nqb-negate-btn.active, query-help-tab.active, install step counter.\n\nTags: theme, daisyui, contrast, a11y\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 9,
+    "deletions": 9
+  },
+  "files": [
+    "src/App.css",
+    "src/components/pwa/InstallInstructionsModal.css",
+    "src/components/query/QueryBuilder.css",
+    "src/components/query/QueryHelpModal.css"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

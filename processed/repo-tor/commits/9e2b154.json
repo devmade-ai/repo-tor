@@ -1,0 +1,32 @@
+{
+  "sha": "9e2b154",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T08:59:00Z",
+  "subject": "docs: record DaisyUI v5 -bordered trap in AI_MISTAKES + SESSION_NOTES",
+  "body": "Capture the v4-to-v5 DaisyUI form-modifier rename\n(input-bordered / select-bordered / textarea-bordered are all\nREMOVED in v5 — bordered is the default; use `*-ghost` to unborder)\nin AI_MISTAKES.md so future sessions don't repeat the trap. Include\na grep recipe for verifying which DaisyUI component classes actually\nexist in the built CSS.\n\nAlso amend SESSION_NOTES Phase 8 bullet to reflect the fix commit\n`de9bd4f` and explain the v5 API shift, so the session notes stay\naccurate for the next session start.\n\nTags: documentation, daisyui, migration, postmortem\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 34,
+    "deletions": 1
+  },
+  "files": [
+    "docs/AI_MISTAKES.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

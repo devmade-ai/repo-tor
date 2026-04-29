@@ -1,0 +1,38 @@
+{
+  "sha": "383b57a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T21:31:59Z",
+  "subject": "fix(theme): ThemeSelector accessibility + stale docs + theme registration",
+  "body": "ThemeSelector.jsx rewritten with proper accessibility:\n- ARIA: aria-expanded, aria-controls, aria-label on trigger, useId()\n- Focus: auto-focus first item on open, restore to trigger on close\n- Keyboard: ArrowUp/Down, Home/End navigate items, Escape closes\n- Focus rings: focus-visible:ring-2 on all interactive elements\n- Touch targets: min-w-[44px] min-h-[44px] on buttons\n- overscroll-contain on scrollable list\n\nindex.css: Added nord and night back to @plugin directive — they were\ndefined in daisyuiThemes.js catalog but missing from CSS registration.\nUsers who select them would get unstyled pages.\n\nDocumentation fixes:\n- CLAUDE.md: defaults nord/night → lofi/black, mobile header description\n- HISTORY.md: defaults reference corrected\n- STYLE_GUIDE.md: defaults, old hex values, dark mode section, quick\n  reference class combos all updated for DaisyUI tokens\n- README.md: tech stack updated to TW4 + DaisyUI 5\n\nTags: accessibility, theme, docs, daisyui, a11y\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01QDdpPbsw1PaMMrwihoc5hG",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "documentation"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 126,
+    "deletions": 84
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/STYLE_GUIDE.md",
+    "src/components/ThemeSelector.jsx",
+    "src/index.css"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

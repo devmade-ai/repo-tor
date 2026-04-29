@@ -1,0 +1,35 @@
+{
+  "sha": "e86f4ef",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T11:28:23Z",
+  "subject": "docs(pwa): add cache headers, ChunkLoadError prevention, and platform gotchas to PWA guide",
+  "body": "Research into vite-plugin-pwa best practices revealed gaps in both the Vite config\nand the suggested implementation doc. Added cleanupOutdatedCaches and globPatterns\nto the Workbox config, and expanded PWA_SYSTEM.md with cache header guidance,\nChunkLoadError prevention patterns, Safari/Expo gotchas, and navigateFallback\nSPA-only warnings.\n\nTags: pwa, documentation, caching, workbox\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pwa-system\nSemver: patch\n\nhttps://claude.ai/code/session_0113x2dhJ4gD9iUKygB9gLjt",
+  "tags": [
+    "documentation",
+    "caching",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 116,
+    "deletions": 16
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "docs/implementations/PWA_SYSTEM.md",
+    "vite.config.js"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,41 @@
+{
+  "sha": "0d602f0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T23:37:38Z",
+  "subject": "feat(debug): worker-side console interception forwards to DebugPill",
+  "body": "Workers run @huggingface/transformers (ONNX Runtime + tokenizers). Any\nconsole.warn / console.error they emit never reached DebugPill because\ndebugLog's console interception only patches the main thread. Same\nclass of blind spot as the oklch Cytoscape rejection — third-party\nlibrary warns into the void, nobody notices until a user reports a bug.\n\nworkers/workerDebugLog.ts (new)\n- patchWorkerConsole() wraps self.console.warn/error in the worker\n  global. Each call sends a typed envelope\n  `{ type: 'debug', severity, event, details }` via postMessage before\n  calling the original console method (so DevTools still shows the log).\n- Reentrancy guard prevents infinite recursion if postMessage itself\n  warns (e.g., from a polyfill).\n- postMessage throws are swallowed so a debug-infrastructure bug can't\n  crash the worker.\n- Bails out when window is defined (main thread) or postMessage is\n  unavailable — makes the module safe to import in tests without\n  mutating the runner's console.\n- isWorkerDebugEnvelope() type guard keeps the bridge dispatch sites\n  type-safe.\n- No auto-patch-on-import; workers call patchWorkerConsole() explicitly\n  so tests have deterministic behavior.\n\nworkers/embeddingWorker.ts + tagSuggestionWorker.ts\n- Each imports and calls patchWorkerConsole() at top-level, before\n  anything else, so transformers.js warnings emitted during module\n  load get forwarded.\n\nservices/embeddingWorkerBridge.ts + tagSuggestionService.ts\n- handleWorkerMessage checks isWorkerDebugEnvelope FIRST (before init\n  events), because transformers.js can warn during the init path.\n  Matching envelopes dispatch to debugLog with source 'embedding' or\n  'tagSuggestion' and the original severity.\n\nworkers/workerDebugLog.test.ts (new, 15 cases)\n- Main-thread bail-out, postMessage-missing bail-out, warn/error\n  forwarding, original-console passthrough, idempotency, argument\n  coercion via String(), postMessage-throws-swallowed, reentrancy\n  guard, plus isWorkerDebugEnvelope type-guard coverage (null/undef/\n  wrong-type/unknown-severity/missing-event rejection).\n\nDocs\n- CLAUDE.md: project structure + Alpha debug system bullet updated to\n  reflect worker-side interception and 500-entry cap.\n- docs/SESSION_NOTES.md: new section describing the change.\n- docs/TODO.md: worker-side debug logging item removed (now done).\n\n325 tests pass (up from 310). Lint + build clean.\n\nTags: feature, debug, worker, observability, transformers, onnx\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: alpha-debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_015rKh5k6MFgfyjNZDfGaWzV",
+  "tags": [
+    "feature",
+    "monitoring",
+    "test-unit"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "alpha-debug-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 9,
+    "additions": 328,
+    "deletions": 5
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/services/embeddingWorkerBridge.ts",
+    "src/services/tagSuggestionService.ts",
+    "src/workers/embeddingWorker.ts",
+    "src/workers/tagSuggestionWorker.ts",
+    "src/workers/workerDebugLog.test.ts",
+    "src/workers/workerDebugLog.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

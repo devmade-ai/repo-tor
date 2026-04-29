@@ -1,0 +1,39 @@
+{
+  "sha": "3968df6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:12:44Z",
+  "subject": "a11y(mobile): apply 44x44 touch-target fixes + codify -sm pairing convention",
+  "body": "All findings from the mobile trigger's WCAG 2.5.5 audit — every one is\na compact DaisyUI variant (`btn-sm` / `input-sm`) that was rendering\nbelow 44px touch-target without the matching `min-h-[44px]` override.\n\nSize fixes (6):\n\n- NudgeExpiryConfig nudge-days number input (HIGH) — `w-24` config\n  input, primary interaction surface on the per-module nudge config.\n- ModuleSummaryEditor text inputs (HIGH) — three summary fields\n  (\"what it does\" / \"when it matters\" / \"if not followed\") rendered\n  via the shared `SummaryField` component; adding min-h there fixes\n  all three.\n- ToneSelector custom-tone input (HIGH) — the `input-sm flex-1` users\n  type custom tones/intents into. The field is used in every note +\n  proposal composition flow.\n- ToneSelector Add button (MEDIUM) — `btn btn-sm` next to the custom\n  input. Now `min-h-[44px] min-w-[44px]` matching the NotificationBell\n  + BurgerMenu trigger pattern.\n- ContractUploadPreview section rename input (MEDIUM) — the inline\n  rename that appears when you click a section title during upload\n  preview. Less frequently used but critical when active.\n- AppLayout breadcrumb links (MEDIUM) — 4px short at `min-h-[40px]`,\n  bumped to `min-h-[44px]`. Mobile breadcrumb taps happen all the\n  time during navigation.\n\nConvention (1):\n\n- CLAUDE.md \"User Experience (Non-Negotiable)\" — added two bullets\n  codifying the touch-target rule + the DaisyUI compact-variant\n  pairing convention. Also added a companion bullet on iOS\n  auto-zoom prevention (text-base / 16px) since the audit verified\n  Input/TextArea already enforce this and it's worth documenting so\n  future ad-hoc inputs don't regress. Future mobile audits should\n  have nothing to flag beyond new code that breaks the rule.\n\nDeferred (1):\n\n- `checkbox-sm` elements surrounded by flex-row text labels — the\n  audit called these \"acceptable via adjacency\" pending real-device\n  testing. Leaving until that testing disputes it; the convention\n  codified today applies to checkboxes too if it ever does.\n\nVerified untouched by the fixes: viewport meta, safe-area insets,\ntap-delay, gesture handlers (none), prefers-reduced-motion, native\n`<dialog>` + keyboard behaviour, PWA manifest, primary trigger\nbuttons — all still compliant.\n\nTests: 155/155 still passing — none of the touched tests lock the\nmin-h-[44px] class string specifically, so behaviour checks continue\nunchanged. tsc -b clean, eslint clean.\n\nTags: a11y, mobile, ux, wcag\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: frontend-audit-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "frontend-audit-sweep",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 8,
+    "deletions": 6
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/common/ToneSelector.tsx",
+    "src/components/modules/ContractUploadPreview.tsx",
+    "src/components/modules/ModuleSummaryEditor.tsx",
+    "src/components/modules/NudgeExpiryConfig.tsx",
+    "src/layouts/AppLayout.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

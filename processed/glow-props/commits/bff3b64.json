@@ -1,0 +1,32 @@
+{
+  "sha": "bff3b64",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T00:20:10Z",
+  "subject": "fix(nav): align header content with container edges",
+  "body": "The nav had no horizontal padding, so the logo and burger button sat\nflush at the viewport edges while <main class=\"container\"> content was\ninset by 1rem (mobile) or centered with max-width (desktop). This\ncreated visual misalignment between header and content.\n\nAdded horizontal padding matching Pico's container padding\n(--pico-spacing: 1rem), using max() to respect safe-area-insets on\nnotch devices.\n\nTags: ui, spacing, css\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: header-polish\nSemver: patch\n\nhttps://claude.ai/code/session_014wBL3hWTyiurDZphoiUrxE",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "header-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 8,
+    "deletions": 0
+  },
+  "files": [
+    "styles.css"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

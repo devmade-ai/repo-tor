@@ -1,0 +1,34 @@
+{
+  "sha": "0de34e0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T00:46:19Z",
+  "subject": "fix(hooks): eliminate set-state-in-effect cascades in useModules + DebugPill",
+  "body": "Two pre-existing react-hooks/set-state-in-effect errors, both flagged by\nreact-hooks v7 under React 19. Each is a real cascading-render pattern\nthat would cause redundant renders on every dependency change.\n\nuseModules.ts: a separate useEffect watched `modules` and called\nfetchVersions() synchronously, which setState'd versions. Restructure so\nfetchVersions takes an explicit module list and is called inline at the\nend of fetchModules (with the just-fetched data) and from the realtime\nINSERT subscription via `modulesRef.current`. The reactive-effect pattern\nis gone; version fetching now chains directly off each module load.\n\nSide benefit: `fetchVersions` no longer depends on `modules` closure, so\nits identity is stable across module changes — the subscription effect\nno longer churns either.\n\nDebugPill.tsx: PWA-diagnostics effect called `setDiagnostics(null)` in\nthe effect body to show a loading state while re-running. Remove the\nreset — initial state is already null (first visit shows \"Running\ndiagnostics…\"), and on re-open the old results stay visible until new\nones arrive. Brief staleness is fine for a debug surface; the cascading\nrender it caused was not.\n\nTags: fix, lint, react-hooks, react-19\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: react-19-compliance\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "refactor",
+    "performance"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "react-19-compliance",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 43,
+    "deletions": 32
+  },
+  "files": [
+    "src/components/common/DebugPill.tsx",
+    "src/hooks/useModules.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

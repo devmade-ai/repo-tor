@@ -1,0 +1,34 @@
+{
+  "sha": "a228923",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T14:10:02Z",
+  "subject": "fix(burger-menu): route errors to debug, remove redundant outside click",
+  "body": "handleItem now catches action errors and routes them to debugLog() so\nfailures surface in the debug pill. Removed redundant handleOutsideClick\ndocument listener — the backdrop @click=\"close\" already covers all\noutside clicks. Removed unused onMounted import. Build verified.\n\nTags: burger-menu, debug, cleanup, glow-props-sync\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: glow-props-sync\nSemver: patch\n\nhttps://claude.ai/code/session_01HStghTVMRxyymnHn4AWxUi",
+  "tags": [
+    "bugfix",
+    "refactor",
+    "monitoring"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "glow-props-sync",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 18,
+    "deletions": 15
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "src/components/BurgerMenu.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

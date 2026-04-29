@@ -1,0 +1,32 @@
+{
+  "sha": "c65cb3c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-25T05:17:04Z",
+  "subject": "docs(session): correct false firewall diagnosis, document 404 handoff",
+  "body": "Earlier in this session I documented the API 404s as a Vercel platform\nfirewall on tool-till-tees, citing \"403 x-deny-reason: host_not_allowed\"\nfrom curl probes.  That diagnosis was wrong: the 403s came from the\nClaude Code sandbox's own network proxy, not from Vercel.  Every\nexternal host returns the same response from inside the sandbox,\nincluding google.com.\n\nCorrected USER_ACTIONS.md entry:\n\n- The user's actual symptom is 404 with body {\"error\": \"Not found\"}.\n  That string only appears in tool-till-tees/api/sancio/[...path].ts's\n  final fallthrough, so the request reached the function but no segment\n  branch matched.\n- Lists the four most-likely root causes (stale tool-till-tees deploy,\n  rewrite mistranscription losing the path segment, trailing-slash\n  redirect, deploy alias mismatch) and concrete diagnostic curl + browser\n  steps that must be run from outside the sandbox.\n\nSESSION_NOTES.md rewritten as a handoff for the next session:\n\n- Flags the sandbox-network constraint up front so the next agent\n  doesn't repeat the same diagnostic mistake.\n- Pins the 404's source string to its single emit site for fast triage.\n- Lists what \"fix all\" did and didn't cover (5 iOS-zoom fixes shipped;\n  the 404 is unfixable from this repo alone; no specific viewport bug\n  was described — ask before guessing).\n- Documents three latent mobile concerns (iOS keyboard over fixed save\n  bar, NotificationBell 100vw, DaisyUI modal-box vh-not-dvh) that\n  weren't triggered by the current report but are worth eyes-on if more\n  reports land.\n\nNo source changes.\n\nTags: documentation, session-notes, handoff\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: mobile-viewport\nSemver: patch\n\nhttps://claude.ai/code/session_01TVYXEU2QJcmBA17ZNWhcZP",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-viewport",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 71,
+    "deletions": 32
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "internal"
+}

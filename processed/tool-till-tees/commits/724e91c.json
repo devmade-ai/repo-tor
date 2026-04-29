@@ -1,0 +1,38 @@
+{
+  "sha": "724e91c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:30:26Z",
+  "subject": "chore: fresh-eyes branch polish after cold audit",
+  "body": "Six small findings from the cold-review pass, none blocking:\n\n- CLAUDE.md: the Architecture line for lib/auth.ts now mentions the\n  temporary sancio bypass so a fresh reader sees it before hitting AI Notes.\n- lib/cors.ts: brief inline comment explaining why X-Dev-User-Id /\n  X-Dev-User-Email sit in the preflight allowlist and pointing at the\n  removal path.\n- api/__tests__/auth.test.ts: save and restore process.env around each\n  test instead of leaving SUPABASE_URL / SUPABASE_ANON_KEY set after the\n  suite runs. Vitest isolates workers so the risk was low, but hardening.\n- docs/USER_ACTIONS.md: expanded the removal-path step 3 run-on sentence\n  into sub-bullets so flip-day operator can tick each off.\n- docs/SESSION_NOTES.md: dropped point-in-time facts that silently rot\n  (\"19 commits ahead,\" \"95 tests passing\") in favour of durable wording.\n- src/App.tsx: typed the fetch-catch err as unknown and narrowed via\n  `instanceof Error` before reading .name. Promise.catch's signature types\n  the param as any so strict mode didn't flag the implicit any, but the\n  explicit unknown + narrowing reads clearer and matches the pattern the\n  rest of the repo uses for untrusted values.\n\nFlagged but intentionally not fixed (documented in the cold pass):\n- Preflight advertises dev headers to all allowed origins, not just\n  sun-sea-o. Per-origin preflight logic adds code for zero functional\n  benefit — no opt-in means no bypass regardless of what the preflight\n  advertises.\n- lib/auth.ts accepts any non-empty string as x-dev-user-id without UUID\n  validation. Code is slated for deletion; downstream DB UUID parse\n  failures are self-limiting for a dev tool.\n\nTags: documentation, tests, cors, claude-md, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sun-sea-o-integration\nSemver: patch",
+  "tags": [
+    "docs",
+    "refactor",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "sun-sea-o-integration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 25,
+    "deletions": 7
+  },
+  "files": [
+    "CLAUDE.md",
+    "api/__tests__/auth.test.ts",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "lib/cors.ts",
+    "src/App.tsx"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 1,
+  "impact": "internal"
+}

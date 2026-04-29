@@ -1,0 +1,35 @@
+{
+  "sha": "2ab4e0b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T20:34:41Z",
+  "subject": "feat(theme): light-first default on first visit — ignore OS prefers-color-scheme",
+  "body": "New policy: first-visit users always land on light mode regardless of\ntheir OS theme preference. Dark mode requires an explicit toggle via\nthe burger menu, which is then persisted and wins on every subsequent\nvisit across all devices sharing the browser profile. Rationale: users\nwanted a predictable landing experience — OS-driven theme flips were\njarring for people bouncing between devices with different OS settings,\nespecially since Sancio content (agreement titles, counterparty names)\ndoesn't adapt cleanly to being viewed at wildly different color\ntemperatures between sessions.\n\nFour touchpoints in the theme resolution chain, all updated to agree:\n\n1. src/index.css — DaisyUI plugin registration. Dropped `--prefersdark`\n   from the `business` theme so DaisyUI's own first-paint fallback no\n   longer swaps to dark on OS-dark systems when the JS bootstrap is\n   blocked. `corporate --default` alone wins.\n\n2. index.html — inline bootstrap script. Simplified the dark-state\n   resolution from \"stored ?? OS media query\" to just `storedDark ===\n   \"true\"`. Unset localStorage means light, always. Also collapsed the\n   two `<meta name=\"theme-color\">` tags (media-queried by OS prefer-\n   ence) into a single non-queried `content=\"#0082ce\"` tag so the\n   pre-JS status bar is also light-first.\n\n3. src/utils/theme.ts:\n   - Removed `prefersDarkMedia()` helper entirely (no longer called).\n   - `resolveInitial()` now returns `{ dark: false, source: 'default' }`\n     when no stored preference exists (was `{ dark: prefersDarkMedia(),\n     source: 'os' }`).\n   - `setCombo()` and `toggleDark()` coalesce `null` storage to `false`\n     (was `prefersDarkMedia()`).\n   - `initTheme()` no longer attaches a `matchMedia('(prefers-color-\n     scheme: dark)')` change listener — OS flips don't propagate.\n   - Cross-tab sync's \"both keys cleared elsewhere\" branch now\n     applies light instead of re-resolving from OS.\n   - Added file-header note capturing the rationale + a clear comment\n     at the removed-listener site explaining how to restore OS-sync\n     if the policy ever reverses.\n\n4. CLAUDE.md \"Adopted Patterns → THEME_DARK_MODE\" — added a\n   \"Light-first default (deliberate)\" paragraph naming the four files\n   that together enforce the policy. A future audit or contributor\n   considering adding OS-sync back has a checklist to follow.\n\nUser-experience summary:\n- First visit on any OS: light mode.\n- User toggles dark via burger menu: `darkMode: \"true\"` persists;\n  every future visit renders dark.\n- User toggles back: `darkMode: \"false\"` persists.\n- User clears site data: back to light-first on next visit.\n- Cross-tab: toggling in one tab propagates to others via `storage`\n  event; clearing keys in one tab reverts siblings to light-first.\n\nTests 155/155, tsc -b clean, eslint clean, `npm run build` clean.\n\nTags: theme, ux, accessibility-adjacent, policy\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: theme-policy\nSemver: minor\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "theme-policy",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 56,
+    "deletions": 55
+  },
+  "files": [
+    "CLAUDE.md",
+    "index.html",
+    "src/index.css",
+    "src/utils/theme.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "user-facing"
+}

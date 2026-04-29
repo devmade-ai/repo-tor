@@ -1,0 +1,60 @@
+{
+  "sha": "75a9aaf",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T10:01:45Z",
+  "subject": "feat(infra): cross-fleet alignment — 28-part compliance sweep",
+  "body": "Implements all 28 items from the cross-fleet alignment spec:\n- Parts 1-4: Remove HISTORY.md and all references (git tracks history)\n- Part 5: Clean completed items from TODO.md\n- Parts 6-7: Replace inline SUGGESTED IMPLEMENTATIONS with glow-props pointer\n- Parts 8-9: Add AI Note + prohibition for pattern fetching\n- Parts 10-12: Add Communication section, update header, dedupe AI Notes\n- Parts 13-14: BurgerMenu component replacing inline mobile overflow menu\n  (44px trigger, role=\"menu\", arrow keys, focus trap, escape, backdrop)\n- Part 15: Console.error/warn interception in debugLog.ts\n- Part 16: DebugPill switched to inline styles (survives CSS load failure)\n- Part 17: PWA diagnostics tab in DebugPill (HTTPS, SW, manifest, standalone)\n- Part 18: Pre-React inline error pill in index.html (20s boot timeout)\n- Part 19: PDF export skipped (documented in AI Notes)\n- Parts 20-21: Visibility-based SW update checks + 30s post-update suppression\n- Part 22: Z-index normalized to standard scale (30/40/50/60/70/80)\n- Parts 23-25: Icon cache busting (SHA-256 hashes on HTML + manifest + workbox)\n- Part 26: Tripwire test for icon cache busting\n- Part 27: \"Icon looks outdated?\" collapsible in install instructions modal\n- Part 28: Typed EventMap for event bus (compile-time payload checking)\n\nTags: cross-fleet, alignment, infra, pwa, debug, a11y, eventbus\nComplexity: 4\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: cross-fleet-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01499zYE2oJbVWpsyn9LArZF",
+  "tags": [
+    "feature",
+    "ui",
+    "accessibility",
+    "monitoring",
+    "test-unit"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "cross-fleet-alignment",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 26,
+    "additions": 778,
+    "deletions": 525
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/TODO.md",
+    "index.html",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/debug/DebugPill.tsx",
+    "src/components/graph/GraphSettingsPopover.tsx",
+    "src/components/layout/DetailDrawer.css",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/components/ui/ConfirmDialog.tsx",
+    "src/components/ui/ContextMenu.tsx",
+    "src/components/ui/Toast.tsx",
+    "src/hooks/usePWAUpdate.ts",
+    "src/main.tsx",
+    "src/services/embeddingWorkerBridge.ts",
+    "src/services/graphService.ts",
+    "src/services/tagSuggestionService.ts",
+    "src/services/viewService.ts",
+    "src/services/workspaceService.ts",
+    "src/test/icon-cache-bust.test.ts",
+    "src/utils/debugLog.ts",
+    "src/utils/eventBus.test.ts",
+    "src/utils/eventBus.ts",
+    "src/utils/pwaDiagnostics.ts",
+    "vite.config.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,36 @@
+{
+  "sha": "1e05433",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T00:39:33Z",
+  "subject": "test(debug): extract DebugRootBoundary + unit-test its three paths",
+  "body": "The ErrorBoundary class that wraps DebugPill in the separate web root\nwas inlined in debugRootMount.web.tsx. Moving the setup-side effect\n(createRoot, DOMContentLoaded listener) into the same file as the\ntestable class made it un-unit-testable — importing the file runs the\nmount code.\n\n- New: src/debug/DebugRootBoundary.tsx — the class component +\n  plain-DOM fallback, exported. Unchanged behaviour.\n- debugRootMount.web.tsx imports DebugRootBoundary instead of defining\n  it inline.\n- CLAUDE.md architecture section lists the new file.\n\nNew test: src/debug/__tests__/DebugRootBoundary.test.tsx (5 cases).\nTests the class methods directly (getDerivedStateFromError,\ncomponentDidCatch, render-with-error, render-without-error) rather\nthan routing through react-test-renderer — that package is deprecated\non React 19 and returns null without act() plumbing that would be\nnoise for a pure class-behaviour test. Class lifecycle methods are\npure functions of state/props; calling them directly exercises the\nfull contract.\n\nTest coverage:\n- getDerivedStateFromError returns { error } shape.\n- render() passes children through when state.error is null.\n- render() returns the plain-<div> fallback (critical: not a RN\n  View, since the boundary has to survive a broken RN-Web stack)\n  with the error message in both the title attribute and children.\n  Positioning verified against DebugPill's bottom-right z-80 slot.\n- componentDidCatch writes a 'DebugPill crashed' entry with source\n  'global', severity 'error', and details { message, stack }.\n- componentDidCatch handles non-Error throw values via errDetails,\n  preserving the uniform { message } shape.\n\nJest plumbing (minor):\n- testMatch now matches .test.tsx as well as .test.ts.\n- Added a transform override so ts-jest compiles .tsx with\n  jsx: 'react-jsx'. The main tsconfig uses jsx: 'react-native'\n  (Metro-friendly, preserves JSX) which ts-jest can't execute;\n  the override is test-only and doesn't touch the main build.\n\n88 tests (up from 83). tsc 0, expo web build clean.\n\nTags: debug, tests, refactor, reliability\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "refactor",
+    "test-unit"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 197,
+    "deletions": 59
+  },
+  "files": [
+    "CLAUDE.md",
+    "jest.config.js",
+    "src/debug/DebugRootBoundary.tsx",
+    "src/debug/__tests__/DebugRootBoundary.test.tsx",
+    "src/debug/debugRootMount.web.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "internal"
+}

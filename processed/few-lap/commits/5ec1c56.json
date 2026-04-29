@@ -1,0 +1,35 @@
+{
+  "sha": "5ec1c56",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-03T18:26:07Z",
+  "subject": "feat(map): auto-zoom map to match search radius selection",
+  "body": "Map zoom level now automatically adjusts when the user changes the\ndistance filter. A 5 km radius zooms in to level 13, while 50 km\nzooms out to level 9. This makes the visible map area correlate\nwith the search distance, so users see roughly the area being searched.\n\nTags: map, ux, filters\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: map-ux\nSemver: minor\n\nhttps://claude.ai/code/session_01TwJnC1swvubtrNb8bvCi4B",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "map-ux",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 39,
+    "deletions": 9
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "src/components/map/FuelMap.tsx",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/constants/fuelTypes.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

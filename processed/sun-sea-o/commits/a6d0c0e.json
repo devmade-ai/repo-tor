@@ -1,0 +1,41 @@
+{
+  "sha": "a6d0c0e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T00:21:04Z",
+  "subject": "refactor(ui): tier-2 reductions — drop LoadingSpinner + OfflineIndicator wrappers, dedup close-icon, strip overhead memoization",
+  "body": "Second-pass audit findings applied after tier 1. Every change either\nremoves an abstraction that was carrying less weight than its file, or\nstrips `useMemo`/`useCallback` that couldn't prevent a re-render because\nnothing downstream was memoized.\n\n- LoadingSpinner.tsx deleted. The wrapper was a `flex items-center\n  justify-center` container around `<span class=\"loading loading-spinner\">`\n  — exactly what the 3 call sites in App.tsx already wrapped it in.\n  Inlining moves `role=\"status\"` + `aria-label=\"Loading\"` onto the outer\n  container, drops one DOM node, and removes a one-consumer file.\n- OfflineIndicator.tsx deleted. Single caller (AppLayout). The\n  `navigator.onLine` subscription + conditional `alert-warning` banner\n  are now inline in AppLayout, next to the other page-top system banners\n  (auth-bypass warning, update-available, offline-ready, check-result).\n- src/constants/icons.ts (new). `ICON_X` path constant dedups the 3\n  copies of `d=\"M6 18L18 6M6 6l12 12\"` across AppLayout / PwaInstallPrompt\n  / NotificationBell. Mirrors AppLayout's local `ICON_MOON/SUN/...`\n  pattern; multi-consumer icons live in constants, single-consumer icons\n  stay next to their consumer.\n- AppLayout menuItems: `useMemo` dropped. Zero `React.memo` in the\n  codebase means the memoization couldn't protect any downstream\n  component from re-rendering — it only added dep-array bookkeeping.\n- ToneSelector handlers: `useCallback` dropped on `handleCustomSubmit`\n  + `handleKeyDown`. Both pass to native `<input>` / `<button>`, which\n  never memoize props, so the callbacks add no value. `useCallback`\n  import removed from the file.\n\nKept with explicit justification (from audit): ConfirmDialog (semantic\nabstraction worth the file), InstallInstructionsModal (137 lines of\ndomain copy — merging bloats consumer), useNotifications /\nusePdfVerifications / useSignatureLog (intentional data-access layer\narchitecture).\n\nVerified: `tsc -b` clean, `npm run lint` clean, `npm test` → 22 passing\n(3 dist-level tests auto-skipped).\n\nTags: refactor, cleanup, daisyui, code-quality\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: custom-code-reduction\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "refactor",
+    "simplify",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "custom-code-reduction",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 9,
+    "additions": 97,
+    "deletions": 92
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "src/App.tsx",
+    "src/components/common/LoadingSpinner.tsx",
+    "src/components/common/NotificationBell.tsx",
+    "src/components/common/OfflineIndicator.tsx",
+    "src/components/common/PwaInstallPrompt.tsx",
+    "src/components/common/ToneSelector.tsx",
+    "src/constants/icons.ts",
+    "src/layouts/AppLayout.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,41 @@
+{
+  "sha": "92dfffd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-16T18:46:03Z",
+  "subject": "chore(docs): remove HISTORY.md/HISTORY_ARCHIVE.md, use git log as changelog",
+  "body": "The git log is already the canonical changelog — every commit carries its\nrationale via the body + metadata footers (see docs/COMMIT_CONVENTION.md).\nA separate HISTORY.md duplicated the same information in prose form,\nrequired AI-assistant ceremony to keep in sync, and drifted (as seen by\nthe cleanupOutdatedCaches rationale correction one commit ago, which\nneeded an edit in place to unwind the overstatement — a problem git\namend/revert doesn't have).\n\nDeletions:\n- docs/HISTORY.md\n- docs/HISTORY_ARCHIVE.md\n\nReference updates:\n- CLAUDE.md: dropped HISTORY.md / HISTORY_ARCHIVE.md rows from the docs\n  table, removed the \"Add entry to HISTORY.md\" / \"HISTORY.md entry added\"\n  steps from the After-Task and Before-Commit checklists, added an\n  explicit \"git log is the changelog\" policy line under the table.\n- docs/SESSION_NOTES.md: 4 references replaced with \"git log\" pointers.\n- docs/TODO.md: footer pointer updated.\n- docs/AI_MISTAKES.md: 3 narrative references trimmed.\n- docs/DAISYUI_V5_NOTES.md: related-docs pointer switched to\n  `git log --grep='daisyui'`.\n- docs/CODE_REVIEW.md: documentation list updated with changelog note.\n- scripts/__tests__/daisyui-surfaces.test.mjs: header comment pointer.\n- vite.config.js: removed self-referential \"see HISTORY.md strengthening\n  entry\" note in the cleanupOutdatedCaches comment.\n\nData files under dashboard/public/repos/, dashboard/repos/, and\ndashboard/public/data-commits/ intentionally keep HISTORY.md references\n— those are historical commit records (the file existed at those\ncommits) and editing them would corrupt the analytics data.\n\nTests still 74/74.\n\nTags: documentation, cleanup, refactor\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: doc-hygiene\nSemver: patch",
+  "tags": [
+    "documentation",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "doc-hygiene",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 10,
+    "additions": 22,
+    "deletions": 4834
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/CODE_REVIEW.md",
+    "docs/DAISYUI_V5_NOTES.md",
+    "docs/HISTORY.md",
+    "docs/HISTORY_ARCHIVE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "scripts/__tests__/daisyui-surfaces.test.mjs",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "internal"
+}

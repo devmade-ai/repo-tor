@@ -1,0 +1,40 @@
+{
+  "sha": "905e8b8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-08T12:18:00Z",
+  "subject": "refactor: clean up keyboard handlers, complete print CSS, stabilize callbacks",
+  "body": "Systematic cleanup of all items flagged during burger menu review:\n\n- App.jsx: Remove 3 redundant Escape handlers (shortcuts modal handled\n  by native <dialog>, burger menu by useEscapeKey, reader mode moved to\n  ReaderMode). Simplify keyboardRef from 14 to 8 values. Note: these\n  used the ref pattern (not stale closures) — earlier analysis was wrong.\n- ReaderMode: Own keyboard handling — useEscapeKey for exit, useEffect\n  for arrow key page navigation with debugLog. Component only mounted\n  when active so useEscapeKey(true, ...) always enabled.\n- MobileLayout: Stabilize onClose with useCallback to prevent\n  useEscapeKey listener re-attachment every render.\n- Print CSS: Complete @media print rules — .no-print hide, white\n  bg/black text, break-inside avoid.\n- TODO.md: Remove incorrect stale closure entry and completed print\n  CSS entry.\n- Docs: Update CLAUDE.md, HISTORY.md, SESSION_NOTES.md.\n\nTags: refactor, a11y, keyboard, print-css, cleanup\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: burger-menu\nSemver: patch\n\nhttps://claude.ai/code/session_011MQhy7g7xUiNtQ2i94SRqB",
+  "tags": [
+    "refactor",
+    "accessibility",
+    "simplify"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "burger-menu",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 8,
+    "additions": 81,
+    "deletions": 35
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/App.jsx",
+    "src/components/MobileLayout.jsx",
+    "src/components/ReaderMode.jsx",
+    "src/index.css"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

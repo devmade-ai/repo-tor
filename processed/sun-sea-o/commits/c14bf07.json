@@ -1,0 +1,31 @@
+{
+  "sha": "c14bf07",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T21:18:24Z",
+  "subject": "docs(todo): remove shipped backend item — resolved_at server-side stamping",
+  "body": "Verified against devmade-ai/tool-till-tees:\nlib/routes/sancio/proposals.ts:222 sets\n`resolved_at: new Date().toISOString()` on the server in the\nproposal-resolution handler, and frontend no longer falls back to\nclient `new Date()` — only reads `proposal.resolved_at` from the type\n(ProposalCard.tsx:30). Item is shipped.\n\nOther backend TODO items re-verified and left intact:\n- bulk /api/sancio/module-versions (still /:id/versions only)\n- clear passphrase_hash after verify (update still sets only counterparty_id)\n- email CHECK constraint (counterparty_email is plain TEXT)\n- template_id FK (still TEXT, no REFERENCES)\n- invite handler transaction (DB update + \"non-fatal\" email send)\n- cron archive read notifications (not in cron.ts)\n\nTags: documentation, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pwa-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01Qj2ueAEuobTogrBRFwAXvc",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 0,
+    "deletions": 1
+  },
+  "files": [
+    "docs/TODO.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 1,
+  "impact": "internal"
+}

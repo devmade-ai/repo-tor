@@ -1,0 +1,38 @@
+{
+  "sha": "9991eda",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T00:03:00Z",
+  "subject": "chore(cssColor+docs): wrap-pass polish — tighter comments, canvas sizing, doc sync",
+  "body": "Follow-up to af48633 addressing items surfaced by the wrap reflective\npass. No behavior changes for any happy path; one minor allocation\nreduction and several doc corrections / additions.\n\nCode:\n- Resize shared canvas to 1x1 at creation (default 300x150 wastes a\n  ~180KB backing buffer for a single-pixel workload). Rationale\n  documented inline so future readers don't re-expand it.\n- Tighten cssColor.ts decision-doc header (38 -> 28 lines). Kept the\n  valuable \"alternatives considered\" block; trimmed redundant prose.\n- Soften \"modern Chromium preserves CSS Color 4 syntaxes on fillStyle\"\n  from stated fact to \"some modern Chromium builds (per CSS Color 4)\n  preserve...\" in both the code comment and the CLAUDE.md convention.\n  The hypothesis fits the Chrome 147 Android debug report exactly, but\n  wasn't independently verified against a spec commit or Chromium\n  source, so the wording now matches the evidence we actually have.\n- Clarify the `transparent` escape-hatch comment and explicitly list\n  the known-limitation zero-alpha forms (hsla(0,0%,0%,0),\n  #00000000, rgb(0 0 0 / 0)) so a future reader doesn't re-derive the\n  reasoning from the test assertion alone.\n\nTests:\n- Annotate the existing `normalizeColor` describe block as exercising\n  the rasterization-unavailable fallback path. Without this note, a\n  contributor might assume passing the original tests is sufficient\n  proof of correctness on modern browsers — it isn't; that's the\n  `modern canvas fillStyle` block's job.\n\nDocs:\n- docs/CODEBASE_DOCUMENTATION.md — remove the stale claim that\n  fillStyle serialization guarantees downsample to #rrggbb/rgba(...).\n  Describe the two-stage normalization (sentinel rejection + raster\n  normalize) that actually ships. Update test count 18 -> 26 and\n  explain why the suite now has two describe blocks.\n- docs/AI_MISTAKES.md — new entry \"Mock-canvas tests shielded a real\n  browser regression for 3 days.\" Captures the tautological-mock\n  anti-pattern: the mock encoded the same assumption the impl\n  depended on (fillStyle downsamples), so green tests proved internal\n  consistency only. Prevention: add tests whose mock simulates the\n  alternative browser behavior; add TRIPWIRE tests asserting negative\n  invariants (output never starts with `oklch(`/etc.); treat\n  production debug reports as authoritative over green local tests.\n- docs/TODO.md — two new backlog items: verify the rasterization fix\n  on Safari + Firefox (production report was Chrome 147 Android\n  only), and confirm the inferred DaisyUI pastel token -> oklch value\n  mapping used in the report.\n- docs/SESSION_NOTES.md — rewritten with current-session summary\n  (CLAUDE.md alignment + cssColor fix + wrap-pass polish), per\n  CLAUDE.md convention that SESSION_NOTES is rewritten at session end.\n\nAll 342 tests still pass. Lint clean, typecheck clean.\n\nTags: documentation, cssColor, wrap-pass, code-hygiene\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: alpha-debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01BWtvfymwxSnoGr13R5qc9a",
+  "tags": [
+    "docs",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "alpha-debug-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 116,
+    "deletions": 66
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/CODEBASE_DOCUMENTATION.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/utils/cssColor.test.ts",
+    "src/utils/cssColor.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

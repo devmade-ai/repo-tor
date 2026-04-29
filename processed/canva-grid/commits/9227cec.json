@@ -1,0 +1,33 @@
+{
+  "sha": "9227cec",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T00:12:37Z",
+  "subject": "fix(mobile): make burger menu scrollable on short viewports",
+  "body": "The nav had overflow-hidden which would clip content if the menu\n(7 items + theme toggle + 8 theme options) exceeded viewport height.\nChanged to overflow-y-auto with max-h-[calc(100dvh-4rem)] so the\nentire menu scrolls when needed. Prevents themes from being hidden\non small screens.\n\nTags: ui, mobile, menu, accessibility\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01CArdGkf7Pw8EVWBHihPXvv",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 1
+  },
+  "files": [
+    "src/components/BurgerMenu.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

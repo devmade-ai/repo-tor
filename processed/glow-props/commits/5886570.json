@@ -1,0 +1,33 @@
+{
+  "sha": "5886570",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T21:24:31Z",
+  "subject": "docs(claude): add 8 triggers — hacks, simplify, back-compat, comments, visual, align, pattern-audit, surface",
+  "body": "Covers common post-change questions that the current trigger set didn't\ncleanly map to:\n- hacks / shortcuts / bad practices → `hacks` (grep TODO/FIXME/HACK, @ts-ignore, any escapes, setTimeout timing fixes)\n- reduce custom code / simplify → `simplify` (framework features, over-engineering, unnecessary layers)\n- backward compatibility cleanup → `back-compat` (orphaned flags, legacy exports, compat shims)\n- comments against repo rules → `comments` (WHY not WHAT, no PR-reference rot, no AI narration)\n- visual UI issues → `visual` (layout/spacing/alignment/hierarchy, dark-vs-light parity)\n- this CLAUDE.md vs glow-props CLAUDE.md → `align`\n- every glow-props pattern implementation status → `pattern-audit`\n- post-change reflection → `surface` (decisions, assumptions, skipped items, review asks)\n\nAlso adds a new `fleet` group (align + pattern-audit).\n\nTrigger count: 34 → 41. Group count: 7 → 8. Meta sweeps: 4 → 5.\n\nTags: documentation, triggers, claude-md\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: triggers-redesign\nSemver: minor\n\nhttps://claude.ai/code/session_013TSNyXMQiUmG4hPbycbrZT",
+  "tags": [
+    "documentation",
+    "triggers",
+    "claude-md"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "triggers-redesign",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 29,
+    "deletions": 16
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

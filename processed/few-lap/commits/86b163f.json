@@ -1,0 +1,36 @@
+{
+  "sha": "86b163f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T08:39:41Z",
+  "subject": "fix(debug): 4 bugs from ship/bugs trigger",
+  "body": "B1 — redactUrls step 2 was over-redacting hash-router URLs with\nquery-style fragment params. `https://app.com/#/settings?tab=profile`\nwas getting redacted to `#[redacted]` because the fragment contained\n`=`. Hash-router convention always starts with `/` after the `#`;\nOAuth implicit-flow callbacks never do. Added a `(?!\\/)` negative\nlookahead to step 2 so hash-routes are preserved while\n`#access_token=…` is still redacted. Three new assertions in the\nredactUrls test block cover the new behaviour + prove the OAuth\npath still works.\n\nB2 — RECOVERY_TIMEOUT_MS (15000) was a literal inside the\nrecoveryScript template, while BOOT_PILL_TIMEOUT_MS was a named\nconstant. The comment on BOOT_PILL_TIMEOUT_MS documented a\nmust-stay-greater-than invariant with RECOVERY_TIMEOUT_MS — but\nRECOVERY_TIMEOUT_MS didn't exist as a symbol so the invariant could\nsilently break. Extracted RECOVERY_TIMEOUT_MS alongside\nBOOT_PILL_TIMEOUT_MS, interpolated into the recoveryScript template,\nand made the relationship explicit in both comments.\n\nB7 — DebugRootBoundary.componentDidCatch was discarding React's\nerrorInfo.componentStack. React's componentStack is more useful than\nthe raw JS stack for locating the crashing component (JS stack shows\ninternal React frames; componentStack shows the React tree path).\nUpdated the signature to accept errorInfo and include componentStack\nin the structured details. Test updated to pass errorInfo and assert\ncomponentStack lands in details; also added null-componentStack\ncoverage for React cases where the stack isn't available.\n\nB10 — installConsoleCapture() ran during Expo's static rendering\n(Node process, Platform.OS === 'web'), which patched Node's console\nfor the duration of the SSR process. Harmless but wasteful (leaked\ndebug entries nobody reads). Added a `typeof document === 'undefined'`\ngate to skip SSR. Both jest test files now stub a minimal `document`\nobject before importing debugLog so the tests still exercise the\nweb-only install path; commented on why.\n\ntsc 0, jest 89/89 (up from 88 — one new redactUrls case), expo web\nbuild clean; dist/index.html confirms RECOVERY_TIMEOUT_MS = 15000\nand BOOT_PILL_TIMEOUT_MS = 20000 interpolated correctly.\n\nTags: debug, bugfix, privacy, pwa\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 91,
+    "deletions": 29
+  },
+  "files": [
+    "app/+html.tsx",
+    "src/debug/DebugRootBoundary.tsx",
+    "src/debug/__tests__/DebugRootBoundary.test.tsx",
+    "src/debug/__tests__/debugLog.test.ts",
+    "src/debug/consoleCapture.ts",
+    "src/debug/debugLog.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

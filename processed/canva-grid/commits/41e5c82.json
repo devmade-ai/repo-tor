@@ -1,17 +1,11 @@
 {
   "sha": "41e5c82",
-  "fullSha": "41e5c82494ca22f90da6448dff25207df7e1dff0",
   "author_id": "jacotheron87@gmail.com",
   "author": {
     "name": "jacotheron87",
     "email": "jacotheron87@gmail.com"
   },
-  "committer": {
-    "name": "jacotheron87",
-    "email": "jacotheron87@gmail.com"
-  },
   "timestamp": "2026-02-12T22:01:43Z",
-  "commitDate": "2026-02-12T22:01:43Z",
   "subject": "Decouple sample images: fetch manifest from CDN at runtime",
   "body": "Move all sample image generation concerns to the assets repo.\nThe app now fetches manifest.json from jsDelivr CDN at runtime\ninstead of bundling a static config. Adds loading/error/retry\nstates, PWA manifest caching, and removes the generate script\nand bundled sample images (13MB).\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
   "tags": [
@@ -19,11 +13,7 @@
     "performance"
   ],
   "complexity": 4,
-  "scope": null,
-  "title": "Decouple sample images: fetch manifest from CDN at runtime",
-  "is_conventional": false,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 19,
     "additions": 241,

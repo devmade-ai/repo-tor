@@ -1,0 +1,42 @@
+{
+  "sha": "8ce760c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T23:24:18Z",
+  "subject": "refactor(ui): replace spinners, button groups, nav, and menu with DaisyUI",
+  "body": "Second pass of DaisyUI component migration — replaces remaining custom\npatterns for consistency and reduced hand-rolled code.\n\n- 3 loading spinners → DaisyUI loading loading-spinner (SampleImages, App.jsx)\n- ExportButtons format selector → join (connected button group)\n- ThemeSelector → join (mode toggle + combo picker)\n- AIPromptHelper options → btn btn-xs + join (purpose, orientation, colors)\n- BurgerMenu list → menu menu-sm (DaisyUI item styling, keeps disclosure pattern)\n- MobileNav → dock dock-sm (native safe area, dock-active, dock-label)\n\nTags: ui, daisyui, components, dock, menu, join, loading, spinner\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-migration\nSemver: minor\n\nhttps://claude.ai/code/session_017oR3zVWAu68xTcZgGmoFM1",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 10,
+    "additions": 140,
+    "deletions": 154
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/App.jsx",
+    "src/components/AIPromptHelper.jsx",
+    "src/components/BurgerMenu.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/MobileNav.jsx",
+    "src/components/SampleImagesSection.jsx",
+    "src/components/ThemeSelector.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

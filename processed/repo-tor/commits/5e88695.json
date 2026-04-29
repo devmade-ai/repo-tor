@@ -1,0 +1,39 @@
+{
+  "sha": "5e88695",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T07:11:19Z",
+  "subject": "refactor(dashboard): Phase 1 — tags to vanilla DaisyUI badge variants",
+  "body": "Replaces the 34-tag brand-hex palette with 7 DaisyUI semantic badge\nvariants that track the active theme. The daisy theme IS the brand.\n\nutils.js:\n  Deleted:\n    TAG_COLORS (34 brand hex mappings)\n    TAG_TEXT_OVERRIDES (8 text-color lifted variants)\n    DYNAMIC_TAG_PALETTE (10-colour fallback for unknown tags)\n    hashString / getDynamicTagColor (hash-based colour picker)\n    getTagColor (brand-hex accessor)\n    getTagStyleObject (rgba() bg/border/color builder + Map cache)\n\n  Added:\n    TAG_SEMANTIC (34 tag names → DaisyUI badge variants, grouped into\n      7 semantic categories: success, error, warning, secondary, info,\n      accent, neutral)\n    getTagBadgeClass(tag) — returns 'badge-{variant}' for JSX chip render\n    TAG_SEMANTIC_VAR (tag → --color-<semantic> CSS variable name)\n    resolveTagSemanticColor(tag) — reads the active theme's CSS var at\n      runtime, returns the resolved value for Chart.js datasets (which\n      can't consume CSS classes directly)\n\nJSX consumers updated (5 files):\n  - DetailPane.jsx: <span className=\"badge badge-sm ${getTagBadgeClass(tag)}\">\n  - Timeline.jsx: 3 tag-chip sites + \"+N more\" overflow chip\n  - Health.jsx: 2 security badge sites\n  - Contributors.jsx: tag chip + progress-bar colour (resolveTagSemanticColor)\n  - Tags.jsx: list chips, Chart.js doughnut dataset.backgroundColor\n\nTags.jsx: Added state.darkMode / state.lightTheme / state.darkTheme to\nthe tagData useMemo deps so Chart.js doughnut colours re-resolve when\nthe user switches theme.\n\nTests (daisyui-surfaces.test.mjs):\n  - Replaced \"Tag color duplication stays collapsed\" + \"getTagClass is\n    deleted\" with a single \"Tag brand-hex palette stays deleted\" test\n    that enforces the removal of TAG_COLORS/DYNAMIC_TAG_PALETTE/\n    getTagColor/getTagStyleObject and the presence of the new\n    getTagBadgeClass/resolveTagSemanticColor exports\n  - Replaced \".tag base class stays deleted\" regression guard with a\n    \"Tag chips use vanilla DaisyUI badge component\" check that requires\n    every tag consumer to use `badge badge-sm` + getTagBadgeClass()\n    and rejects the deleted inline Tailwind combo\n\nVisual regression:\n  - 34 distinct tag colours → 7 semantic variants. Tags within a\n    category (feature/enhancement/seed/init → success) look identical.\n    Users lose fine-grained tag discrimination but gain a palette that\n    tracks every DaisyUI theme. This is the intended tradeoff.\n\nVerified: vite build clean (3.22s), 60/60 tests pass (count dropped\nby 1 because the \".tag base class\" test's second sweep was merged\ninto the new single assertion).\n\nTags: refactor, ui, daisyui, cleanup, vanilla, tags\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-v5-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 155,
+    "deletions": 259
+  },
+  "files": [
+    "dashboard/js/components/DetailPane.jsx",
+    "dashboard/js/sections/Contributors.jsx",
+    "dashboard/js/sections/Health.jsx",
+    "dashboard/js/sections/Tags.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/js/utils.js",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

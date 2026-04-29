@@ -1,0 +1,39 @@
+{
+  "sha": "29758aa",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T23:26:42Z",
+  "subject": "fix(pwa): address 7 gaps found in canva-grid comparison audit",
+  "body": "Manifest hardening:\n- Add id: '/' for stable PWA identity (Chrome derives from start_url without it)\n- Add scope: '/' and start_url: '/' explicitly\n- Add prefer_related_applications: false (Chrome may skip beforeinstallprompt without it)\n\nWorkbox cleanup:\n- Remove dead Google Fonts runtime cache rule (graphiki uses system fonts)\n- Simplify globPatterns (remove ico/svg — no ICO files, SVG favicon removed)\n\nInstall improvements:\n- Add appinstalled event listener to usePWAInstall — clears install banner\n  immediately when user installs via any path (browser menu, not just our prompt)\n- Add PWA benefits section to InstallInstructionsModal — \"Works offline\",\n  \"Launches from home screen/dock\", \"Full-screen experience\"\n\nIcon generation:\n- Add dedicated apple-touch-icon.png at 180x180 (Apple recommended size)\n- Update index.html to reference apple-touch-icon instead of reusing pwa-192\n\nTags: pwa, manifest, workbox, install, icons, audit\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: minor\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "bugfix",
+    "ui",
+    "config"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 56,
+    "deletions": 16
+  },
+  "files": [
+    "CLAUDE.md",
+    "index.html",
+    "public/apple-touch-icon.png",
+    "scripts/generate-icons.mjs",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/hooks/usePWAInstall.ts",
+    "vite.config.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

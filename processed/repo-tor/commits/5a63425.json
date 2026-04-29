@@ -1,0 +1,31 @@
+{
+  "sha": "5a63425",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T16:34:36Z",
+  "subject": "docs(claude): replace Triggers with glow-props cross-fleet version",
+  "body": "Replaced the legacy 10-row single-word trigger table\n(review/audit/docs/mobile/clean/performance/security/debug/improve/start)\nwith the glow-props cross-fleet version: 48 triggers across 8 groups\n(correctness, trust, speed, frontend, quality, ops, design, fleet),\n6 cadence meta sweeps (hot, quick, ship, session, tidy, all), and\n7 reflective passes (risk, surface, wrap, skipped, assumed, approach,\ncold). Includes scope modifiers (branch / staged / file <path>) and\nbehavior rules carried over from glow-props.\n\nAdded one line in AI Notes noting trigger-vs-repo-convention name\ncollisions for `docs`, `config`, `state`, `api`, `pwa`, `patterns`\nwith a precedence rule: treat bare words as triggers only in a\nreview/audit context, otherwise as the repo concept.\n\nTags: documentation, fleet-alignment, triggers\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: glow-props-fleet-alignment\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "glow-props-fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 149,
+    "deletions": 36
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,33 @@
+{
+  "sha": "c98ee13",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T21:44:37Z",
+  "subject": "docs: record forms app as 3rd tenant on shared utilities backend",
+  "body": "User confirmed the forms/form_submissions/profiles tables belong to a\nseparate forms app that also lives on this Supabase project, alongside\nsynctone and sancio. That means the UTIL_ env-var prefix isn't\nmisleading after all — it reflects that the project is a shared\n\"utilities\" backend serving multiple apps.\n\nUpdated CLAUDE.md's shared-project note to call out all three tenants\nand their table ownership, cleared the unresolved TODO, and rewrote the\nSESSION_NOTES known-issue line to reflect the completed picture.\n\nTags: docs, shared-db\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: shared-db-hygiene\nSemver: patch\n\nhttps://claude.ai/code/session_01P5uv5tNGcoUDXWyzLbmArf",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "shared-db-hygiene",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 9,
+    "deletions": 7
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,37 @@
+{
+  "sha": "19f2438",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T17:30:09Z",
+  "subject": "refactor(z-index): adopt glow-props Z_INDEX_SCALE; mark EVENT_BUS N/A",
+  "body": "Every z-index in src/ now maps to the 8-tier scale documented in\nsrc/constants/zIndex.ts. Concrete fixes:\n- DebugPill z-[9999] → z-[80] (debug tier)\n- Toast z-50 → z-[70] (toast tier)\n- ModuleEditor sticky save bar z-40 → z-30 (sheet tier)\n- .skip-to-content z-index 100 → 70 (toast tier)\nNotificationBell already used z-50 and is kept on the menu tier.\n\nCLAUDE.md gains an \"Adopted Patterns\" section documenting the tier\ntable and marks EVENT_BUS as Not Applicable — sun-sea-o has no\nservice-layer pub/sub (data uses Supabase realtime channels as the\nbus, debugLog runs its own per the pattern's own exclusion list).\n\nTags: refactor, z-index, patterns, fleet-alignment\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
+  "tags": [
+    "refactor",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-docs",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 66,
+    "deletions": 5
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/common/DebugPill.tsx",
+    "src/components/common/Toast.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/constants/zIndex.ts",
+    "src/index.css"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

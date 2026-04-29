@@ -1,17 +1,11 @@
 {
   "sha": "3a681ee",
-  "fullSha": "3a681ee0aac79251c55338927457d02328603c6b",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-02-25T13:44:23Z",
-  "commitDate": "2026-02-25T13:44:23Z",
   "subject": "Fix deployment safety: lazy-init Supabase client and defer env checks",
   "body": "Move Supabase client creation from top-level (module load time) to lazy\ngetSupabase() function so missing env vars don't crash unrelated endpoints.\nMove auth env var reads inside the request handler for the same reason.\nExisting /api/health and /api/send-interest endpoints are unaffected.\n\nhttps://claude.ai/code/session_01DEWuDp8jGUxw39w6M5fNgn",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": null,
   "semver": "patch",
-  "scope": null,
-  "title": "Fix deployment safety: lazy-init Supabase client and defer env checks",
-  "is_conventional": false,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 10,
     "additions": 46,

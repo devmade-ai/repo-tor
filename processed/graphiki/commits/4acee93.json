@@ -1,17 +1,11 @@
 {
   "sha": "4acee93",
-  "fullSha": "4acee930af0f04518af8ee626874050522d46496",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-02-17T20:44:56+00:00",
-  "commitDate": "2026-02-17T20:44:56+00:00",
   "subject": "refactor(core): migrate from schema-based to label-based data model",
   "body": "Replace the schema/type system with a simpler label-based model.\nThis is Phase 1 (Data Model Foundation) and Phase 2 (Layout Restructure)\nof the product realignment plan.\n\nKey changes:\n- GraphNode/Arc use labels[] instead of typeId/tags\n- Removed SchemaBlueprint, NodeType, ArcType, PropertyDefinition types\n- Added ConventionRules type and AppTab union for tab navigation\n- Database v2: dropped schemas table, renamed tag indexes to label indexes\n- Factory functions simplified: removed createSchema, createNodeType, etc.\n- Query engine uses label: prefix instead of type:/tag:\n- Import/export uses 2-param exportToJson (no schemas), 1-param resolveMarkdownImport\n- Snapshot service uses 2-param takeSnapshot (no schemas)\n- useAppMode returns {activeTab, setActiveTab} instead of mode/schema state\n- useGraphData simplified: no includeSystem parameter\n- App.tsx rewritten with tab-based navigation (no designer/user mode)\n- Removed: schema components, DesignerPanel, ConnectModal, KanbanView,\n  ListView, TableView, ViewBuilder, ViewConfigEditor\n- Graph coloring uses label-hash-based palette instead of schema types\n- All 166 tests pass, lint clean, build succeeds\n\nTags: product-realignment, phase-1, phase-2, labels, migration\nComplexity: 5\nUrgency: 3\nImpact: user-facing\nRisk: high\nDebt: paid\nEpic: product-realignment\nSemver: major\n\nhttps://claude.ai/code/session_01MJJT4w8YukfxVmCpcMZeZB",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "product-realignment",
   "semver": "major",
-  "scope": "core",
-  "title": "migrate from schema-based to label-based data model",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 50,
     "additions": 1010,

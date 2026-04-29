@@ -1,0 +1,31 @@
+{
+  "sha": "e99afb7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T22:32:11Z",
+  "subject": "docs(claude): align sun-sea-o CLAUDE.md with glow-props — six drift fixes",
+  "body": "Ran the `align` trigger against glow-props' CLAUDE.md. Six gaps closed:\n\nCommunication section:\n- Added \"Work, not process\" rule: never opine on branching / PRs /\n  commit granularity / review flow unless the user raises it. The\n  user's domain, not the AI's.\n\nCode Standards section:\n- Added \"Timer and Subscription Cleanup\" subsection covering\n  setTimeout/setInterval/addEventListener/subscribe cleanup, HMR guard\n  convention, React useEffect return vs plain-module dispose, with a\n  pointer to glow-props' TIMER_LEAKS pattern. Cites the existing\n  src/utils/debugLog.ts __debugLogListenersAttached guard as the\n  in-repo example.\n\nDocumentation section:\n- Added README.md entry listing purpose / when-to-read / when-to-update\n  / content — parity with glow-props and with every other AI-maintained\n  doc already listed.\n\nAI Notes section:\n- Added \"All code is yours\" rule: don't hedge authorship, don't treat\n  unfamiliar diffs as someone else's work to investigate.\n- Added discontinued-repos skip list (plant-fur, coin-zapp) relevant to\n  fleet-wide align / pattern-audit runs.\n\nProhibitions section — added four process-meddling rules:\n- \"Remove features during 'cleanup'\" check (with AI_MISTAKES.md\n  cross-ref).\n- No mentioning branches / PRs / squashing / rebasing / merging /\n  force-pushing unless the user raises it.\n- \"No out-of-scope framing.\" Work is doable (do it) or blocked on user\n  input (say what's needed). Scope is not a reason to skip.\n- No opinions on git history editing / branch strategy / PR size / PR\n  shape / commit structure.\n\nRepo-specific divergences (useCallback OMIT default, one-environment\npolicy, Adopted Patterns catalog, backend API rule, USER_GUIDE +\nTESTING_GUIDE docs) intentionally NOT propagated to glow-props —\nthey're sun-sea-o-specific learnings.\n\nTags: docs, alignment, claude-md, conventions\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: custom-code-reduction\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "custom-code-reduction",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 30,
+    "deletions": 0
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

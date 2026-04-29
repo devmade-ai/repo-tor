@@ -1,0 +1,33 @@
+{
+  "sha": "2f815d1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T21:05:59Z",
+  "subject": "refactor(timeline): extract chart data builders into useTimelineCharts hook",
+  "body": "Audit finding extension to #16 — sections/Timeline.jsx was 735 lines,\n235 over the 500-line component soft-limit. The five chart-data\nuseMemo blocks (activityChart, codeChangesChart, urgencyTrend,\ndebtTrend, impactTrend) made up ~350 lines of the file and had no\nReact-render surface area — they're pure data shaping with theme\ncolour resolution.\n\nExtracted into a new hook:\n\n  dashboard/js/hooks/useTimelineCharts.js  (416 lines)\n\nThe hook calls useApp() internally and returns all five chart-data\nobjects from a single call. Each useMemo retains its original\ndependency array\n(filteredCommits, commitsLoaded, state.data?.summary?.daily,\nisMobile, state.darkMode, state.themeAccent, state.themeMuted) so\nfine-grained memoization behaviour matches the previous inline\nversion exactly — a single chart still rebuilds independently of\nthe others when its inputs change.\n\nAfter:\n  dashboard/js/sections/Timeline.jsx: 735 → 390 lines (-345, well\n    under the 500-line soft-limit)\n  dashboard/js/hooks/useTimelineCharts.js: new (416 lines)\n\nTimeline.jsx now imports the hook and replaces the five useMemo\nblocks with a single destructuring call. The summaryData useMemo,\ncommitListContent useMemo, handleCardClick / handlePeriodClick\ncallbacks, and the entire JSX render tree are unchanged.\n\nThe hook's `urgencyTrendData` includes a `sortedMonths` field so\n`impactTrendData` can reuse the date axis (alignment requirement\npreserved from the pre-extraction version where impactTrendData\nread `urgencyTrendData?.sortedMonths` from the closure).\n\nImports trimmed in Timeline.jsx — getAdditions, getDeletions,\ngetUTCMonthKey, excludeIncompleteLastMonth, getSeriesColor,\nwithOpacity, buildRepoColorMap are no longer needed in the\ncomponent file (they live in the hook now).\n\nTest fixup:\n  scripts/__tests__/daisyui-surfaces.test.mjs \"Chart.js components\n  read theme accent\" test now reads dashboard/js/hooks/useTimelineCharts.js\n  for the >=2 state.themeAccent assertion. Added a sanity\n  assertion on Timeline.jsx that it still imports the hook so\n  accidental in-lining is caught.\n\nBuild clean (562.43 kB → 562.43 kB, identical post-tree-shake).\n60/60 tests pass.\n\nTags: refactor, ui, code-organization, audit\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: vanilla-daisyui-cleanup\nSemver: patch",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "vanilla-daisyui-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 443,
+    "deletions": 367
+  },
+  "files": [
+    "dashboard/js/hooks/useTimelineCharts.js",
+    "dashboard/js/sections/Timeline.jsx",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

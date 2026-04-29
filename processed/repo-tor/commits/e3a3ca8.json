@@ -1,0 +1,40 @@
+{
+  "sha": "e3a3ca8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-14T13:49:58Z",
+  "subject": "fix(audit): follow-up — toggle architecture, cascade grid, dead code, stale docs",
+  "body": "Second pass of the post-migration audit after the user asked for a\nno-shortcuts review of the first commit's deferred/skipped items.\n\nSettingsPane UTC toggle — proper native architecture:\n  The first fix kept `<div role=\"switch\">` + `onClick` + `onKeyDown`\n  + a `readOnly` + `aria-hidden` presentational checkbox. Two issues:\n  `readOnly` is a no-op on HTML checkboxes (React only accepts it to\n  silence the controlled-without-onChange warning), and the parent\n  click handler raced the native checkbox toggle. Refactored to a\n  native `<label>` wrapping `<input type=\"checkbox\" class=\"toggle\n  toggle-primary\" onChange={...}>`. HTML's label-for association\n  makes the whole row clickable, the input owns focus/keyboard/ARIA\n  natively, and the handler now reads `e.target.checked` instead of\n  `!state.useUTC` (no stale-closure risk).\n\nTOGGLE_BASE_CLASSES no-op hover:\n  Renamed to TOGGLE_ROW_CLASSES and replaced `hover:bg-base-300` with\n  `hover:bg-base-content/5`. The original CSS had `--bg-tertiary` →\n  `--bg-hover` (two different colours) but the migration mapped both\n  to `bg-base-300`, silently breaking the hover affordance on the UTC\n  row and the ViewLevel radio rows.\n\nFilterSidebar MultiSelect highlighted+selected tint:\n  The first fix only addressed the mouse-hover branch of the 2×2\n  `isSelected × isHighlighted` state grid. Keyboard-highlighted\n  selected rows still collapsed to `bg-base-300`, losing the primary\n  tint. Enumerated all four combinations explicitly — highlighted\n  +selected gets `bg-primary/30` (strongest tint so selection stays\n  visible during arrow-key navigation).\n\nDead code removed:\n  `FOCUS_RING_CLASSES` export in utils.js had zero consumers (grepped\n  all of dashboard/js). Deleted the export + its ~20-line rationale\n  block per CLAUDE.md's dead-code rule.\n\nStale docs updated:\n  - styles.css 645-651 comment block described the UTC switch as\n    \"pure Tailwind with after: pseudo variant\" — rewritten to\n    reference DaisyUI `.toggle` + TOGGLE_ROW_CLASSES\n  - DAISYUI_V5_NOTES.md — added \"Toggles (switches)\" bullet with the\n    <label> + <input type=\"checkbox\" class=\"toggle toggle-primary\">\n    pattern + warnings against hand-rolled alternatives\n  - AI_MISTAKES.md — 2026-04-14 entry covering all 5 regressions the\n    audit caught with 5 prevention rules (state truth tables, cascade\n    source order, attribute-selector grep, mouse+keyboard diff,\n    prefer native DaisyUI form controls)\n  - SESSION_NOTES.md + HISTORY.md — follow-up commit block\n\nDeferred intentionally (documented in SESSION_NOTES):\n  - Playwright visual regression baselines will drift; re-capture\n    with --update-snapshots after visual check\n  - SettingsPane ViewLevel radiogroup a11y (tabIndex=0 on every item,\n    no arrow-key nav) — larger refactor outside audit scope\n\nVerified: vite build clean (2.75s), 61/61 tests pass,\n`hover:bg-base-content/5` + `bg-primary/30` + `toggle` +\n`toggle-primary` all present in built CSS, no FOCUS_RING_CLASSES or\nTOGGLE_BASE_CLASSES references remain in dashboard/js.\n\nTags: audit, ui, ux, a11y, daisyui, cleanup, dead-code\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-v5-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 8,
+    "additions": 182,
+    "deletions": 70
+  },
+  "files": [
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/SettingsPane.jsx",
+    "dashboard/js/utils.js",
+    "dashboard/styles.css",
+    "docs/AI_MISTAKES.md",
+    "docs/DAISYUI_V5_NOTES.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

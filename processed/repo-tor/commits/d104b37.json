@@ -1,0 +1,31 @@
+{
+  "sha": "d104b37",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T20:43:13Z",
+  "subject": "docs(claude): expand bracket/hex exception lists with rationale",
+  "body": "Audit finding #5 + #6 — the existing CLAUDE.md exception lists were\nterse one-liners that didn't explain why each escape hatch exists.\nA reader reviewing a PR that adds a new bracket value or hex literal\ncouldn't tell if it fits an established pattern or is a new violation.\n\nBracket-value list expanded from 3 → 4 entries with per-entry rationale:\n  - z-[var(--z-sticky-header)]: design-token reference, explains why\n    z-21 isn't in stock Tailwind scale\n  - z-[var(--z-toast)]: design-token reference, explains why z-70 is\n    above stock Tailwind ceiling of z-50\n  - grid-cols-[auto_repeat(7,1fr)]: functional grid template needed\n    for hour-label/day-column row alignment\n  - max-w-[calc(100vw-2rem)]: NEW. HamburgerMenu portal dropdown\n    clamps to viewport width minus safe margin, calc() not stock\n\nHex-literal list expanded from 2 → 3 entries with per-entry rationale:\n  - DebugPill.jsx: isolated React root that survives stylesheet\n    failure, can't depend on Tailwind classes loading\n  - themes.js #808080: single safety-net default for getMetaColor()\n  - generated/themeMeta.js: NEW. Auto-generated file containing PWA\n    meta theme-color hex values, browser parses as literal hex\n\nTags: documentation, audit, dev-experience\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: vanilla-daisyui-cleanup\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "vanilla-daisyui-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 9,
+    "deletions": 2
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

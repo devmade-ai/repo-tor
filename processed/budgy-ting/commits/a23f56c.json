@@ -1,17 +1,11 @@
 {
   "sha": "a23f56c",
-  "fullSha": "a23f56cc0019eec8b55124f6240eebd2481ced4a",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-02-25T06:42:45Z",
-  "commitDate": "2026-02-25T06:42:45Z",
   "subject": "feat(envelope): add fixed budget tracking + unit tests for all engines",
   "body": "Add envelope mode: users can set a total budget amount and see remaining\nbalance, burn rate, depletion date, and running monthly balance. Also add\ncomprehensive unit tests for all 5 engine modules.\n\nEnvelope feature:\n- Add totalBudget: number|null to Budget model (DB schema v2 migration)\n- BudgetForm: \"I have a set amount to spend\" checkbox + amount field\n- New engine/envelope.ts: remaining balance, daily burn rate, depletion\n  date, month-by-month running balance (uses actuals when available,\n  falls back to projected spend for future months)\n- ProjectedTab: envelope card showing budget vs projected, remaining/over,\n  which month budget runs out\n- CompareTab: envelope card with spent/remaining/depletion, forecast msg\n- Export/import backward compat for totalBudget field\n\nUnit tests (56 tests, 5 files):\n- projection.test.ts: 13 tests (month slots, 6 frequencies, boundaries)\n- matching.test.ts: 16 tests (confidence levels, date/amount parsing)\n- variance.test.ts: 7 tests (line-item/category/monthly variance)\n- csvParser.test.ts: 13 tests (CSV parsing, JSON import edge cases)\n- envelope.test.ts: 7 tests (balance, burn rate, depletion, running)\n\nTags: feature, envelope, budget, testing, vitest, engine\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: envelope-budgeting\nSemver: minor\n\nhttps://claude.ai/code/session_01Cz1AZhnaVwR4Q127NSDgQs",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "envelope-budgeting",
   "semver": "minor",
-  "scope": "envelope",
-  "title": "add fixed budget tracking + unit tests for all engines",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 20,
     "additions": 1476,

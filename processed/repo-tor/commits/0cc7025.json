@@ -1,0 +1,32 @@
+{
+  "sha": "0cc7025",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T09:42:46Z",
+  "subject": "fix(toast): remove nested aria-live to stop double screen-reader announce",
+  "body": "Post-migration audit finding. After Phase 2 of the DaisyUI sweep\n(`1610c90`) the Toast component had two layers of aria-live region:\n\n  - ToastContainer: aria-live=\"polite\" aria-atomic=\"false\"\n  - Each ToastItem: role=\"alert\" or role=\"status\" + explicit aria-live\n\nPer WAI-ARIA 1.2 section 5.2.2 (\"Live Region Roles\"), `role=\"alert\"`\nis an implicit live region with `aria-live=\"assertive\"` and\n`role=\"status\"` is an implicit live region with `aria-live=\"polite\"`.\nWrapping a live region in another live region creates a NESTED live\nregion, and most screen readers (NVDA, JAWS, VoiceOver tested in\nprior audits of similar components) announce every new child TWICE\nwhen the structure is nested — once via the parent's polite region,\nonce via the child's role-implied region.\n\nFixes:\n\n- ToastContainer: removed `aria-live=\"polite\"` and `aria-atomic=\"false\"`.\n  The container is now a pure positioning wrapper (`toast toast-bottom\n  toast-center`) with no live-region semantics. Each child's role\n  attribute provides the live region on its own.\n\n- ToastItem: removed the explicit `aria-live={...}` since the role\n  attribute already implies it (alert -> assertive, status -> polite).\n  No behavior change — drops a redundant attribute that screen\n  readers were already deriving from role.\n\n- Documentation block added at the top of ToastItem explaining the\n  rule with a reference to WAI-ARIA 1.2 section 5.2.2 so future\n  edits don't re-add either layer.\n\nVerified that `role=\"alert\"` is still on error toasts (so urgent\nerrors are still announced assertively) and `role=\"status\"` is on\ninfo/success/warning toasts (so background updates are announced\npolitely without interrupting the user). Visual styling and\nauto-dismiss timing are unchanged.\n\nTags: a11y, accessibility, ui, refactor, audit, bugfix, aria\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 21,
+    "deletions": 3
+  },
+  "files": [
+    "dashboard/js/components/Toast.jsx"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

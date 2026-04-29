@@ -1,0 +1,40 @@
+{
+  "sha": "7116b39",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-08T19:49:11Z",
+  "subject": "fix: full branch audit — 6 bugs and dead code across components, hooks, scripts",
+  "body": "Full diff audit of all 63 files changed on this branch (not just debug\nsystem commits). Found and fixed:\n\n1. BurgerMenu.jsx: ArrowUp off-by-one when focus is outside button list.\n   idx=-1 computed (length-2) instead of (length-1). Added idx===-1 guard\n   to go to last item, matching ArrowDown which already goes to first.\n\n2. BottomSheet.jsx: handleTouchEnd called snapToNearest on every touchend,\n   including content taps that were never promoted to a sheet drag. Added\n   isDragging guard to skip snap logic for non-drag touches.\n\n3. useAdState.js: Dead getPageCount function — defined and exported but\n   never destructured or called (App.jsx uses pages.length directly).\n   Removed function and export.\n\n4. useDarkMode.js: comboId in useEffect dep array was redundant (activeTheme\n   is derived from comboId + isDark). Caused effect to fire twice per combo\n   change, double-logging 'theme-applied'. Moved comboId to ref for logging,\n   removed from deps.\n\n5. generate-theme-meta.mjs: Dead comboMapStr variable — built with\n   JSON.stringify + replace but never used. Line 159 uses\n   JSON.stringify(comboMap) directly. Removed.\n\n6. oklchToHex.mjs: L normalization heuristic (L > 1) couldn't distinguish\n   oklch(1% ...) from oklch(1 ...). Regex now captures % sign in a group\n   and uses it to decide normalization instead of the boundary-ambiguous\n   heuristic.\n\nTags: bugfix, cleanup, a11y, mobile\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: branch-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01KWPHuYLV1weWg2cFm9VtjN",
+  "tags": [
+    "bugfix",
+    "removal",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "branch-audit",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 8,
+    "additions": 44,
+    "deletions": 18
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/generate-theme-meta.mjs",
+    "scripts/oklchToHex.mjs",
+    "src/components/BottomSheet.jsx",
+    "src/components/BurgerMenu.jsx",
+    "src/hooks/useAdState.js",
+    "src/hooks/useDarkMode.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

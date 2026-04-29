@@ -1,0 +1,52 @@
+{
+  "sha": "a5f9009",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T02:56:53Z",
+  "subject": "feat(scheduling): add server-side message scheduling",
+  "body": "Users can queue a message for future delivery via a clock-icon affordance\nnext to the send button. Survives app close / offline because dispatch runs\non the database via pg_cron.\n\nArchitecture:\n  - New scheduled_messages table with RLS (sender-only), check constraints\n    mirroring messages, partial index on (scheduled_for) for the hot path\n  - dispatch_scheduled_messages() SECURITY DEFINER function + pg_cron\n    '* * * * *' schedule moves due rows into messages; existing\n    notify_new_message trigger handles pushes for free\n  - Dispatcher handles: chat ended (failed/chat_ended), >1hr late\n    (failed/too_stale), constraint violations (failed/sqlerrm)\n  - check_rate_limit gains 'schedule' action type (10/hour)\n  - services/scheduledMessages.ts: schedule/list/update/cancel,\n    snapshots reply data at schedule time\n  - useScheduledMessages hook with realtime + polling fallback\n  - DateTimePicker wrapper: <input type=\"datetime-local\"> on web,\n    @react-native-community/datetimepicker on native\n  - ScheduleComposerModal for picking send time, ScheduledMessagesModal\n    for listing/rescheduling/cancelling\n  - ChatHeaderMenu gets 'Scheduled (N)' entry on mobile; ChatPanel shows\n    a compact pill on desktop\n  - Tutorial gains a new 'Schedule Messages' step\n\nDecisions locked in:\n  - Cancel = hard delete (matches user mental model)\n  - Modal-only, no ghost bubbles (preserves sender/receiver parity)\n  - Native pickers per platform, wrapped in one component\n  - 2min minimum / 30d maximum lead time, 5-min picker snap\n  - 20 pending per user cap, 10 schedules/hour rate limit\n\nTags: scheduling, pg-cron, database, ui, tones, rate-limit\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: message-scheduling\nSemver: minor",
+  "tags": [
+    "feature",
+    "ui",
+    "schema",
+    "database"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "message-scheduling",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 19,
+    "additions": 1632,
+    "deletions": 16
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "components/ChatHeaderMenu.tsx",
+    "components/ChatPanel.tsx",
+    "components/ComposeBar.tsx",
+    "components/DateTimePicker.tsx",
+    "components/ScheduleComposerModal.tsx",
+    "components/ScheduledMessagesModal.tsx",
+    "constants/tutorial.ts",
+    "docs/DATABASE.md",
+    "docs/HISTORY.md",
+    "docs/USER_GUIDE.md",
+    "hooks/useScheduledMessages.ts",
+    "package-lock.json",
+    "package.json",
+    "services/rateLimit.ts",
+    "services/scheduledMessages.ts",
+    "supabase/migrations/20260421024318_add_scheduled_messages.sql",
+    "types/database.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

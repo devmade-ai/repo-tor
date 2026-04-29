@@ -1,0 +1,37 @@
+{
+  "sha": "0a4b976",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-25T15:54:02Z",
+  "subject": "fix(sancio): route from req.url, not req.query, to survive Vercel param-key renames",
+  "body": "@vercel/node silently renamed the catch-all key from `slug` to `...slug`\n(literal three-dot prefix from the [...slug].ts filename), making\nreq.query.slug undefined for every Sancio request. Production logs\nshowed `url: '/api/sancio/projects?...slug=projects'` with\n`rawSlug: undefined` — the value lived at req.query[\"...slug\"]. Every\nsancio endpoint 404ed across all consuming frontends; CI was green\nbecause the dispatcher tests drove req.query.slug directly.\n\nSwitch routing to read req.url: strip the /api/sancio prefix, split the\nremainder on /, drop empties. req.url is HTTP-level state Vercel cannot\nrename out from under us. Drop the rawSlug field from the fallthrough\nlog; add queryKeys (key names only, not values, to avoid leaking auth\ntokens or PII) so a future framework rename is immediately visible in\nVercel logs.\n\nRewrite dispatcher tests to drive req.url shaped like production\n(including the `...slug=` rewrite query string) instead of synthetic\nreq.query.slug. Add a regression-guard test asserting that\nreq.query.slug alone does NOT dispatch — pinning the new contract so a\nfuture \"fallback to query\" change surfaces here.\n\nUpdate docs/AI_MISTAKES.md and CLAUDE.md with the lesson: for Vercel\ncatch-all routes, route from req.url, not req.query.\n\nTags: bugfix, sancio, vercel, dispatcher, testing, documentation\nComplexity: 2\nUrgency: 5\nImpact: api\nRisk: medium\nDebt: paid\nEpic: sancio-api-stability\nSemver: patch",
+  "tags": [
+    "hotfix",
+    "bugfix",
+    "test-unit",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "sancio-api-stability",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 110,
+    "deletions": 54
+  },
+  "files": [
+    "CLAUDE.md",
+    "api/__tests__/sancio/dispatcher.test.ts",
+    "api/sancio/[...slug].ts",
+    "docs/AI_MISTAKES.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 5,
+  "impact": "api"
+}

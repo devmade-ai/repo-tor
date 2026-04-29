@@ -1,0 +1,35 @@
+{
+  "sha": "f1349b8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T15:50:15Z",
+  "subject": "fix(mobile): logo touch target, sticky hover, tab overflow, code scroll",
+  "body": "Applied fixes from the mobile UX (tap) trigger:\n\n1. Logo touch target (high): Added min-h-11 (44px) to navbar logo link.\n   Image stays 36px but tappable area meets WCAG AA minimum.\n\n2. Sticky hover (medium): Wrapped .card-interactive:hover lift effect in\n   @media (hover: hover) so it only applies on devices with a real hover\n   pointer. Touch devices skip the lift and rely on :active (scale 0.98).\n\n3. Tab bar overflow (medium): Added overflow-x-auto to project.html doc\n   tabs container. On 320px phones with 4 tabs, the container now scrolls\n   horizontally instead of cramping or clipping.\n\n4. Code block scroll (medium-low): Added -webkit-overflow-scrolling: touch\n   to .md-render pre for momentum scrolling on older iOS.\n\nTags: mobile, ux, accessibility, touch-targets\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: parallel-audit-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01PkFsUzwZ5J1e5RQC86PwAF",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "parallel-audit-sweep",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 21,
+    "deletions": 8
+  },
+  "files": [
+    "main.css",
+    "partials/navbar.html",
+    "project.html"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

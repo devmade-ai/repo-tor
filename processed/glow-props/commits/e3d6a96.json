@@ -1,0 +1,34 @@
+{
+  "sha": "e3d6a96",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T21:09:57Z",
+  "subject": "refactor(theme): generate navbar buttons from DaisyUI, drop descriptors",
+  "body": "Navbar theme buttons are now fully generated from DaisyUI theme names.\nNo manual descriptor map, no parsing existing HTML. Display name is\njust the theme name with first letter capitalized.\n\nZero manual config in the script — everything derived from DaisyUI.\n\nTags: theme, build, refactor\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-theme-color\nSemver: minor\n\nhttps://claude.ai/code/session_01JrL2asTpesrUXcPYxuGUKw",
+  "tags": [
+    "refactor",
+    "build",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-theme-color",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 90,
+    "deletions": 140
+  },
+  "files": [
+    "partials/navbar.html",
+    "scripts/generate-meta-colors.mjs"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

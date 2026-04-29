@@ -1,0 +1,33 @@
+{
+  "sha": "a1e09e8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T18:16:12Z",
+  "subject": "fix(ui): flip search dropdown to open upward over the map",
+  "body": "Dropdown now opens above the search bar instead of below it, preventing\nthe mobile keyboard from obscuring search suggestions and recent searches.\nShadow direction flipped to match. Search bar z-index ensures dropdown\nrenders above the map section.\n\nTags: ui, mobile, ux\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: home-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01WVyDTypj9oQmpr5yGNMmMP",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "home-layout",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 5,
+    "deletions": 4
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "src/components/search/LocationSearch.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

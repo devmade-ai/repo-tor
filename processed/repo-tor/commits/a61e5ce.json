@@ -1,0 +1,37 @@
+{
+  "sha": "a61e5ce",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T23:19:56Z",
+  "subject": "fix(cleanup): drop zone hover state + phantom class + dead heatmap markers",
+  "body": "Post-round-3 audit turned up four real issues + confirmed the rest of\nthe sweep is sound. Fixing the real ones here.\n\n=== Real UX regression — drop zone hover state ===\n\nRound 3 migrated `.drop-zone` from its custom CSS rule to inline\nTailwind. The old CSS had a `:hover` state:\n\n  .drop-zone:hover, .drop-zone:focus-visible {\n      border-color: var(--color-primary);\n      background: color-mix(in oklab, var(--color-primary) 5%, transparent);\n  }\n\nMy migration kept `focus-visible:border-primary focus-visible:bg-primary/5`\nbut dropped the `:hover` equivalent. Result: mouse users no longer see\nthe border highlight as they pass the drop zone — they lose the\n\"this is clickable\" discovery hint that was there before.\n\nFix: add `hover:border-primary hover:bg-primary/5` to `dropZoneBase` in\nDropZone.jsx. Inline `hover:*` Tailwind variants map directly to the\nold `:hover` CSS rule.\n\n=== Minor — phantom `[text-shadow:...]` class in built CSS ===\n\nTailwind v4's content scanner picked up the literal string\n`[text-shadow:...]` from doc comments in TabBar.jsx and styles.css\n(where I explained WHY I used arbitrary-property syntax). Tailwind\nthought that was a class reference and generated a dead rule:\n\n  .\\[text-shadow\\:\\.\\.\\.\\]{text-shadow:...}\n\nThe rule is syntactically valid but does nothing (the value is three\nliteral dots). A few bytes of dead CSS in the bundle.\n\nFix: rewrite the doc comments to break the pattern — use `[prop:value]`\nplaceholder syntax in the TabBar.jsx comment and\n\"arbitrary-property syntax\" in the styles.css rationale block. Neither\nstring matches Tailwind's class-name regex, so the scanner ignores them.\n\nVerified in the built CSS:\n  - phantom rule `.\\[text-shadow\\:\\.\\.\\.\\]{text-shadow:...}` → 0 matches\n  - real rules `.\\[text-shadow\\:0_0_10px_color-mix(...)\\]{...}` → 4 matches\n    (base + theme variants + focus/hover compositions from DaisyUI)\n\n=== Dead marker classes — `.weekly-heatmap` + `.daily-heatmap` ===\n\nCross-reference sweep of every JSX className token vs every styles.css\nrule head caught two more dead marker classes I'd missed earlier:\n\n  sections/Timing.jsx:359  <div className=\"weekly-heatmap\">\n  sections/Timing.jsx:385  <div className=\"daily-heatmap\">\n\nNeither has a CSS rule anywhere (verified via grep). They're the same\n\"zero-style wrapper marker\" pattern as `stat-card` / `metric-selector`\n/ `pin-btn` that earlier audits caught. Removed the className attributes\nentirely — the wrappers are now plain `<div>` elements.\n\nStrengthened `daisyui-surfaces.test.mjs` dead-marker sweep to include\n`weekly-heatmap` and `daily-heatmap` so future regressions fail the\nsource-level tripwire immediately.\n\n=== Verified sound ===\n\nThe audit also verified the round-3 sweep is otherwise correct:\n\n  ✓ All 24 allowlisted custom classes still have their CSS rules\n  ✓ Every `detail-pane-header` / `settings-pane-header` / `collapsible-header`\n    marker class is still applied in JSX (for mobile drag-handle\n    pseudo-elements + embed-mode display:none hook)\n  ✓ `after:content-['']` + `after:absolute` + `after:top-0.5` +\n    `after:left-0.5` + `after:w-5` + `after:h-5` + `after:translate-x-5`\n    + `after:rounded-full` + `after:bg-white` + `after:transition-transform`\n    all ship in built CSS (settings toggle switch thumb)\n  ✓ `grid-cols-[36px_repeat(7,1fr)]` + `grid-cols-[50px_repeat(7,1fr)]`\n    arbitrary values both ship (heatmap grid)\n  ✓ `shadow-[inset_0_0_0_2px_var(--color-primary)]` ships (hamburger\n    focus-visible ring)\n  ✓ `shadow-[0_0_20px_color-mix(in_oklab,var(--color-primary)_25%,transparent)]`\n    ships (drop-zone drag-over glow)\n  ✓ `shadow-[0_2px_8px_rgba(0,0,0,0.3)]` ships (heatmap tooltip)\n  ✓ `max-md:w-full` + `max-md:h-full` + `max-md:rounded-none` + `max-md:p-4`\n    + `max-md:px-4` + `max-md:py-3` + `max-md:pt-6` all ship (mobile\n    drawer overrides)\n  ✓ `focus-visible:outline-primary` ships (focus ring utility for\n    non-DaisyUI role=\"button\" tiles)\n  ✓ `rotate-180` ships (collapsible chevron state-based rotation)\n  ✓ `.dashboard-header:after` pseudo still renders the gradient\n    accent line\n  ✓ `.detail-pane-header:before` + `.settings-pane-header:before`\n    still render the mobile drag handles\n  ✓ `.embed-mode .collapsible-header { display: none }` still targets\n    the marker class\n  ✓ `.embed-mode .card.embed-target` still scopes to DaisyUI card\n    overrides inside embed iframes\n  ✓ No orphan CSS rules (every allowlisted class has at least one\n    consumer, either as a React className attribute or via dynamic\n    template literal `heatmap-${level}`)\n  ✓ 61/61 test pass including the strict allowlist guard\n\nTags: ui, cleanup, bugfix, daisyui, tailwind, audit\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "ui",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 16,
+    "deletions": 11
+  },
+  "files": [
+    "dashboard/js/components/DropZone.jsx",
+    "dashboard/js/components/TabBar.jsx",
+    "dashboard/js/sections/Timing.jsx",
+    "dashboard/styles.css",
+    "scripts/__tests__/daisyui-surfaces.test.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

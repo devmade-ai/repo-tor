@@ -1,0 +1,38 @@
+{
+  "sha": "38ca278",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T21:18:57Z",
+  "subject": "chore(scheduling): apply migration to remote + full smoke test + docs sync",
+  "body": "Applied 20260421024318_add_scheduled_messages to kmqcbpeidmmintltcoqm via\nthe Management API's /database/query endpoint (direct Postgres pooler\nports are blocked from the web sandbox, so supabase db push can't run\nhere). Recorded the row in supabase_migrations.schema_migrations.\n\nVerified remote state: table + 3 named indexes + pkey, 2 triggers,\n5 functions, 3 RLS policies (no DELETE by design), both cron jobs\nregistered (dispatcher every minute + cleanup 04:17 UTC), realtime\npublication membership.\n\nRan 20 end-to-end smoke cases, all passing: every CHECK constraint,\nthe UPDATE trigger for lead-time bounds, updated_at bumping, dispatcher\nhappy path + all failure branches (too_stale, chat_ended, rate_limited,\nreply-retracted-snippet-nulling), full RLS matrix for both users,\ncheck_rate_limit('schedule', ...) correctness, and cron-only function\ngrants. All test rows cleaned up, no residue.\n\nCLAUDE.md AI Notes corrected to match reality: actual env var names\n(UTIL_SUPABASE_* + SUPABASE_ACCESS_TOKEN_CLAUDE_WEB, not the literal\nnames the CLI expects), current sandbox connectivity (Management API\nreachable, direct pooler blocked), and the shared-DB situation. New\nAI_MISTAKES entry captures the env-var-assumption lesson. SESSION_NOTES\nrewritten as a fresh snapshot; HISTORY updated with the detailed\nsmoke-test outcome; TODO records the deferred legacy-table cleanup\nthat still needs user sign-off because the DB is shared.\n\nTags: scheduling, database, migration, smoke-test, docs\nComplexity: 3\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: message-scheduling\nSemver: patch\n\nhttps://claude.ai/code/session_01P5uv5tNGcoUDXWyzLbmArf",
+  "tags": [
+    "data-migration",
+    "schema",
+    "test-integration",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "message-scheduling",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 74,
+    "deletions": 76
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

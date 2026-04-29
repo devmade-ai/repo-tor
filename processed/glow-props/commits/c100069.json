@@ -1,0 +1,39 @@
+{
+  "sha": "c100069",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T15:29:26Z",
+  "subject": "refactor(review): extract shared markdown.js, fix review findings",
+  "body": "Applied all fixes from the code review (rev) trigger:\n\n1. **Extract shared markdown renderer** (high): Created public/markdown.js\n   with renderMarkdown, inlineMarkdown, isSafeUrl, escapeHtml, copyMarkdown.\n   Both project.html and pattern.html now use window.md.* instead of\n   duplicating ~100 lines each. Saves ~10KB across both pages.\n\n2. **Deduplicate theme arrays** (medium): head-common.html now declares\n   lt/dt arrays once, reused for both random picker and validation.\n   Previously identical arrays were declared twice 5 lines apart.\n\n3. **Fix dev server path traversal** (medium): vite.config.js pattern\n   middleware now uses path.basename() and validates .md extension\n   to prevent /patterns/../../../etc/passwd escapes.\n\n4. **Remove stale duplicate comment** (medium): project.html had two\n   consecutive requirement comments for tab switching; removed the old one.\n\n5. **Update .md-render CSS comment** (low): Now mentions both project.html\n   and pattern.html, and references shared markdown.js.\n\n6. **Explicit String(dark)** (low): theme.js applyTheme now stores\n   String(dark) instead of relying on implicit boolean→string coercion.\n\nTags: refactor, cleanup, security, review\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: parallel-audit-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01PkFsUzwZ5J1e5RQC86PwAF",
+  "tags": [
+    "refactor",
+    "security",
+    "sanitization"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "parallel-audit-sweep",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 160,
+    "deletions": 220
+  },
+  "files": [
+    "main.css",
+    "partials/head-common.html",
+    "pattern.html",
+    "project.html",
+    "public/markdown.js",
+    "public/theme.js",
+    "vite.config.js"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

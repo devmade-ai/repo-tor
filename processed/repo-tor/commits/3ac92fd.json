@@ -1,0 +1,34 @@
+{
+  "sha": "3ac92fd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T15:32:00Z",
+  "subject": "feat(theme): add light theme, flash prevention, cross-tab sync, system preference",
+  "body": "Items 17-20 from cross-project alignment:\n\nLight theme CSS variables (item 17):\n- Restructure :root as light theme default, html.dark as override\n- Full light palette: backgrounds (#F8F9FA), text (#1a1a1a), borders (#e5e7eb),\n  shadows, chart grid, and reduced glow intensities\n- Backward compatible: html starts with class=\"dark\" for existing users\n\nFlash prevention (item 18):\n- Inline classic <script> in <head> reads darkMode from localStorage\n- Applies .dark class before any stylesheet or module loads\n- Falls back to prefers-color-scheme on first visit\n- try/catch for sandboxed environments\n\nCross-tab sync (item 19):\n- Storage event listener in AppContext syncs darkMode across tabs\n- Only fires in OTHER tabs (no infinite loop)\n- Dispatches SET_DARK_MODE action to update React state\n\nSystem preference fallback (item 20):\n- matchMedia listener tracks OS dark mode changes\n- Only applies when user hasn't manually set a preference\n- Once user toggles, their choice persists (not overridden by OS)\n\nTags: theme, dark-mode, ui, cross-project\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: cross-project-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01TTPDz1J9eg8GxxJHYf5DXG",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "cross-project-alignment",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 147,
+    "deletions": 26
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

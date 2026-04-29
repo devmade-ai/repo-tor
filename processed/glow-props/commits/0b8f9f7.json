@@ -1,0 +1,33 @@
+{
+  "sha": "0b8f9f7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-07T10:49:08Z",
+  "subject": "docs(pdf): expand DOWNLOAD_PDF.md to dual-approach pattern",
+  "body": "Rewrote from window.print()-only to a dual-approach pattern covering\nboth text-based (window.print) and canvas/image-based (pdf-lib) PDF\nexport. Decision guide at top based on content type. Full pdf-lib\nimplementation sourced from canva-grid with documented tradeoffs.\n\nTags: documentation, patterns, pdf, download, pdf-lib\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pattern-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_016uMc5mZcqau5orf2HUr4aL",
+  "tags": [
+    "documentation",
+    "patterns"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pattern-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 227,
+    "deletions": 15
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/implementations/DOWNLOAD_PDF.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

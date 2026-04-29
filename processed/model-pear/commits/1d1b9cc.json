@@ -1,0 +1,34 @@
+{
+  "sha": "1d1b9cc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T17:30:33Z",
+  "subject": "fix(ui): remove click-to-close from modal backdrops",
+  "body": "The previous commit added on:click handlers to the backdrop divs,\nintroducing click-outside-to-close behavior that didn't exist before.\nThis is a UX change, not a z-index structural change — the Save Modal's\ncancelSave clears user input, so an accidental outside click would\ndiscard typed text. Removed the handlers to keep this commit purely\nstructural (z-index normalization only, no behavior changes).\n\nBackdrops remain as separate z-40 divs with default pointer-events,\nwhich correctly blocks clicks from reaching page content underneath.\n\nTags: ui, z-index, ux\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: z-index-scale\nSemver: patch\n\nhttps://claude.ai/code/session_01L9bYUdziLDmew97oAkb8w9",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "z-index-scale",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "apps/web/src/lib/components/ComparisonView.svelte",
+    "apps/web/src/routes/structuring/[model]/+page.svelte"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

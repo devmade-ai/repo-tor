@@ -1,0 +1,39 @@
+{
+  "sha": "1799d84",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-03T17:16:11Z",
+  "subject": "refactor(pwa): embed PWA actions in menu, add update strip and offline warning",
+  "body": "Align PWA UI with canva-grid patterns:\n- Move install action into BurgerMenu (native prompt or instructions modal)\n- Show update as always-visible strip below header (\"tap to refresh\")\n- Show persistent offline warning while disconnected via new useOnlineStatus hook\n- Remove dedicated PWABanner component (was top-of-screen banner)\n- Remove AsyncStorage-backed install dismiss persistence\n- Remove isOfflineReady auto-dismiss and checkForUpdate manual check\n- Simplify usePWAInstall (no dismiss/resetDismiss) and usePWAUpdate (no isOfflineReady)\n\nTags: pwa, ui, refactor\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01JM9szzfm7Y5qEdEG66hNri",
+  "tags": [
+    "refactor",
+    "ui",
+    "removal"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pwa-alignment",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 100,
+    "deletions": 363
+  },
+  "files": [
+    "app/_layout.tsx",
+    "src/components/pwa/PWABanner.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/constants/config.ts",
+    "src/hooks/useOnlineStatus.ts",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

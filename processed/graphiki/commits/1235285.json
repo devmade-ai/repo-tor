@@ -1,0 +1,36 @@
+{
+  "sha": "1235285",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T23:28:00Z",
+  "subject": "chore(graph): bound cssColor cache, document fallback-call asymmetry, cover sentinel-caching",
+  "body": "Three remaining items from the review sweep:\n\ncssColor.ts (#12)\n- MAX_CACHE_ENTRIES = 256 with FIFO eviction via a small cacheSet()\n  helper. Practical workload is ~14 tokens × a handful of theme combos,\n  so the cap is a defense against a future caller feeding unique strings\n  per call (e.g., per-node computed colors) rather than a hot-path\n  concern. FIFO (oldest-insertion wins eviction) beats LRU here because\n  LRU needs delete-on-hit, defeating the cache's purpose.\n\ncssColor.test.ts (#12, #18)\n- New test \"evicts oldest entry (FIFO) when the cache exceeds\n  MAX_CACHE_ENTRIES\": fills beyond the cap with unique inputs, mutates\n  the shared rules Map in place (getCtx memoizes the first ctx, so a\n  second installFakeCanvas wouldn't rebind), verifies color-0 evicted\n  and color-259 still cached.\n- New test \"caches the sentinel itself when passed as raw input\": the\n  rejection check's `!isSentinel(raw)` short-circuit must let the\n  sentinel value through to the cache path — otherwise a caller\n  legitimately passing transparent-black pays the canvas cost every\n  time.\n\nGraphCanvas.tsx (#15)\n- Inline comment documenting why the two getCSSColor calls live here\n  rather than being pulled into cytoscapeStyles.ts: they serve per-\n  element fallbacks (node without label, arc without title) on the\n  data-sync path, not stylesheet-wide colors on the theme-apply path.\n  Different lifecycles, different concerns — moving them would couple\n  them to the wrong trigger.\n\nEverything else from the review (item #11 zero-alpha forms, item #17\ndoc callsite count) is either already documented as a known limitation\nor was an agent miscount. No code change needed for those.\n\nAll 310 tests pass (up from 308). Lint + build clean.\n\nTags: cleanup, cssColor, cache, test, comments, graph\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theme-and-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_015rKh5k6MFgfyjNZDfGaWzV",
+  "tags": [
+    "refactor",
+    "caching",
+    "test-unit",
+    "comments"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-and-dark-mode",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 73,
+    "deletions": 2
+  },
+  "files": [
+    "src/components/graph/GraphCanvas.tsx",
+    "src/utils/cssColor.test.ts",
+    "src/utils/cssColor.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

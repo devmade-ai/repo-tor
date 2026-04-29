@@ -1,0 +1,33 @@
+{
+  "sha": "2ca0ca4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T21:35:40Z",
+  "subject": "fix(theme): make body background and focus rings reactive to theme changes",
+  "body": "Replace hardcoded hex values in +html.tsx global styles with CSS\nvariables that Uniwind updates on theme change:\n\n- body background: var(--color-base-200, <hex fallback>)\n- input focus ring: var(--color-primary, <hex fallback>)\n- button focus-visible ring: var(--color-primary, <hex fallback>)\n\nHex fallbacks still prevent white flash before Uniwind loads. Once\nUniwind sets the CSS variables (oklch values), the live theme colors\ntake over automatically — no JS needed for these updates.\n\nPreviously, body stayed dark when switching to light theme (visible\nduring overscroll), and focus rings used the wrong color on non-default\nthemes.\n\nTags: theme, pwa, css, accessibility\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: patch\n\nhttps://claude.ai/code/session_01JiHLm7X1zVwrcYAJuVaPFN",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 8,
+    "deletions": 7
+  },
+  "files": [
+    "app/+html.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

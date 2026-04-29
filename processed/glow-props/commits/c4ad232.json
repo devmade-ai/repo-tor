@@ -1,0 +1,34 @@
+{
+  "sha": "c4ad232",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T11:32:26Z",
+  "subject": "docs(todo): re-audit gap matrix against actual repo code",
+  "body": "Audited all 10 downstream repos' actual source code against the\nper-repo pattern gap matrix. Found canva-grid and budgy-ting are\nsignificantly more compliant than recorded — both have resolved\nmost gaps since the original April 6 audit.\n\nKey corrections:\n- canva-grid: all 19 gaps (CLAUDE.md, BURGER_MENU, DEBUG_SYSTEM,\n  PWA_SYSTEM, Z_INDEX_SCALE) are now Pass, not Partial/Missing\n- budgy-ting: 5 of 7 patterns now Pass (CLAUDE.md, APP_ICONS,\n  PWA_SYSTEM, THEME_DARK_MODE, Z_INDEX_SCALE)\n- see-veo DOWNLOAD_PDF: window.print() button already exists in\n  Hero.tsx, only print-color-adjust CSS is still missing\n- few-lap: MenuItem interface and clipboard fallbacks already exist\n- four-ems: CLAUDE.md inline patterns are ~630 lines, not ~475\n- repo-tor: cross-tab sync claim unverified (no storage listener)\n- model-pear, graphiki, synctone: all statuses confirmed accurate\n\nUpdated gap matrix table, cross-cutting gaps summary, and removed\n~100 lines of completed TODO items.\n\nTags: documentation, audit, patterns, cross-project\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pattern-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01CKqDf6SZ2KGeAXjZS2s91W",
+  "tags": [
+    "documentation",
+    "audit",
+    "patterns",
+    "cross-project"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pattern-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 47,
+    "deletions": 146
+  },
+  "files": [
+    "docs/TODO.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

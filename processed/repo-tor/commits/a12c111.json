@@ -1,0 +1,33 @@
+{
+  "sha": "a12c111",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-16T01:49:17Z",
+  "subject": "refactor(pwa): extract install instructions to pwaInstructions.js",
+  "body": "Retrospective finding #4 — dashboard/js/pwa.js was 578 lines, over\nthe 500-line soft-limit. Missed by three audit passes because they\nscoped file-size sweeps to dashboard/js/sections/ and components/\nonly, never running wc -l on the top-level modules.\n\nExtracted into a new pure-data module:\n\n  dashboard/js/pwaInstructions.js (178 lines)\n\nThe new file holds:\n  - getBrowserInfo()        — UA-string parser returning { browser, platform }\n  - supportsNativeInstall() — true for Chromium-based (beforeinstallprompt API)\n  - supportsManualInstall() — true for Safari/Firefox (manual add-to-home)\n  - getInstallInstructions() — per-browser step data for InstallInstructionsModal\n\nAfter:\n  dashboard/js/pwa.js:             578 → 437 lines (-141, under soft-limit)\n  dashboard/js/pwaInstructions.js: 178 lines (new)\n\nBreaking the closure dependency: the old getInstallInstructions()\nclosed over `deferredInstallPrompt` from pwa.js to decide whether\nto show the Chrome 90-day-cooldown warning note. The extracted\nversion accepts `{ hasDeferredPrompt }` as an explicit parameter\ninstead. Header.jsx passes `installReady` (the local state boolean\nseeded from getPWAState()) — same truthiness but without coupling\nthe instructions module to pwa.js's internal state.\n\nConsumer changes (1 file):\n  - dashboard/js/components/Header.jsx: import split across pwa.js\n    (install/update lifecycle) and pwaInstructions.js (instructions +\n    capability checks). getInstallInstructions call now passes\n    { hasDeferredPrompt: installReady }.\n\nVerified:\n  - Build clean (879.91 KiB)\n  - 63/63 tests pass (tripwire pwa.js assertion still holds —\n    pwa.js still imports safeStorageGet from utils.js)\n  - pwa.js still imports supportsNativeInstall from the extracted\n    module for the 5s diagnostic timeout (line 360)\n\nTags: refactor, pwa, code-organization\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 186,
+    "deletions": 148
+  },
+  "files": [
+    "dashboard/js/components/Header.jsx",
+    "dashboard/js/pwa.js",
+    "dashboard/js/pwaInstructions.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

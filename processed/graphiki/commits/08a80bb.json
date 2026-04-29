@@ -1,0 +1,41 @@
+{
+  "sha": "08a80bb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T10:07:19Z",
+  "subject": "refactor(theme): migrate 6 components from custom CSS to Tailwind utilities",
+  "body": "Convert ContextMenu, ErrorBoundary, ViewSwitcher, InstallPrompt,\nBaseModal, ConfirmDialog, and AnalysisPanel from custom CSS classes\nto inline Tailwind utility classes. Delete ~370 lines of CSS rules\nfrom App.css and Toast.css.\n\nComponents now use DaisyUI tokens directly via Tailwind classes\n(bg-base-200, text-base-content/60, border-base-300, etc.) instead\nof custom CSS classes referencing var(--color-*).\n\nTags: theme, tailwind, migration, components\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 9,
+    "additions": 87,
+    "deletions": 471
+  },
+  "files": [
+    "src/App.css",
+    "src/components/analysis/AnalysisPanel.tsx",
+    "src/components/pwa/InstallPrompt.tsx",
+    "src/components/ui/BaseModal.tsx",
+    "src/components/ui/ConfirmDialog.tsx",
+    "src/components/ui/ContextMenu.tsx",
+    "src/components/ui/ErrorBoundary.tsx",
+    "src/components/ui/Toast.css",
+    "src/components/views/ViewSwitcher.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,35 @@
+{
+  "sha": "561673a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T20:48:13Z",
+  "subject": "feat: storage-usage indicator, code-split ApexCharts, delete in review",
+  "body": "Three S-sized feature items from docs/TODO.md.\n\n1. Storage usage indicator on workspace list.\n   Small footer on WorkspaceListView showing quota usage via\n   navigator.storage.estimate() — icon + \"N MB of M MB used\" + progress\n   bar. Hidden when the API isn't supported (older Safari / some Android)\n   or while the list is still loading. Read once on mount; pull-to-refresh\n   re-triggers loadWorkspaces but storage itself stays static — users can\n   hard-reload for a fresh estimate if they just imported a large batch.\n\n2. Code-split CashflowGraph / ApexCharts.\n   CashflowGraph is the sole consumer of the ~500 KB ApexCharts bundle.\n   Wrapped in defineAsyncComponent so ApexCharts loads on demand instead\n   of on initial page paint. Workspace list, import wizard, and settings\n   pages no longer download the chart library.\n\n   Bundle impact (verified in production build):\n     WorkspaceDetailView chunk: 560 KB → 40 KB\n     CashflowGraph chunk (new, async): 523 KB (+ apexcharts 517 KB shared)\n\n   Loading fallback is a chart-sized inline skeleton (matches breakpoint\n   heights 280/350/420) with role=\"status\" + aria-label so AT users hear\n   \"Loading chart…\" instead of silence. 100ms delay prevents a flash\n   when the chunk is cached.\n\n3. Remove-row affordance in import review.\n   ImportStepReview previously had only \"Ignore\" which dims a row and\n   excludes it from import but keeps it on screen. Added a trash X\n   button per row that splices the transaction out of the review list\n   entirely — for users who've marked a bunch as ignored and want the\n   screen quieter. tagInputIndex is reconciled on splice so a mid-edit\n   index on a later row still points at the same row. 28×28 focus-ring\n   touch target, aria-label includes the description.\n\nType-check clean. 116/116 tests pass. Production build succeeds.\n\nTags: features, pwa, storage, bundle, code-split, import\nComplexity: 2\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: feature-backlog\nSemver: minor",
+  "tags": [
+    "feature",
+    "ui",
+    "performance"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "feature-backlog",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 103,
+    "deletions": 13
+  },
+  "files": [
+    "src/views/WorkspaceDashboard.vue",
+    "src/views/WorkspaceListView.vue",
+    "src/views/import-steps/ImportStepReview.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "user-facing"
+}

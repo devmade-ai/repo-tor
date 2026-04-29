@@ -1,0 +1,39 @@
+{
+  "sha": "a539724",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T12:42:26Z",
+  "subject": "fix(ui): audit fixes — BurgerMenu a11y, z-index scale, dead event",
+  "body": "Fixes discovered during post-implementation audit:\n\nBurgerMenu:\n- Remove useFocusTrap — disclosure menus use Tab-out-to-close, not\n  Tab-cycling like modals\n- Gate useEscapeKey on open state (new `active` param on hook)\n- Return focus to trigger button on Escape\n- Reset itemRefs array each render to prevent stale entries\n- Add aria-orientation=\"horizontal\" on separators\n\nZ-index:\n- Override DaisyUI .modal z-index from 999 to 60 in index.css so\n  all z-values follow the documented app scale\n- ConfirmDialog at z-61 (above modals, used for in-modal confirms)\n- Pre-React error pill from z-99999 to z-91 (reserved range)\n\nOther:\n- Remove dead 'embedding:computed' event from EmbeddingEventMap\n\nTags: a11y, z-index, eventbus, audit\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: cross-fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01499zYE2oJbVWpsyn9LArZF",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 32,
+    "deletions": 14
+  },
+  "files": [
+    "CLAUDE.md",
+    "index.html",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/components/ui/ConfirmDialog.tsx",
+    "src/hooks/useEscapeKey.ts",
+    "src/index.css",
+    "src/services/embeddingWorkerBridge.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

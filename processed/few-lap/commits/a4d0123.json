@@ -1,0 +1,54 @@
+{
+  "sha": "a4d0123",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T13:02:31Z",
+  "subject": "Merge pull request #58 from devmade-ai/claude/triggers-dev-guard-r71Xg",
+  "body": "PWA polish: icon cache busting, visibility-aware polling, and z-index scale",
+  "tags": [
+    "merge"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-polish",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 24,
+    "additions": 1176,
+    "deletions": 95
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/+html.tsx",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "jest.config.js",
+    "package.json",
+    "public/sw.js",
+    "scripts/__tests__/inject-icon-hashes.test.ts",
+    "scripts/inject-icon-hashes.mjs",
+    "scripts/inject-sw-version.mjs",
+    "src/components/pwa/IconCacheDisclosure.tsx",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/pwa/__tests__/IconCacheDisclosure.test.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/components/ui/BottomSheet.tsx",
+    "src/components/ui/Toast.tsx",
+    "src/constants/zIndex.ts",
+    "src/debug/DebugPill.tsx",
+    "src/debug/DebugRootBoundary.tsx",
+    "src/hooks/__tests__/usePWAUpdate.test.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "src/hooks/useTheme.ts",
+    "vercel.json"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,36 @@
+{
+  "sha": "5d61448",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-08T19:35:27Z",
+  "subject": "fix(debug): remove dead badge code, await clipboard, fix duplicate React keys",
+  "body": "Three bugs found during thorough code audit:\n\n1. index.html: __debugPushError referenced non-existent element\n   'debug-pre-error-count' — dead code from pattern's visible inline pill\n   (not implemented). Removed the getElementById/badge lines.\n\n2. DebugPill.jsx: copyToClipboard is async but was not awaited. The\n   'report-copied' log entry fired immediately regardless of success.\n   Now awaits the result and logs 'report-copied' (success severity) or\n   'report-copy-failed' (warn severity) accurately.\n\n3. debugLog.js: clearEntries reset nextId to 1, causing duplicate React\n   keys when new entries were added after clearing (new IDs collided with\n   stale entries in React state). nextId now stays monotonically increasing\n   for the page lifetime.\n\nTags: debug, bugfix, cleanup\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01KWPHuYLV1weWg2cFm9VtjN",
+  "tags": [
+    "bugfix",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 14,
+    "deletions": 9
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "index.html",
+    "src/components/DebugPill.jsx",
+    "src/utils/debugLog.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

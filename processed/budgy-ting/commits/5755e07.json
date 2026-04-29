@@ -1,0 +1,35 @@
+{
+  "sha": "5755e07",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T10:52:20Z",
+  "subject": "refactor(css): replace custom prose styles with @tailwindcss/typography",
+  "body": "Install @tailwindcss/typography plugin and delete 16 lines of custom\n:deep(.prose) scoped styles from HelpDrawer.vue. The plugin provides\nthe same heading, paragraph, list, code, and link styling via the\nexisting prose prose-sm classes — with automatic DaisyUI theme\nintegration (inherits base-content color, base-200 code backgrounds).\n\nOnly one scoped <style> block remains in the codebase: BottomSheet.vue\n(Vue transition classes + iOS safe-area — neither has a plugin\nequivalent).\n\nTags: css, cleanup, typography\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01BPc1xJr4LVbLgvTxtZf2i1",
+  "tags": [
+    "refactor",
+    "dependency-add"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 53,
+    "deletions": 20
+  },
+  "files": [
+    "package-lock.json",
+    "package.json",
+    "src/components/HelpDrawer.vue",
+    "src/index.css"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "f1752ce",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T10:35:35Z",
+  "subject": "refactor(theme): migrate QueryBuilder (996 lines) and DebugPill to Tailwind",
+  "body": "Convert the two largest remaining CSS files to Tailwind utility classes:\n\nQueryBuilder.css (996→7 lines): All 50+ classes across 5 TSX files\n(QueryBuilder, SearchModeContent, ConnectModeContent, QueryStepPanel,\nQueryFilterRow) converted. Mobile collapsed bar, sticky actions, touch\ntargets, mode switcher, connect panels all use responsive Tailwind.\n\nDebugPill.css (269 lines): Fully deleted. All classes converted to\nTailwind in DebugPill.tsx.\n\nApp.css cleanup: Removed ~215 lines of orphaned CSS rules that were\nalready migrated to Tailwind in earlier commits.\n\nTotal: ~1,590 lines of CSS deleted.\n\nTags: theme, tailwind, migration, query-builder, debug\nComplexity: 5\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration",
+    "removal"
+  ],
+  "complexity": 5,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 9,
+    "additions": 123,
+    "deletions": 1590
+  },
+  "files": [
+    "src/App.css",
+    "src/components/debug/DebugPill.css",
+    "src/components/debug/DebugPill.tsx",
+    "src/components/query/ConnectModeContent.tsx",
+    "src/components/query/QueryBuilder.css",
+    "src/components/query/QueryBuilder.tsx",
+    "src/components/query/QueryFilterRow.tsx",
+    "src/components/query/QueryStepPanel.tsx",
+    "src/components/query/SearchModeContent.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

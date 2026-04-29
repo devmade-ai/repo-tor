@@ -1,0 +1,31 @@
+{
+  "sha": "70dff4b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T23:10:42Z",
+  "subject": "docs(todo): live spot-checks correct repo-tor + few-lap + first-pass tool-till-tees",
+  "body": "After the sun-sea-o stale-snapshot surprise, spot-checked the other\nrepos pushed recently (2026-04-21) for similar drift. Two more false\ngaps found + one deferred audit now covered.\n\nrepo-tor — FULLY RESOLVED (correction):\n- DOWNLOAD_PDF is actually done by design. Header.jsx:187 has\n  { label: 'Save as PDF', action: () => window.print() }.\n- dashboard/styles.css header comment documents the design choice:\n  \"JSX consumers use Tailwind's `print:hidden` variant directly on\n  chrome they want hidden\" — intentional, not a missing .no-print\n  class. My earlier \"new gap\" claim was wrong.\n- Gap Matrix: DOWNLOAD_PDF Partial -> Pass.\n\nfew-lap — EVENT_BUS already decided:\n- CLAUDE.md:747-751 has \"Not Applicable Patterns\" section with\n  EVENT_BUS rationale and 2026-04-18 timestamp. Supabase queries\n  via hooks + FilterContext + debugLog internal pub/sub cover\n  current needs.\n- Gap Matrix: EVENT_BUS Missing -> N/A.\n- __DEV__ guard: confirmed STILL missing (3 TEMPORARY comments\n  remain at lines 6, 218, 353). Updated line pointers in TODO.\n- DOWNLOAD_PDF: confirmed still absent.\n\ntool-till-tees — first-pass audit (replaces `?` placeholders):\n- Hybrid: Vercel backend API + minimal React 19/Vite landing page.\n  Supabase-backed. Serves 4 frontend consumers (four-ems,\n  glow-props, see-veo, sun-sea-o).\n- CLAUDE.md still in old format: Suggested Implementations section\n  (line 521), HISTORY.md workflow (line 283), \"Communication style\"\n  bullet only (line 392), old \"## Triggers\" section (line 397).\n- docs/HISTORY.md exists.\n- Gap Matrix row populated: most patterns N/A (no burger menu,\n  debug pill, PWA, Z-index, icon cache, PDF on a brochureware\n  landing page). CLAUDE.md Missing, APP_ICONS Partial, THEME +\n  EVENT_BUS pending decision.\n- Added full per-repo section with 6 sub-sections: CLAUDE.md\n  alignment, HISTORY.md removal, Triggers replace, APP_ICONS audit,\n  THEME_DARK_MODE decide, EVENT_BUS evaluate.\n- Flagged backend-specific patterns that may warrant upstreaming\n  into glow-props (CORS discipline, env schema validation, RLS\n  policy tests, etc.).\n\nUpdated Cross-Cutting Gaps summary: 4 repos now in \"Fully clean\"\ntier (canva-grid, budgy-ting, repo-tor, sun-sea-o).\n\nTags: documentation, audit, todo, correction, cross-fleet\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01Mx2aebqgqtBaC611uxsp7q",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 79,
+    "deletions": 38
+  },
+  "files": [
+    "docs/TODO.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

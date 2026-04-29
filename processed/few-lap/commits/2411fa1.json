@@ -1,0 +1,35 @@
+{
+  "sha": "2411fa1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T13:59:13Z",
+  "subject": "refactor(map): extract layer helper, add cluster constants, fix stale comments",
+  "body": "Extract addStationSourceAndLayers() so the init and style-switch effects\nshare identical layer definitions — the duplicated 60-line block had\nalready drifted once (text-allow-overlap). Also adds CLUSTER_MAX_ZOOM\nand CLUSTER_PIXEL_RADIUS to mapMarkers.ts, and fixes stale comments\nreferencing prefers-color-scheme and \"blue dot\".\n\nTags: map, refactor, documentation\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: map\nSemver: patch\n\nhttps://claude.ai/code/session_018snuiWWAgENJSvKGNun8tc",
+  "tags": [
+    "refactor",
+    "comments"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "map",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 145,
+    "deletions": 165
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/constants/mapMarkers.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

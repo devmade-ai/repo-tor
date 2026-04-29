@@ -1,0 +1,46 @@
+{
+  "sha": "e0f7cee",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T22:29:55Z",
+  "subject": "refactor(debug): details accepts string | Record<string, unknown>",
+  "body": "The 70+ debugAdd callsites in this repo split roughly two ways:\n- ~10 flatten real structure into a string (err instanceof Error ?\n  err.message : String(err); JSON.stringify({...}); ErrorEvent.message\n  dropping filename/lineno/colno).\n- ~50 just pass a plain message string — no structure to preserve.\n\nWrapping the latter group as { message: str } would be mechanical\nnoise across ~20 unrelated files for no queryability gain. So instead\nof migrating the literal \"details: string → Record<string, unknown>\"\nsignature the task proposed, I made the field a union type and\nmigrated only the structure-losing callsites.\n\ndebugLog.ts:\n- DebugEntry.details: string → string | Record<string, unknown>\n  (aliased as DebugDetails).\n- Global error handler: { message, filename, lineno, colno } instead\n  of discarding everything but message.\n- Unhandled rejection: split by whether reason is an Error — Error\n  gets { message, stack }; non-Error gets { reason }.\n- Boot entry ('Debug log initialized'): unchanged, no details.\n- console.error / console.warn patches: remaining args stored as\n  { args: unknownArgs } — raw values preserved, no pre-flattening\n  to \"extra 42\" strings. First arg is still safeStringify'd for the\n  event field (truncated at 160 chars as before).\n- safeStringify (formerly local formatArg) exported so the renderer\n  and report generator can share the same Error / circular-ref /\n  React-element handling.\n\nMigrated structure-losing callsites (10 files):\n- app/_layout.tsx: Early SW registration failure\n- src/debug/debugRootMount.web.tsx: DebugPill crash\n- src/hooks/useTheme.ts: Theme apply failure\n- src/hooks/usePWAUpdate.ts: 2× (init + manual check failure)\n- src/hooks/useFuelTypes.ts: Fuel types fetch failure\n- src/hooks/useAuth.ts: Auth init failure\n- src/hooks/usePWAInstall.ts: Install prompt error + the diagnostic\n  JSON.stringify({...}) wrapper which now passes the object directly.\n- src/components/ui/BurgerMenu.tsx: Menu action failure\n- src/components/map/FuelMapWeb.tsx: Map init failure\n\nLeft unchanged (50+ callsites in FilterContext, StationList, useTheme\ntoggle, useSearchModal, useLocation success path, usePWAUpdate info\nmessages, useAuth sign-in/out, useFuelTypes success, useStations\nsuccess, FuelMapWeb layer/style updates, LocationSearch, admin bulk\nops success/failure-with-msg-already-extracted, etc.) — these pass\nplain human-readable strings and wrapping them as { message: str }\nwould add noise for zero structural benefit. The union type is what\nmakes \"migrate only where it matters\" viable.\n\nRenderer:\n- DebugPill LogRow: displays typeof details === 'string' ? details :\n  safeStringify(details). Same single-line truncated view as before.\n- debugGenerateReport: same branching for the clipboard output.\n\nTests:\n- Updated 2 existing assertions: \"remaining args in details\" now\n  checks { args: ['extra', 42] } (types preserved, number stayed a\n  number); \"Error instances preserved\" checks err is still an Error\n  instance in args[0] rather than a pre-flattened string.\n- Added 'accepts both string and Record<string, unknown> details'\n  covering the union type.\n- Added 'safeStringify handles Error / circular / React element /\n  primitives' covering the newly-exported helper.\n\n67 tests (up from 65). tsc --noEmit: 0. expo export --platform web:\nclean.\n\nTags: debug, refactor, types, api\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "refactor",
+    "types"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 15,
+    "additions": 131,
+    "deletions": 33
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/_layout.tsx",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/debug/DebugPill.tsx",
+    "src/debug/__tests__/debugLog.test.ts",
+    "src/debug/debugLog.ts",
+    "src/debug/debugRootMount.web.tsx",
+    "src/hooks/useAuth.ts",
+    "src/hooks/useFuelTypes.ts",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "src/hooks/useTheme.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,32 @@
+{
+  "sha": "165077e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-20T23:33:30Z",
+  "subject": "docs: note single-environment alpha convention (prod = test = dev)",
+  "body": "The single Vercel deployment from main is today's only environment.\nFuture sessions shouldn't start gating behaviors on NODE_ENV, adding\n\"production\" guards, stripping DebugPill for prod, or suggesting\nseparate staging URLs — those are all out of scope until the user\nexplicitly signals the transition.\n\n- CLAUDE.md: new \"Alpha Phase — Single Environment\" section sitting\n  alongside the existing \"Alpha Phase — Breaking Changes\" note. Same\n  framing (don't overengineer for alpha). Explicit list of behaviors\n  to avoid plus the concrete signal to watch for.\n\n- docs/TODO.md: new \"Ideas / Future\" entry marking the prod-transition\n  checklist (DebugPill gating, env-aware logging, previews, CSP,\n  manifest copy, staging URL, localStorage key migration) so when the\n  signal comes, the revisit list is already written down. Explicit\n  \"do NOT start proactively\" guardrail.\n\nTags: docs, convention, alpha, deployment\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: alpha-debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_015rKh5k6MFgfyjNZDfGaWzV",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "alpha-debug-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 15,
+    "deletions": 1
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,36 @@
+{
+  "sha": "3233081",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T23:58:07Z",
+  "subject": "fix(ui): complete z-index scale audit — fix tooltip, add decision docs",
+  "body": "Extends the initial debug pill fix (3ef0f9c) with a full codebase audit\nper the glow-props Z_INDEX_SCALE pattern.\n\nFixes:\n- .heatmap-tooltip: var(--z-toast) → var(--z-menu). The scale places\n  tooltips in the menu/dropdown layer (50), not the toast layer (70).\n  At z-70 the tooltip competed with toasts at the same level, and DOM\n  order caused the tooltip to render above toasts — wrong.\n- CSS scale comment now references Z_INDEX_SCALE.md (was BURGER_MENU.md)\n\nDecision documentation added:\n- Sub-layer rationale for --z-sticky-header (21), --z-drawer-backdrop\n  (28), --z-modal-backdrop (58) — explains why they deviate from the\n  base scale's \"backdrop always 40\" rule\n- Inline debug pill comment explaining why zIndex:'80' is hardcoded\n  (CSS variables unavailable before stylesheets load)\n\nTags: ui, debug, z-index, cleanup, documentation\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: z-index-scale\nSemver: patch\n\nhttps://claude.ai/code/session_01MnhxXijTTmk9cxGLiWqh7R",
+  "tags": [
+    "bugfix",
+    "ui",
+    "comments"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "z-index-scale",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 36,
+    "deletions": 10
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/styles.css",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

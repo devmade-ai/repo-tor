@@ -1,0 +1,31 @@
+{
+  "sha": "8f6fc4b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T00:51:12Z",
+  "subject": "fix(markdown): use placeholder approach to protect code blocks from paragraph regex",
+  "body": "The previous fix (inline escaping) solved the raw < issue but missed a\ncritical structural bug: multi-line code block content was being matched\nby the paragraph regex (/gm flag processes each line independently).\n\nThe code block replacement puts escaped content between <pre><code> and\n</code></pre>, but middle lines of multi-line code don't start with <,\nso the paragraph regex wraps them in <p> tags. This:\n- Breaks <pre><code> structure (browser auto-closes <pre> at first <p>)\n- Double-escapes entities (paragraph handler calls inlineMarkdown again)\n- Causes visible truncation as code block HTML structure collapses\n\nFix: Extract code blocks and tables into arrays with single-line\nplaceholders (<codeblock-N>, <tableblock-N>) before running any\nline-by-line regex. Restore them after all structural processing.\nThis ensures multi-line content is never exposed to line-by-line regexes.\n\nVerified: 42 markdown files, 0 double-escaped entities, 0 unescaped <,\nall code block counts match, all files render completely to last line.\n\nTags: markdown, bugfix, truncation, code-blocks\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: markdown-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01XLixoiabXWHoMeE3te5uYs",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "markdown-ux",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 40,
+    "deletions": 18
+  },
+  "files": [
+    "public/markdown.js"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 4,
+  "impact": "user-facing"
+}

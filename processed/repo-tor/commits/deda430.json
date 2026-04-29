@@ -1,0 +1,32 @@
+{
+  "sha": "deda430",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-11T23:18:31Z",
+  "subject": "fix(debug): preserve pre-React error timestamps, stop inline pill DOM work",
+  "body": "Two fixes to the inline pill / debugLog bridge:\n\n1. Inline pill now stores Date.now() (numeric epoch) instead of\n   toLocaleTimeString() (formatted string). Matches the spec's inline\n   pill code. The bridge in debugLog.js creates entries with the\n   original error timestamp instead of module-load time, so pre-React\n   errors show accurate times in the React DebugPill's Log tab.\n   Added fmtTime() helper for the inline pill's own display and copy.\n\n2. Inline pill render() now bails early when window.__debugReactMounted\n   is true. The error listeners still fire (can't remove from IIFE\n   closure), but DOM operations on the hidden banner stop. Eliminates\n   wasted work after React mounts.\n\nTags: debug, bugfix\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01VJTP7qCmApamkAM8xREziS",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 34,
+    "deletions": 8
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/js/debugLog.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "internal"
+}

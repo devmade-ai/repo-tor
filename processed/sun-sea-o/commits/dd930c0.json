@@ -1,0 +1,39 @@
+{
+  "sha": "dd930c0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T00:24:49Z",
+  "subject": "feat(theme): stand up DaisyUI v5 + theme module (corporate/business)",
+  "body": "Install DaisyUI 5 and wire the dual-layer theming plumbing per the glow-props\nTHEME_DARK_MODE pattern, Approach A (data-theme). Corporate is the light theme\n(--default), business is the dark theme (--prefersdark). Single localStorage\n\"theme\" key stores the active theme name; dark is derived as \"business\".\n\n- src/utils/theme.ts: applyTheme(dark, name, skipPersist?) + initTheme(). Sets\n  .dark class, data-theme attribute, color-scheme, and both meta theme-color\n  tags on every change. Cross-tab sync via storage event. OS-preference\n  fallback via matchMedia — only honored when no stored choice, so explicit\n  choices aren't overridden.\n- src/index.css: @plugin \"daisyui\" with two themes, @custom-variant dark,\n  color-scheme base layer.\n- index.html: replace single static meta theme-color with two media-queried\n  tags (corporate #0082ce / business #202020, derived from DaisyUI oklch).\n  Inline classic <script> in <head> reads localStorage and applies the theme\n  before any module script — prevents FOUC.\n- src/main.tsx: call initTheme() before React mount to attach listeners.\n- CLAUDE.md: document Approach A in Adopted Patterns with rationale and\n  file map for next chunks.\n\nNo UI toggle yet — Chunk 8. Existing slate-* utilities untouched; components\ncontinue to render as before since data-theme=corporate + .dark-absent keeps\nDaisyUI in light mode and no dark: pairs exist yet.\n\nTags: ui, theme, daisyui, setup\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: theme-dark-mode\nSemver: minor",
+  "tags": [
+    "feature",
+    "ui",
+    "dependency-add"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "theme-dark-mode",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 189,
+    "deletions": 1
+  },
+  "files": [
+    "CLAUDE.md",
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "src/index.css",
+    "src/main.tsx",
+    "src/utils/theme.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

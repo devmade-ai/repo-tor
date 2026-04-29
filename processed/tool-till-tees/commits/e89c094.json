@@ -1,0 +1,34 @@
+{
+  "sha": "e89c094",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:10:17Z",
+  "subject": "fix(cors): allowlist X-Dev-User-Id and X-Dev-User-Email on preflight",
+  "body": "Without this, browsers strip both headers from sun-sea-o's preflighted\nsancio requests and the bypass silently 401s on every call. The surface\npass on the auth-bypass work caught it — unit tests cover the function\nbehavior but never the browser preflight path.\n\nVerified sun-sea-o/src/api/client.ts sends exactly `X-Dev-User-Id` +\n`X-Dev-User-Email` (PascalCase hyphenated) with the BYPASS_USER UUID\n00000000-0000-0000-0000-000000000001 — matches what lib/auth.ts reads\nand what the test data uses.\n\nUpdated the health.test.ts preflight assertion to match the new header\nlist. Other CORS tests unchanged.\n\nTags: cors, auth, sancio, dev-bypass, bugfix\nComplexity: 1\nUrgency: 4\nImpact: api\nRisk: low\nDebt: paid\nEpic: sun-sea-o-integration\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "security",
+    "test-unit"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "sun-sea-o-integration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 7,
+    "deletions": 2
+  },
+  "files": [
+    "api/__tests__/health.test.ts",
+    "lib/cors.ts"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 4,
+  "impact": "api"
+}

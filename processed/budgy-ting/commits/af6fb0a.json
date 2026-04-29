@@ -1,0 +1,37 @@
+{
+  "sha": "af6fb0a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T20:55:08Z",
+  "subject": "fix(pwa): settle delay, cleanupOutdatedCaches, install prompt diagnostic",
+  "body": "Three improvements found during pattern audit:\n\n1. checkForUpdate() now has a 1500ms settle delay after\n   registration.update() — SW lifecycle events fire asynchronously\n   after update() resolves, so without the delay the \"Checking...\"\n   state flashes invisibly fast and events may not have propagated.\n   Also added error handling with debugLog.\n\n2. cleanupOutdatedCaches: true in workbox config — removes stale\n   caches from incompatible older Workbox major versions that\n   accumulate across deployments.\n\n3. Fixed DebugPill install prompt diagnostic: usePWAInstall deletes\n   window.__pwaInstallPromptEvent after consuming it, so the\n   diagnostic always showed \"Not received.\" Now sets a\n   __pwaInstallPromptReceived flag before deleting, and DebugPill\n   checks both sources.\n\nTags: pwa, debug, service-worker, cleanup\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pwa-system\nSemver: patch\n\nhttps://claude.ai/code/session_01JjbdKNBLFZ6CmJkVqngkqm",
+  "tags": [
+    "bugfix",
+    "monitoring"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 33,
+    "deletions": 4
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/composables/usePWAInstall.ts",
+    "src/composables/usePWAUpdate.ts",
+    "src/debug/DebugPill.vue",
+    "vite.config.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}

@@ -1,0 +1,34 @@
+{
+  "sha": "1af52e8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T23:12:38Z",
+  "subject": "chore(cleanup): drop unused Z_CLASS export and stale USER_ACTIONS entries",
+  "body": "The Z_CLASS lookup in src/constants/zIndex.ts was exported but never\nimported; JSX continues to use Tailwind utilities directly so the JIT\nsees the classes statically. Comment now documents why the table was\nintentionally not introduced.\n\nUSER_ACTIONS.md drops four \"Status: Done\" entries (VITE_API_BASE_URL,\nthree migrations) per the new \"delete completed items — git history\ntracks them\" rule we just adopted from glow-props. Active items\n(re-enable auth, configure Google OAuth) stay.\n\nTags: cleanup, refactor, docs\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
+  "tags": [
+    "refactor",
+    "removal",
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-docs",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 7,
+    "deletions": 40
+  },
+  "files": [
+    "docs/USER_ACTIONS.md",
+    "src/constants/zIndex.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

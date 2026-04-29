@@ -1,0 +1,36 @@
+{
+  "sha": "76e8a7a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-06T05:49:29Z",
+  "subject": "fix(ui): restore mobile column layout for toolbar, DaisyUI btn classes",
+  "body": "Root cause of double-tap regression: commit 08a80bb migrated .app-toolbar\nfrom custom CSS to Tailwind utilities but dropped flex-direction: column\non mobile. Original CSS:\n  @media (max-width: 768px) { .app-toolbar { flex-direction: column; } }\nTailwind replacement was flex row on all sizes, causing ViewSwitcher\n(shrink-0 max-md:w-full) to consume 100% row width and push QueryBuilder\nto 0 width. The QueryBuilder's invisible overflow sat on top of the tabs,\nconsuming the first tap.\n\nFix: add max-md:flex-col max-md:gap-2 max-md:px-3 to toolbar container,\nmatching the original column layout on mobile.\n\nRemoved touch-manipulation band-aid from ViewSwitcher — it was masking\nthe layout bug, not fixing it.\n\nOther DaisyUI compliance fixes:\n- CreateNodeModal/ConnectNodeModal: custom cancel buttons → btn btn-ghost\n- ConnectNodeModal: custom list item buttons → btn btn-ghost btn-sm\n- ContextMenu: z-1000 → z-[1000] (valid Tailwind arbitrary value)\n\nTags: mobile, layout, regression, daisyui, toolbar\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: bug-fixes\nSemver: patch\n\nhttps://claude.ai/code/session_01TsXhmNKMKj2g5gSNAr8LXB",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "bug-fixes",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 10,
+    "deletions": 6
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/ui/ConnectNodeModal.tsx",
+    "src/components/ui/ContextMenu.tsx",
+    "src/components/ui/CreateNodeModal.tsx",
+    "src/components/views/ViewSwitcher.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 4,
+  "impact": "user-facing"
+}

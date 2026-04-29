@@ -1,0 +1,33 @@
+{
+  "sha": "8ae1126",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T00:38:56Z",
+  "subject": "fix(debug): clean up copy timer on unmount, fix dedup React re-render",
+  "body": "Two bad practices found during final review:\n\n1. DebugPill copyReport setTimeout leaked on unmount — setCopyLabel could\n   fire after component destroyed. Added copyTimerRef with cleanup effect\n   and clearTimeout before each new timer.\n\n2. debugLog deduplication mutated existing entry object in-place (count++,\n   timestamp update). React subscribers do setEntries([...allEntries])\n   which creates a new array but same object references inside. React\n   compares by key+ref and skips re-render for the mutated entry — the\n   x{count} badge never updated visually. Fixed by replacing the entry\n   with a spread copy ({ ...last, count, timestamp }) so React sees a\n   new reference and re-renders the row.\n\nTags: debug, bugfix, cleanup\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01KWPHuYLV1weWg2cFm9VtjN",
+  "tags": [
+    "bugfix",
+    "memory"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 8,
+    "deletions": 3
+  },
+  "files": [
+    "src/components/DebugPill.jsx",
+    "src/utils/debugLog.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

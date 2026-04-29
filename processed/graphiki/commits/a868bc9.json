@@ -1,17 +1,11 @@
 {
   "sha": "a868bc9",
-  "fullSha": "a868bc912696bbbf0ed2ad0cf53d789ab3a289e0",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-03-05T15:36:56Z",
-  "commitDate": "2026-03-05T15:36:56Z",
   "subject": "fix(audit): resolve 11 bugs found in full codebase audit",
   "body": "Four-agent parallel audit of services, components, hooks, and config.\nFixed undefined event emissions, timer leaks, race conditions,\ninvalid HTML, stale help text, and workspace-scoping bugs.\n\n- Guard emit() with null checks in graphService/viewService/workspaceService\n- bulkDeleteNodes: indexed arc queries instead of full table scan\n- useToast: clear pending timers on unmount\n- seedService: deduplicate concurrent seedIfEmpty() calls\n- mergeService: case-insensitive labelsMatch()\n- snapshotService: workspace-scoped hasSnapshotForWorkspace()\n- DetailPanel: stable key props for property edit rows\n- QueryBuilder: span[role=button] replaces nested button\n- QueryHelpModal: corrected AND/OR toggle help text\n- TimelineView: effectiveSelected useMemo for dataset changes\n\nTags: audit, bugfix, services, components, hooks\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: codebase-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01SQBrYWvZNjkrk3QXC4Fxsv",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "codebase-audit",
   "semver": "patch",
-  "scope": "audit",
-  "title": "resolve 11 bugs found in full codebase audit",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 16,
     "additions": 124,

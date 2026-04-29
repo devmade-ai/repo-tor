@@ -1,0 +1,36 @@
+{
+  "sha": "f0132bd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T13:40:54Z",
+  "subject": "feat(a11y): keyboard focus for BurgerMenu disclosure",
+  "body": "Adds two reusable hooks for the standard disclosure pattern:\n- useDisclosureFocus: moves focus to the first item on open, returns it\n  to the trigger on close.\n- useFocusTrap: cycles Tab / Shift+Tab within the container while open.\n\nHooks follow the project convention of a plain .ts native stub plus a\n.web.ts implementation — DOM-only APIs are isolated from native bundles\nand the consumer sees a single import path on both platforms.\n\nWired into BurgerMenu: triggerRef on the hamburger Pressable, firstItemRef\non the \"How to use\" item, containerRef on the menu card. Other disclosures\n(header dropdowns, filter panels) can adopt the same hooks later.\n\nPublic ref types are React.RefObject<any> — RN Web forwards refs to the\nunderlying DOM node on web and to the RN component instance on native,\nso a permissive type is honest rather than requiring every call site\nto cast.\n\nTags: a11y, hooks, keyboard, refactor\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: a11y-polish\nSemver: minor\n\nhttps://claude.ai/code/session_01MmYgkDuYLSCs1giR4bz6kF",
+  "tags": [
+    "feature",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "a11y-polish",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 111,
+    "deletions": 0
+  },
+  "files": [
+    "src/components/ui/BurgerMenu.tsx",
+    "src/hooks/useDisclosureFocus.ts",
+    "src/hooks/useDisclosureFocus.web.ts",
+    "src/hooks/useFocusTrap.ts",
+    "src/hooks/useFocusTrap.web.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,31 @@
+{
+  "sha": "aea7c43",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T23:13:41Z",
+  "subject": "refactor(errorboundary): root fallback uses Tailwind utilities, not inline style",
+  "body": "Removes the \"Root ErrorBoundary in main.jsx\" exception from the\ninline-style allowlist in CLAUDE.md. The exception existed as\ndefensive scaffolding for the case where the main CSS bundle failed\nto load entirely — but in practice, when CSS fails to load the\nbrowser falls back to its user-agent stylesheet, which still renders\nthe ErrorBoundary content in a legible way (default font, top-of-\npage, left-aligned). The error text is still readable, the Reload\nbutton still works as a native button element.\n\nThe inline-style exception was buying us \"centered, padded, spaced\nfallback UI in the CSS-load-failure mode\" at the cost of a permanent\ndocumented exception. The new code uses pure Tailwind utility classes\nfor layout (`min-h-screen flex flex-col items-center justify-center\ngap-4 p-6 text-center`) plus the existing DaisyUI semantic tokens\nfor text colour. The Reload button keeps `btn btn-primary`.\n\nTrade-off analysis spelled out in the Approach / Alternatives\ncomment block above the render() method, so a future reader\nconsidering re-adding the inline style for resilience sees the\nreasoning without having to re-derive it.\n\nAfter this commit:\n  - DebugPill subsystem is the ONLY inline-style exception in\n    CLAUDE.md (it has a stronger resilience argument — the pill's\n    entire purpose is to be a diagnostic surface when things are\n    broken, including the CSS-load failure mode)\n  - The \"Root ErrorBoundary\" sub-bullet can be removed from\n    CLAUDE.md's inline-style exception list in the consolidation\n    commit at the end of this batch.\n\nVerified:\n  - Build clean (879.97 kB → 879.91 kB, -0.06 kB from the removed\n    inline style object literal)\n  - 60/60 tests pass\n  - Error fallback still renders correctly (structural test — the\n    render() output is still the same div + 3 p + button tree, just\n    with className instead of style)\n\nTags: refactor, vanilla-daisyui, error-handling\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 25,
+    "deletions": 9
+  },
+  "files": [
+    "dashboard/js/main.jsx"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

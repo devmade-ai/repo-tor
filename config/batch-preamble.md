@@ -73,7 +73,7 @@ Assign ALL tags that apply. Multiple tags per commit is expected.
 
 **Dependencies:** `dependency-add`, `dependency-update`, `dependency-remove`, `dependency-security`
 
-**Database:** `database`, `schema`, `data-migration`, `seed`
+**Data:** `database`, `schema`, `data-migration` (DB schema migration), `data-pipeline` (analytics/ETL pipeline run, regenerated data artefacts), `seed`
 
 **API:** `api`, `api-breaking`, `endpoint`
 

@@ -1,0 +1,39 @@
+{
+  "sha": "2a1407b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T22:50:06Z",
+  "subject": "fix(icons): update SVG icon colors to match DaisyUI dark theme",
+  "body": "Replace old hardcoded colors (#0f172a, #6366f1, #4f46e5, #818cf8,\n#f59e0b) with DaisyUI dark theme colors derived from oklch values:\n  - Background: #1d232a (base-100)\n  - Primary nodes: #605dff (primary)\n  - Info nodes: #00bafe (info)\n  - Center node: #fcb700 (warning)\n  - Connection lines: #605dff at 70% opacity (primary)\n\nUpdated both assets/icon-source.svg and public/icon.svg (SVG favicon).\nRegenerated all 6 PNG icons from the updated source.\n\nTags: icons, theme, daisyui, colors\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 8,
+    "additions": 36,
+    "deletions": 34
+  },
+  "files": [
+    "assets/icon-source.svg",
+    "public/favicon.png",
+    "public/icon.png",
+    "public/icon.svg",
+    "public/pwa-1024-maskable.png",
+    "public/pwa-192.png",
+    "public/pwa-512.png",
+    "public/splash-icon.png"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,45 @@
+{
+  "sha": "3231728",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T08:05:09Z",
+  "subject": "refactor(theme): remove CSS variable bridge — use DaisyUI tokens directly",
+  "body": "Replace all 362 bridge variable references with direct DaisyUI tokens\nacross 14 CSS files. The bridge layer (--color-bg → --color-base-100,\n--color-surface → --color-base-200, etc.) added unnecessary indirection.\n\nMapping applied:\n  --color-bg → --color-base-100\n  --color-surface → --color-base-200\n  --color-surface-hover → --color-base-300\n  --color-border → --color-base-300\n  --color-text → --color-base-content\n  --color-text-muted → color-mix(in oklab, --color-base-content 60%, transparent)\n  --color-danger → --color-error\n  --color-accent → --color-warning\n  --color-label-bg → color-mix(in oklab, --color-primary 20%, transparent)\n  --color-label-text → --color-primary-content\n  --color-primary-hover → color-mix(in oklab, --color-primary 80%, white)\n  --color-success-hover → color-mix(in oklab, --color-success 80%, white)\n  --radius → --radius-box (DaisyUI native)\n\nThe :root bridge block is removed. Only --header-height remains.\n\nTags: theme, daisyui, refactor, bridge-removal\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "refactor",
+    "removal"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 14,
+    "additions": 414,
+    "deletions": 441
+  },
+  "files": [
+    "src/App.css",
+    "src/components/analysis/AnalysisModal.css",
+    "src/components/conventions/ConventionsModal.css",
+    "src/components/duplicates/DuplicateScannerModal.css",
+    "src/components/importExport/MergeReview.css",
+    "src/components/layout/DetailDrawer.css",
+    "src/components/pwa/InstallInstructionsModal.css",
+    "src/components/query/QueryBuilder.css",
+    "src/components/query/QueryHelpModal.css",
+    "src/components/ui/LabelSuggestions.css",
+    "src/components/ui/Toast.css",
+    "src/components/ui/TutorialModal.css",
+    "src/components/views/TimelineView.css",
+    "src/components/workspaces/WorkspaceManager.css"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

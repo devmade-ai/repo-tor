@@ -1,0 +1,40 @@
+{
+  "sha": "b8748dc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T11:02:17Z",
+  "subject": "docs(patterns): extract Z_INDEX_SCALE as standalone implementation pattern",
+  "body": "The z-index scale was duplicated across BURGER_MENU.md, THEME_DARK_MODE.md,\nand referenced inline in DEBUG_SYSTEM.md and PWA_SYSTEM.md. Extracting it\nas the 9th pattern doc eliminates duplication and gives it a single source\nof truth that all repos can reference.\n\nPattern covers: 8-layer scale, rules, audit commands, stacking context\ngotchas, per-framework notes. All existing patterns updated to reference\nit. TODO.md gap matrix expanded with Z_INDEX_SCALE column and per-repo\nimplementation items added for all 10 downstream repos.\n\nTags: documentation, patterns, z-index, architecture\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pattern-compliance\nSemver: minor\n\nhttps://claude.ai/code/session_01BHgwkoqHrt1Tq8Rb2bDPc6",
+  "tags": [
+    "documentation",
+    "patterns",
+    "z-index",
+    "architecture"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pattern-compliance",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 239,
+    "deletions": 58
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/TODO.md",
+    "docs/implementations/BURGER_MENU.md",
+    "docs/implementations/DEBUG_SYSTEM.md",
+    "docs/implementations/PWA_SYSTEM.md",
+    "docs/implementations/THEME_DARK_MODE.md",
+    "docs/implementations/Z_INDEX_SCALE.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

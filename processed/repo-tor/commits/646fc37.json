@@ -1,0 +1,33 @@
+{
+  "sha": "646fc37",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-06T12:29:30Z",
+  "subject": "fix(pwa): bypass SW navigation cache for embed URLs",
+  "body": "The service worker precaches index.html with response headers from when\nit was installed. If installed before the X-Frame-Options removal, the\ncached response still included the old SAMEORIGIN header — blocking\ncross-origin iframes. Since the iframe blocks before JS runs, the SW\nupdate code never executes, creating a deadlock.\n\nAdded navigateFallbackDenylist for ?embed= URLs so they always bypass\nthe SW cache and go directly to the network (Vercel).\n\nTags: pwa, embed, bugfix\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: embedding\nSemver: patch\n\nhttps://claude.ai/code/session_016hJj32ZoXvcDL5fCjPCDmD",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "embedding",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 22,
+    "deletions": 0
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 4,
+  "impact": "user-facing"
+}

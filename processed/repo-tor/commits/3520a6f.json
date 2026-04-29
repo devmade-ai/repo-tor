@@ -1,0 +1,37 @@
+{
+  "sha": "3520a6f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T22:33:44Z",
+  "subject": "refactor(cleanup): delete 4 dead exports, unexport 4 internals, drop dead hook",
+  "body": "Audit findings #4, #5, #6, #7, #8, #9 — a repo-wide grep across\ndashboard/js/ revealed 9 exported symbols with zero consumers. Four\nwere genuinely dead (delete them + the matching file), four were\ninternal helpers that only their own file consumes (drop the export\nkeyword, keep the function body).\n\nDeleted entirely (zero consumers in dashboard/js, tests, or\nscripts/__tests__):\n\n  - debugLog.js debugGetEntries() — shallow-copy of entries array.\n    No subscriber ever called this; DebugPill consumes entries via\n    the debugSubscribe() replay mechanism instead.\n  - debugLog.js diagnoseFailure(url) — async no-cors HEAD probe for\n    CORS vs network failure differentiation. Was written for a\n    diagnostic panel that never shipped; the DebugPill PWA tab runs\n    its own probes via DebugTabs.jsx runDiagnostics() which is\n    unrelated. Pre-existing dead code from an earlier session.\n  - utils.js formatNumber(num) — 1.5K / 2.3M suffix formatter.\n    Zero consumers; Chart.js handles axis-label formatting via its\n    own `callback` ticks config, and the few stat cards that\n    display large numbers use .toLocaleString() directly.\n  - utils.js aggregateForDrilldown(commits, context) — detail-pane\n    drilldown helper. Zero consumers; detail-pane aggregation\n    happens in the section components directly via\n    aggregateContributors() + inline filtering.\n  - utils.js DAY_NAMES — full-name day array. Zero consumers; the\n    only consumer (Discover peak-day metric) defines its own local\n    array because it needs Sunday-first ordering. DAY_NAMES_SHORT\n    is kept — Timing.jsx uses it.\n  - dashboard/js/hooks/useClickOutside.js — default-exported hook.\n    Zero imports anywhere. The components that originally needed\n    click-outside (HamburgerMenu, dropdowns) migrated to inline\n    backdrop overlays during the 2026-04-13/14 vanilla-DaisyUI\n    sweep and never re-added the hook. File deleted; CLAUDE.md\n    hooks list trimmed to match.\n\nDemoted from `export` to module-private (only used in own file):\n\n  - utils.js SA_HOLIDAYS — the holiday object literal. Only\n    buildHolidaySet() (now module-private after commit 4e4f672)\n    reads it. Removed `export`, added comment explaining the\n    module-private status.\n  - utils.js aggregateByTag(commits) — tag-count helper. Only\n    aggregateContributors() (in the same file) calls it.\n    aggregateForDrilldown deleted above was the other consumer.\n    Dropped `export`, added comment.\n  - chartColors.js getRepoColor(repoName, activeIndex) — per-repo\n    chart colour. Only buildRepoColorMap() (in the same file) calls\n    it. Dropped `export`, added module-private note.\n  - components/debug/debugStyles.js SOURCE_COLORS + SEVERITY_COLORS\n    — the two colour lookup maps exported by my own extraction in\n    commit feb7129. They're consumed only inside the `styles`\n    object closure in the same file (styles.sourceTag reads\n    SOURCE_COLORS, styles.logEntry reads SEVERITY_COLORS). Removed\n    `export` from both; `export const styles` is unchanged.\n\nCLAUDE.md also updated:\n  - Hooks list: removed `useClickOutside`.\n  - js/debugLog.js one-line description: dropped \"failure diagnosis\"\n    since diagnoseFailure was deleted.\n\nClose call averted: utils.js getCommitDateRange was briefly\nconsidered dead (it was only used inside the now-deleted\naggregateForDrilldown) but a repo-wide grep turned up\nsections/Health.jsx line 217 as a legitimate external consumer.\nKept with its existing export.\n\nBuild clean, 60/60 tests pass.\n\nTags: refactor, cleanup, dead-code, audit\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "refactor",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 23,
+    "deletions": 118
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/chartColors.js",
+    "dashboard/js/components/debug/debugStyles.js",
+    "dashboard/js/debugLog.js",
+    "dashboard/js/hooks/useClickOutside.js",
+    "dashboard/js/utils.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

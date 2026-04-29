@@ -1,0 +1,37 @@
+{
+  "sha": "9d89445",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T21:54:44Z",
+  "subject": "fix(icons): automate public dir sync in generate-icons script",
+  "body": "The dashboard/public/assets/images/ directory contained manual copies\nof generated icons that could drift between regenerations. The script\nnow copies all generated files (7 PNGs + favicon.ico) to the Vite\npublic dir automatically, ensuring manifest paths and favicon links\nalways resolve to current output.\n\nRemoves the icon sync backlog item from TODO.md — fully resolved.\n\nTags: icons, build, cleanup\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: patch\n\nhttps://claude.ai/code/session_01FZx63vfq6y3XePEh5evu7P",
+  "tags": [
+    "bugfix",
+    "build"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 24,
+    "deletions": 13
+  },
+  "files": [
+    "dashboard/public/assets/images/apple-touch-icon.png",
+    "dashboard/public/assets/images/favicon.ico",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "scripts/generate-icons.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

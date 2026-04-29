@@ -1,0 +1,33 @@
+{
+  "sha": "9a3ec45",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T07:21:29Z",
+  "subject": "docs(db): emergency brake, durable post-resolution steps, react-test-renderer TODO",
+  "body": "Final tightening from the wrap pass. No behaviour changes — all three\nedits are documentation and comments.\n\n1. supabase/migrations/20260421000001 header: reworded the\n   \"Application path\" comment so it doesn't read like a one-off event.\n   The original wording (\"applied via management API on 2026-04-21 as\n   postgres\") made sense for this session but looked historical for\n   anyone running `supabase db push` on a fresh DB later. New wording\n   explains the idempotency invariant (both `CREATE OR REPLACE\n   FUNCTION` and `CREATE OR REPLACE TRIGGER` need only the `TRIGGER`\n   privilege, which `postgres` has on this table) and keeps the\n   first-apply date as a footnote.\n\n2. docs/USER_ACTIONS.md: two additions to the support-ticket section:\n   - Structured 7-step post-resolution cleanup that names every\n     artifact to delete/update (migration file, ledger row, test\n     assertions, CLAUDE.md project-status line + Known production\n     risks section, SESSION_NOTES, TODO entry for scheduled CI).\n     Previously said \"also delete migration 20260421000001 from repo\"\n     in one run-on sentence; easy to miss half the steps.\n   - **Emergency brake snippet**: if the bridge trigger ever fires\n     for a legitimate write (e.g. a future Supabase maintenance op\n     running as a role we didn't allowlist), we can't DROP TRIGGER\n     (ownership wall) but we own the function, so\n     CREATE OR REPLACE FUNCTION to a `RETURN NULL` body neutralizes\n     the trigger in one statement. Clearly labelled as re-opening\n     the DoS window — only for active investigation. Restore path\n     is re-running the migration file.\n\n3. docs/TODO.md: new entry for migrating\n   src/components/pwa/__tests__/IconCacheDisclosure.test.tsx off\n   `react-test-renderer`. The library is officially deprecated on\n   React 19 and will be removed in a future major. Current test\n   works via act() wrapping + IS_REACT_ACT_ENVIRONMENT=true (fixed in\n   d8bf841) but that's a bridge. Proper fix:\n   @testing-library/react-native. Noted that\n   DebugRootBoundary.test.tsx already avoids the library by\n   instantiating class components directly, so no migration needed\n   there.\n\nVerified unchanged post-edit:\n- .env is in .gitignore (both `.env` and `.env*.local` lines)\n- docs/TESTING_GUIDE.md's migration references are generic\n  (`supabase db reset`), not session-specific — no update needed\n- docs/USER_GUIDE.md doesn't mention migrations / RLS / spatial_ref_sys\n- 131/131 tests pass\n\nTags: documentation, migrations, supabase\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: db-sync\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "db-sync",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 40,
+    "deletions": 4
+  },
+  "files": [
+    "docs/TODO.md",
+    "docs/USER_ACTIONS.md",
+    "supabase/migrations/20260421000001_block_spatial_ref_sys_writes.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

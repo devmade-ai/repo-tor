@@ -1,0 +1,35 @@
+{
+  "sha": "c3dfe06",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T10:09:33Z",
+  "subject": "fix(debug): drop location-PII from debug entries + document console-capture scope",
+  "body": "Four debugAdd callsites captured user-identifying location data in\nplaintext. When a user copies the debug report to a support chat,\nthose values went along verbatim. URL redaction doesn't catch bare\nlat/lng pairs or address labels.\n\nPRIV1 — src/hooks/useLocation.ts:\n  - Line 82 (GPS location acquired): was including 4-decimal lat/lng\n    (~11m precision, identifies home/work). Now just the event label.\n  - Line 112 (Manual location set): was falling back to `${lat}, ${lng}`\n    when no label was provided. Now just the event label (and the\n    label itself is dropped per PRIV2 below when it IS provided,\n    via LocationSearch — which is where the label originates).\n  Devs who need coords for a specific debug session can read\n  `location.coords` directly in DevTools.\n\nPRIV2 — src/components/search/LocationSearch.tsx:\n  - Line 185 (Location selected from suggestions): was including the\n    user-selected short label (e.g., \"123 Main Street\"). User search\n    selections often identify home / workplace / frequent destinations.\n    Now just the event label.\n  - Line 205 (Recent search selected): same. Recent searches from\n    AsyncStorage could expose a usage pattern.\n\nPRIV3 — src/debug/consoleCapture.ts: the capture stores console args\nraw (as `details.args`). redactUrls only handles URLs — not email-\nlike patterns, JWT-like tokens outside URLs, or arbitrary user-field\nobjects passed to console.*. Documented the caveat in the module's\nheader block, pointed at the existing TODO.md entry for reverting\nthe always-on state post-alpha (which eliminates this surface in\nproduction).\n\nVerified clean (no fix):\n- useAuth.ts: never logs email/password. `error.message` from Supabase\n  is generic (\"Invalid credentials\"), not PII.\n- Supabase session in localStorage: platform default, not branch.\n- PWA install analytics (last 50 events): event type + browser +\n  timestamp, no PII.\n- AsyncStorage recent searches: on-device only, not in debug surface.\n- sessionStorage recovery counter / just-updated timestamp: non-PII.\n- env.url: already redacted at construction (prior commit).\n- Debug report clipboard copy: URL redaction already in place.\n\ntsc 0, jest 92/92, expo web build clean.\n\nTags: debug, privacy, redaction, pii\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "bugfix",
+    "security",
+    "privacy"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 29,
+    "deletions": 4
+  },
+  "files": [
+    "src/components/search/LocationSearch.tsx",
+    "src/debug/consoleCapture.ts",
+    "src/hooks/useLocation.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

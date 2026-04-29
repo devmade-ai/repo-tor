@@ -1,0 +1,38 @@
+{
+  "sha": "7c25c37",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T09:14:53Z",
+  "subject": "feat(pwa): add icon cache busting + tripwire + reinstall guidance",
+  "body": "Stable icon filenames (pwa-192x192.png, apple-touch-icon.png, favicon.png,\nicon.svg) survive browser cache, CDN, Workbox precache, and Chrome WebAPK\ncaches for weeks after a deploy — users see stale icons until each layer\ndecides to refresh. Append ?v=<sha256-prefix> to every icon URL so a new\nicon is a new URL at every cache layer; hash-derived means the version\nonly bumps when bytes change (no spurious WebAPK regens).\n\nImplementation (vite.config.js):\n- iconVersion(path): sha256 prefix of public/<path>, warns-not-throws on\n  missing file so first-time clones before generate-icons don't break dev.\n- iconCacheBustHtml(): Vite plugin that rewrites the four icon <link>\n  literals in index.html. Throws on missing literal so a tag-formatting\n  change can't silently ship un-versioned URLs.\n- Manifest icons: use versioned() helper for all four entries.\n- Workbox: add cleanupOutdatedCaches: true and /^v$/ to\n  ignoreURLParametersMatching — without /^v$/, precache misses versioned\n  requests and offline breaks.\n- Plugin order: iconCacheBustHtml() runs before VitePWA() to lock the\n  contract against future plugin behavior changes.\n\nTripwire (src/__tests__/iconCacheBust.test.js):\n- Source-level: plugin defined, wired before VitePWA, ignore param wired,\n  cleanupOutdatedCaches wired, index.html still has the four literals.\n- Dist-level (skipped if dist/ absent): manifest icons versioned,\n  index.html links versioned, sw.js has both workbox config pieces.\n- Verified: breaking /^v$/ → test fails. Restoring → test passes.\n\nUser communication (InstallInstructionsModal.jsx):\nOS icon cache is the one layer no web-side change refreshes. Added\na DaisyUI collapse (closed by default) with platform-tailored reinstall\nsteps — iOS long-press → Remove App, Android long-press → Uninstall,\nDesktop → app menu → Uninstall. Platform classified from the existing\ninstructions.browser display string (no duplicate UA detection).\n\nPattern source: glow-props/docs/implementations/PWA_ICON_CACHE_BUST.md.\n\nTags: pwa, infrastructure, cache, tests, ui\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa-icon-cache-bust\nSemver: minor\n\nhttps://claude.ai/code/session_011TWPGXDkRiZaPZVUcwLDCd",
+  "tags": [
+    "feature",
+    "caching",
+    "test-unit",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pwa-icon-cache-bust",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 260,
+    "deletions": 6
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/TODO.md",
+    "src/__tests__/iconCacheBust.test.js",
+    "src/components/InstallInstructionsModal.jsx",
+    "vite.config.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

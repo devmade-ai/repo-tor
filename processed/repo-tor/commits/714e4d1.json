@@ -1,0 +1,34 @@
+{
+  "sha": "714e4d1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T19:18:31Z",
+  "subject": "refactor(layout): #15 simplify drawer architecture — 1 drawer + 2 fixed panes",
+  "body": "The Phase 4a vanilla-DaisyUI sweep nested THREE DaisyUI drawers in\nApp.jsx (filter → detail → settings) to migrate all three slide-over\npanes to the same component. Three concerns in the post-sweep audit:\n\n  1. DaisyUI v5 drawer is designed for one-drawer-per-page UX. Nesting\n     three of them was an undocumented pattern.\n  2. CSS-grid-based drawer composition with three layers had unverified\n     z-index / click-outside / focus-trap interactions across the\n     three drawer-overlay labels.\n  3. Without a browser to test, I had no way to confirm the nested\n     architecture actually rendered correctly.\n\nReverted to a simpler, more proven architecture:\n\n  - **Filter sidebar**: ONE DaisyUI `drawer lg:drawer-open` wrapper.\n    This is the documented standard pattern — inline at lg+, overlay\n    below lg. Well-supported, no nesting.\n  - **Detail pane**: stock Tailwind `<aside className=\"fixed top-0\n    right-0 h-screen w-full max-w-lg z-40 transform transition-transform\n    translate-x-0/full\">` with a sibling `<div className=\"fixed inset-0\n    bg-black/60 z-30 transition-opacity opacity-0/100 pointer-events-none\">`\n    backdrop. Slide animation via Tailwind's transform + transition.\n  - **Settings pane**: same pattern as detail, wider z-index (z-40)\n    so it stacks above detail when both are open.\n\nBoth pane backdrops use onClick → dispatch CLOSE_* for click-to-close.\nReact reducer state still owns the open/closed flag for both panes.\nDetailPane and SettingsPane components themselves are unchanged from\ntheir content-only state — they just render inside `<aside>` instead\nof inside a DaisyUI drawer-side now.\n\nApp.jsx structural changes:\n  - Replaced 3 nested <div className=\"drawer\">...</div> blocks with\n    1 outer drawer (filter) + 2 fixed-positioned aside elements\n  - Wrapped the main tab content area in <main> for proper landmark\n    semantics (was a plain div)\n  - Removed two nested ErrorBoundary scopes — only the one wrapping\n    the tab router remains, plus per-pane ErrorBoundaries on Header,\n    TabBar, FilterSidebar, DetailPane, SettingsPane\n\nAppContext changes:\n  - Removed unused 'OPEN_SETTINGS_PANE' reducer case (only added in\n    Phase 4a for the drawer onChange that no longer exists). The\n    TOGGLE_SETTINGS_PANE / CLOSE_SETTINGS_PANE actions stay — they're\n    used by the settings button + close button + escape key handler.\n    'OPEN_FILTER_SIDEBAR' stays — still used by the filter drawer's\n    onChange. 'OPEN_DETAIL_PANE' stays — used by the openDetailPane\n    callback that programmatically opens the pane with payload.\n\nStock Tailwind utilities only — no custom classes, no custom CSS,\nno @utility, no arbitrary brackets. The pane animations use:\n  fixed top-0 right-0 h-screen w-full max-w-{lg|sm}\n  transform transition-transform duration-300\n  translate-x-0 / translate-x-full\n  bg-black/60 z-30/z-40 opacity-100 / opacity-0 pointer-events-none\n  print:hidden\n\nAll vanilla-policy compliant.\n\nZ-index hierarchy:\n  - Detail backdrop: z-30\n  - Detail pane:     z-40 (above its own backdrop, below settings)\n  - Settings backdrop: z-40 (above detail pane — covers detail when both open)\n  - Settings pane:   z-40 (above settings backdrop via DOM order)\n\nVerified:\n  - vite build clean (2.77s)\n  - 60/60 tests pass\n  - Built CSS contains .translate-x-0, .translate-x-full, .bg-black/60,\n    .transition-transform, .transition-opacity, .pointer-events-none\n\nRemaining untested (cannot verify without a browser):\n  - Mobile slide direction (fixed right-0 + translate-x-full slides\n    in from the right on all viewports — was the same on desktop in\n    the old architecture, was a bottom-sheet on mobile in the\n    pre-vanilla architecture. Bottom-sheet is gone)\n  - Focus trap behaviour across the new aside elements (DetailPane\n    and SettingsPane still call useFocusTrap internally — the trapRef\n    is on their content div which is the focusable container)\n\nTags: refactor, layout, ui, daisyui, drawer\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui",
+    "simplify"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-v5-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 79,
+    "deletions": 66
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/AppContext.jsx"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

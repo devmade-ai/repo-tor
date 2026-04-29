@@ -1,0 +1,39 @@
+{
+  "sha": "fe16f71",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T20:28:04Z",
+  "subject": "feat(session-undone): address 5 items from session-end undone pass",
+  "body": "Session trigger `undone` surfaced 5 items — each properly fixed rather\nthan skipped or deferred. The big one is a real new user-facing\nfeature (Check for Updates in Settings); the rest are adoptions,\ncorrections, and doc sync.\n\nNew user feature — Check for Updates (web only):\n- SettingsModal: new \"Check for Updates\" menu item with cloud-download\n  icon, loading spinner during the check, accessibility labels. Only\n  renders when onCheckForUpdates is provided (the parent decides\n  based on Platform.OS).\n- home.tsx: wires `usePWAUpdate().checkForUpdates()` to the `useToast()`\n  context. Each discriminator of CheckForUpdatesResult maps to an\n  appropriate toast: 'no-sw' / 'done'+up-to-date / 'error-sw' /\n  'error-version' / 'error'. The 'done'+hasUpdate branch is silent\n  because the Update button in the home header already signals.\n- This is the first real consumer of the typed CheckForUpdatesResult\n  discriminator; previously the return was fire-and-forget.\n\nHTTPS_PROXY pattern — adopted (adapted):\n- scripts/check-player-ids.ts now installs an undici ProxyAgent as\n  the global dispatcher when HTTPS_PROXY / HTTP_PROXY env vars are\n  set, so Supabase's internal fetch calls route through the proxy\n  transparently. Graceful fallback if env var unset OR undici can't\n  be imported. Adapted from the glow-props reference (which\n  hand-rolls https.get() with HTTP CONNECT) because Supabase owns its\n  own fetch and can't be routed via the stdlib path.\n- CLAUDE.md § Pattern Adoption Status: HTTPS_PROXY flipped from\n  \"Applicable but unimplemented\" to \"Adopted (adapted)\".\n\nTIMER_LEAKS triage — corrected:\n- Discovered via `curl` against glow-props GitHub Pages that\n  TIMER_LEAKS.md was ALREADY published upstream; the local triage\n  record's \"Action required: open upstream PR\" was stale.\n- Updated docs/TODO.md § Pattern Triage Record to reflect completed\n  status.\n- CLAUDE.md § Code Standards → Timer and Subscription Cleanup: fixed\n  the broken `docs/implementations/TIMER_LEAKS.md` local reference\n  (folder was deleted in a prior session) to point at the published\n  https://devmade-ai.github.io/glow-props/patterns/TIMER_LEAKS.md URL.\n\nTODO.md live-browser entry — reorganized:\n- Split into \"already covered by `npm run verify:inline-scripts`\"\n  (lists the specific headless-verified assertions) vs \"requires\n  real browser session\" (true manual QA). Prevents verifiers from\n  redoing headless-proven scenarios. Also added an item for the new\n  SettingsModal → Check for Updates button so it gets manually\n  exercised once.\n\nZ.sheet tier — semantics clarified:\n- constants/zIndex.ts: documented that Z.sheet (30) is for NON-modal\n  persistent sheets/drawers — sits below Z.backdrop (40) by design\n  so a modal opening over a sheet correctly covers it. Modal bottom\n  sheets like SettingsModal continue to use Z.backdrop + Z.modal.\n- CLAUDE.md § Z-Index Scale row updated to match.\n- No current consumer, kept for glow-props fleet parity.\n\nVerification:\n- npx tsc --noEmit: 0 errors\n- npm run verify:inline-scripts: 47 passed, 0 failed\n- EXPO_PUBLIC_SUPABASE_ANON_KEY=\"\" npx tsx scripts/check-player-ids.ts:\n  exits cleanly on missing key (basic syntax + module-transpile check)\n- HTTPS_PROXY=... EXPO_PUBLIC_SUPABASE_ANON_KEY=\"\" npx tsx <script>:\n  logs the \"[proxy] Routing HTTPS traffic via ...\" message, confirming\n  the proxy-install code path runs before createClient\n\nTags: pwa, notifications, types, proxy, docs, fleet-alignment\nComplexity: 3\nUrgency: 2\nImpact: user-facing, internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01UiYobyYgDFYNeVKZrChVXH",
+  "tags": [
+    "feature",
+    "ui",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 266,
+    "deletions": 70
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/home.tsx",
+    "components/SettingsModal.tsx",
+    "constants/zIndex.ts",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "scripts/check-player-ids.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

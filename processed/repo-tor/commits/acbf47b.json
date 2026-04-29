@@ -1,0 +1,32 @@
+{
+  "sha": "acbf47b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-06T18:02:51Z",
+  "subject": "fix(pwa): add settle delay and surface waiting workers on visibility",
+  "body": "Two gaps found comparing with synctone/few-lap patterns:\n\n1. checkForUpdate() checked reg.waiting immediately after reg.update()\n   resolved, but the update process is async — the waiting worker may\n   not be populated yet. Added 1.5s settle delay (synctone/few-lap\n   pattern).\n\n2. visibilitychange handler called reg.update() but never surfaced the\n   result. The onNeedRefresh callback from registerSW only fires once\n   during setup — separate reg.update() calls don't re-trigger it.\n   Now checks for waiting workers after settle delay and dispatches\n   pwa-update-available manually.\n\nTags: pwa, cross-project\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_016hJj32ZoXvcDL5fCjPCDmD",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 26,
+    "deletions": 2
+  },
+  "files": [
+    "dashboard/js/pwa.js",
+    "docs/HISTORY.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

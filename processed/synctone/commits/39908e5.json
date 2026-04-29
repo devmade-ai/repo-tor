@@ -1,0 +1,34 @@
+{
+  "sha": "39908e5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T21:55:07Z",
+  "subject": "fix(errors): surface silent background failures — 2 error-path gaps",
+  "body": "Two error-path gaps found by the `errors branch` trigger. Both were\nintroduced on this branch; fixing them symmetrically with existing\nerror-surface patterns in the same files.\n\n- hooks/usePWAUpdate.ts runPeriodicUpdateCheck: the hourly\n  `_registration?.update().catch(() => {})` swallowed SW-update\n  failures with no trace. Developers investigating \"why isn't my\n  update getting detected on the hourly poll?\" had nothing to look\n  at. Replaced with `.catch((err) => debugLog('pwa',\n  'periodic-sw-update-error', String(err), 'warn'))` — symmetric with\n  the manual-check path's 'manual-check-error-sw' log and the\n  version.json path's 'version-check-error' log. Background polling\n  still never throws or breaks the page.\n\n- scripts/check-player-ids.ts top-level `checkPlayerIds()` call had\n  no `.catch`. Inner Supabase errors are properly guarded via\n  `if (error)` checks, but a rejected Promise from the client itself\n  (network failure, TLS error, CORS from a misconfigured proxy)\n  would propagate to Node 22's default UnhandledPromiseRejection\n  handler — ugly stack, non-specific error. Wrapped with explicit\n  catch that prints a single-line message + stack (if Error\n  instance) and exits 1 so wrapper scripts / CI can detect failure.\n\nVerification:\n- npx tsc --noEmit: 0 errors\n- npm run verify:inline-scripts: 47 passed, 0 failed\n- EXPO_PUBLIC_SUPABASE_ANON_KEY=\"\" npx tsx scripts/check-player-ids.ts:\n  still hits the existing early-return guard cleanly\n- Simulated top-level throw: catch fires, prints \"❌ Unexpected error:\n  <message>\", exit code 1\n\nTags: error-handling, pwa, observability\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01UiYobyYgDFYNeVKZrChVXH",
+  "tags": [
+    "bugfix",
+    "error-handling",
+    "monitoring"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 28,
+    "deletions": 5
+  },
+  "files": [
+    "hooks/usePWAUpdate.ts",
+    "scripts/check-player-ids.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 1,
+  "impact": "internal"
+}

@@ -1,0 +1,50 @@
+{
+  "sha": "e6ef2d2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-12T06:31:22Z",
+  "subject": "feat(theme): migrate to DaisyUI with dual-layer theming and meta theme-color",
+  "body": "Partial migration to DaisyUI per docs/implementations/THEME_DARK_MODE.md.\nDaisyUI semantic tokens now coexist with the existing custom CSS variable\nsystem — incremental replacement to stay low-risk rather than a big-bang\nrewrite of the 2000+ line styles.css.\n\nInfrastructure:\n\n1. Installed daisyui@5 (5.5.19) as devDependency. Registered two themes\n   via @plugin \"daisyui\" { themes: lofi --default, black --prefersdark }\n   in styles.css. --default / --prefersdark set the initial theme before\n   JavaScript runs. Added @layer base { html { color-scheme: light } html.dark\n   { color-scheme: dark } } so native form inputs and scrollbars match.\n\n2. Dual-layer theming wired up end-to-end: <html> gains data-theme=\"black\"\n   alongside class=\"dark\" default. Flash prevention inline script in\n   index.html now sets BOTH .dark class AND data-theme attribute before\n   first paint, and also overwrites <meta name=\"theme-color\"> content so\n   the PWA status bar matches the active theme from the first frame.\n\n3. Added two <meta name=\"theme-color\"> tags with (prefers-color-scheme: ...)\n   media queries. Defaults #ffffff (lofi base-100) and #000000 (black\n   base-100). AppContext.darkMode effect now calls setAttribute('data-theme',\n   ...) and overwrites both meta tags on every toggle via new module\n   constants LIGHT_THEME/DARK_THEME/LIGHT_META_COLOR/DARK_META_COLOR that\n   must stay in sync with the inline script.\n\n4. Cross-tab sync already existed (AppContext storage event listener) —\n   verified it still applies .dark, data-theme, and meta theme-color\n   correctly via the shared darkMode effect.\n\nComponent migration (~30 of 39 dark: pairs collapsed):\n\n5. HealthBars, HealthAnomalies, Contributors, Tags, Timing, Progress,\n   Discover, Timeline, Health: neutral gray progress-bar rails and hover\n   states → bg-base-300 / hover:bg-base-200 / hover:bg-base-300. Health\n   security indicators → bg-error/10, border-error/40, text-error\n   (DaisyUI error semantic token is the right fit for security status).\n\n6. NOT migrated (data viz category colors per reference doc): Summary.jsx\n   stat cards (amber/indigo/pink/purple for distinct metrics) and\n   Timeline.jsx complexity badges (purple=high, blue=medium). These are\n   data visualization colors with fixed meaning, not theme tokens.\n\nRemaining work tracked in docs/TODO.md — full removal of 202 var(--color-*)\nreferences from styles.css and component class migration to DaisyUI btn /\ncard / input / badge classes are still pending and can happen incrementally.\n\nBuild passes (./node_modules/.bin/vite build). CSS bundle 147.16 KB →\n146.06 KB from collapsed dark: pairs.\n\nTags: theme, daisyui, ui, refactor, pwa\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-migration\nSemver: minor\n\nhttps://claude.ai/code/session_018prUZYyhuCZQGS1azip9bG",
+  "tags": [
+    "feature",
+    "ui",
+    "migration"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theming",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 18,
+    "additions": 230,
+    "deletions": 54
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/index.html",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/components/HealthAnomalies.jsx",
+    "dashboard/js/components/HealthBars.jsx",
+    "dashboard/js/sections/Contributors.jsx",
+    "dashboard/js/sections/Discover.jsx",
+    "dashboard/js/sections/Health.jsx",
+    "dashboard/js/sections/Progress.jsx",
+    "dashboard/js/sections/Tags.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/js/sections/Timing.jsx",
+    "dashboard/styles.css",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "package-lock.json",
+    "package.json"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

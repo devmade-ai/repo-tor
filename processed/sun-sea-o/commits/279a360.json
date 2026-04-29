@@ -1,0 +1,40 @@
+{
+  "sha": "279a360",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T21:33:50Z",
+  "subject": "feat(icons): adopt Google Material Symbols signature glyph",
+  "body": "Replaces the hand-Béziered signature attempt with the Material Symbols\n`signature` glyph — a designer-polished cursive flourish + \"sign here\" X\nmark + dotted baseline that carries three signature semantics in one\nicon. Recoloured via `business.accent` token on `business.base-300`, so\nthe glyph opts into our DaisyUI palette the same way every other color\nin the app does.\n\n- `public/icon-source.svg` — Material path preserved unchanged, wrapped\n  in a `<g transform>` to fit our 1024×1024 canvas within the 80%\n  maskable safe zone. Only the fill attribute uses our token.\n- `THIRD_PARTY_NOTICES.md` — Apache 2.0 attribution for the glyph.\n  Apache 2.0 is GPL-3.0-compatible (our project licence).\n- `CLAUDE.md` APP_ICONS section updated to reflect the new design and\n  pointer to the notices file.\n\nTags: ui, icons, licensing\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: theme-system\nSemver: patch",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "theme-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 9,
+    "additions": 47,
+    "deletions": 26
+  },
+  "files": [
+    "CLAUDE.md",
+    "THIRD_PARTY_NOTICES.md",
+    "public/apple-touch-icon.png",
+    "public/favicon.ico",
+    "public/favicon.png",
+    "public/icon-192.png",
+    "public/icon-512.png",
+    "public/icon-source.svg",
+    "public/icon.png"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

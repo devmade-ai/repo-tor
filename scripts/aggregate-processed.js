@@ -71,6 +71,12 @@ function loadAuthorMap() {
  */
 function resolveAuthorId(authorId) {
   if (!authorId) return 'unknown';
+  // Idempotent: if the input is already a known canonical ID, return it
+  //   unchanged. Without this, double-resolution (e.g. generateAggregation
+  //   normalises commits, then calcContributorAggregations re-resolves) would
+  //   flag the canonical ID itself as unmapped because canonical IDs aren't
+  //   keys in emailToCanonical (which maps emails → canonical IDs).
+  if (authorMap?.authors?.[authorId]) return authorId;
   const canonical = emailToCanonical[authorId.toLowerCase()];
   if (!canonical && authorMap) {
     // Only track as unmapped if author-map.json was loaded (otherwise all are "unmapped")
@@ -429,6 +435,39 @@ function generateAggregation(commits, scope, repoCount = 1) {
 
 // === Output ===
 
+// Fields written by extract-api.js / extract.js that are NOT consumed by the dashboard.
+// Stripping them at the dashboard-output boundary shrinks runtime payload without
+// touching processed/ (which keeps the full audit trail).
+//
+// Verified 2026-04-29 by greppable absence in dashboard/js/:
+//   - fullSha       (dashboard always uses 7-char `sha`)
+//   - committer     (always GitHub bot for merges; dashboard uses `author` only)
+//   - commitDate    (duplicate of `timestamp`; dashboard uses `timestamp`)
+//   - scope         (parsed conventional-commit scope; never displayed)
+//   - is_conventional (boolean; never displayed)
+//   - references    (PR/issue numbers; never displayed)
+//   - title         (duplicate of `subject`; dashboard reads `subject` via getCommitMessage)
+//
+// If the dashboard later needs one of these, restore by removing it from this list —
+// processed/ retains every field, so a re-aggregation will republish it.
+export const DASHBOARD_UNUSED_FIELDS = [
+  'fullSha',
+  'committer',
+  'commitDate',
+  'scope',
+  'is_conventional',
+  'references',
+  'title',
+];
+
+function stripCommitForDashboard(commit) {
+  const stripped = { ...commit };
+  for (const field of DASHBOARD_UNUSED_FIELDS) {
+    delete stripped[field];
+  }
+  return stripped;
+}
+
 function writeJson(filepath, data) {
   const dir = path.dirname(filepath);
   fs.mkdirSync(dir, { recursive: true });
@@ -450,7 +489,11 @@ function main() {
   const repoNames = Object.keys(repos);
 
   if (repoNames.length === 0) {
-    console.error('\nNo processed data found. Run extraction first.');
+    console.error(
+      '\nNo processed data found in processed/.\n' +
+      'Run extraction + analysis first — see docs/DATA_OPERATIONS.md ' +
+      '("Hatch the Chicken" for a fresh start, "Feed the Chicken" for incremental).',
+    );
     process.exit(1);
   }
 
@@ -481,16 +524,6 @@ function main() {
 
   console.log(`\nGenerating aggregations:\n`);
 
-  // Generate per-repo files (these still include inline commits for backward compat)
-  const reposDir = path.join(outputDir, 'repos');
-
-  for (const repoName of repoNames) {
-    const commits = repos[repoName];
-    const { summary, sortedCommits } = generateAggregation(commits, repoName, 1);
-    // Per-repo files keep commits inline (they're small enough individually)
-    writeJson(path.join(reposDir, `${repoName}.json`), { ...summary, commits: sortedCommits });
-  }
-
   // Generate overall aggregation
   const allCommits = repoNames.flatMap(name => repos[name]);
   const { summary: overallSummary, sortedCommits: overallCommits } = generateAggregation(allCommits, 'overall', repoNames.length);
@@ -502,6 +535,10 @@ function main() {
   // Alternatives:
   //   - Keep all commits in data.json: Rejected — 2.9 MB payload, slow initial load
   //   - Split by repo instead of month: Rejected — month-based matches time-windowed UI pattern
+  //   - Per-repo files (formerly dashboard/public/repos/<repo>.json): Removed 2026-04-29 —
+  //     dashboard never fetched them; they were "backward compat" leftover from before the
+  //     data-commits/ migration. CLAUDE.md prohibits backcompat shims. Deleted with no
+  //     consumer impact.
   const commitsDir = path.join(outputDir, 'data-commits');
 
   // Group commits by UTC month (consistent with monthly/daily/weekly aggregations)
@@ -514,10 +551,13 @@ function main() {
   }
 
   // Write per-month commit files
+  // Strip dashboard-unused fields (fullSha, committer, commitDate, scope, is_conventional,
+  // references, title) — verified zero direct or indirect access in dashboard/js/. Stripping
+  // here, not in processed/, keeps the audit-trail full while shrinking runtime payload.
   for (const [month, monthCommits] of Object.entries(commitsByMonth)) {
     writeJson(path.join(commitsDir, `${month}.json`), {
       month,
-      commits: monthCommits,
+      commits: monthCommits.map(stripCommitForDashboard),
     });
   }
 
@@ -553,4 +593,23 @@ function main() {
   }
 }
 
-main();
+// Run main() only when invoked as a CLI; do nothing on `import { ... }`.
+// Required because tests + strip-dead-fields.mjs import DASHBOARD_UNUSED_FIELDS
+// from this file; without this guard, importing would run a full aggregation.
+// realpathSync resolves both sides through symlinks (npx, monorepo tools,
+// container-mounted volumes can otherwise produce paths that compare unequal
+// even though they reference the same file). Falls back to direct equality
+// if either path can't be resolved (e.g. process.argv[1] is unset in
+// non-standard launchers).
+function isInvokedAsCli() {
+  if (!process.argv[1]) return false;
+  try {
+    return fs.realpathSync(process.argv[1]) === fs.realpathSync(__filename);
+  } catch {
+    return process.argv[1] === __filename;
+  }
+}
+
+if (isInvokedAsCli()) {
+  main();
+}

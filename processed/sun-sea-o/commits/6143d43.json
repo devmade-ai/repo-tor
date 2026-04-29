@@ -1,0 +1,33 @@
+{
+  "sha": "6143d43",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T07:34:37Z",
+  "subject": "docs(conventions): codify useCallback/useMemo omit-by-default rule + track deferred verification items",
+  "body": "Closes out the tier-3 wrap-up items that had been flagged but not applied.\n\n- CLAUDE.md AI Notes: new bullet captures the useCallback/useMemo rule\n  this codebase follows. Default is OMIT — the audit already stripped 26\n  overhead wrappers. Codifying prevents future audits from rediscovering\n  and future contributors from reintroducing. Calls out the three\n  empirically-verified KEEP categories (data-layer subscription effects,\n  BurgerMenu.close into useEscapeKey, page-level clearToast into\n  Toast.onDone).\n- CLAUDE.md architecture: useAuth moved out of data-hooks listing\n  (it's a thin useContext wrapper, not a data layer) and labeled\n  \"context consumers\" alongside the other hook categories.\n- TODO.md: adds \"Testing Infrastructure\" (RTL + jsdom setup so common\n  components like Modal / ConfirmDialog / Toast / HeadingInput get\n  regression coverage) and \"Manual Verification\" (browser smoke-test\n  of this branch before merge — the three reduction commits passed\n  tsc/lint/test but weren't loaded visually).\n\nAlso verified KEEPs on all 10 hooks — 5 data-layer hooks explicitly\nlist their fetchX in subscription effect deps; usePWAInstall /\nusePWAUpdate kept under public-API-stability convention; useAuth is\nthe thin context wrapper with no useCallback in the first place.\n\nNo source changes. Verified: `tsc -b` clean, `npm run lint` clean,\n`npm test` → 22 passing.\n\nTags: docs, conventions, todo\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: custom-code-reduction\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "custom-code-reduction",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 22,
+    "deletions": 2
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

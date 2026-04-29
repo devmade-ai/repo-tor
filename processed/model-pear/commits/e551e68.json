@@ -1,0 +1,36 @@
+{
+  "sha": "e551e68",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T17:26:18Z",
+  "subject": "fix(ui): split modal backdrop (z-40) and modal (z-60) into adjacent siblings",
+  "body": "The previous commit placed the combined backdrop+modal div at z-60,\nviolating the glow-props Z_INDEX_SCALE rule: \"Backdrop is always z-40\nregardless of what it's behind.\" This matters for predictability — any\nfuture component relying on \"backdrop is at 40\" would be wrong.\n\nSplit both modals (Save Modal, Comparison View) into:\n- Backdrop div: fixed inset-0, bg-background/*, z-40, click-to-close\n- Modal container div: fixed inset-0, z-60, pointer-events-none\n- Modal card: pointer-events-auto (receives clicks through the container)\n\nTags: ui, z-index, infrastructure\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: z-index-scale\nSemver: patch\n\nhttps://claude.ai/code/session_01L9bYUdziLDmew97oAkb8w9",
+  "tags": [
+    "bugfix",
+    "ui",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "z-index-scale",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 19,
+    "deletions": 14
+  },
+  "files": [
+    "apps/web/src/lib/components/ComparisonView.svelte",
+    "apps/web/src/routes/structuring/[model]/+page.svelte",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

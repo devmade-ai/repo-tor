@@ -1,0 +1,37 @@
+{
+  "sha": "b29028c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T08:51:49Z",
+  "subject": "fix(web): map rendering and bottom sheet scrolling on mobile web",
+  "body": "Map: Created mapbox.web.ts platform file that exports MAPBOX_TOKEN\nwithout importing @rnmapbox/maps (native-only SDK). The unconditional\nnative SDK import in mapbox.ts was breaking the module resolution on\nweb, preventing map initialization entirely.\n\nBottom sheet: Split into BottomSheetWeb (flex layout with native CSS\nscroll) and BottomSheetNative (PanResponder + translateY with snap\npoints). PanResponder on the content area was intercepting all touch\nevents on mobile web, making both the filters and station list\ncompletely unscrollable.\n\nTags: bugfix, web, map, bottom-sheet, platform-split\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-web\nSemver: patch\n\nhttps://claude.ai/code/session_01BDnXbhNkte8zvsWJnek99T",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "mobile-web",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 180,
+    "deletions": 93
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(tabs)/index.tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/ui/BottomSheet.tsx",
+    "src/lib/mapbox.web.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 4,
+  "impact": "user-facing"
+}

@@ -1,0 +1,34 @@
+{
+  "sha": "61b3a7c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T20:10:09Z",
+  "subject": "fix(ux): add contextual endpoint labels to all sliders",
+  "body": "Replaced abstract labels (X/Y, percentages) with plain-language endpoint\nhints so non-technical users understand what each slider direction does.\nExamples: Left↔Right, Top↔Bottom, None↔Full, Sharp↔Blurry, Dark↔Bright,\nSmall↔Large. Label + value stays above, hints flank the slider below.\n\nTags: ux, accessibility, sliders, user-facing\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: restructure-panel-layout\nSemver: patch\n\nhttps://claude.ai/code/session_013WAQutJawUtoLdnVPBNnFc",
+  "tags": [
+    "ux",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "restructure-panel-layout",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 208,
+    "deletions": 150
+  },
+  "files": [
+    "src/components/LayoutTab.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/StyleTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

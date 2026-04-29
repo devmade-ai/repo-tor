@@ -1,0 +1,33 @@
+{
+  "sha": "3c5458f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T07:44:47Z",
+  "subject": "fix(pwa): review cleanup — unused prop, bare globals, misnamed cache",
+  "body": "1. DebugPill PwaDiagnosticsTab: removed unused textColor param\n2. DebugPill runPwaDiagnostics: prefixed bare location/document\n   with window. for codebase consistency\n3. sw.js cacheFirst: was storing images in FONT_CACHE — changed to\n   STATIC_CACHE since it handles both fonts and images. Removed\n   dead FONT_CACHE constant and activate filter reference.\n\nTags: pwa, cleanup, review\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pwa-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01SzwWDKFZ8WhqtTpdYCiqct",
+  "tags": [
+    "removal",
+    "comments"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 8,
+    "deletions": 9
+  },
+  "files": [
+    "public/sw.js",
+    "src/debug/DebugPill.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "internal"
+}

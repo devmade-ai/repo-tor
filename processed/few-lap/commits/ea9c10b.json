@@ -1,0 +1,37 @@
+{
+  "sha": "ea9c10b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T08:47:04Z",
+  "subject": "fix(debug): 4 errors from ship/errors trigger — consistent errDetails + copy-guard",
+  "body": "E1 — useLocation.ts:92 was catching `} catch {` (no binding), so the\nGPS failure reason (GeolocationPositionError's `code` + `message`)\nwas discarded. debugAdd got 'GPS location failed' with no details.\nBound the error and pass errDetails(err) — user-facing string stays\nthe same, but the debug log now carries the underlying failure.\n\nE2 — useStations.ts:158 was still on the legacy string-detail\npattern: `debugAdd('supabase', 'error', '...', message)` where\n`message = err instanceof Error ? err.message : 'Unknown error'`.\nAll ten error-coercing callsites were migrated to errDetails in the\nearlier refactor; this one was missed because the extracted `message`\nis also used for the user-facing state.error string. Kept the `msg`\nextraction for the UI, passed `errDetails(err)` to debugAdd so the\nstack is preserved.\n\nE3 — same pattern in three admin flows (bulk-update, bulk-import,\nstation/[id].tsx). All deliberately un-migrated in the original\nerrDetails pass because `msg` is used for showToast. Same shape\napplied: keep `msg` for UI, pass `errDetails(err)` to debugAdd.\n\nE4 — DebugPill.handleCopy didn't wrap `debugGenerateReport()` +\nclipboard in try/catch. A crash in either would escape as an\nunhandled rejection → global rejection listener → boot-pill banner.\nA failed copy would masquerade as a boot failure. Wrapped the whole\nbody; on any throw, setCopyFeedback('Failed') — same UX as a\nclipboard-permission denial.\n\nDeferred/skipped per the findings: usePersistedState.ts:111,\nTutorialModal.tsx (3x), InstallInstructionsModal.tsx,\nusePWAInstall.ts (4x) — all documented-intentional silent catches\nfor non-critical persistence / localStorage-unavailable paths.\nAlso skipped: debugLog's three internal try/catch blocks (safeStringify\nfallback, notifyAll subscriber isolation, debugSubscribe replay) —\nall documented isolation policies.\n\ntsc 0, jest 89/89, expo web build clean.\n\nTags: debug, bugfix, consistency, errDetails\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 29,
+    "deletions": 13
+  },
+  "files": [
+    "app/admin/bulk-import.tsx",
+    "app/admin/bulk-update.tsx",
+    "app/admin/station/[id].tsx",
+    "src/debug/DebugPill.tsx",
+    "src/hooks/useLocation.ts",
+    "src/hooks/useStations.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

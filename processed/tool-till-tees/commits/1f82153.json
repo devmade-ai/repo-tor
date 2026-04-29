@@ -1,0 +1,36 @@
+{
+  "sha": "1f82153",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T16:37:11Z",
+  "subject": "feat(auth): drop SANCIO_AUTH_BYPASS env var gate, opt-in arg alone controls bypass",
+  "body": "The env gate was added as defense-in-depth plus a kill-switch. In practice:\n- The kill-switch requires a redeploy anyway (Vercel env change is not instant\n  without one), so it has no speed advantage over a code change.\n- The defense-in-depth only helps if the wrong call site gets `allowDevBypass:\n  true` merged — unlikely given review, and the mistake is still caught by the\n  \"non-sancio routes unaffected\" test.\n- The activation friction is real: every fresh Vercel deploy / preview env /\n  project clone needs a manual env var set, and a single misconfigured env\n  produces silent 401s on every sancio call from sun-sea-o.\n\nThis project is pre-first-release with a plan to delete the bypass code\nentirely before real auth ships. The env gate buys little for that timeline.\nRemoving it so the deployed sun-sea-o works end-to-end from the moment the\nbackend deploy lands.\n\nChanges:\n- lib/auth.ts: drop env check, update JSDoc to describe single-gate design\n  and the now-simplified removal procedure.\n- api/__tests__/auth.test.ts: drop two env-gate tests (env unset, non-\"true\"\n  env value) and update titles on remaining 6 tests.\n- docs/USER_ACTIONS.md: drop the Vercel env var activation entry entirely.\n  Replace with a follow-up action for sun-sea-o's USER_ACTIONS.md (which\n  currently references the env var as \"the second gate\" and is now stale).\n  Simplify the removal path — no env var to remove, just the code.\n\nThe 25 sancio call sites still pass `{ allowDevBypass: true }` — no change\nneeded there.\n\nTags: auth, sancio, dev-bypass, simplification\nComplexity: 2\nUrgency: 2\nImpact: api\nRisk: medium\nDebt: paid\nEpic: sun-sea-o-integration\nSemver: patch",
+  "tags": [
+    "simplify",
+    "security",
+    "test-unit",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "sun-sea-o-integration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 39,
+    "deletions": 75
+  },
+  "files": [
+    "api/__tests__/auth.test.ts",
+    "docs/USER_ACTIONS.md",
+    "lib/auth.ts"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "api"
+}

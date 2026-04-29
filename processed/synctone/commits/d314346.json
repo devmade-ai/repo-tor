@@ -1,0 +1,41 @@
+{
+  "sha": "d314346",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T23:59:32Z",
+  "subject": "refactor(types): replace all hack-trigger patterns with proper augmentations",
+  "body": "Honest self-review after the user asked \"were these proper fixes?\" of\nthe previous 14-TS-error cleanup. Four of those fixes were\ncast-based (`as unknown as X`, `as any`) or minimal-directive-removal\nrather than root-cause type fixes. This commit upgrades all of them\nto proper module augmentations, and extends the same treatment to\nevery other `@ts-expect-error` / `as any` / `as unknown as` in the\nruntime source tree.\n\n## New ambient declarations — `types/rn-web-style.d.ts`\n\nModule augmentations for:\n- `ViewStyle` / `TextStyle` — `backdropFilter`, `WebkitBackdropFilter`,\n  `WebkitOverflowScrolling`. react-native-web silently forwards these\n  to CSS; RN's type declarations don't cover them. Native RN ignores\n  them at runtime (no-op), so marking them on the shared type matches\n  both-platform reality.\n- `Navigator` — `brave`, `setAppBadge`, `clearAppBadge`, `standalone`.\n  Browser-specific APIs not in standard lib.dom.d.ts.\n- `Window` — `__pwaInstallPromptEvent`, `__pwaPromptReceived`,\n  `__deferredInstallPrompt`, `__pwaPromptListenerAdded`. Globals set\n  by the flash/prompt inline scripts in `app/+html.tsx` and\n  `app/_layout.tsx`.\n- `BeforeInstallPromptEvent` — Chrome-specific install event, moved\n  from a local declaration in `usePWAInstall.ts` to global so every\n  consumer agrees on the shape.\n\nScope discipline on the augmentation file: only properties that are\n(a) genuinely used in synctone, (b) documented in MDN/caniuse, and\n(c) silently no-op on native. No speculative API surface.\n\n## Call-site cleanups (downstream of the augmentations)\n\n- `components/ComposeBar.tsx`: `getGlassStyle` return type narrowed\n  from the lazy `Record<string, unknown>` to proper `ViewStyle`. The\n  stale `@ts-expect-error` on the <View style={...}> site was already\n  removed in the previous commit.\n- `app/(app)/chat/[id].tsx`, `components/ChatPanel.tsx`,\n  `app/(app)/home.tsx`: three `@ts-expect-error` directives on\n  backdropFilter / WebkitOverflowScrolling style props — all removed,\n  styles now type-check natively against the augmented ViewStyle.\n- `hooks/usePWAInstall.ts`: local `BeforeInstallPromptEvent`\n  interface deleted (moved to the ambient file). Two\n  `as unknown as Record<...>` / `as X | undefined` casts on window\n  global access — gone; `window.__pwaInstallPromptEvent` is now\n  typed directly.\n- `app/_layout.tsx`: four `window as Window & { __x?: ... }` inline\n  intersection types replaced with direct property access. Listener\n  callback parameter narrowed via one targeted `as BeforeInstallPromptEvent`\n  with a comment explaining why DOM's `Event`-only listener typing\n  is too conservative.\n- `components/PWADebugBanner.tsx`: five `(window as any)` /\n  `(navigator as any)` casts on debug diagnostics — gone; every\n  property now resolves against the augmented globals.\n- `services/notifications.ts`: five `(navigator as any).setAppBadge` /\n  `.clearAppBadge` calls replaced with optional-chained\n  `navigator.setAppBadge?.(...)`. Runtime feature-detection\n  (`'setAppBadge' in navigator`) retained as belt-and-braces.\n- `components/MessageBubble.tsx`: three `@ts-expect-error` directives\n  on View ref bindings (refs typed as `HTMLDivElement` because the\n  file uses DOM APIs like `.style` mutation and `getBoundingClientRect`\n  on the underlying element — this is correct for web, where\n  react-native-web renders View as div and forwards the ref). Replaced\n  with a documented `domRef<T>` helper that narrows an `HTMLElement`-\n  typed ref to `React.Ref<View>`. One contained cross-type cast in a\n  named helper with rationale beats three `@ts-expect-error`\n  directives scattered at binding sites.\n\n## Verification\n\n`./node_modules/.bin/tsc --noEmit` → **0 errors**.\n\n`grep -rn \"@ts-expect-error\\|as any\\b\\|as unknown as\"` across\n`app/ components/ hooks/ lib/ services/ contexts/ stores/ utils/`:\n- Zero `@ts-expect-error`\n- Zero `as any`\n- One `as unknown as` — inside the documented `domRef` helper\n  body, which is the single narrow cast bridging\n  react-native-web's View-as-div runtime reality to RN's type\n  surface. Centralized, named, documented.\n\nNo behavior changes — all edits are type-annotation tightening\nplus the mechanical call-site cleanup that follows once the\nunderlying types are correct.\n\nTags: types, strict-mode, hacks, refactor, fleet-alignment\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "refactor",
+    "types"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 10,
+    "additions": 201,
+    "deletions": 49
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/home.tsx",
+    "app/_layout.tsx",
+    "components/ChatPanel.tsx",
+    "components/ComposeBar.tsx",
+    "components/MessageBubble.tsx",
+    "components/PWADebugBanner.tsx",
+    "hooks/usePWAInstall.ts",
+    "services/notifications.ts",
+    "types/rn-web-style.d.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

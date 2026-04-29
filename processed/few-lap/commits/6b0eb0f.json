@@ -1,0 +1,52 @@
+{
+  "sha": "6b0eb0f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T00:53:05Z",
+  "subject": "feat(design): adopt circle pin as app icon, regenerate all PNGs",
+  "body": "Replace the fuel gauge icon with a green circle map pin on abyss dark\nteal background. Immediately recognizable as a location marker.\n\n- Replaced assets/icon-source.svg with circle pin design\n- Regenerated all 6 icon PNGs via scripts/generate-icons.mjs (400 DPI)\n- Updated app.json splash + adaptive icon backgroundColor to #0D3B40\n- Copied PWA icons to public/assets/images/\n- Deleted all draft icon files (fuel-pump v1-v3, pin v1-v2)\n\nTags: design, icon, pwa\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-theme-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01EAwig8kSZ6S91pb3wP7tv4",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-theme-migration",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 21,
+    "additions": 13,
+    "deletions": 147
+  },
+  "files": [
+    "app.json",
+    "assets/icon-fuel-pump-draft.png",
+    "assets/icon-fuel-pump-draft.svg",
+    "assets/icon-fuel-pump-v2.png",
+    "assets/icon-fuel-pump-v2.svg",
+    "assets/icon-fuel-pump-v3.png",
+    "assets/icon-fuel-pump-v3.svg",
+    "assets/icon-pin-v1.png",
+    "assets/icon-pin-v1.svg",
+    "assets/icon-pin-v2.png",
+    "assets/icon-pin-v2.svg",
+    "assets/icon-source.svg",
+    "assets/images/adaptive-icon.png",
+    "assets/images/favicon.png",
+    "assets/images/icon-192.png",
+    "assets/images/icon-512.png",
+    "assets/images/icon.png",
+    "assets/images/splash-icon.png",
+    "public/assets/images/icon-192.png",
+    "public/assets/images/icon-512.png",
+    "public/assets/images/icon.png"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

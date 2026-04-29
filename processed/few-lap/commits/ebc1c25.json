@@ -1,0 +1,49 @@
+{
+  "sha": "ebc1c25",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T04:15:34Z",
+  "subject": "fix: full audit sweep — 15 fixes across security, UX, performance, hygiene, docs",
+  "body": "Security:\n- Gate debug system behind __DEV__ (debugLog.ts, _layout.tsx) — debugAdd()\n  is now a no-op in production, global error capture only registers in dev,\n  DebugPill only loads in dev via conditional require\n- Gate Admin menu item on session && isAdmin (BurgerMenu.tsx) — previously\n  visible to all users\n\nDead code removal:\n- Delete InstallPrompt.tsx and UpdatePrompt.tsx — replaced by PWABanner\n- Update stale PWA comment in _layout.tsx\n\nUX / Accessibility (WCAG AA touch targets):\n- BottomSheet handle: 32px → 44px\n- PWABanner action/dismiss buttons: 32px → 44px\n- FuelTypeSelector chips: add min-h-[44px]\n- RadiusSelector chips: add min-h-[44px]\n- StationList sort toggles: add min-h-[44px]\n- BottomSheet handle opacity: 0.4 → 0.55 (better visibility on light themes)\n- FlatList paddingBottom: 20 → 40 (safe area for notched devices)\n\nPerformance:\n- Memoize Animated.interpolate values in home screen (useMemo)\n- Stable sort tiebreaker by station ID (prevents list jumping)\n- Stable renderItem + keyExtractor via useCallback (preserves React.memo)\n- FuelMapWeb: split user marker into position effect + color effect\n  (prevents full DOM rebuild on theme change)\n- useTheme: remove redundant combo/isDark from effect deps (was double-firing)\n\nCode quality:\n- Extract magic numbers to src/constants/config.ts (debounce, timeouts,\n  thresholds, buffer sizes)\n- PWABanner: add timer ref + cleanup for setTimeout (prevents setState\n  after unmount)\n- Cross-tab theme sync: log malformed JSON instead of silent catch\n\nDocumentation:\n- USER_GUIDE.md: fix theme combo names (was Teal/Nature/Nordic/Bold,\n  actual: Forest/Nordic/Corporate/Cafe/Silk, count: 5 not 4)\n- TESTING_GUIDE.md: fix theme combo test scenario to match actual names\n\nTags: audit, security, accessibility, performance, hygiene, documentation\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: audit-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01RBZUEqgK8QgZ1mLi6mQrb9",
+  "tags": [
+    "bugfix",
+    "security",
+    "accessibility",
+    "performance"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-web-ux",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 16,
+    "additions": 124,
+    "deletions": 226
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "app/_layout.tsx",
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/pwa/InstallPrompt.tsx",
+    "src/components/pwa/PWABanner.tsx",
+    "src/components/pwa/UpdatePrompt.tsx",
+    "src/components/search/FuelTypeSelector.tsx",
+    "src/components/search/RadiusSelector.tsx",
+    "src/components/station/StationList.tsx",
+    "src/components/ui/BottomSheet.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/constants/config.ts",
+    "src/debug/debugLog.ts",
+    "src/hooks/useTheme.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

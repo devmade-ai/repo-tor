@@ -1,0 +1,35 @@
+{
+  "sha": "4cf9531",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T21:06:25Z",
+  "subject": "fix(errors): clear pendingImportData on replace error + log cash-on-hand write failures",
+  "body": "Two real error-handling gaps from `errors branch`.\n\n1. useRestoreWorkspace.confirmReplace: catch branch previously left\n   `pendingImportData` populated after a failed import. A subsequent\n   file pick would show the confirm dialog with the OLD file's\n   workspace name until the new file's validation overwrote it. Now\n   cleared in the catch alongside showReplaceConfirm.\n\n2. WorkspaceDashboard cashOnHand watcher previously had a silent\n   catch marked \"non-critical persistence\". The value IS the user's\n   entered financial data (not a UI pref); silent failure meant\n   alpha reports would never surface DB-write issues on this path.\n   Switched to debugLog('db', 'error', ...) so the failure shows in\n   debug reports without disturbing the user (the value is still in\n   the input ref — UI remains usable).\n\nDropped from the audit:\n- CashflowGraph `runway.endBalance` optional-chain: type is\n  non-optional; adding defensive chains defends against impossible\n  state per CLAUDE.md \"don't add error handling for scenarios that\n  can't happen.\"\n- useDarkMode storage-sync try/catch: agent itself flagged as\n  low-risk; string comparisons are safe.\n\nDeferred to TODO:\n- TransactionEditModal save fire-and-forget: modal closes before\n  DB write resolves; error surfaces on the dashboard rather than\n  in context. Fixing requires restructuring the emit-based flow\n  (child-waits-for-parent via callback or promise). Not\n  data-loss — reopening shows the unsaved state and a dashboard\n  banner appears — but feedback is loosely coupled.\n\nType-check clean. 145/145 tests pass.\n\nTags: errors, restore, persistence, debug\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "error-handling",
+    "monitoring"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 10,
+    "deletions": 2
+  },
+  "files": [
+    "docs/TODO.md",
+    "src/composables/useRestoreWorkspace.ts",
+    "src/views/WorkspaceDashboard.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}

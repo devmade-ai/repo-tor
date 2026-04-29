@@ -1,0 +1,36 @@
+{
+  "sha": "37190bd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-03T15:17:58Z",
+  "subject": "feat(ui): add fixed-height sizing mode to MiniCellGrid",
+  "body": "Portrait formats (9:16 Stories/TikTok) caused the ContextBar cell grid\nto grow to 114px+ tall, consuming excessive vertical space on mobile.\nAdded a fixedHeight prop (s=32px, m=44px, l=56px) that caps grid height\nand derives width from aspectRatio, keeping the bar compact regardless\nof platform. ContextBar now uses fixedHeight=\"s\" instead of the old\nsize=\"contextbar\" mode.\n\nAlso cleaned up dead MiniCellGrid import in StyleTab and made the\ndefault cell appearance mode use the fontSize variable consistently.\n\nTags: ui, layout, mobile, contextbar\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: minor\n\nhttps://claude.ai/code/session_01QGZzLNQRmQpx2wyMfEHv7q",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 50,
+    "deletions": 54
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/ContextBar.jsx",
+    "src/components/MiniCellGrid.jsx",
+    "src/components/StyleTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

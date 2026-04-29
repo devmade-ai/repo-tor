@@ -1,0 +1,41 @@
+{
+  "sha": "abff4eb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T17:54:29Z",
+  "subject": "fix(pdf): comprehensive print output cleanup — pagination, layout, dark mode, interactive elements",
+  "body": "The initial Save as PDF button worked but produced poor print output:\npaginated to 25 rows, showed mobile cards instead of table, leaked dark\nmode styles, and left interactive elements (chart toggles, form inputs,\nbanners) visible on paper.\n\nThis commit addresses all of those issues:\n\n- beforeprint/afterprint in TransactionTable bypasses pagination to\n  show all transactions (not just the current 25-row page)\n- print-show CSS utility forces desktop table layout in print (A4\n  width < sm breakpoint was showing mobile cards instead)\n- beforeprint/afterprint in AppLayout temporarily removes .dark class\n  for light-mode print (direct DOM toggle, no reactive side effects)\n- ApexCharts @media print CSS hides toolbar, forces readable text\n  colors on white paper regardless of dark mode\n- no-print on chart toggle buttons, cash-on-hand input, AppLayout\n  banners (update/offline/install prompt)\n- Cash-on-hand shows as static text in print instead of <input>\n\nTags: pdf, print, ux, dark-mode, a11y\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: download-pdf\nSemver: patch\n\nhttps://claude.ai/code/session_01JjbdKNBLFZ6CmJkVqngkqm",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "download-pdf",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 9,
+    "additions": 127,
+    "deletions": 63
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/AppLayout.vue",
+    "src/components/CashflowGraph.vue",
+    "src/components/TransactionTable.vue",
+    "src/index.css",
+    "src/views/WorkspaceDashboard.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

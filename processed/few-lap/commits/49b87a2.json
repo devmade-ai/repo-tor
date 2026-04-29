@@ -1,0 +1,37 @@
+{
+  "sha": "49b87a2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T19:35:20Z",
+  "subject": "feat(pwa): content-hash icon URLs to bust browser/CDN/SW caches",
+  "body": "When icons change, un-versioned URLs survive \"clear site data\" and\nPWA reinstall because every cache layer (HTTP, CDN, SW precache,\nWebAPK) keys off URL identity. Add a post-export script that hashes\neach referenced icon and rewrites HTML link tags, manifest.json\nicons[], and sw.js PRECACHE_ASSETS to ?v=<8-char-sha256>.\n\nImplementation choices:\n- Post-export rewrite (not +html.tsx at render) — matches the existing\n  inject-sw-version.mjs pattern; keeps Metro bundling of +html.tsx\n  unchanged.\n- Precache the versioned URL directly (not strip ?v= on lookup) so\n  the custom sw.js's caches.match() stays exact-URL.\n- Fix CACHE_FIRST_PATTERNS regex to accept query strings — without\n  this, versioned icons fall through to network-first and break\n  offline.\n- Collapsed disclosure in InstallInstructionsModal surfaces the one\n  cache layer the web can't fix (OS home-screen/launcher icon).\n\nVerified via dry-run against a simulated dist/: 3 HTML rewrites, 3\nmanifest icons, 3 sw.js precache entries, idempotent on re-run.\n\nTags: pwa, infrastructure, caching, build\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa-polish\nSemver: minor",
+  "tags": [
+    "feature",
+    "caching",
+    "build"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pwa-polish",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 193,
+    "deletions": 4
+  },
+  "files": [
+    ".gitignore",
+    "package.json",
+    "public/sw.js",
+    "scripts/inject-icon-hashes.mjs",
+    "src/components/pwa/InstallInstructionsModal.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

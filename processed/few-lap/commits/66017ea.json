@@ -1,0 +1,38 @@
+{
+  "sha": "66017ea",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T13:45:53Z",
+  "subject": "refactor(hooks): collapse focus hooks into single-file guard",
+  "body": "useDisclosureFocus and useFocusTrap previously used a .web.ts + .ts\nfile split. The two files are pointless when the native variant is a\npure no-op — a single file with a Platform.OS === 'web' early-return\nin the effect is simpler and matches the useEscapeKey convention used\nelsewhere in src/hooks/. File-split pattern stays for cases where the\nimplementations differ per platform (mapbox.ts / mapbox.web.ts).\n\nAlso: refresh CLAUDE.md Architecture hook list and add a docs/TODO.md\nentry to wire the same hooks into the remaining disclosures\n(HeaderFilters dropdowns, LocationSearch, TutorialModal,\nInstallInstructionsModal).\n\nTags: a11y, hooks, refactor, docs\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: a11y-polish\nSemver: patch\n\nhttps://claude.ai/code/session_01MmYgkDuYLSCs1giR4bz6kF",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "a11y-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 87,
+    "deletions": 87
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/TODO.md",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/hooks/useDisclosureFocus.ts",
+    "src/hooks/useDisclosureFocus.web.ts",
+    "src/hooks/useFocusTrap.ts",
+    "src/hooks/useFocusTrap.web.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "internal"
+}

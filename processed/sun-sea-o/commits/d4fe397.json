@@ -1,0 +1,50 @@
+{
+  "sha": "d4fe397",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T07:47:39Z",
+  "subject": "test(components): add RTL + jsdom infrastructure and regression suite for touched primitives",
+  "body": "Closes the deferred testing item from the tier-3 wrap. The previous\nsession flagged \"component-level test setup\" as a pre-existing gap and\npunted it to TODO.md; this commit owns the work end-to-end.\n\nInfrastructure:\n- Installed @testing-library/react + @testing-library/jest-dom +\n  @testing-library/user-event + jsdom as devDeps.\n- vitest.config.ts (new) — jsdom environment + setupFiles, kept\n  separate from vite.config.ts so PWA/Tailwind plugins don't run\n  during test startup.\n- tsconfig.test.json: added \"jsx\": \"react-jsx\" so .tsx tests compile.\n- src/__tests__/setup.ts (new) — registers jest-dom matchers,\n  auto-cleans the RTL tree after each test, and ships a minimal\n  HTMLDialogElement.showModal/close shim that jsdom doesn't provide\n  natively (Modal's top-layer contract needs it).\n- iconCacheBust + pwaSingleton tests opt out of jsdom via a\n  `// @vitest-environment node` docblock — they have no DOM needs.\n\nRegression coverage (9 new test files, 49 new tests):\n- formFieldId — 6 pure-fn tests on the label→slug + id-override logic.\n- useProjectRole — 5 hook tests via a real AuthContext wrapper.\n- HeadingInput — 3 tests: value/onChange forwarding, className merge\n  order, autoFocus + HTMLInputAttributes passthrough.\n- Input + TextArea — 9 tests total: label→slug id, explicit id\n  override, error alert + aria wiring, no-error path, className merge.\n- Toast — 7 tests INCLUDING TWO THAT REGRESS THE LOAD-BEARING\n  `onDone` IDENTITY-STABILITY CLAIM. Stable-ref case dismisses once\n  after duration; unstable-ref case re-arms the timer every rerender\n  and never fires — the exact bug that motivates the 4 page-level\n  `clearToast = useCallback(...)` Keeps across ProjectListPage /\n  ProjectDetailPage / AgreementDetailPage / ModuleEditorPage.\n- ToneSelector — 7 tests: default tones render, Recent section\n  conditional, lazy-init snapshot at mount, post-mount localStorage\n  mutation is NOT picked up (useState lazy-init semantics), Enter\n  submits the custom input, validation errors surface, Add-disabled\n  when empty.\n- Modal — 7 tests: no-render when closed, title + body + × when\n  open, × click, backdrop click, inside-modal-box click does NOT\n  close, dialog close event bridges, AND useFocusTrap wraps Tab\n  last→first + Shift+Tab first→last.\n- ConfirmDialog — 5 tests: closed, open + custom confirmLabel,\n  Confirm runs onConfirm-then-onClose in order, Cancel runs only\n  onClose.\n\nResult: `npm test` now runs 11 files / 71 passing / 3 skipped\n(dist-level icon-cache-bust auto-skip without `dist/`). Previous:\n2 files / 22 passing. tsc -b clean, eslint clean.\n\nTODO.md \"Testing Infrastructure\" entry replaced with the remaining\ngaps (complex composites: ContractUploadPreview, TemplateSelector,\nNotificationBell, BurgerMenu, PwaInstallPrompt, ModuleSummaryEditor,\nAddNoteForm / ProposeChangeForm / IntentSelector) + E2E (Playwright\nor equivalent). Manual browser smoke-test still open as a separate\nitem.\n\nTags: testing, infrastructure, rtl, vitest\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: custom-code-reduction\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "test-unit",
+    "dependency-add"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "custom-code-reduction",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 19,
+    "additions": 1602,
+    "deletions": 3
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "package-lock.json",
+    "package.json",
+    "src/__tests__/ConfirmDialog.test.tsx",
+    "src/__tests__/HeadingInput.test.tsx",
+    "src/__tests__/Input.test.tsx",
+    "src/__tests__/Modal.test.tsx",
+    "src/__tests__/TextArea.test.tsx",
+    "src/__tests__/Toast.test.tsx",
+    "src/__tests__/ToneSelector.test.tsx",
+    "src/__tests__/formFieldId.test.ts",
+    "src/__tests__/iconCacheBust.test.ts",
+    "src/__tests__/pwaSingleton.test.ts",
+    "src/__tests__/setup.ts",
+    "src/__tests__/useProjectRole.test.tsx",
+    "tsconfig.test.json",
+    "vitest.config.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

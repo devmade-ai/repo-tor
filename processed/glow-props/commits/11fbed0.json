@@ -1,0 +1,31 @@
+{
+  "sha": "11fbed0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T15:17:42Z",
+  "subject": "docs(todo): re-validate per-repo TODOs via 10 parallel agents",
+  "body": "Spawned 10 parallel Explore agents (one per repo) against live GitHub\nstate to verify per-repo TODO items in docs/TODO.md. Applied deltas:\n\n- canva-grid fully resolved (Triggers replacement done: 8 group tables\n  + meta sweeps + reflective passes + name collisions note). Section\n  removed.\n- budgy-ting fully resolved (Triggers done, tripwire test added at\n  src/iconCacheBust.test.ts, 151 lines). Section removed.\n  Gap Matrix: ICON_CACHE_BUST Partial -> Pass.\n- few-lap DEBUG_SYSTEM (all 6 items) and THEME_DARK_MODE fully done;\n  Triggers partial (8 group tables present but missing Meta sweeps +\n  Reflective passes tables); debug comment text has shifted but leak\n  risk persists. Gap Matrix: DEBUG_SYSTEM + THEME_DARK_MODE Partial\n  -> Pass.\n- graphiki ICON_CACHE_BUST tripwire test added at\n  src/test/icon-cache-bust.test.ts; user communication still missing.\n- four-ems correction: earlier claim that 30-second suppression was\n  present was wrong — usePWAUpdate.ts has only a 3-second offline-ready\n  dismissal. Item added back to PWA_SYSTEM list and cross-cutting gap\n  updated.\n- repo-tor, model-pear, see-veo, sun-sea-o, synctone: no progress\n  since 2026-04-17 — all items remain valid. Preamble claims verified.\n\nUpdated Gap Matrix, audit header, and Cross-Cutting Gaps summary.\n\nTags: documentation, audit, todo, cross-fleet\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01Mx2aebqgqtBaC611uxsp7q",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 37,
+    "deletions": 83
+  },
+  "files": [
+    "docs/TODO.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

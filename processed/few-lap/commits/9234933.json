@@ -1,0 +1,35 @@
+{
+  "sha": "9234933",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T09:08:29Z",
+  "subject": "fix(quality): CLAUDE.md compliance — dead code, stale dep, docs, tutorial",
+  "body": "- Remove unused KEYBOARD_DETECTION_THRESHOLD_PX from config.ts (only\n  consumer was the web visualViewport handler in BottomSheet, which was\n  removed when web got its own BottomSheetWeb component)\n- Remove contentScrollOffset ref from contentPanResponder useMemo deps\n  (refs never change identity — including it was misleading, not functional)\n- Update CLAUDE.md Debug System sources to match actual implementation\n  (boot/supabase/location/map/search/pwa/global, not glow-props template)\n- Update TutorialModal step 4 to platform-neutral language (\"scroll the\n  list\" instead of \"pull the list up/down\") since web uses a simple\n  scrollable panel, not a draggable bottom sheet\n\nTags: cleanup, docs, tutorial, compliance\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: mobile-web\nSemver: patch\n\nhttps://claude.ai/code/session_01BDnXbhNkte8zvsWJnek99T",
+  "tags": [
+    "removal",
+    "comments"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-web",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 5,
+    "deletions": 6
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/ui/BottomSheet.tsx",
+    "src/components/ui/TutorialModal.tsx",
+    "src/constants/config.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

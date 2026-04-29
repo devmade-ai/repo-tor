@@ -1,0 +1,36 @@
+{
+  "sha": "4baa59d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T17:58:00Z",
+  "subject": "feat(menu): refactor HamburgerMenu to data-driven items pattern",
+  "body": "Refactored HamburgerMenu to accept a data-driven `items` array prop\nmatching the glow-props BURGER_MENU.md reference pattern:\n\nHamburgerMenu.jsx:\n- Accepts `items` array: { label, action, icon?, visible?, separator?,\n  external?, destructive?, highlight? }\n- Filters by `visible` (default true) — never renders disabled items\n- Renders optional: icons, separators between groups, external link\n  indicators (arrow icon), destructive styling (red), highlight (primary)\n- Labels truncated with text-overflow to prevent layout breaks\n- focus-visible ring for keyboard users\n- Arrow key navigation preserved (extra over reference pattern)\n- Version footer preserved\n\nHeader.jsx:\n- Builds menuItems array via useMemo with all standard menu items:\n  - Quick Guide (always)\n  - User Guide (always, external link to README)\n  - Dark/Light mode toggle (always, separator before)\n  - Save as PDF (always)\n  - Install App (visible when installReady and not already installed)\n  - Check for Updates (visible when updateAvailable, highlighted)\n- Dark mode toggle dispatches SET_DARK_MODE to AppContext\n- Icon SVGs extracted to module-level `icons` object\n\nstyles.css:\n- Added .hamburger-item-icon, .hamburger-item-label (truncate),\n  .hamburger-item-external, .hamburger-item-destructive\n- Added focus-visible ring on menu items\n\nTags: ui, a11y, refactor, cross-project\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: cross-project-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01TTPDz1J9eg8GxxJHYf5DXG",
+  "tags": [
+    "feature",
+    "refactor",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "cross-project-alignment",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 105,
+    "deletions": 121
+  },
+  "files": [
+    "dashboard/js/components/HamburgerMenu.jsx",
+    "dashboard/js/components/Header.jsx",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

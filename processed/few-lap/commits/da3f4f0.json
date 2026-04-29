@@ -1,0 +1,32 @@
+{
+  "sha": "da3f4f0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T09:38:26Z",
+  "subject": "fix(debug): cancel PwaDiagnosticsTab diagnostics on unmount (race/R1)",
+  "body": "The diagnostics runner (runPwaDiagnostics) is async — fetches\n/manifest.json and awaits navigator.serviceWorker.getRegistration().\nEach step calls the `add` callback (which is setLines) to append a\nresult line. If the user switches debug tabs, collapses the pill,\nor unmounts mid-flight, subsequent add() calls setState on an\nunmounted component. React 18+ silently drops the update, so there\nwas no visible warning — but the closure + pending I/O still held\nmemory until the promises resolved.\n\nFix: `let cancelled = false;` flag set in the effect's cleanup\nfunction. The add callback short-circuits when cancelled, so the\nReact state update path terminates immediately on unmount even\nthough the underlying fetch/getRegistration promises continue to\nsettle in the background.\n\nKept the rest of the audit findings as confirmed-correct:\n- setInterval in usePWAUpdate intentionally page-lifetime.\n- Boot pill clear() vs window.error race: safe either way (JS single-\n  threaded; both orderings leave a consistent state).\n- DebugPill subscriber closure: [] deps + module-stable references,\n  no stale-closure risk.\n- consoleCapture reentrant flag: local scope, shared between\n  wrappedError and wrappedWarn, try/finally managed.\n- debugRootMount DOMContentLoaded + `{ once: true }` + idempotency\n  flag: triple-safe.\n\ntsc 0, jest 89/89, expo web build clean.\n\nTags: debug, bugfix, race, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "bugfix",
+    "memory"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 15,
+    "deletions": 1
+  },
+  "files": [
+    "src/debug/PwaDiagnosticsTab.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "internal"
+}

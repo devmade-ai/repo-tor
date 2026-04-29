@@ -1,0 +1,46 @@
+{
+  "sha": "c2f303d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T19:06:30Z",
+  "subject": "fix: round 2 audit sweep — 21 findings (C1, H1-H2, M1-M10, L2, L6-L7)",
+  "body": "Critical:\n- C1: Fix useFocusTrap signature in InstallInstructionsModal — was called\n  with (ref, isOpen) but hook expects (active) and returns ref. Focus trap\n  was completely broken for keyboard users.\n\nHigh:\n- H1: Add setGuideOpen to Header menuItems useMemo dependency array\n- H2: Replace shared idx++ with queue.shift() in extract-api.js pMap\n  to eliminate any ambiguity about async concurrent access\n\nMedium code fixes:\n- M1: Increase toast dismiss button padding from 2px to 8px (was 16x20px,\n  now meets mobile touch target requirements)\n- M2: Wrap document.referrer parsing in try/catch in EmbedRenderer\n- M3: Remove state.darkMode from cross-tab sync effect deps — listener\n  now runs once for component lifetime, dispatches unconditionally\n- M4: Remove dead state commitListVisible and unused reducer actions\n  SET_COMMIT_LIST_VISIBLE, LOAD_MORE_COMMITS (no callers in codebase)\n- M9: Route HamburgerMenu action failures to debug pill\n- M10: Route data.json load errors and file upload errors to debug pill\n\nMedium doc fixes:\n- M5: Document ?data= URL param in USER_GUIDE.md and EMBED_REFERENCE.md\n- M6: Document --no-merges flag in ADMIN_GUIDE.md\n- M7: Update TESTING_GUIDE hamburger menu test to cover all 6 items\n- M8: Update USER_GUIDE menu description with dark mode + User Guide items\n\nLow:\n- L2: Add aria-live=\"polite\" to toast container for screen readers\n- L6: Mark stale icon path reference in CODE_REVIEW.md as resolved\n- L7: Document EXCLUDED_REPOS in ADMIN_GUIDE.md\n\nTags: bug, a11y, debug, documentation, cleanup\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: audit-fixes\nSemver: patch\n\nhttps://claude.ai/code/session_01TTPDz1J9eg8GxxJHYf5DXG",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "documentation"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-project-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 14,
+    "additions": 69,
+    "deletions": 36
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/components/EmbedRenderer.jsx",
+    "dashboard/js/components/HamburgerMenu.jsx",
+    "dashboard/js/components/Header.jsx",
+    "dashboard/js/components/InstallInstructionsModal.jsx",
+    "dashboard/js/components/Toast.jsx",
+    "dashboard/styles.css",
+    "docs/ADMIN_GUIDE.md",
+    "docs/CODE_REVIEW.md",
+    "docs/EMBED_REFERENCE.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md",
+    "scripts/extract-api.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

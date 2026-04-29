@@ -1,30 +1,18 @@
 {
   "sha": "e527ed7",
-  "fullSha": "e527ed77bb7cf2c7cbd827b828d51b910b97dfdc",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-02-10T17:03:51Z",
-  "commitDate": "2026-02-10T17:03:51Z",
   "subject": "refactor: split tabs.js into modules, add template helpers, complete event delegation",
   "body": "Document the vanilla JS architecture decision in ADR-001. Extract repeated\nurgency/impact bar HTML into renderUrgencyBar() and renderImpactBar() helpers.\nMigrate all remaining addEventListener with init flags into the single delegated\nhandler on #dashboard. Split the 2,100-line tabs.js into 10 focused modules\nunder js/tabs/ with a barrel re-export for backward compatibility.\n\nhttps://claude.ai/code/session_01Cj739F753Y8g8Ba6PG7nvR",
   "tags": [
     "refactor"
   ],
   "complexity": 4,
-  "scope": null,
-  "title": "split tabs.js into modules, add template helpers, complete event delegation",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "ADR-001"
-  ],
   "stats": {
     "filesChanged": 19,
     "additions": 2179,

@@ -1,0 +1,33 @@
+{
+  "sha": "e9f9c78",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T14:08:10Z",
+  "subject": "docs(auth): flag bypass limitations and restoration steps",
+  "body": "Strengthen the auth-bypass shim with an on-load console warning, spell\nout the known side effects (backend JWT 401s, useProjectRole mismatch,\nno-op Sign out), and record a pending task so the flag is reverted\nbefore release.\n\nTags: auth, docs, dev\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: dev-auth-bypass\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dev-auth-bypass",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 36,
+    "deletions": 3
+  },
+  "files": [
+    "docs/TODO.md",
+    "docs/USER_ACTIONS.md",
+    "src/config/authBypass.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

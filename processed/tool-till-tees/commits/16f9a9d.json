@@ -1,17 +1,11 @@
 {
   "sha": "16f9a9d",
-  "fullSha": "16f9a9d2104f0210e369fcf566a251168985064c",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-02-27T08:20:51Z",
-  "commitDate": "2026-02-27T08:20:51Z",
   "subject": "feat(cors): replace wildcard with dynamic origin allowlist",
   "body": "Created lib/cors.ts with an allowlist of approved frontend origins\n(devmade-ai.github.io, four-ems.vercel.app). Each handler calls cors()\nwhich checks the request Origin against the allowlist and sets\nAccess-Control-Allow-Origin to the matched origin with Vary: Origin.\nUnrecognized origins get no CORS header — the browser blocks the request.\n\nRemoved Access-Control-Allow-Origin from vercel.json (other CORS headers\nremain static). Updated all 11 API handlers to use cors() instead of\ninline OPTIONS checks.\n\nTags: cors, security, api, config\nComplexity: 2\nUrgency: 3\nImpact: api\nRisk: medium\nDebt: paid\nEpic: four-ems\nSemver: minor\n\nhttps://claude.ai/code/session_01BqPM5pcAcdzxTW9FDe4poV",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "four-ems",
   "semver": "minor",
-  "scope": "cors",
-  "title": "replace wildcard with dynamic origin allowlist",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 19,
     "additions": 102,

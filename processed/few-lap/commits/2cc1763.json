@@ -1,0 +1,33 @@
+{
+  "sha": "2cc1763",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T09:44:08Z",
+  "subject": "refactor(types): tighten two loose casts from ship/types trigger",
+  "body": "T1 — src/debug/debugLog.ts:291. The Safari-standalone check used a\nlooser cast than the same check in PwaDiagnosticsTab.tsx:133 and\nusePWAInstall.ts:100. All three check `navigator.standalone === true`;\nthe other two used `Navigator & { standalone?: boolean }`, but\ndebugLog used `unknown as Record<string, unknown>` which types\n`standalone` as `unknown` and relies on `=== true` coincidence.\nAligned with the established pattern.\n\nT2 — src/hooks/usePWAInstall.ts:69. The window-capture consumer used\na double-loose cast (`unknown as Record<string, unknown>` + downstream\n`as BeforeInstallPromptEvent | undefined` on each property). Replaced\nwith a single shape-specific cast:\n    Window & {\n      __pwaInstallPromptEvent?: BeforeInstallPromptEvent;\n      __deferredInstallPrompt?: BeforeInstallPromptEvent;\n    }\nBoth downstream assertions removed — properties are now typed\ndirectly. Consistent with the `Window & { … }` pattern used on lines\n90 and 100 of the same file.\n\nSkipped: T3 (usePWAUpdate.ts:152 `_registration!.installing` non-null\nassertion) — pre-existing, idiomatic, not touched by this branch.\nCLAUDE.md prohibits \"while I'm here\" changes without asking.\n\nClean findings: zero `as any`, zero `@ts-ignore`, zero bare `any` in\nproduction code across the whole codebase.\n\ntsc 0, jest 89/89, expo web build clean.\n\nTags: debug, refactor, types\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "refactor",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 11,
+    "deletions": 4
+  },
+  "files": [
+    "src/debug/debugLog.ts",
+    "src/hooks/usePWAInstall.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "internal"
+}

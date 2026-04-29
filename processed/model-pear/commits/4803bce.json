@@ -1,0 +1,38 @@
+{
+  "sha": "4803bce",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T15:56:10Z",
+  "subject": "fix(print): improve print output quality — hide interactive UI, fix empty sections, add print-only heading",
+  "body": "Addresses remaining print output issues found during second-pass review:\n\n1. ComparisonManager wrapped in no-print — purely interactive UI (checkboxes,\n   rename, delete, import/export) is noise in a PDF\n2. Collapsed sections (Transfer Pricing, Advanced Analysis) now conditionally\n   hidden via class:no-print when collapsed — prevents empty card shells from\n   appearing when toggle buttons are hidden by print CSS\n3. Expanded sections preserve heading text via print-include class on toggle\n   buttons; chevron SVGs hidden in print since they reference interactive state\n4. Added .print-only utility class (hidden on screen, visible in print) and\n   .print-include class (keeps specific buttons visible in print)\n5. Pricing page: model selector tabs hidden in print, replaced with print-only\n   heading showing selected model name and icon for context\n6. docs/README.md updated to list PDF alongside JSON/CSV export\n\nTags: print, css, ux, cleanup, pdf\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pdf-download\nSemver: patch\n\nhttps://claude.ai/code/session_01WsnhVtrg3t35GkwdkGdzQf",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pdf-download",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 70,
+    "deletions": 16
+  },
+  "files": [
+    "apps/web/src/app.css",
+    "apps/web/src/routes/pricing/+page.svelte",
+    "apps/web/src/routes/structuring/[model]/+page.svelte",
+    "docs/HISTORY.md",
+    "docs/README.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

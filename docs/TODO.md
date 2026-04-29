@@ -36,22 +36,16 @@ Remaining tasks for Git Analytics Reporting System.
     - **Event-based pub/sub** — the `window.addEventListener` / `dispatchEvent` layer that bridges the vanilla PWA API with React (AppContext listens for `pwa-install-ready` / `pwa-update-available` etc.).
    Suggested split: `pwa.js` (install flow) + `pwaUpdate.js` (update flow) + `pwaInstructions.js` (per-browser instructions data). The event-bridge can stay with the install flow since the install-ready event is its primary emitter.
 
-2. [ ] **`scripts/aggregate-processed.js`** is 1042 lines — **over the 800-line strong-refactor threshold** from CLAUDE.md "Code Organization". Not touched by the audit pass (`scripts/` was out of scope). Active data pipeline for the dashboard — it reads `processed/` and writes `dashboard/public/data/`. Should be split before it grows further. Without reading the whole file in detail, likely split points include:
-    - Commit-reading loop (reads `processed/<repo>/commits/*.json`, validates, collects)
-    - Per-repo summary builder (code stats, tag breakdowns, urgency/complexity distributions, hourly heatmap)
-    - Aggregated-summary builder (combines per-repo summaries into cross-repo totals)
-    - Time-windowed output writer (per-month commit files, daily/weekly/monthly pre-aggregations)
-    - Author normalization (author-map.json lookup + canonical id assignment)
-   Suggested directory: `scripts/aggregate/` with `read-commits.js`, `summary.js`, `time-windows.js`, `authors.js`, and a thin top-level `aggregate-processed.js` that orchestrates them.
+2. [ ] **`scripts/extract-api.js`** is 699 lines — over the 500-line soft-limit but under the 800-line strong-refactor threshold. Out of scope for the audit pass. Monitor for growth; split candidates are the GitHub API pagination helpers, the rate-limit handling, and the commit-shape normaliser that maps the API response into the same structure `extract.js` uses for local git logs.
 
-3. [ ] **`scripts/extract-api.js`** is 699 lines — over the 500-line soft-limit but under the 800-line strong-refactor threshold. Out of scope for the audit pass. Monitor for growth; split candidates are the GitHub API pagination helpers, the rate-limit handling, and the commit-shape normaliser that maps the API response into the same structure `extract.js` uses for local git logs.
+   *(The earlier "split aggregate-processed.js" entry was removed 2026-04-29: the file is 597 lines after the lib/aggregateCalcs.js + lib/aggregateTimeWindows.js extraction landed before this branch, well under the 800-line threshold. The TODO entry predated the extraction.)*
 
-4. [ ] **`dashboard/js/hooks/useTimelineCharts.js`** is 416 lines after the 2026-04-15 extraction. It sits under the 500-line soft-limit with ~84 lines of headroom. Not actionable today — but if any new Timeline chart is added (or one of the existing five grows), consider splitting the five useMemo blocks into two hooks:
+3. [ ] **`dashboard/js/hooks/useTimelineCharts.js`** is 416 lines after the 2026-04-15 extraction. It sits under the 500-line soft-limit with ~84 lines of headroom. Not actionable today — but if any new Timeline chart is added (or one of the existing five grows), consider splitting the five useMemo blocks into two hooks:
     - `useTimelineBars` — the 60-day stacked bar charts (`activityChartData`, `codeChangesChartData`) that share data-shape logic
     - `useTimelineTrends` — the monthly trend charts (`urgencyTrendData`, `debtTrendData`, `impactTrendData`) that share the `excludeIncompleteLastMonth` helper and the cross-chart `sortedMonths` x-axis alignment
    The split would cleanly follow existing semantic groupings (bars vs trends) and leave each hook at roughly 200 lines.
 
-5. [ ] **`dashboard/js/AppContext.jsx`** is 338 lines after the 2026-04-15 `appReducer.js` extraction, well under the soft-limit. Monitor for growth — if a future feature adds more effects/useMemo blocks to the provider, consider extracting one of: the persistence-effects cluster (4 small useEffect blocks that mirror reducer state to localStorage), the theme cross-tab sync cluster (darkMode effect + storage listener + matchMedia fallback), or the `filterOptions` computation. Each is self-contained and could become its own custom hook.
+4. [ ] **`dashboard/js/AppContext.jsx`** is 338 lines after the 2026-04-15 `appReducer.js` extraction, well under the soft-limit. Monitor for growth — if a future feature adds more effects/useMemo blocks to the provider, consider extracting one of: the persistence-effects cluster (4 small useEffect blocks that mirror reducer state to localStorage), the theme cross-tab sync cluster (darkMode effect + storage listener + matchMedia fallback), or the `filterOptions` computation. Each is self-contained and could become its own custom hook.
 
 ### Browser test coverage (future)
 

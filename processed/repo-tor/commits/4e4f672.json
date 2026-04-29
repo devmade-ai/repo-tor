@@ -1,0 +1,35 @@
+{
+  "sha": "4e4f672",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T20:45:14Z",
+  "subject": "refactor(cleanup): drop 5 dead exports, simplify Header filter callback",
+  "body": "Audit findings #7, #8, #9, #10 — five exported symbols had zero\nconsumers in the dashboard JS code, and Header's filter-open callback\nhad a stale guard pattern from before the OPEN_FILTER_SIDEBAR action\nexisted.\n\nDead exports removed (verified zero consumers via repo-wide grep):\n  - urlParams.js searchParams       — relic from when chartColors.js\n    parsed ?colors= overrides; the override system was deleted in\n    the 2026-04-14 vanilla-DaisyUI sweep\n  - chartColors.js getSemanticPalette + SEMANTIC_CYCLE_VARS — only\n    callers were each other; getSeriesColor() is the sole consumer\n    pattern in JSX\n  - utils.js getAllTags             — never consumed; tag aggregation\n    happens via aggregateByTag() inside section components instead\n\nDemoted from exported to module-private (still used internally):\n  - utils.js getAnonymousName       — only sanitizeName() calls it\n  - utils.js buildHolidaySet        — only the module-level\n    holidaySet constant calls it\n  - utils.js holidaySet             — only getWorkPattern() reads it\n\nHeader.handleOpenFilters refactor:\n  - Was: dispatch TOGGLE behind a `if (!filterSidebarOpen)` guard\n    with [filterSidebarOpen, dispatch] deps — re-bound on every\n    sidebar state change.\n  - Now: dispatch OPEN_FILTER_SIDEBAR (idempotent reducer action,\n    sets to true regardless of current state). Stable callback,\n    only [dispatch] in deps. The guard pattern dated back to when\n    only TOGGLE existed; OPEN_FILTER_SIDEBAR has been in the\n    reducer since the layout simplification.\n\nBuild clean (562.18 kB → 562.18 kB, identical), 60/60 tests pass.\n\nTags: refactor, cleanup, dead-code, audit\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: vanilla-daisyui-cleanup\nSemver: patch",
+  "tags": [
+    "refactor",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "vanilla-daisyui-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 10,
+    "deletions": 35
+  },
+  "files": [
+    "dashboard/js/chartColors.js",
+    "dashboard/js/components/Header.jsx",
+    "dashboard/js/urlParams.js",
+    "dashboard/js/utils.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,32 @@
+{
+  "sha": "f0bd185",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T21:01:13Z",
+  "subject": "refactor(discover): extract metric pool + helpers to discoverData.js",
+  "body": "Audit finding extension to #16 — sections/Discover.jsx was 711 lines,\n211 over the 500-line component soft-limit. Most of the mass came\nfrom a 245-line array of 21 metric definitions (DISCOVER_METRICS),\nthe humorous file-name generator with two ~25-element word lists,\nand the getRandomMetrics() picker — all pure data / pure functions\nwith zero React surface area.\n\nExtracted to a new pure-data module:\n\n  dashboard/js/sections/discover/discoverData.js  (335 lines)\n\nThe new file exports:\n  - DISCOVER_METRICS — 21 metric definitions, unchanged from the\n    original (label, description, calculate(commits))\n  - getRandomMetrics(count, pinned) — initial-pick + shuffle picker\n    that honours pinned slots\n  - getHumorousFileName(path, cache) — adjective+noun generator with\n    consumer-owned cache parameter\n\nAfter:\n  dashboard/js/sections/Discover.jsx: 711 → 430 lines (-281, well\n    under the 500-line soft-limit)\n  dashboard/js/sections/discover/discoverData.js: new (335 lines)\n\nDiscover.jsx now imports the three symbols from\n`./discover/discoverData.js` and otherwise delegates exactly as\nbefore — every state hook, effect, callback, and render branch is\nunchanged. The two localStorage helpers (loadPinnedMetrics,\nsavePinnedMetrics) stayed in the React file because they're tightly\ncoupled to the component's pinned-state effect and have no other\nconsumer.\n\nThe new `discover/` subdirectory matches the `debug/` pattern from\nthe previous DebugPill split — section-specific helper modules live\nin a same-named subfolder so they stay grouped with their consumer\nwithout polluting the top-level sections/ listing.\n\nBuild clean (562.43 kB → 562.43 kB, identical post-tree-shake).\n60/60 tests pass.\n\nTags: refactor, ui, code-organization, audit\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: vanilla-daisyui-cleanup\nSemver: patch",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "vanilla-daisyui-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 341,
+    "deletions": 294
+  },
+  "files": [
+    "dashboard/js/sections/Discover.jsx",
+    "dashboard/js/sections/discover/discoverData.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

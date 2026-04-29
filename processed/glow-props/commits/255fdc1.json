@@ -1,0 +1,31 @@
+{
+  "sha": "255fdc1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T22:20:57Z",
+  "subject": "docs(claude): add 5 triggers — motion, forms, dx, undone, pwa",
+  "body": "Fills real gaps in the trigger set:\n\nFrontend group:\n- `motion` / `mot` — prefers-reduced-motion respect, animation jank,\n  60fps, autoplay, transitions that interrupt screen readers\n- `forms` / `frm` — input validation, per-field error states, submit\n  error handling, accessible labels, paste/autofill, unsaved warnings\n\nQuality group:\n- `dx` / `dx` — developer experience: README/setup clarity, dev error\n  messages, source maps, debug ergonomics, contribution path\n- `undone` / `und` — started-but-unfinished work, partial\n  implementations, half-wired features, WIP-only-reachable paths\n\nOps group:\n- `pwa` / `pwa` — service worker correctness, manifest, install flow,\n  update UX, offline, icon cache-busting, standalone quirks. Previously\n  scattered across observability/reliability/mobile — now one pass for\n  the fleet's most common product type\n\nTrigger count: 43 → 48. Groups unchanged (8).\n\nTags: documentation, triggers, claude-md\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: triggers-redesign\nSemver: minor\n\nhttps://claude.ai/code/session_013TSNyXMQiUmG4hPbycbrZT",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "triggers-redesign",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 33,
+    "deletions": 28
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,48 @@
+{
+  "sha": "80f82fe",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T23:01:44Z",
+  "subject": "fix(audit): sweep 2 — docs, touch targets, code quality, debug, perf",
+  "body": "Phase A — Critical docs (user-facing confusion):\n- TutorialModal step 3: \"Tap Reset\" → \"select All or adjust radius directly\"\n- TESTING_GUIDE item 15: rewritten for actual filter reset flow\n- TESTING_GUIDE PWA section: fix duplicate numbering (28-30 → 31-33)\n- USER_GUIDE: add empty-state \"Reset Filters\" button info\n\nPhase B — Touch targets (6 WCAG AA violations):\n- LocationSearch \"Clear\" history: add minHeight 44\n- Toast action button: paddingVertical 4→8, minHeight 36, hitSlop\n- Station detail retry/go-back: add minHeight 44\n- TutorialModal back/next: add minHeight 44\n- LocationSearch clear (X): hitSlop 8→14 vertical (44px effective)\n- InstallInstructionsModal close: add hitSlop\n\nPhase C — Code quality (7 fixes):\n- usePWAUpdate: import constants from config.ts (DRY)\n- useLocation: import GPS_TIMEOUT_MS from config.ts (DRY)\n- useLocation: clear GPS timeout on success (memory leak fix)\n- usePWAUpdate: reset updatePendingRef after 10s safety timeout\n- Toast: comment explaining hardcoded warning text color\n- formatting.ts: NaN guards on formatPrice/formatDistance (return \"—\")\n- _layout.tsx: narrow navTheme useMemo deps to specific color values\n\nPhase D — Debug logs (6 additions):\n- useTheme: theme combo change, dark/light toggle\n- usePWAInstall: install prompt triggered, prompt result, appinstalled\n- FuelMapWeb: layer colors updated, data updated (station count)\n\nPhase E — Performance (2 optimizations):\n- Toast: wrap ToastItem in React.memo\n- Toast: extract onDismiss as useCallback (stable reference for memo)\n\nTags: audit, docs, accessibility, code-quality, debug, performance\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: audit-sweep-2\nSemver: patch\n\nhttps://claude.ai/code/session_01JiHLm7X1zVwrcYAJuVaPFN",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "performance",
+    "monitoring"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "audit-sweep-2",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 15,
+    "additions": 55,
+    "deletions": 25
+  },
+  "files": [
+    "app/_layout.tsx",
+    "app/station/[id].tsx",
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/components/ui/Toast.tsx",
+    "src/components/ui/TutorialModal.tsx",
+    "src/hooks/useLocation.ts",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "src/hooks/useTheme.ts",
+    "src/lib/__tests__/formatting.test.ts",
+    "src/lib/formatting.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,33 @@
+{
+  "sha": "582b457",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T17:09:41Z",
+  "subject": "fix: review findings — async race, abort logic, escape propagation, tooltip snap",
+  "body": "- #1 (HIGH): Replace shared mutable failedMonths array with per-promise\n  { commits, failed } return values collected after Promise.all resolves.\n  Eliminates async mutation of shared array across parallel callbacks.\n\n- #3 (MEDIUM): Use explicit timedOut flag to distinguish timeout abort\n  from component unmount abort. Removes redundant controller.signal.aborted\n  check inside AbortError catch block.\n\n- #6 (LOW): Add e.stopPropagation() to useEscapeKey hook so only the\n  topmost overlay closes when multiple are stacked (e.g., QuickGuide\n  open over DetailPane).\n\n- #8 (LOW): Round tooltip positions to integers via Math.round() to\n  prevent subpixel rendering artifacts on non-Retina displays.\n\nTags: bug, a11y, cleanup\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: audit-fixes\nSemver: patch\n\nhttps://claude.ai/code/session_01TTPDz1J9eg8GxxJHYf5DXG",
+  "tags": [
+    "bugfix",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "audit-fixes",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 21,
+    "deletions": 16
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/hooks/useEscapeKey.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

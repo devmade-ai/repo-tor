@@ -1,0 +1,33 @@
+{
+  "sha": "8cbc64c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-07T23:09:25Z",
+  "subject": "refactor(claude): replace hardcoded pattern table with dynamic source reference",
+  "body": "Downstream repos should always fetch implementation patterns from glow-props\nrather than maintaining local copies. Replaced the static 8-row table in\n\"Suggested Implementations\" with \"Implementation Patterns (Source of Truth)\"\nthat provides fetch commands and discovery instructions. Added prohibition\nagainst local copies and AI note to always fetch from glow-props.\n\nTags: documentation, patterns, cross-repo\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pattern-library\nSemver: minor\n\nhttps://claude.ai/code/session_011sWgK8Kz46ZHFN6S86mt4A",
+  "tags": [
+    "refactor",
+    "documentation",
+    "patterns"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pattern-library",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 15,
+    "deletions": 13
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

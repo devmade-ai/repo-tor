@@ -1,0 +1,42 @@
+{
+  "sha": "2202a71",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T05:56:45Z",
+  "subject": "docs(fleet): align CLAUDE.md with glow-props; drop local implementations + HISTORY",
+  "body": "Parts A–G of the synctone ↔ glow-props alignment sweep.\n\n- Delete `docs/implementations/` (5 stale duplicates + 3 synctone-only\n  stubs). Decisions recorded in docs/TODO.md before deletion:\n  HTTPS_PROXY → delete (richer version already upstream), KEY_LESSONS →\n  delete (content superseded by dedicated upstream patterns + local\n  CLAUDE.md sections), TIMER_LEAKS → delete locally + upstream-candidate\n  TODO noted for a future glow-props PR.\n- Delete `docs/HISTORY.md`. Git history is the changelog — TODO.md\n  updated to \"delete completed items\" instead of moving them.\n- Add \"## Implementation Patterns (Source of Truth)\" verbatim from\n  glow-props CLAUDE.md; add matching AI Note + Prohibition so future\n  sessions never recreate local pattern copies.\n- Add \"## Communication\" section between Principles and Code Standards;\n  update top-of-file header to include COMMUNICATION; remove duplicate\n  \"ASK before assuming\" / \"Communication style\" bullets from AI Notes.\n- Triggers section already matched glow-props verbatim (48 triggers,\n  8 groups, meta sweeps, reflective passes) — no change needed beyond\n  the top-of-file header update.\n- Existing trigger-name-collision AI Note already covers the only two\n  real folder↔trigger collisions in this repo (`docs/` and `types/`);\n  no further folders collide with any trigger name.\n\nTags: documentation, fleet-alignment, cleanup\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "docs",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 11,
+    "additions": 88,
+    "deletions": 1515
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/TODO.md",
+    "docs/implementations/APP_ICONS.md",
+    "docs/implementations/BURGER_MENU.md",
+    "docs/implementations/DEBUG_SYSTEM.md",
+    "docs/implementations/DOWNLOAD_PDF.md",
+    "docs/implementations/HTTPS_PROXY.md",
+    "docs/implementations/KEY_LESSONS.md",
+    "docs/implementations/PWA_SYSTEM.md",
+    "docs/implementations/TIMER_LEAKS.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

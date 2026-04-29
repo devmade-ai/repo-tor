@@ -1,0 +1,48 @@
+{
+  "sha": "1b0f685",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T22:08:30Z",
+  "subject": "Merge pull request #23 from devmade-ai/claude/harden-pwa-system-oClg9",
+  "body": "Implement PWA singleton state & manual update check",
+  "tags": [
+    "merge"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pwa-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 18,
+    "additions": 1518,
+    "deletions": 77
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md",
+    "package-lock.json",
+    "package.json",
+    "src/__tests__/iconCacheBust.test.ts",
+    "src/__tests__/pwaSingleton.test.ts",
+    "src/components/common/InstallInstructionsModal.tsx",
+    "src/hooks/usePWAUpdate.ts",
+    "src/layouts/AppLayout.tsx",
+    "src/lib/pwa.ts",
+    "src/types/browser.d.ts",
+    "tsconfig.app.json",
+    "tsconfig.json",
+    "tsconfig.test.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

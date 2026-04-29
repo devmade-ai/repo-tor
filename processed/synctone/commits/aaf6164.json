@@ -1,0 +1,35 @@
+{
+  "sha": "aaf6164",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T11:38:33Z",
+  "subject": "fix(theme): correct status color docs, migrate PWADebugBanner",
+  "body": "1. Fix incorrect documentation about Uniwind status color limitation.\n\n   The CLAUDE.md and global.css claimed status colors (error, success,\n   warning, info) don't generate Tailwind utility classes in Uniwind.\n   This is wrong — all --color-* CSS custom properties generate utilities\n   identically. Verified by reading Uniwind's rule-visitor.ts source:\n   processThemeRoot processes all variables uniformly with no filtering.\n\n   Fixed: removed \"inline only\" annotations from CLAUDE.md color table,\n   updated global.css header comment, updated Styling System description.\n\n2. Migrate PWADebugBanner.tsx from hardcoded hex colors to useTheme().\n\n   Replaced all #C9A57B (old rose gold) and #0A0A0A (old background)\n   references with colors.primary, colors.primaryContent, colors.base100,\n   colors.base200, colors.neutral, colors.baseContent from useTheme().\n   Kept semantic log level colors (red/yellow/green) as fixed values\n   since they represent severity, not theme.\n\nTags: theme, docs, bugfix, pwa-debug\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: patch\n\nhttps://claude.ai/code/session_01B19ShhBXLzVzbptkz9Tuew",
+  "tags": [
+    "docs",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 33,
+    "deletions": 36
+  },
+  "files": [
+    "CLAUDE.md",
+    "components/PWADebugBanner.tsx",
+    "docs/TODO.md",
+    "global.css"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

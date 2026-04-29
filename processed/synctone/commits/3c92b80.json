@@ -1,0 +1,35 @@
+{
+  "sha": "3c92b80",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T22:54:44Z",
+  "subject": "fix(edges): context-aware update toast + document dark-mode contract",
+  "body": "Two items from the `edges branch` trigger:\n\n1. handleCheckForUpdates 'update-available' toast now branches on\n   isInstalled. The header Update button only renders when\n   `Platform.OS === 'web' && isInstalled && hasUpdate` (home.tsx:620),\n   so a non-installed web user (browser-tab, not installed PWA) who\n   triggers the manual check and gets `update-available` would\n   previously see \"tap Update in the header\" — but the header has no\n   such button to tap. Now:\n     - isInstalled: \"An update is available — tap Update in the header\"\n     - not installed: \"An update is available — refresh the page to apply\"\n   Network-first SW caching means a hard reload reliably picks up the\n   new bundle for browser users, so refresh is the correct affordance.\n   Updated docs/TODO.md verification scenario #7 to cover both branches.\n\n2. Documented the storage contract for `synctone_dark_mode` in the\n   theme flash-prevention inline script comment. Only three valid\n   states: absent, 'true', 'false'. Any other value silently maps to\n   light mode because the comparison is `darkRaw === 'true'`. The app\n   only ever writes 'true'/'false' via AsyncStorage's web backend, so\n   the silent fallback is operationally safe — but if a future caller\n   writes a different shape (e.g. 'TRUE' from a refactor or a\n   third-party migration tool), the silent-light-fallback would mask a\n   real bug. Comment instructs maintainers to fix the writer rather\n   than relax the check.\n\nVerification:\n- npx tsc --noEmit: 0 errors\n- npm run verify:inline-scripts: 47 passed, 0 failed\n\nTags: bugfix, ux, pwa, docs\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01UiYobyYgDFYNeVKZrChVXH",
+  "tags": [
+    "bugfix",
+    "ux",
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 35,
+    "deletions": 7
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "app/+html.tsx",
+    "docs/TODO.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

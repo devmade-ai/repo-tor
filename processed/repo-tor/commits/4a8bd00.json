@@ -1,0 +1,35 @@
+{
+  "sha": "4a8bd00",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T20:39:01Z",
+  "subject": "fix(audit): pane z-index symmetry, font-sans override, Date filter perf",
+  "body": "#1 — SettingsPane backdrop z-index asymmetry + misleading comment\n  DetailPane backdrop was z-30, SettingsPane backdrop was z-40, both\n  panes were z-40. The settings backdrop being at the SAME level as\n  the detail aside (z-40) only worked via DOM source order — the\n  comment falsely claimed \"Higher z-index so it stacks above detail.\"\n  Future readers would see the equal z-index and either \"fix\" it\n  (breaking the stacking) or be confused by the lying comment.\n\n  Unified both panes to use the same pair: z-30 backdrop + z-40 aside.\n  Stacking still works via DOM source order (settings markup comes\n  after detail, so at equal z-index the later-painted wins). Comment\n  rewrote to describe the actual mechanism instead of the wrong\n  z-index claim.\n\n#2 — `font-sans` Tailwind utility overrode global Figtree font\n  App.jsx:348 and EmbedRenderer.jsx:160 had `font-sans` on their\n  embed/error fallback divs. Tailwind's font-sans = `font-family:\n  ui-sans-serif, system-ui, ...` (system stack), which has higher\n  CSS specificity than the global `* { font-family: var(--font-sans) }`\n  rule that sets Figtree. Result: error messages rendered in the OS\n  system font instead of the project's Figtree, visually inconsistent\n  with the rest of the dashboard.\n\n  Dropped `font-sans` from both fallbacks. They now inherit Figtree\n  from the global `*` rule like every other element.\n\n#4 — Date construction inside filterCommits filter callback\n  The dateTo branch did:\n    if (filters.dateTo) {\n      const toDate = new Date(filters.dateTo);\n      toDate.setHours(23, 59, 59, 999);\n      const commitDate = new Date(commit.timestamp);\n      if (commitDate > toDate) return false;\n    }\n  Two `new Date()` constructions per commit (toDate + commitDate),\n  plus a setHours mutation, plus a Date comparison. For a 10k-commit\n  dataset that's 20k+ Date allocations per filter operation.\n\n  Hoisted both date bounds out of the .filter() callback into the\n  function body, converted to `getTime()` numeric millisecond\n  comparison. Per-commit overhead drops from 2 Date constructions +\n  Date comparison to 1 Date construction + numeric comparison.\n  Total filter overhead: O(2N) → O(N+2) Date allocations.\n\n  Also removed the local Date mutation — toDate.setHours() is now\n  called once at the top, on the single hoisted instance, not a\n  side-effect inside what should be a pure filter callback.\n\nVerified: vite build clean, 60/60 tests pass.\n\nTags: fix, perf, accessibility, ui\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: vanilla-daisyui-audit\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "performance",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "vanilla-daisyui-audit",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 28,
+    "deletions": 16
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/components/EmbedRenderer.jsx"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

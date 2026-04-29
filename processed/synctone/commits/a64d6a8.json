@@ -1,0 +1,34 @@
+{
+  "sha": "a64d6a8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T15:19:00Z",
+  "subject": "fix(db): harden scheduled_messages migration from review findings",
+  "body": "Addresses 12 migration-side review findings from the pre-merge sweep:\n\n- H1/H2: dispatch_scheduled_messages() and cleanup_scheduled_messages()\n  REVOKEd from authenticated — cron-only. Also re-checks the per-sender\n  30/min message rate limit before INSERT, so SECURITY DEFINER can't be\n  used to bypass the cap via same-minute dispatches.\n\n- H3: INSERT RLS now requires chat.ended_by IS NULL on both sides so a\n  user can't schedule into a chat the other party has ended.\n\n- H4: ALTER PUBLICATION supabase_realtime ADD TABLE wrapped in a\n  duplicate-check so migration re-apply is truly idempotent.\n\n- H5 + L7: Added scheduled_min_lead CHECK (1 minute DB floor) and a\n  BEFORE UPDATE trigger that re-validates lead bounds against now()\n  whenever scheduled_for changes. Client still enforces 2 min; DB's\n  looser floor accommodates reasonable client clock skew.\n\n- M1: Status enum extended with 'cancelled'; UPDATE RLS permits the\n  pending -> cancelled transition; REVOKE of DELETE means cancellation\n  flows exclusively through UPDATE. This closes the schedule-then-delete\n  loop that would have bypassed the 10/hr schedule rate limit.\n\n- M2: Dispatcher re-checks the reply target at dispatch time and blanks\n  the snippet if the target was deleted between schedule and send. Up to\n  30 days could otherwise pass between a user retracting a message and\n  their content still being propagated via a scheduled reply.\n\n- M4: Dispatcher JOINs chats into the cursor SELECT (no more per-row\n  ended_by lookup).\n\n- L1: Dropped redundant idx_scheduled_messages_chat (sender+status index\n  covers the query with better selectivity under RLS).\n\n- New cleanup_scheduled_messages() + daily 04:17 UTC cron prunes sent /\n  failed / cancelled rows older than 7 days so the table stays bounded.\n\n- Added explicit failure-mode comment documenting at-least-once\n  semantics of the dispatcher's single-transaction batch (rollback on\n  panic → rows stay pending → retried next tick).\n\nTags: scheduling, security, rls, pg-cron, database, correctness\nComplexity: 4\nUrgency: 3\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: message-scheduling\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "security",
+    "schema",
+    "database"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "message-scheduling",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 215,
+    "deletions": 53
+  },
+  "files": [
+    "supabase/migrations/20260421024318_add_scheduled_messages.sql"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

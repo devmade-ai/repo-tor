@@ -1,0 +1,31 @@
+{
+  "sha": "973a3d8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T06:13:55Z",
+  "subject": "docs(claude): promote Communication to top-level section",
+  "body": "Promote the five-bullet \"Communication Style\" block (previously sitting\nbetween Suggested Implementations and Testing) to a proper top-level\n\"## Communication\" section placed right after \"## Principles\" so the\nrules sit near the other prescriptive sections at the top of the file\nrather than buried in the middle. Expand the content to match the\nglow-props source of truth: peer-to-peer framing, explicit anti-\nsycophancy / anti-hedging rules, proper-solutions-only mandate, and\nthe \"always ask at least one question\" minimum bar.\n\nDrop the two now-duplicate bullets from AI Notes:\n  - \"ASK before assuming on bug reports\" (covered by \"Ask before\n    assuming\")\n  - \"Communication style: Direct, concise...\" (superseded by the\n    full section)\n\nPart 2 of the original task referenced a `# READ AND FOLLOW THE\nPROCESS...` top-of-file header line that doesn't exist in repo-tor's\nCLAUDE.md — this repo uses per-section `### REMINDER:` lines as the\nreinforcement pattern, so I added a matching one\n(`### REMINDER: READ AND FOLLOW THE COMMUNICATION RULES EVERY TIME`)\ninstead of fabricating a header line the rest of the doc wouldn't\nreference.\n\nParts 4 (ICON_CACHE_BUST tripwire test) and 5 (install-modal \"icon\nlooks outdated?\" collapsible) from the task description were already\nlanded on main by commit 36656b1 on a prior branch — no work needed\nhere; the scripts/__tests__/icon-cache-bust.test.mjs source-level\nassertions pass in the current tree.\n\nTags: documentation, claude-md, communication\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: communication-rules-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01BLFLX4RLenHz3mWYHbXVwj",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "communication-rules-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 16,
+    "deletions": 12
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

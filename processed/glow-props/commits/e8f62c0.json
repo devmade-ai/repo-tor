@@ -1,0 +1,34 @@
+{
+  "sha": "e8f62c0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T21:37:30Z",
+  "subject": "feat(theme): add random theme on load toggle to burger menu",
+  "body": "New opt-in setting in the burger menu that randomizes the DaisyUI theme\non every page load/refresh. Off by default — users who want variety can\ntoggle it on, while everyone else keeps their chosen theme.\n\nThe randomization runs in the inline bootstrap script (before first paint)\nso there's no flash. The chosen random theme is persisted to localStorage\nso the theme picker indicator stays in sync.\n\nTags: ui, theme, feature\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: theme-system\nSemver: minor\n\nhttps://claude.ai/code/session_014QJsYGfSf4xDTiB7AosrQX",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "theme-system",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 106,
+    "deletions": 0
+  },
+  "files": [
+    "index.html",
+    "project.html",
+    "public/theme.js"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

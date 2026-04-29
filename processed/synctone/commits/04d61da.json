@@ -1,0 +1,45 @@
+{
+  "sha": "04d61da",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T21:00:23Z",
+  "subject": "chore(wrap): session-end cleanup — favicon legacy removal + 9 minor fixes",
+  "body": "Wrap-pass sweep at session end. Each item is small on its own; together\nthey remove a legacy asset, harden two failure paths, tighten the\nverify suite, and resync the docs.\n\nCleanups:\n- assets/images/favicon.png: removed end-to-end. Dropped web.favicon\n  from app.json, deleted the file, removed it from generate-icons.mjs\n  ICONS_ANY, removed the row from CLAUDE.md icon table. Verified after\n  Metro cache clear: zero references in dist. Expo Router output:\"static\"\n  ignores web.favicon — +html.tsx emits /favicon.ico directly.\n- public/sw.js: pruned CACHE_VERSION comment block from v9+v10 history\n  to current rationale only. Git tracks the prior versions.\n- scripts/inject-icon-hashes.mjs: replaced an awkward self-Q&A comment\n  with a plain statement; idempotency rationale unchanged.\n\nHardening:\n- utils/debugRootMount.ts: createRoot throws now also push to\n  window.__debugPushError so the pre-React inline pill's DOM fallback\n  surfaces the failure visually. Without this, a mount-time React\n  failure would only land in the in-memory buffer that the failed pill\n  was supposed to display.\n- hooks/usePWAUpdate.ts: documented why _lastPeriodicCheckAt is\n  module-scope and intentionally survives HMR (matches the lifetime\n  of the interval + visibilitychange/pagehide/pageshow listeners it\n  throttles). Prevents a future reader from \"fixing\" it.\n\nVerification + tooling:\n- scripts/verify-inline-scripts.mjs: added 3 new assertions —\n  @icon-cache-bust:begin marker present, :end marker present, block\n  contains a parseable PWA_ICON_PATHS array. Catches future edits\n  that would orphan inject-icon-hashes.mjs before it throws on the\n  next build. Suite now 47/47 (was 44/44).\n- scripts/inject-icon-hashes.mjs: added --help flag describing\n  inputs / side-effects / fail-loud conditions, with pointer to\n  CLAUDE.md § Icon Cache Busting.\n\nDocs:\n- docs/SESSION_NOTES.md: rewritten with a fresh snapshot covering the\n  seven fleet-alignment tasks landed on this branch (was stale —\n  only described the first task).\n- docs/TODO.md: added a delete-on-verify reminder to the High Priority\n  live-browser entry. Each subsection's bullets get deleted (not\n  struck-through) as they're verified; the parent entry only goes once\n  every subsection is empty.\n- CLAUDE.md: tightened the BURGER_MENU row in § Pattern Adoption Status\n  so the \"ModalBackdrop helper IS adopted\" caveat is co-equal with the\n  not-applicable verdict, not buried in a parenthetical.\n\nVerification:\n- npx tsc --noEmit: 0 errors\n- npm run build:web (after Metro cache clear): clean, dist has zero\n  favicon.png references\n- npm run verify:inline-scripts: 47 passed, 0 failed\n- node scripts/inject-icon-hashes.mjs --help: prints help and exits\n- node scripts/inject-icon-hashes.mjs (no args): byte-identical\n  output on unchanged icons (idempotent)\n\nTags: cleanup, code-quality, docs, pwa, verify\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01UiYobyYgDFYNeVKZrChVXH",
+  "tags": [
+    "refactor",
+    "docs",
+    "removal",
+    "test-unit"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 12,
+    "additions": 144,
+    "deletions": 58
+  },
+  "files": [
+    "CLAUDE.md",
+    "app.json",
+    "assets/images/favicon.png",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "hooks/usePWAUpdate.ts",
+    "public/sw.js",
+    "public/version.json",
+    "scripts/generate-icons.mjs",
+    "scripts/inject-icon-hashes.mjs",
+    "scripts/verify-inline-scripts.mjs",
+    "utils/debugRootMount.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 1,
+  "impact": "internal"
+}

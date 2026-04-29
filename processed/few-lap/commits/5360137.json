@@ -1,0 +1,31 @@
+{
+  "sha": "5360137",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T21:48:43Z",
+  "subject": "fix(debug): boot pill clear also removes error listeners + guards null reason",
+  "body": "Two small tightenings to the pre-React boot pill:\n\n1. __debugClearLoadTimer now also removes the window.error and\n   unhandledrejection listeners it registered. Previously they stayed\n   live post-mount, so any runtime error would re-trigger the red\n   banner alongside DebugPill's own error-count badge (double-\n   surfacing the same event, with inconsistent UX). Boot pill is for\n   *boot* failure visibility — DebugPill handles runtime.\n2. unhandledrejection handler falls back to 'Unhandled rejection'\n   when e.reason is null/undefined, instead of showing the literal\n   string \"undefined\" / \"null\".\n\nHandlers extracted to named function expressions so removeEventListener\ncan target them.\n\ntsc --noEmit: 0 errors. jest: 63/63. expo export --platform web: clean;\nbuilt dist/index.html contains the two removeEventListener calls.\n\nTags: debug, bugfix, boot\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 10,
+    "deletions": 3
+  },
+  "files": [
+    "app/+html.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "user-facing"
+}

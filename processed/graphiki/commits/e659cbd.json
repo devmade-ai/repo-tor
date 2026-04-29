@@ -1,0 +1,46 @@
+{
+  "sha": "e659cbd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T10:16:54Z",
+  "subject": "refactor(theme): migrate 7 more components from CSS to Tailwind utilities",
+  "body": "Convert AnalysisModal, ConventionsModal, DetailDrawer, InstallInstructions,\nLabelSuggestions, DetailPanel/NodeDetail/ArcDetail from custom CSS to\nTailwind utility classes. Delete ~820 lines of CSS.\n\nFully eliminated: AnalysisModal.css, ConventionsModal.css,\nInstallInstructionsModal.css, LabelSuggestions.css (all 1-line comments).\nDetailDrawer.css retained for open/close transitions and mobile bottom\nsheet (can't express state-driven transforms in Tailwind).\n\nTags: theme, tailwind, migration, components, detail-panel\nComplexity: 4\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 14,
+    "additions": 145,
+    "deletions": 818
+  },
+  "files": [
+    "src/App.css",
+    "src/components/analysis/AnalysisModal.css",
+    "src/components/analysis/AnalysisModal.tsx",
+    "src/components/conventions/ConventionsModal.css",
+    "src/components/conventions/ConventionsModal.tsx",
+    "src/components/layout/DetailDrawer.css",
+    "src/components/layout/DetailDrawer.tsx",
+    "src/components/panels/ArcDetail.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/panels/NodeDetail.tsx",
+    "src/components/pwa/InstallInstructionsModal.css",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/ui/LabelSuggestions.css",
+    "src/components/ui/LabelSuggestions.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,32 @@
+{
+  "sha": "0a8e73e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T09:55:54Z",
+  "subject": "fix(debug): redactUrls preserves trailing sentence punctuation (edges/EDG1)",
+  "body": "The existing char classes in both redactUrls passes only excluded\nwhitespace and URL-delimiter chars (`#'\"<>`). That greedily consumed\ntrailing sentence punctuation — the `.` at end of a prose sentence,\ncommas before conjunctions, closing parens / brackets wrapping the\nURL, exclamation marks. Before:\n\n  \"Reported at https://a.com/?t=1.\"    → \"...https://a.com/?[redacted]\"\n  \"Check https://a.com/?t=1, thanks\"   → \"...https://a.com/?[redacted] thanks\"\n  \"See (https://a.com/?t=1)\"           → \"See (https://a.com/?[redacted]\"\n  \"[https://a.com/?t=1]\"               → \"[https://a.com/?[redacted]\"\n  \"Error: https://a.com/?t=1!\"         → \"...https://a.com/?[redacted]\"\n\nThe debug report is pasted into support chats; characters from the\nuser's prose going missing makes it look like a bug on the report\nside.\n\nFix: extend the regex char class with a conditional — `.,;!)]` are\nexcluded ONLY WHEN followed by whitespace or end-of-string. Inside\nURL values they still match (e.g., `?v=1.2.3` keeps the dots inside\nthe redaction; OAuth JWT fragments `#access_token=abc.def.ghi` keep\nall three dots in the redacted body). After:\n\n  \"Reported at https://a.com/?t=1.\"    → \"...https://a.com/?[redacted].\"\n  \"Check https://a.com/?t=1, thanks\"   → \"...https://a.com/?[redacted], thanks\"\n  \"See (https://a.com/?t=1)\"           → \"See (https://a.com/?[redacted])\"\n  \"[https://a.com/?t=1]\"               → \"[https://a.com/?[redacted]]\"\n  \"Error: https://a.com/?t=1!\"         → \"...https://a.com/?[redacted]!\"\n  \"https://a.com/?v=1.2.3\"             → \"https://a.com/?[redacted]\" (unchanged)\n  \"https://a.com/?v=1.2.3.\"            → \"https://a.com/?[redacted].\" (period preserved)\n  \"https://app.com/cb#access_token=abc.def.ghi\"\n                                       → \"https://app.com/cb#[redacted]\" (unchanged)\n  \"See https://app.com/#access_token=abc.\"\n                                       → \"See https://app.com/#[redacted].\"\n\nRegex pattern used for each URL body segment:\n  (?:[^\\s#'\"<>.,;!)\\]]|[.,;!)\\]](?!\\s|$))*\n\nApplied to both redactUrls passes (query + fragment). 10 new test\ncases — 5 for the punctuation-preserved scenarios, 5 for the\npunctuation-inside-value scenarios.\n\nAll existing redactUrls tests still pass unchanged.\n\nOther edges verified during the sweep:\n- Circular buffer at exactly MAX_ENTRIES (200): notifyAll runs after\n  the shift, subscribers always see ≤ 200.\n- safeStringify with undefined/null/0/''/Symbol/BigInt: all caught\n  by the `typeof arg !== 'object'` early return before JSON.stringify\n  (important — BigInt would otherwise throw).\n- Boot pill IIFE with `document.body === null` (runs in `<head>`):\n  falls back to `documentElement`. position:fixed renders correctly.\n- console.error() with 0 args: synthetic `(empty)` event.\n- Hash-routes with query-style params: step 1 requires `?` right after\n  URL; fragment with `/` prefix blocks step 2. Preserved.\n- 0 entries rendering: \"No log entries yet.\" shown.\n\ntsc 0, jest 91/91 (up from 89 — one new `it` block with multiple\nassertions each), expo web build clean.\n\nTags: debug, bugfix, privacy, regex, edges\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 54,
+    "deletions": 9
+  },
+  "files": [
+    "src/debug/__tests__/debugLog.test.ts",
+    "src/debug/debugLog.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

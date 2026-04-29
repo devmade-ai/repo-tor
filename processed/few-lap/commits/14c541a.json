@@ -1,0 +1,32 @@
+{
+  "sha": "14c541a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T10:10:53Z",
+  "subject": "docs: document layout over-engineering disaster — 29 days broken, 11 fix commits",
+  "body": "Records the full timeline of the home screen layout failure in\nAI_MISTAKES.md and adds 8 permanent layout rules to CLAUDE.md AI Notes.\n\nThe core lesson: the fix was deleting 145 lines of PanResponder/BottomSheet/\nplatform-split code and replacing it with a flex column. Every \"fix\" attempt\nthat added complexity instead of removing it made things worse. Five review\nrounds found 40+ minor bugs but never checked if the map rendered on mobile web.\n\nTags: documentation, ai-mistakes, lessons\nComplexity: 2\nUrgency: 5\nImpact: internal\nRisk: low\nDebt: paid\nEpic: home-screen\nSemver: patch\n\nhttps://claude.ai/code/session_01HnBSG61YnVSBBHYX5JEEiC",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "home-screen",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 47,
+    "deletions": 0
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 5,
+  "impact": "internal"
+}

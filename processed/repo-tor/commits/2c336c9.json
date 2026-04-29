@@ -1,0 +1,34 @@
+{
+  "sha": "2c336c9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T23:23:08Z",
+  "subject": "docs(claude): consolidate exception lists after third-pass cleanup",
+  "body": "Third audit-pass summary commit. The previous 5 commits in this\nseries removed four of the documented CLAUDE.md exceptions by\nchanging the code itself — this commit rewrites the exception list\nblocks to reflect the final state, plus rolls up the session notes\nand history for the whole pass.\n\nCLAUDE.md \"Frontend: Styles and Scripts\" changes:\n\n  - **Element-selector exceptions** collapsed from 3 entries to 1.\n    The `* { font-family }` reset (commit 12cd65d) and the\n    `h1, h2, h3 { font-mono }` heading rule (commit 5bcc2c2) are\n    both gone. `body::before` decorative grid is the only remaining\n    element-selector rule — and it's a pseudo-element, so it\n    genuinely cannot be expressed as a Tailwind utility.\n\n  - **Hex literal exceptions** collapsed from 3 entries to 2. The\n    `themes.js #808080` fallback (commit 0cc5d6e) was replaced with\n    `META_COLORS[DEFAULT_LIGHT_THEME]`, so `themes.js` source code\n    contains zero hex literals now. DebugPill subsystem and the\n    auto-generated `themeMeta.js` remain as documented exceptions,\n    both with capability-gap rationales (isolated React root\n    resilience, browser meta-tag spec limitation respectively).\n\n  - **Static inline-style exceptions** collapsed from 2 entries to\n    1. The root ErrorBoundary in main.jsx (commit aea7c43) is now\n    pure Tailwind utilities; DebugPill subsystem remains as the\n    only static-inline-style exception because the resilience\n    argument there is genuinely load-bearing — the pill's whole\n    purpose is to be a diagnostic surface when CSS has failed.\n\n  - **Arbitrary bracket value exceptions: 4, unchanged.** All four\n    remaining bracket values are genuine capability gaps:\n      * `z-[var(--z-sticky-header)]` (z-21) / `z-[var(--z-toast)]`\n        (z-70) — design-token z-scale values that stock Tailwind's\n        integer 10 scale doesn't cover.\n      * `grid-cols-[auto_repeat(7,1fr)]` — functional grid row\n        alignment that can't be expressed with stock grid-cols-N.\n      * `max-w-[calc(100vw-2rem)]` — Tailwind has no max-width\n        utility that takes a calc() input.\n\n    None of these are removable without losing a capability or\n    collapsing the z-scale in a way that sacrifices real stacking\n    distinctions.\n\nEach removed exception has a one-line reference to the removal\ncommit in the updated list blocks so a future reader can trace\nthe history without checking git log.\n\nDocumentation rollup:\n\n  - **docs/SESSION_NOTES.md**: third-pass section added with 6\n    commit summaries + an \"after the third pass, the exception\n    list is:\" subsection with before/after counts per category.\n    File-size posture updated (styles.css 177 → 175 after the\n    second element-selector removal).\n\n  - **docs/HISTORY.md**: new \"Third audit-cleanup pass\" entry at\n    the top of the 2026-04-15 section with paragraph-per-commit\n    summaries for all 6 commits. Keeps the first-pass and\n    second-pass entries unchanged below.\n\n  - **docs/TODO.md** footer: rewritten to describe all three\n    passes (13 + 8 + 6 commits) and the final exception count.\n    Notes that no pure design-preference exceptions remain — every\n    remaining exception has a stated capability-gap or resilience\n    rationale, so a future \"remove exception X\" ask should be\n    approached as a design change, not a cleanup.\n\nVerified:\n  - Build clean (879.86 kB)\n  - 60/60 tests pass\n  - `dashboard/styles.css` is 175 lines (down from the 177 line\n    count in the second-pass posture note — two element-selector\n    blocks trimmed)\n\nTags: documentation, audit, policy\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 148,
+    "deletions": 7
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

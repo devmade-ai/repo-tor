@@ -1,0 +1,34 @@
+{
+  "sha": "b5cfee0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T19:56:53Z",
+  "subject": "refactor(ui): consolidate cell grid components, reorder Structure sections",
+  "body": "Replaced ContextBar's inline CellGrid with MiniCellGrid (new 'contextbar'\nsize variant), eliminating ~80 lines of duplicated cell grid logic. Moved\nPages section before Grid in the Structure tab and collapsed it by default\nsince most users work with single-page designs.\n\nTags: ui, refactor, structure, components\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: restructure-panel-layout\nSemver: patch\n\nhttps://claude.ai/code/session_013WAQutJawUtoLdnVPBNnFc",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "restructure-panel-layout",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 119,
+    "deletions": 188
+  },
+  "files": [
+    "src/components/ContextBar.jsx",
+    "src/components/LayoutTab.jsx",
+    "src/components/MiniCellGrid.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

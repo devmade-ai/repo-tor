@@ -1,0 +1,45 @@
+{
+  "sha": "2015270",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T15:28:50Z",
+  "subject": "feat(theme): independent per-mode DaisyUI theme selection",
+  "body": "Replace paired nord/night theme with independent per-mode selection.\nUsers pick their light theme and dark theme separately from 16 curated\noptions (8 light + 8 dark). Mode toggle shows the relevant theme list.\n\nNew files:\n- src/config/daisyuiThemes.js: Theme catalog with metadata (names,\n  descriptions, meta theme-color values for PWA status bar)\n- src/components/ThemeSelector.jsx: Dropdown combining mode toggle\n  (sun/moon) with theme picker\n\nChanges:\n- index.css: Register all 16 themes in @plugin directive\n- useDarkMode.js: Per-mode theme state with localStorage persistence,\n  cross-tab sync for lightTheme/darkTheme keys\n- index.html: Flash-prevention reads per-mode theme from localStorage\n- App.jsx, DesktopLayout, MobileLayout, ReaderMode: Thread new theme\n  props and replace old toggle button with ThemeSelector\n\nTags: theme, daisyui, ui, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: daisyui-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01QDdpPbsw1PaMMrwihoc5hG",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "daisyui-migration",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 13,
+    "additions": 289,
+    "deletions": 82
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/STYLE_GUIDE.md",
+    "index.html",
+    "src/App.jsx",
+    "src/components/DesktopLayout.jsx",
+    "src/components/MobileLayout.jsx",
+    "src/components/ReaderMode.jsx",
+    "src/components/ThemeSelector.jsx",
+    "src/config/daisyuiThemes.js",
+    "src/hooks/useDarkMode.js",
+    "src/index.css"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

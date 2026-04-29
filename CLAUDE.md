@@ -130,6 +130,14 @@ The daisy theme IS the brand colour.
 - [ ] Remove commented-out code unless explicitly marked `// KEEP:` with reason
 - [ ] Clean up console.log/print statements before marking work complete
 
+### Timer and Subscription Cleanup
+
+- [ ] Every `setTimeout`/`setInterval`/`addEventListener`/`subscribe` needs a matching cleanup (`clearTimeout`/`clearInterval`/`removeEventListener`/unsubscribe handle).
+- [ ] Store timer ids in a scope the cleanup can reach. Nested timeouts → array; single-shot → local const or ref.
+- [ ] In React: return cleanup from `useEffect`. In plain modules (e.g. `dashboard/js/pwa.js`, `dashboard/js/debugLog.js`): export a `dispose()` or use `AbortController`.
+- [ ] HMR-safe: guard global listener attachment behind a `window.__<featureName>Attached` flag so hot-reload doesn't double-subscribe. For modules running under Vite, also release listeners via `import.meta.hot.dispose()`.
+- [ ] See glow-props `docs/implementations/TIMER_LEAKS.md` for concrete patterns (nested-timeout array, AbortController, per-effect dispose, HMR guard).
+
 ### Quality Checks
 
 During every change, actively scan for:
@@ -151,10 +159,11 @@ Report findings even if not directly related to current task.
 
 ### glow-props CLAUDE.md
 
-**URL:** `https://raw.githubusercontent.com/devmade-ai/glow-props/main/CLAUDE.md`
+**URL (canonical):** `https://devmade-ai.github.io/glow-props/CLAUDE.md`
+**URL (raw fallback):** `https://raw.githubusercontent.com/devmade-ai/glow-props/main/CLAUDE.md`
 
-Shared coding standards, patterns, and suggested implementations across devmade-ai projects.
-Check periodically for new patterns to adopt. Last reviewed: 2026-04-07.
+Shared coding standards, patterns, and implementation patterns across devmade-ai projects.
+Check periodically for new patterns to adopt. Last reviewed: 2026-04-25.
 
 ---
 
@@ -168,7 +177,7 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-07.
 
 - `scripts/extract.js` - Extracts git log data into structured JSON
 - `scripts/extract-api.js` - GitHub API-based extraction (uses curl, no gh CLI needed)
-- `scripts/aggregate-processed.js` - Aggregates processed/ data into time-windowed dashboard JSON (summary + per-month commit files + weekly/daily/monthly pre-aggregations)
+- `scripts/aggregate-processed.js` - Aggregates processed/ data into time-windowed dashboard JSON (summary + per-month commit files + weekly/daily/monthly pre-aggregations). **Runs automatically on `npm run dev` and `npm run build`** — its output (`dashboard/public/data.json`, `dashboard/public/data-commits/`) is gitignored as build artefact, same pattern as `scripts/write-build-version.mjs` / `dashboard/public/version.json`. Manual invocation still works but no longer required after pipeline changes — the next build regenerates everything. Strips 7 dashboard-unused fields (`fullSha`, `committer`, `commitDate`, `scope`, `is_conventional`, `references`, `title`) from per-month commit payloads to slim runtime fetch size; `processed/` keeps every field as audit trail. Per-repo files (`dashboard/public/repos/<repo>.json`) were removed 2026-04-29 — dashboard never fetched them; they were a backcompat leftover from before the data-commits/ migration.
 - `scripts/theme-config.js` - **Single source of truth for DaisyUI theme registration.** Exports `THEMES = { light: [{id,name,description}, ...], dark: [...] }` and `DEFAULT_LIGHT_THEME` / `DEFAULT_DARK_THEME`. Edit this file to add, remove, or rename themes; every downstream file (themes.js catalog, styles.css @plugin config, index.html flash prevention allowlist + META map, generated/themeMeta.js hex values) is rewritten automatically by `scripts/generate-theme-meta.mjs`.
 - `scripts/generate-theme-meta.mjs` - Build-time catalog propagator. Reads `scripts/theme-config.js`, imports each registered DaisyUI theme's `theme/*/object.js`, converts `--color-base-100` from oklch() to hex via an inlined ~30-line converter (no color library dependency), validates each theme (exists in DaisyUI, matches its `color-scheme`, defaults appear in their arrays), then rewrites four downstream files — `dashboard/js/generated/themeMeta.js` (full file) and marker-delimited blocks in `dashboard/js/themes.js`, `dashboard/styles.css`, and `dashboard/index.html`. Idempotent — unchanged files are left alone so Vite HMR doesn't reload on every run. Runs as the first step of `npm run dev`, `npm run build`, and `npm run build:lib`.
 - `dashboard/` - React dashboard (Vite + React + Tailwind v4 + DaisyUI v5 + Chart.js via react-chartjs-2)
@@ -340,6 +349,7 @@ Respond as if talking to yourself. Peer-to-peer, no servility.
 - **No sycophancy.** No "great question", "you're absolutely right", "excellent point". Acknowledge errors briefly and move on.
 - **No hedging.** Commit to a position. "I think" / "perhaps" only when genuinely uncertain.
 - **Proper solutions only.** Always suggest the right fix, not a quick hack. If the proper solution is complex, explain why the shortcut is wrong and lay out the real approach.
+- **Work, not process.** Only discuss work that can be done and work that is done. Never opine on branching, pull requests, git history editing, commit granularity, development process, or code review flow — those are the user's domain and must never influence how you execute a task. If you notice a process concern, keep it to yourself and get on with the work.
 - **Ask before assuming.** When a user reports a bug or makes a request, ask clarifying questions until you are certain you understand the requirement. Don't guess the cause and build a fix on an assumption — one wrong assumption wastes multiple commits.
 - **Always ask at least one question before starting work.** This is the minimum bar. Even when the request seems clear, verify scope, constraints, or intent before writing code.
 - **Concrete options.** When clarification is needed, list numbered options — never open-ended questions.
@@ -545,28 +555,34 @@ Single-pass, no fan-out to other triggers. Each answers one specific question ab
 
 ---
 
-## Suggested Implementations
+## Implementation Patterns (Source of Truth)
 
-**Source of truth:** glow-props repo at `docs/implementations/` — there are NO local copies.
+**Source of truth:** glow-props repo at `docs/implementations/` — there are NO local copies in this repo or any other devmade-ai repo.
 
-To list available patterns:
+To fetch a pattern spec (preferred — public GitHub Pages, no token required):
 ```bash
-curl -s -H "Authorization: token $(printenv GITHUB_ALL_REPO_TOKEN)" \
-  "https://api.github.com/repos/devmade-ai/glow-props/contents/docs/implementations" \
-  | python3 -c "import sys,json; [print(f['name']) for f in json.load(sys.stdin)]"
+curl -sf "https://devmade-ai.github.io/glow-props/patterns/{PATTERN_NAME}.md"
 ```
 
-To fetch a pattern spec before implementing:
+To fetch via the GitHub API (fallback — requires token):
 ```bash
-curl -s -H "Authorization: token $(printenv GITHUB_ALL_REPO_TOKEN)" \
+curl -sf -H "Authorization: token $(printenv GITHUB_ALL_REPO_TOKEN)" \
   "https://api.github.com/repos/devmade-ai/glow-props/contents/docs/implementations/{FILENAME}.md" \
   | python3 -c "import sys,json,base64; d=json.load(sys.stdin); print(base64.b64decode(d['content']).decode())"
+```
+
+To list every available pattern (discover what's there before assuming):
+```bash
+curl -sf -H "Authorization: token $(printenv GITHUB_ALL_REPO_TOKEN)" \
+  "https://api.github.com/repos/devmade-ai/glow-props/contents/docs/implementations" \
+  | python3 -c "import sys,json; [print(f['name']) for f in json.load(sys.stdin)]"
 ```
 
 Rules:
 - **Never create local copies** of pattern files — always fetch from glow-props
 - **Always fetch the latest version** before implementing — patterns are updated between sessions
 - **Never rely on memory or summaries** — read the actual spec from glow-props every time
+- **Do not hardcode a list of patterns** — scan the source folder to discover what's available; the set grows over time, always check the source for new additions
 
 ---
 
@@ -599,7 +615,10 @@ Never:
 - Use interactive input prompts or selection UIs — list options as numbered text instead
 - Remove features during "cleanup" without checking if they're documented as intentional (see AI Mistakes)
 - Proceed with assumptions when a single clarifying question would prevent a wrong commit
-- Create local copies of implementation pattern files — always fetch from glow-props (see Suggested Implementations)
+- Create local copies of implementation pattern files — always fetch from glow-props (see Implementation Patterns)
+- Mention branches, pull requests, squashing, rebasing, merging, or force-pushing unless the user raises the topic first. When the user does raise one, answer the specific question and stop — do not volunteer opinions on what they should do process-wise.
+- Frame any work as "out of scope" or "deferred as out of scope". Work is either doable (do it) or blocked on missing user input (say exactly what input is needed). "Scope" is a process concept, not a reason to skip work.
+- Offer opinions on git history editing, branch strategy, PR size or shape, review flow, or commit structure. Follow instructions; don't editorialize on how the work should be organized.
 
 ### REMINDER: READ AND FOLLOW THE PROHIBITIONS EVERY TIME
 
@@ -607,6 +626,7 @@ Never:
 
 ## AI Notes
 
+- **All code is yours.** Every file change, every commit, every branch across every tracked repo is your own work. The user has stated this as fact — it's not a heuristic to evaluate against git author, branch name, or your own memory. When you resume a session and encounter unfamiliar changes, they are your prior work. Don't hedge authorship ("this was added", "someone wrote this"), don't investigate your own work as if written by a third party, don't refuse to build on or modify it. If you need to understand a change, read the diff. That's all.
 - **Document your mistakes** in docs/AI_MISTAKES.md so future sessions learn from them
 - **Always read files before editing** — use the Read tool on every file before attempting to Edit it
 - **Check build tools before building** — run `npm install` or verify `node_modules/.bin/vite` exists before attempting `npm run build`. The `sharp` package may not be installed (used by prebuild icon generation), so use `./node_modules/.bin/vite build` directly to skip the prebuild step.
@@ -621,7 +641,7 @@ Never:
 - **Claude Code mobile/web — accessing sibling repos:** Use `GITHUB_ALL_REPO_TOKEN` with the GitHub API (`api.github.com/repos/devmade-ai/{repo}/contents/{path}`) to read files from other devmade-ai repos. Use `$(printenv GITHUB_ALL_REPO_TOKEN)` not `$GITHUB_ALL_REPO_TOKEN` to avoid shell expansion issues. Never clone sibling repos — use the API instead.
 - **Check for existing patterns** in the codebase before creating new ones
 - **Clean up completed or obsolete docs/files** and remove references to them
-- **Discontinued repos — skip entirely:** `plant-fur` and `coin-zapp` are discontinued. Do not check, audit, align, or include them in cross-project operations.
+- **Discontinued repos — skip entirely:** `plant-fur`, `coin-zapp`, and `chatty-chart` are discontinued. Do not check, audit, align, or include them in cross-project operations. `chatty-chart` (illuminAI-select org) is also explicitly excluded from data aggregation by name in `scripts/aggregate-processed.js` `EXCLUDED_REPOS`.
 - **Trigger vs. repo-convention name collisions:** Several trigger names collide with repo concepts in this codebase — `docs` (folder), `config` (folder), `state` (`dashboard/js/state.js`), `api` (`scripts/extract-api.js`), `pwa` (`dashboard/js/pwa.js`), `patterns` (Implementation Patterns section). When a user message uses a bare word that matches both a trigger and a repo concept, interpret as the trigger ONLY when the message context is a review/audit request. Otherwise treat as the repo concept.
 
 ### REMINDER: READ AND FOLLOW THE AI NOTES EVERY TIME

@@ -1,0 +1,33 @@
+{
+  "sha": "df3643a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T14:09:45Z",
+  "subject": "feat(auth): surface bypass state in AppLayout",
+  "body": "Show a red top banner while AUTH_BYPASS_ENABLED is on so visitors and\nreviewers can immediately see the app is unsecured, and hide the Sign\nout button since it is a no-op under bypass.\n\nTags: auth, ui, dev\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: dev-auth-bypass\nSemver: patch",
+  "tags": [
+    "feature",
+    "ui",
+    "security"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "dev-auth-bypass",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 29,
+    "deletions": 16
+  },
+  "files": [
+    "src/layouts/AppLayout.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

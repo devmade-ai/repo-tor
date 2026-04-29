@@ -1,0 +1,33 @@
+{
+  "sha": "78cc1e2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T00:22:45Z",
+  "subject": "fix(debug): notifyAll re-entry guard + cascade bound",
+  "body": "Previously, a subscriber that synchronously called debugAdd inside its\nown callback would re-enter notifyAll mid-iteration. Best case: each\nre-entry iterates all subscribers again, stack depth grows with each\nnested call. Worst case: a subscriber that always calls debugAdd\ninfinite-recurses to stack overflow. None of the current subscribers\ndo this, but the latent concern has been noted in-session for several\nrefactors.\n\nFix:\n- `notifying` flag tracks whether notifyAll is mid-iteration. If\n  re-entered, sets pendingNotify and returns — the entry is still\n  added (debugAdd adds to the buffer before calling notifyAll), and\n  the outer do-while picks up pendingNotify and runs another pass so\n  every subscriber still sees the new snapshot. Single-pass iteration\n  semantics preserved.\n- NOTIFY_CASCADE_MAX = 10 bounds pathological subscribers that ALWAYS\n  call debugAdd (which would otherwise spin forever in the do-while).\n  10 rounds is way beyond any realistic cascade — Fast-Refresh errors,\n  PropType warnings, etc. rarely stack more than 2–3 deep.\n\nNew tests (2):\n- A subscriber that cascades 3 times: all 3 'cascade-N' entries land\n  in the buffer, no RangeError, no hang.\n- A subscriber that infinitely re-triggers: entry count is finite\n  (bounded by the cascade guard) and control returns normally.\n\ntsc 0, jest 83/83 (up from 81), expo web build clean.\n\nTags: debug, bugfix, reliability\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 81,
+    "deletions": 10
+  },
+  "files": [
+    "src/debug/__tests__/debugLog.test.ts",
+    "src/debug/debugLog.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "internal"
+}

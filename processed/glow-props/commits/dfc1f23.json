@@ -1,0 +1,46 @@
+{
+  "sha": "dfc1f23",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T06:05:09Z",
+  "subject": "feat(css): migrate from Pico CSS to Tailwind v4 + DaisyUI v5",
+  "body": "Replace Pico CSS v2.1.1 with Tailwind CSS v4.2.2 + DaisyUI v5.5.19 for full\nstyling control, animations, and customization. Pico's opinionated defaults\ncaused persistent spacing/wrapping issues and limited visual polish.\n\n- Add Tailwind CSS v4, @tailwindcss/vite plugin, DaisyUI v5\n- Create main.css with Tailwind directives, DaisyUI theme config, custom\n  animations (scroll-triggered fade-in-up, card hover effects)\n- Rewrite index.html with Tailwind utilities + DaisyUI components (navbar,\n  card, badge, link), gradient hero text, sticky glassmorphism nav\n- Rewrite project.html — meta grid, tabs, doc viewer, markdown renderer\n- Update theme.js to set both .dark class (Tailwind) and data-theme (DaisyUI)\n- Update flash-prevention scripts for dual class/attribute approach\n- Add Intersection Observer for scroll-triggered animations\n- Delete pico-theme.css and styles.css (420 lines of Pico overrides)\n- Remove @picocss/pico dependency\n- Move Tailwind/DaisyUI to devDependencies (build-time only)\n- Update README and docs to reflect new tech stack\n\nAll accessibility preserved: disclosure pattern burger menu, aria-expanded,\nfocus-visible outlines, 44px touch targets, safe area insets, print styles.\n\nTags: css, tailwind, daisyui, migration, ui, animations\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: css-framework-migration\nSemver: major\n\nhttps://claude.ai/code/session_01BuRYF1Mc9N3Eh18WUDsNbX",
+  "tags": [
+    "migration",
+    "refactor",
+    "ui",
+    "dependency-add",
+    "dependency-remove"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "css-framework-migration",
+  "semver": "major",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 12,
+    "additions": 1427,
+    "deletions": 1069
+  },
+  "files": [
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "index.html",
+    "main.css",
+    "package-lock.json",
+    "package.json",
+    "pico-theme.css",
+    "project.html",
+    "public/theme.js",
+    "styles.css",
+    "vite.config.js"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

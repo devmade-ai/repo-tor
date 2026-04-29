@@ -1,0 +1,35 @@
+{
+  "sha": "bbc3eb3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T15:42:07Z",
+  "subject": "docs(migrations): record outstanding-migration fix + add filename-uniqueness test",
+  "body": "Follow-up to 75b4d67 — documents the drift that was caught (14 of 18\nmigrations outstanding on remote despite Project Status claiming all\npushed), adds the missing guard rail, and updates the docs that\nsurvive across sessions.\n\n- scripts/__tests__/migration-files.test.ts: Jest test asserting every\n  migration filename is a 14-digit timestamp and no two files share a\n  version. Would have caught the duplicate 20260311000001 on commit.\n  Runs via existing `npm test`.\n- CLAUDE.md project-status line: 17/18, with the spatial_ref_sys\n  outlier linked to USER_ACTIONS.md.\n- CLAUDE.md AI Notes: two new rules — (1) management API and `db push`\n  run as `postgres`, not `supabase_admin`, so DDL on PostGIS/auth/\n  storage tables must go via Studio SQL Editor; (2) never trust a\n  project-status checkbox as evidence of remote state without querying\n  the source of truth.\n- docs/AI_MISTAKES.md: 2026-04-21 entry — trusted stale checkbox,\n  missed duplicate version + return-type change for ~2 months.\n- docs/SESSION_NOTES.md: rewritten with this session's actual work.\n\nSkipped deliberately: backfilling `statements` column on the 13\ninserted schema_migrations rows (column is nullable, cosmetic only),\nand return-type-drift static detection (harder to implement reliably,\nlower return than the filename check).\n\nTags: documentation, migrations, testing\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: db-sync\nSemver: patch",
+  "tags": [
+    "documentation",
+    "test-unit"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "db-sync",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 104,
+    "deletions": 46
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/__tests__/migration-files.test.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

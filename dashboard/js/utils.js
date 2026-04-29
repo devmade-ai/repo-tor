@@ -265,27 +265,26 @@ export function getAuthorEmail(commit) {
 }
 
 // === Data Format Helpers ===
+// Use ?? (nullish coalescing) so that 0 isn't treated as falsy.
+// Earlier versions of these helpers carried fallback chains for legacy
+// snake_case fields (files_changed, lines_added, lines_deleted, message)
+// produced by extractions before the schema migration. Those 44 commits
+// were normalized to the canonical shape on 2026-04-29; the fallbacks
+// were a backcompat shim and were removed per CLAUDE.md.
 export function getFilesChanged(commit) {
-    // Handle different data formats: stats.filesChanged, filesChanged, files_changed
-    // Use ?? (nullish coalescing) so that 0 is not treated as falsy
-    return commit.stats?.filesChanged ?? commit.filesChanged ?? commit.files_changed ?? 0;
+    return commit.stats?.filesChanged ?? 0;
 }
 
 export function getCommitSubject(commit) {
-    // Handle different data formats: subject vs message
-    return commit.subject || commit.message || '';
+    return commit.subject || '';
 }
 
 export function getAdditions(commit) {
-    // Handle different data formats: stats.additions vs lines_added
-    // Use ?? (nullish coalescing) so that 0 is not treated as falsy
-    return commit.stats?.additions ?? commit.lines_added ?? 0;
+    return commit.stats?.additions ?? 0;
 }
 
 export function getDeletions(commit) {
-    // Handle different data formats: stats.deletions vs lines_deleted
-    // Use ?? (nullish coalescing) so that 0 is not treated as falsy
-    return commit.stats?.deletions ?? commit.lines_deleted ?? 0;
+    return commit.stats?.deletions ?? 0;
 }
 
 // === UTC Date Helpers ===

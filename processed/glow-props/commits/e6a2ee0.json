@@ -1,0 +1,46 @@
+{
+  "sha": "e6a2ee0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T15:06:44Z",
+  "subject": "fix(audit): comprehensive 9-trigger parallel audit sweep",
+  "body": "Ran all 9 audit triggers (review, audit, docs, mobile, clean, perf, sec,\ndebug, improve) in parallel and applied fixes across all categories.\n\nDeduplication: Extracted shared head content and skip link into partials\n(head-common.html, skip-link.html), extended htmlPartials Vite plugin.\nSecurity: Added CSP meta tags, fixed isSafeUrl percent-encoding bypass,\nadded projectName validation, theme validation against known lists.\nAccessibility: Added prefers-reduced-motion support (WCAG 2.1 SC 2.3.3),\nfocus management on tab switches, scrollbar-gutter layout shift fix.\nError handling: Added doc file fetch timeouts, timeout vs 404 error\ndifferentiation with retry button, copy failure feedback, descriptive\ncatch block comments in pwa.js.\nCleanup: Removed 30+ inline onclick handlers (delegated), unused CSS\n(animate-fade-in, data-delay 5), build console.log.\nPerformance: Non-render-blocking Google Fonts loading.\nImprovements: Build-time meta.json validation plugin, markdown renderer\nCSS classes in main.css replacing inline Tailwind strings in JS.\n\nTags: audit, security, accessibility, cleanup, performance, deduplication\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: parallel-audit-sweep\nSemver: minor\n\nhttps://claude.ai/code/session_01PkFsUzwZ5J1e5RQC86PwAF",
+  "tags": [
+    "security",
+    "accessibility",
+    "performance",
+    "refactor",
+    "sanitization"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "parallel-audit-sweep",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 12,
+    "additions": 468,
+    "deletions": 263
+  },
+  "files": [
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "index.html",
+    "main.css",
+    "partials/head-common.html",
+    "partials/skip-link.html",
+    "project.html",
+    "public/theme.js",
+    "src/pwa.js",
+    "vite.config.js"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

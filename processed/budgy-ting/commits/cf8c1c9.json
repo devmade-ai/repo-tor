@@ -1,0 +1,32 @@
+{
+  "sha": "cf8c1c9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T22:50:52Z",
+  "subject": "fix(pwa): HMR-safe cleanup for module-level visibilitychange listener",
+  "body": "Pattern-audit against glow-props TIMER_LEAKS.md §5 flagged\nusePWAUpdate.ts as partial: the module-level\n`document.addEventListener('visibilitychange', ...)` had no HMR guard\nand no dispose hook, so every Vite hot-reload cycle in dev would\ndouble-subscribe the listener and orphan the periodic SW-check\ninterval.\n\nChanges:\n- Extracted the anonymous visibilitychange handler into a named\n  function `onVisibilityChange` so removeEventListener can reach it.\n- Added `window.__pwaUpdateAttached` guard flag per glow-props pattern\n  to prevent double-subscription on module re-evaluation.\n- Added `import.meta.hot.dispose()` hook that removes the listener,\n  clears `updateCheckInterval`, and resets the guard flag.\n\nNo runtime behavior change in production (HMR hooks are dev-only).\nEliminates dev-only listener doubling and interval leaks.\n\nType-check passes (vue-tsc -b --noEmit clean).\n\nRelated: other composables (useDarkMode, usePWAInstall, debugLog)\nalso attach module-level listeners without HMR guards — surfaced\nfor separate follow-up, not included in this commit per scope.\n\nTags: pwa, timer-leaks, hmr, cleanup, fleet-alignment\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 35,
+    "deletions": 2
+  },
+  "files": [
+    "src/composables/usePWAUpdate.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

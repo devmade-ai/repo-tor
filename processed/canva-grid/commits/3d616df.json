@@ -1,0 +1,31 @@
+{
+  "sha": "3d616df",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T23:38:54Z",
+  "subject": "docs(claude-md): correct Z_INDEX_SCALE deviation rationale",
+  "body": "Previous wording implied MobileNav z-40 vs BurgerMenu backdrop z-40\nwas a tie-break driven by DOM order — that's not the real mechanism.\nThe actual gate is the header's `z-50` stacking context (applied when\nthe menu opens), which contains the backdrop and reliably places it\nabove MobileNav regardless of DOM ordering. Also clarified:\n\n- MobileNav z-40 is driven by a concrete constraint (stay above\n  BottomSheet z-30 so tab-tap can close the sheet), not an arbitrary\n  choice.\n- Pattern-strict alignment would require a BottomSheet layout refactor\n  (bottom-inset above MobileNav) with no behavioral improvement —\n  intentionally not undertaken.\n- Modal deviation rationale tightened: the debug pill's crash-survival\n  purpose is preserved because modals are inside App.jsx and unmount\n  with it, while the pill lives in #debug-root.\n\nNo code changes — documentation accuracy only.\n\nTags: docs, claude-md, z-index, pattern-audit\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "fleet-alignment",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

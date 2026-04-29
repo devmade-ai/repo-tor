@@ -1,0 +1,36 @@
+{
+  "sha": "0d27e0c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T18:26:40Z",
+  "subject": "feat(ui): move search to header modal, revert dropdown flip, 50/50 split",
+  "body": "Search is now triggered from a header icon button and opens as a modal\noverlay, giving full screen space for suggestions on mobile. Dropdown\ndirection reverted to downward (no longer needed since modal has room).\nMap and station list now share equal vertical space (flex 1:1).\n\nTags: ui, layout, mobile, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: home-layout\nSemver: minor\n\nhttps://claude.ai/code/session_01WVyDTypj9oQmpr5yGNMmMP",
+  "tags": [
+    "refactor",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "home-layout",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 104,
+    "deletions": 30
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "src/components/search/HeaderFilters.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/contexts/FilterContext.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,32 @@
+{
+  "sha": "4208edd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T15:09:45Z",
+  "subject": "fix(burger-menu): optional chaining on NodeListOf index access",
+  "body": "vue-tsc -b (build mode) correctly flags NodeListOf index access as\npossibly undefined. Added ?.focus() on all four arrow/Home/End paths.\nIndices are always in-bounds (guarded by length check), but strict\nTypeScript requires the optional chain.\n\nTags: burger-menu, typescript\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: glow-props-sync\nSemver: patch\n\nhttps://claude.ai/code/session_01HStghTVMRxyymnHn4AWxUi",
+  "tags": [
+    "bugfix",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "glow-props-sync",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 4,
+    "deletions": 4
+  },
+  "files": [
+    "src/components/BurgerMenu.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

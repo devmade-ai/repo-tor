@@ -1,17 +1,11 @@
 {
   "sha": "036cf2c",
-  "fullSha": "036cf2ce6d3767370d5dc674fff40ca63f5ccbf7",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-03-14T14:57:30Z",
-  "commitDate": "2026-03-14T14:57:30Z",
   "subject": "refactor(clean): extract 6 oversized files below 500-line threshold",
   "body": "Reduced all files exceeding the 500-line code organization threshold\nvia focused extraction into 8 new files:\n\n- App.tsx (723→323): useAppModals hook for modal state\n- DetailPanel.tsx (693→220): NodeDetail, ArcDetail, propertyUtils\n- GraphCanvas.tsx (607→423): cytoscapeStyles (stylesheet, constants)\n- embeddingService.ts (797→316): embeddingWorkerBridge (worker lifecycle)\n- DuplicateScannerModal.tsx (698→471): DuplicatePairCard\n- ImportModal.tsx (575→254): SmartMatchingStep\n\nTags: clean, extraction, code-organization, refactor\nComplexity: 4\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: code-hygiene\nSemver: patch\n\nhttps://claude.ai/code/session_01VrzHr2hRkv11YucCT1uDSp",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "code-review",
   "semver": "patch",
-  "scope": "clean",
-  "title": "extract 6 oversized files below 500-line threshold",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 17,
     "additions": 1715,

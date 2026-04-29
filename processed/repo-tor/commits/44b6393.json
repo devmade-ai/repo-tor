@@ -1,0 +1,34 @@
+{
+  "sha": "44b6393",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-15T22:35:12Z",
+  "subject": "chore(hygiene): session notes shas, hamburger comment, header dep array",
+  "body": "Audit findings #18, #19, #20 — three small hygiene fixes batched\ntogether since each is a one-spot edit.\n\n#18 SESSION_NOTES.md commit shas — the \"Last Session's Work\" list\nhad the first 6 commit shas written out but commits 7-13 were\ncollapsed to \"7-13. —\" because the shas hadn't been minted yet when\nSESSION_NOTES was rewritten in commit 51d16d2. Backfilled the\nremaining 7 shas (51d16d2, 2036661, 4f38b72, feb7129, f0bd185,\n2f815d1, fd0985b) with one-line summaries matching their commit\nmessages. Also added a new \"Second pass\" subsection listing the\nfollow-on cleanup commits (09ca333 exceptions expansion, 3520a6f\ndead-code sweep round 2, plus a forward reference to the remaining\ncommits in this batch). A future session can trace the full\nbranch history by reading SESSION_NOTES + git log together.\n\n#19 HamburgerMenu.jsx stale z-[40]/z-[50] comment — the backdrop\ncomment still referenced the arbitrary-bracket `z-[40]` and\n`z-[50]` forms, but the code migrated to stock `z-40` / `z-50`\nutilities months ago (2026-04-14 vanilla-DaisyUI sweep). Rewrote\nthe comment to describe the actual current code: stock Tailwind\nutilities that happen to line up exactly with the :root design\ntoken scale (--z-menu-backdrop: 40, --z-menu: 50). Explicit note\nthat no arbitrary value is needed because the two token values\nmatch Tailwind's stock scale exactly — this is different from\nHeader.jsx / Toast.jsx where z-21 / z-70 require the arbitrary\n`z-[var(...)]` form because stock Tailwind has no such utility.\n\n#20 Header.jsx menuItems useMemo dep array — was listing\n`setGuideOpen` in the deps. useState setters have guaranteed stable\nidentity across renders (documented React guarantee), so including\nthem in dep arrays is noise that falsely suggests they could\nchange. Dropped from deps, added an inline comment explaining why\nit's deliberately omitted so a future reader doesn't add it back\nthinking it was an oversight.\n\nBuild clean, 60/60 tests pass.\n\nTags: documentation, hygiene, audit\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
+  "tags": [
+    "documentation",
+    "comments"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "post-audit-cleanup",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 42,
+    "deletions": 12
+  },
+  "files": [
+    "dashboard/js/components/HamburgerMenu.jsx",
+    "dashboard/js/components/Header.jsx",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

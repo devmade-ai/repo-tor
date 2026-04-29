@@ -1,0 +1,32 @@
+{
+  "sha": "806fdb7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-06T08:35:17Z",
+  "subject": "fix(graph): make arc labels white to match node labels",
+  "body": "Arc labels were using neutralContent (gray) while node labels were white.\nChanged to plain white for visual consistency across the graph.\n\nTags: graph, cytoscape, styling\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: graph-styling\nSemver: patch\n\nhttps://claude.ai/code/session_01BNSKVYwjVTZWF7BzpmAHB5",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "graph-styling",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 5,
+    "deletions": 5
+  },
+  "files": [
+    "src/components/graph/cytoscapeStyles.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

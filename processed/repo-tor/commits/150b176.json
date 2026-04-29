@@ -1,0 +1,38 @@
+{
+  "sha": "150b176",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T21:47:10Z",
+  "subject": "feat(pwa): add favicon.ico generation for legacy browser support",
+  "body": "Add 32x32 favicon.ico via manual ICO packing in generate-icons.mjs\n(zero extra dependencies). Completes APP_ICONS pattern parity with\nglow-props — the last missing item was favicon.ico for Windows taskbar\npinning and legacy browsers that don't support SVG favicons.\n\nThe SVG inline favicon remains the primary <link> for modern browsers;\nthe .ico is a fallback via a second <link rel=\"icon\" type=\"image/x-icon\">.\n\nTags: pwa, icons, legacy-support\nComplexity: 2\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: minor\n\nhttps://claude.ai/code/session_01FZx63vfq6y3XePEh5evu7P",
+  "tags": [
+    "feature",
+    "build"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 61,
+    "deletions": 23
+  },
+  "files": [
+    "assets/images/favicon.ico",
+    "dashboard/index.html",
+    "dashboard/public/favicon.ico",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "scripts/generate-icons.mjs"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "user-facing"
+}

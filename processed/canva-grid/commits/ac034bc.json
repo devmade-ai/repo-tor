@@ -1,0 +1,32 @@
+{
+  "sha": "ac034bc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T01:12:56Z",
+  "subject": "fix(pwa): catch unhandled rejections from registration.update()",
+  "body": "Visibility handler and hourly interval call _registration.update()\nfire-and-forget. If the registration becomes invalid (SW unregistered\nexternally, network error), the returned Promise rejects without a\nhandler — generating console errors and triggering debug console\ninterception, potentially spamming the log buffer.\n\ncheckForUpdate() already wraps this in try/catch. Added .catch(() => {})\nto the two fire-and-forget callers for parity.\n\nTags: pwa, hooks, error-handling\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pwa-reliability\nSemver: patch\n\nhttps://claude.ai/code/session_01AC1UWyZGqVwHGuu6SPJr72",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-reliability",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 4,
+    "deletions": 2
+  },
+  "files": [
+    "src/hooks/usePWAUpdate.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,39 @@
+{
+  "sha": "ded8f36",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-25T19:25:28Z",
+  "subject": "Merge pull request #26 from devmade-ai/claude/fix-api-404-errors-Y0WAL",
+  "body": "Fix Sancio routing and close cron auth fail-open",
+  "tags": [
+    "merge"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "sancio-api-stability",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 9,
+    "additions": 501,
+    "deletions": 102
+  },
+  "files": [
+    "API.md",
+    "CLAUDE.md",
+    "api/__tests__/sancio/cron.test.ts",
+    "api/__tests__/sancio/dispatcher.test.ts",
+    "api/sancio/[...slug].ts",
+    "docs/AI_MISTAKES.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "lib/routes/sancio/cron.ts"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "internal"
+}

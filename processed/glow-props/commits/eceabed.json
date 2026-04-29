@@ -1,0 +1,40 @@
+{
+  "sha": "eceabed",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T09:07:51Z",
+  "subject": "feat(pwa): add installable PWA with offline support and update prompts",
+  "body": "Portfolio site is now a Progressive Web App. Service worker precaches all\nassets for offline viewing (useful for demos/interviews with spotty wifi).\nUsers control when updates apply via a non-intrusive banner.\n\n- vite-plugin-pwa with registerType: 'prompt'\n- Vanilla JS pwa.js: SW registration, update banner, offline toast,\n  install prompt with browser-specific manual instructions\n- beforeinstallprompt early capture in both HTML files\n- \"Install app\" burger menu item (hidden when installed/dismissed)\n- 1024x1024 maskable icon generated via Sharp at 400 DPI\n- apple-touch-icon for iOS home screen\n\nTags: pwa, install, offline, service-worker, feature\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pwa\nSemver: minor\n\nhttps://claude.ai/code/session_01HoZf1sn3s7HFAdrXTdCf66",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pwa",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 10,
+    "additions": 6953,
+    "deletions": 1677
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "project.html",
+    "public/assets/images/icon-1024.png",
+    "scripts/generate-icons.mjs",
+    "src/pwa.js",
+    "vite.config.js"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

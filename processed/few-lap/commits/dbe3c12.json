@@ -1,0 +1,37 @@
+{
+  "sha": "dbe3c12",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T23:33:21Z",
+  "subject": "feat(debug): redact OAuth-style fragment tokens + mention redaction in CLAUDE.md",
+  "body": "Two small follow-ups on the URL-redaction pass:\n\n1. Redact fragments that contain `=`. OAuth implicit-flow callbacks\n   deliver access tokens via the fragment (`#access_token=…`); the\n   previous pass preserved fragments wholesale, which meant the one\n   well-known fragment-carried-secret shape was still leaking.\n\n   Tight heuristic: `=` is the discriminator. Section anchors\n   (`#chapter`) and hash-routes (`#/settings`) don't contain `=` and\n   remain readable — they're useful for debugging and not secret.\n\n2. CLAUDE.md's debug-system project-status bullet now mentions\n   redaction, so a reader scanning project state knows about it\n   without having to grep the code.\n\nImplementation:\n- Second regex pass in redactUrls: `/(https?:\\/\\/[^\\s#'\"<>]*)#[^\\s'\"<>]*=[^\\s'\"<>]*/g` → `$1#[redacted]`. Runs after the query-string pass so\n  a URL with both a query and a fragment (`?q=1#t=abc`) gets both\n  redacted (`?[redacted]#[redacted]`).\n- URL portion in step 2 allows `?` so a previously-redacted query\n  (`?[redacted]`) is included in the URL match and not broken.\n\n3 new tests: OAuth fragment redacted, anchor + hash-route preserved,\nquery-and-fragment both redacted. 79 tests total (up from 76).\ntsc 0.\n\nTags: debug, privacy, security, oauth, redaction\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "feature",
+    "security",
+    "sanitization"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 45,
+    "deletions": 17
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "src/debug/__tests__/debugLog.test.ts",
+    "src/debug/debugLog.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "user-facing"
+}

@@ -1,0 +1,39 @@
+{
+  "sha": "d58e01e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T15:19:39Z",
+  "subject": "fix(scheduling): UI, a11y, and mobile UX from review findings",
+  "body": "DateTimePicker split into platform-specific files via Metro's file-extension\nresolution:\n  DateTimePicker.tsx         - web (<input type=\"datetime-local\">)\n  DateTimePicker.native.tsx  - iOS (combined spinner) + Android (chained flow)\n\n- L6: No more render-time require() + eslint-disable; each platform's module\n  is imported at module scope.\n\n- H7: Android picker rewritten as an explicit chain — tap opens date mode,\n  confirm auto-advances to time mode, confirm closes. Symmetric \"Change date\"\n  / \"Change time\" buttons make both steps discoverable. iOS uses a single\n  combined mode=\"datetime\" spinner for a simpler flow.\n\nScheduleComposerModal:\n  - M9: leadOk and min/max bounds recompute on a 15s tick while the modal is\n    open so stale picks are caught even if the user hesitates.\n  - Error banner clears automatically when the user picks a new time.\n  - useId() + real HTML <label htmlFor> on web ties the datetime input to its\n    visible label (was only a separate Text node).\n  - accessibilityRole / accessibilityLabel on close button, confirm button,\n    and error region (accessibilityLiveRegion='polite', role='alert').\n  - friendlyScheduleError() maps thrown errors to user copy.\n\nScheduledMessagesModal:\n  - M3: Cancel flow confirms first via showConfirmDialog (destructive, no undo).\n  - L8: \"Cancel\" -> \"Cancel send\" on pending rows to distinguish from the\n    modal's own Cancel dismissal. Failed rows get \"Dismiss\" (softer).\n  - M8: Row-level accessibilityLabel announces the scheduled time;\n    Reschedule/Cancel/Dismiss buttons carry context in their a11y labels.\n  - New realtimeDegraded banner when the hook reports a dropped subscription.\n  - Empty state expanded with a \"Tap the clock icon on the compose bar\" hint.\n  - dismissScheduledMessage wired for failed rows (soft-cancel under the hood).\n\nComposeBar:\n  - Clock icon gains accessibilityRole='button', accessibilityLabel, and\n    accessibilityHint explaining the interaction.\n  - Kept always-visible-but-dim (rather than hidden-when-empty) for\n    discoverability — first-time users need to see the affordance exists.\n\nTutorial:\n  - L10: \"Manage pending ones from the chat menu\" -> \"Tap the chat menu to\n    cancel or reschedule\" — more concrete.\n\nTags: scheduling, ui, a11y, mobile, ux, forms\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: message-scheduling\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "message-scheduling",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 363,
+    "deletions": 130
+  },
+  "files": [
+    "components/ComposeBar.tsx",
+    "components/DateTimePicker.native.tsx",
+    "components/DateTimePicker.tsx",
+    "components/ScheduleComposerModal.tsx",
+    "components/ScheduledMessagesModal.tsx",
+    "constants/tutorial.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

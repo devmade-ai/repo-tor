@@ -14,7 +14,7 @@
 import { execFileSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import { parseCommitMessage, extractBreakingChange, extractReferences } from './lib/commit-parsing.js';
+import { extractBreakingChange } from './lib/commit-parsing.js';
 import { toKebabCase, writeJson } from './lib/utils.js';
 
 // === Argument Parsing ===
@@ -52,17 +52,16 @@ function git(args, cwd) {
 function extractCommits() {
   console.log('Extracting commits...');
 
-  // Custom format for parsing
+  // Custom format for parsing. The numstat pass below uses %h (short hash)
+  // for COMMIT_BOUNDARY too, so stats can be indexed directly by `commit.sha`
+  // — git's %h abbreviation is deterministic within a repo (same `core.abbrev`
+  // and object database for both `git log` invocations).
   const delimiter = '---COMMIT_DELIMITER---';
   const format = [
-    '%H',      // full hash
     '%h',      // short hash
     '%an',     // author name
     '%ae',     // author email
     '%aI',     // author date ISO
-    '%cn',     // committer name
-    '%ce',     // committer email
-    '%cI',     // commit date ISO
     '%s',      // subject
     '%b',      // body
   ].join('%n');
@@ -84,32 +83,23 @@ function extractCommits() {
 
   for (const block of commitBlocks) {
     const lines = block.trim().split('\n');
-    if (lines.length < 9) continue;
+    // Format produces 6 fields (%h %an %ae %aI %s %b) joined by %n; even
+    // an empty body yields 6 split elements (trailing empty string from %b).
+    if (lines.length < 6) continue;
 
-    const [hash, shortHash, authorName, authorEmail, authorDate,
-           committerName, committerEmail, commitDate, subject, ...bodyLines] = lines;
+    const [shortHash, authorName, authorEmail, authorDate, subject, ...bodyLines] = lines;
 
     const body = bodyLines.join('\n').trim();
-    const parsed = parseCommitMessage(subject);
-    const references = extractReferences(subject, body);
-
-    // Check for breaking change in body
-    const hasBreakingChange = extractBreakingChange(subject, body) || parsed.breaking;
+    const hasBreakingChange = extractBreakingChange(subject, body);
 
     commits.push({
       sha: shortHash,
-      fullSha: hash,
       author_id: authorEmail.toLowerCase(),
       author: {
         name: authorName,
         email: authorEmail
       },
-      committer: {
-        name: committerName,
-        email: committerEmail
-      },
       timestamp: authorDate,
-      commitDate: commitDate,
       subject: subject,
       body: body,
       tags: [],              // Empty - AI will populate via @data persona
@@ -118,11 +108,7 @@ function extractCommits() {
       debt: null,            // Null - AI will assess (added|paid|neutral)
       epic: null,            // Null - AI will assign free-text grouping label
       semver: null,          // Null - AI will assess (patch|minor|major)
-      scope: parsed.scope,
-      title: parsed.title,
-      is_conventional: parsed.is_conventional,
       has_breaking_change: hasBreakingChange,  // Flag for AI to consider
-      references: references
     });
   }
 
@@ -135,11 +121,11 @@ function extractCommits() {
   //   - `git diff-tree --numstat`: Rejected — needs per-commit calls for boundary handling
   console.log(`Extracting stats for ${commits.length} commits (batched)...`);
 
-  const numstatArgs = ['log', '--all', '--numstat', '--format=COMMIT_BOUNDARY:%H'];
+  const numstatArgs = ['log', '--all', '--numstat', '--format=COMMIT_BOUNDARY:%h'];
   if (excludeMerges) numstatArgs.push('--no-merges');
   const numstatOutput = git(numstatArgs);
   if (numstatOutput) {
-    const statsByFullSha = new Map();
+    const statsByShortSha = new Map();
     let currentSha = null;
     let currentStats = { additions: 0, deletions: 0, files: [] };
 
@@ -147,7 +133,7 @@ function extractCommits() {
       if (line.startsWith('COMMIT_BOUNDARY:')) {
         // Save previous commit's stats
         if (currentSha) {
-          statsByFullSha.set(currentSha, { ...currentStats, filesChanged: currentStats.files.length });
+          statsByShortSha.set(currentSha, { ...currentStats, filesChanged: currentStats.files.length });
         }
         currentSha = line.substring('COMMIT_BOUNDARY:'.length).trim();
         currentStats = { additions: 0, deletions: 0, files: [] };
@@ -169,12 +155,12 @@ function extractCommits() {
     // Alternatives: Sentinel value at end of output — rejected because it couples
     //   parsing logic to git format assumptions
     if (currentSha) {
-      statsByFullSha.set(currentSha, { ...currentStats, filesChanged: currentStats.files.length });
+      statsByShortSha.set(currentSha, { ...currentStats, filesChanged: currentStats.files.length });
     }
 
-    // Merge stats into commits
+    // Merge stats into commits — both passes use %h so we can index directly
     for (const commit of commits) {
-      const stats = statsByFullSha.get(commit.fullSha);
+      const stats = statsByShortSha.get(commit.sha);
       if (stats) {
         commit.stats = {
           filesChanged: stats.filesChanged,

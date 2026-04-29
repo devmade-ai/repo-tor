@@ -1,0 +1,38 @@
+{
+  "sha": "f8744e2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T02:03:34Z",
+  "subject": "refactor(layouts-nav): migrate layouts + nav chrome to DaisyUI",
+  "body": "- AuthLayout: bg-base-200 page surface.\n- AppLayout: bg-base-200 page + bg-base-100 header with border-base-300.\n  All page-top banners (auth-bypass warning, update-available, offline-\n  ready, PWA install) are now `alert alert-{variant} rounded-none` so\n  they span edge-to-edge. Sign-out button is `btn btn-ghost btn-circle`\n  on mobile, sized ghost button on desktop. Logo link is a `btn btn-ghost`\n  to get DaisyUI's tap feedback.\n- Breadcrumbs: text uses `text-base-content/60` hierarchy; hover lifts to\n  `bg-base-200` via hover: utility (DaisyUI tokens pickup theme automatically).\n- NotificationBell: button becomes `btn btn-ghost btn-circle`; unread count\n  uses `indicator` + `indicator-item badge badge-error badge-xs`. List\n  items use hover:bg-base-200; unread rows tint `bg-info/10`. Delete\n  button is `btn btn-ghost btn-sm btn-square hover:text-error`.\n- PwaInstallPrompt: `alert alert-neutral rounded-none` surface with\n  `btn btn-sm` install / instructions buttons and `btn btn-ghost btn-sm\n  btn-circle` dismiss.\n- InstallInstructionsModal: step numerals swap from slate chip to\n  bg-base-200 + text-base-content/70.\n- OfflineIndicator: `alert alert-warning rounded-none`.\n\nNet effect: every system banner shares one alert component class family\n(alert alert-error, alert alert-info, alert alert-success, alert alert-\nwarning, alert alert-neutral), so Business mode will render coherently\nonce the toggle ships. No z-index changes; Z_INDEX_SCALE tiers preserved.\n\nTags: refactor, ui, daisyui, layouts, navigation\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 63,
+    "deletions": 70
+  },
+  "files": [
+    "src/components/common/InstallInstructionsModal.tsx",
+    "src/components/common/NotificationBell.tsx",
+    "src/components/common/OfflineIndicator.tsx",
+    "src/components/common/PwaInstallPrompt.tsx",
+    "src/layouts/AppLayout.tsx",
+    "src/layouts/AuthLayout.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "90da17a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-20T00:12:49Z",
+  "subject": "docs(cleanup): verify backend — delete stale SPEC, trim dead TODO items",
+  "body": "Checked the tool-till-tees repo via the GitHub API. Of the 8 items\ntracked in docs/SPEC_tool_till_tees_additions.md, 7 are shipped:\n\n- §1a intent/summary_* in validateModuleUpdate (lib/sancio/validation.ts:212–292)\n- §1b sender_tone in validateNoteInput (line 346)\n- §1c sender_tone in validateProposalInput (line 395)\n- §2a POST /projects/:id/accept-handshake (router line 45–47)\n- §2b POST /modules/:id/move (router line 77)\n- §2c POST /modules/batch-ready (router line 70)\n- §3a–3e unscoped GET handlers (all list handlers accept optional\n  parent IDs and fall back to user-scoped queries)\n\nOnly the bulk /api/sancio/module-versions endpoint is still missing —\nwhich is what makes useModules do an N+1 fetch.\n\nDeleted the SPEC file (now obsolete), stripped §N cross-references\nfrom the 7 src/ files that pointed at it, collapsed the TODO\n\"Backend: Implement tool-till-tees Additions\" section to the single\nremaining item, dropped the CLAUDE.md Architecture + README doc-index\nentries, and updated the CLAUDE.md AI Note to direct missing-field\nwork to docs/TODO.md instead of the deleted SPEC.\n\nTags: documentation, cleanup, backend-verification\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
+  "tags": [
+    "docs",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-docs",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 12,
+    "additions": 11,
+    "deletions": 232
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/SESSION_NOTES.md",
+    "docs/SPEC_tool_till_tees_additions.md",
+    "docs/TODO.md",
+    "src/api/agreements.ts",
+    "src/api/modules.ts",
+    "src/api/notes.ts",
+    "src/api/pdfVerifications.ts",
+    "src/api/projects.ts",
+    "src/api/proposals.ts",
+    "src/hooks/useModules.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

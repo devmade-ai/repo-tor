@@ -1,0 +1,42 @@
+{
+  "sha": "a6348ed",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T17:39:14Z",
+  "subject": "feat(pwa): add Toast system, InstallInstructionsModal, updated PWA doc",
+  "body": "Toast system (Toast.jsx):\n- Context-based ToastProvider + useToast hook, accessible from any component\n- Stacking (newest on top), auto-dismiss with exit animation\n- Four types: success (green), error (red), warning (yellow), info (themed)\n- iOS safe area inset on container, pointer-events pass-through\n- Replaced inline toast state in App.jsx with addToast() calls\n\nInstallInstructionsModal (InstallInstructionsModal.jsx):\n- Data-driven modal renders whatever getInstallInstructions() returns\n- Focus-trapped (useFocusTrap), Escape to close (useEscapeKey)\n- Benefits section explains WHY to install for non-technical users\n- Numbered steps, optional warning note per browser\n\nPWA install flow updated:\n- pwa.js getInstallInstructions() returns { browser, steps, note }\n  format (was { title, steps }) for richer modal content\n- Added supportsNativeInstall() and supportsManualInstall() helpers\n- Header.jsx shows install option for Safari/Firefox after 1s delay\n  (was Chromium-only), opens InstallInstructionsModal instead of\n  settings pane when native prompt unavailable\n\nPWA_SYSTEM.md:\n- Replaced with comprehensive cross-project reference from glow-props\n- Covers: Vite config, install prompt race, SW updates, install\n  detection, toast system, install modal, timer leaks, cache headers,\n  ChunkLoadError prevention, platform gotchas\n- Merged TIMER_LEAKS.md content (deleted standalone file)\n\nCLAUDE.md:\n- Added Toast, InstallInstructionsModal to component list\n- Removed Timer Leaks row (merged into PWA System)\n- Updated PWA System description\n\nTags: pwa, ui, a11y, documentation\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: cross-project-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01TTPDz1J9eg8GxxJHYf5DXG",
+  "tags": [
+    "feature",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "cross-project-alignment",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 10,
+    "additions": 827,
+    "deletions": 169
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/App.jsx",
+    "dashboard/js/components/Header.jsx",
+    "dashboard/js/components/InstallInstructionsModal.jsx",
+    "dashboard/js/components/Toast.jsx",
+    "dashboard/js/main.jsx",
+    "dashboard/js/pwa.js",
+    "dashboard/styles.css",
+    "docs/implementations/PWA_SYSTEM.md",
+    "docs/implementations/TIMER_LEAKS.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

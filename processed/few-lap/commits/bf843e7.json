@@ -1,0 +1,50 @@
+{
+  "sha": "bf843e7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T23:00:47Z",
+  "subject": "fix(theme): resolve 9 audit findings from full codebase review",
+  "body": "Critical fixes:\n- C1+C2: FuelMapWeb map layers now update on theme change via\n  setPaintProperty() effect. Map init guarded with themeLoaded to\n  prevent wrong colors before AsyncStorage hydrates.\n- C3: All broken semantic color classes (text-error, bg-success/10,\n  border-warning, etc.) replaced with inline styles. Uniwind doesn't\n  generate utility classes for @variant-only CSS variables. Added\n  withAlpha() utility for consistent hex opacity.\n\nHigh priority:\n- H1: Toast now uses active theme colors instead of hardcoded\n  DEFAULT_COMBO — toasts match selected combo.\n- H2-H4: Updated CLAUDE.md architecture, USER_GUIDE.md, and\n  TESTING_GUIDE.md with theme combo documentation.\n- H5: Wrapped Uniwind.setTheme() in try-catch with debug logging.\n\nMedium:\n- M1: Created withAlpha(hex, opacity) utility in themeColors.ts,\n  replaced 4 fragile hex concatenation sites.\n- M2: Runtime validation of hydrated combo from AsyncStorage —\n  falls back to DEFAULT_COMBO if corrupted.\n- M7: Theme swatch buttons now have minHeight: 44 (WCAG AA).\n- M8: Theme changes logged to debug system.\n- M10: renderEmptyState wrapped in useCallback.\n\nTags: theme, audit, quality, accessibility, mapbox, debug\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-theme-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01EAwig8kSZ6S91pb3wP7tv4",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "monitoring"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-theme-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 18,
+    "additions": 153,
+    "deletions": 68
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(tabs)/index.tsx",
+    "app/admin/bulk-import.tsx",
+    "app/admin/index.tsx",
+    "app/admin/login.tsx",
+    "app/admin/station/[id].tsx",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/components/station/PriceHistoryChart.tsx",
+    "src/components/station/StationList.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/components/ui/Toast.tsx",
+    "src/global.css",
+    "src/hooks/useTheme.ts",
+    "src/lib/themeColors.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,45 @@
+{
+  "sha": "fdc8b44",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-01T15:15:25Z",
+  "subject": "refactor(theme): migrate 14 medium components to Uniwind + DaisyUI tokens",
+  "body": "Convert BottomSheet, Toast, BurgerMenu, PriceDisplay, StationCard,\nStationList, TutorialModal, InstallPrompt, InstallInstructionsModal,\nLocationSearch, PriceHistoryChart, PriceEditor, admin station edit,\nand admin index from StyleSheet + useAppTheme to Uniwind className\nwith DaisyUI semantic classes.\n\nPattern: useTheme().colors for hex values (icons, indicators),\nclassName for View/Text styling (bg-base-100, text-primary, etc.),\nPRICE_COLORS for domain-specific staleness indicators.\n\nTwo admin screens (bulk-import, bulk-update) remain for next commit.\n\nTags: theme, daisyui, uniwind, refactor, migration\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-theme-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01EAwig8kSZ6S91pb3wP7tv4",
+  "tags": [
+    "refactor",
+    "migration"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-theme-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 14,
+    "additions": 302,
+    "deletions": 400
+  },
+  "files": [
+    "app/admin/index.tsx",
+    "app/admin/station/[id].tsx",
+    "src/components/admin/PriceEditor.tsx",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/pwa/InstallPrompt.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/components/station/PriceDisplay.tsx",
+    "src/components/station/PriceHistoryChart.tsx",
+    "src/components/station/StationCard.tsx",
+    "src/components/station/StationList.tsx",
+    "src/components/ui/BottomSheet.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/components/ui/Toast.tsx",
+    "src/components/ui/TutorialModal.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

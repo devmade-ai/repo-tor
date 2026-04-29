@@ -1,0 +1,51 @@
+{
+  "sha": "06c1ae7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T15:29:43Z",
+  "subject": "feat: cross-project alignment items 1-16 from glow-props comparison",
+  "body": "CLAUDE.md updates (items 1-4):\n- Fix \"class\" → \"component\" terminology in Code Organization\n- Add React-specific quality checks (dangerouslySetInnerHTML, missing keys)\n- Add build tools check and QuickGuide sync notes to AI Notes\n\nSuggested Implementations restructure (items 5-7):\n- Extract ~200 lines of inlined implementations to docs/implementations/\n- Add Burger Menu and Theme & Dark Mode implementation references\n- Replace inline code with summary table linking to 8 implementation files\n\nHamburgerMenu a11y & iOS fixes (items 8-13):\n- Switch from role=\"menu\" to disclosure pattern (nav/ul/li)\n- Add backdrop overlay with cursor-pointer for iOS Safari\n- Add useId() for unique aria-controls\n- Add hasBeenOpenRef focus guard (prevents stealing focus on mount)\n- Add cancelAnimationFrame cleanup\n- Add overscroll-contain on menu card\n- Add max-width viewport constraint\n\nZ-index scale (item 14):\n- Define CSS variables (--z-base through --z-debug) on :root\n- Replace all hardcoded z-index values (100-1000) with variables\n- Standardized scale: base(10), sticky(20), drawer(30), menu(50),\n  modal(60), toast(70), debug(80)\n\nSafe localStorage wrappers (item 15):\n- Add safeStorageGet/safeStorageSet/safeStorageRemove to utils.js\n- Replace all raw localStorage calls in AppContext, Discover, pwa.js,\n  QuickGuide, and index.html debug pill\n- Prevents crashes in sandboxed iframes and enterprise environments\n\nSharp devDependency (item 16):\n- Add sharp ^0.34.5 to devDependencies for generate-icons.mjs\n\nTags: cross-project, a11y, ui, infrastructure, refactor\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: cross-project-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01TTPDz1J9eg8GxxJHYf5DXG",
+  "tags": [
+    "feature",
+    "refactor",
+    "accessibility"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "cross-project-alignment",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 19,
+    "additions": 1477,
+    "deletions": 545
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/index.html",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/components/HamburgerMenu.jsx",
+    "dashboard/js/components/QuickGuide.jsx",
+    "dashboard/js/pwa.js",
+    "dashboard/js/sections/Discover.jsx",
+    "dashboard/js/utils.js",
+    "dashboard/styles.css",
+    "docs/implementations/APP_ICONS.md",
+    "docs/implementations/BURGER_MENU.md",
+    "docs/implementations/DEBUG_SYSTEM.md",
+    "docs/implementations/DOWNLOAD_PDF.md",
+    "docs/implementations/HTTPS_PROXY.md",
+    "docs/implementations/PWA_SYSTEM.md",
+    "docs/implementations/THEME_DARK_MODE.md",
+    "docs/implementations/TIMER_LEAKS.md",
+    "package-lock.json",
+    "package.json"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

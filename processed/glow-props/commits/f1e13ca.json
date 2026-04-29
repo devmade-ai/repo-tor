@@ -1,0 +1,34 @@
+{
+  "sha": "f1e13ca",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-07T23:32:14Z",
+  "subject": "docs(todo): replace generic CLAUDE.md steps with per-repo researched findings",
+  "body": "Researched all 10 downstream repos via GitHub API to determine actual state\nof each repo's CLAUDE.md and local pattern files. Replaced generic copy-paste\nsteps with specific, actionable items based on what each repo actually has:\n\n- repo-tor: Already aligned (Pass) — no action needed\n- budgy-ting: Partial — has clean pointer but stale URLs to CLAUDE.md\n- canva-grid: Stale refs to \"Suggested Implementations\" in two places\n- model-pear: Stale AI Note pointing to glow-props CLAUDE.md\n- see-veo: ~280 lines hardcoded inline patterns to delete\n- few-lap: ~620 lines hardcoded inline patterns to delete\n- sun-sea-o: ~470 lines hardcoded inline patterns + stale Shared References\n- graphiki: ~180 lines hardcoded inline patterns to delete\n- four-ems: ~475 lines hardcoded inline patterns to delete\n- synctone: Only repo with local docs/implementations/ folder (8 files)\n\nUpdated gap matrix: repo-tor=Pass, budgy-ting=Partial.\nUpdated cross-cutting gaps with researched severity breakdown.\n\nTags: documentation, cross-repo, patterns, audit\nComplexity: 3\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pattern-library\nSemver: minor\n\nhttps://claude.ai/code/session_011sWgK8Kz46ZHFN6S86mt4A",
+  "tags": [
+    "documentation",
+    "cross-repo",
+    "patterns",
+    "audit"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pattern-library",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 70,
+    "deletions": 45
+  },
+  "files": [
+    "docs/TODO.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

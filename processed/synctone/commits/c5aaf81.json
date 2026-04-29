@@ -1,0 +1,37 @@
+{
+  "sha": "c5aaf81",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T15:45:55Z",
+  "subject": "chore(scheduling): address cold-audit drift / extras",
+  "body": "Follow-up cleanup from a fresh-eyes audit pass on the branch:\n\n- docs/HISTORY.md: corrected the original feature-commit entry that\n  still claimed \"cancel = hard delete\" to accurately reflect the shipped\n  soft-cancel architecture (with pointer to the hardening entry).\n\n- docs/DATABASE.md: added the missing `scheduled_messages` schema\n  section (every other table had one) — columns, constraints, indexes,\n  RLS summary, related functions, cron jobs, and realtime publication.\n\n- CLAUDE.md: Project Structure now lists `DateTimePicker.native.tsx`\n  alongside `DateTimePicker.tsx` so the platform-split is visible.\n\n- services/scheduledMessages.ts: removed two dead exports that had no\n  callers — `EDIT_CUTOFF_MS` (made redundant when updateScheduledMessage\n  dropped its pre-fetch TOCTOU pattern) and `countPendingScheduled` (the\n  hook already exposes pendingCount from all[].filter).\n\n- components/ScheduledMessagesModal.tsx: trim `editing.content` when\n  passing it as `contentPreview` to the reschedule modal, matching what\n  ComposeBar does on the original schedule flow.\n\nNo functional change; no new type errors.\n\nTags: scheduling, docs, cleanup, code-quality\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: message-scheduling\nSemver: patch",
+  "tags": [
+    "docs",
+    "refactor",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "message-scheduling",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 52,
+    "deletions": 22
+  },
+  "files": [
+    "CLAUDE.md",
+    "components/ScheduledMessagesModal.tsx",
+    "docs/DATABASE.md",
+    "docs/HISTORY.md",
+    "services/scheduledMessages.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

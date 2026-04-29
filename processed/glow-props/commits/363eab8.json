@@ -1,0 +1,31 @@
+{
+  "sha": "363eab8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T20:29:54Z",
+  "subject": "docs(claude): add \"All code is yours\" AI Note — authorship survives context loss",
+  "body": "All code, commits, and changes across every tracked repo are Claude's\nown work. This is a fact stated by the user, not a heuristic for the\nassistant to evaluate against git author, branch name, or its own\nmemory.\n\nFailure modes this closes:\n- Hedging authorship (\"someone added this\", \"this was here before\")\n  when the change is the assistant's own prior work\n- Investigating own prior commits as if written by a third party,\n  wasting tokens on archaeology\n- Refusing to build on or modify unfamiliar code seen after\n  compaction or session resume\n- Treating pre-compaction decisions as suspicious or negotiable\n  rather than as settled prior work\n- Repeating work the assistant already did because the current\n  context doesn't show it\n\nPlacement: top of AI Notes, ahead of the tactical notes — it's\nfoundational posture, not an operational reminder.\n\nTags: documentation, claude-md, ai-behavior, cross-fleet\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01Mx2aebqgqtBaC611uxsp7q",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-alignment",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 0
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

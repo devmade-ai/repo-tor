@@ -1,0 +1,38 @@
+{
+  "sha": "2ebd14f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T23:04:01Z",
+  "subject": "fix(icons): scale up graph to fill 80% safe zone",
+  "body": "Expand graph from 25% to ~70% of canvas. Nodes now span 240-700\n(460px of 1024) instead of 384-640 (256px). Node radii increased\nproportionally (52→72, 44→60, 60→84). Line width 14→18.\n\nThe icon is now legible at 48px favicon size — nodes are distinct\nand the graph structure is recognizable.\n\nTags: icons, design, safe-zone\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 14,
+    "deletions": 14
+  },
+  "files": [
+    "assets/icon-source.svg",
+    "public/favicon.png",
+    "public/icon.png",
+    "public/pwa-1024-maskable.png",
+    "public/pwa-192.png",
+    "public/pwa-512.png",
+    "public/splash-icon.png"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "user-facing"
+}

@@ -1,0 +1,36 @@
+{
+  "sha": "db6468f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T22:53:54Z",
+  "subject": "style(theme): standardize muted-text opacity tiers to /50 /60 /70",
+  "body": "Audit (per CLAUDE.md hardcoded-color exceptions table) found five\noutlier opacity steps on text-base-content: /30 (×2), /40 (×2), /80\n(×1). Mapped each to the nearest dominant tier so the muted-text\nladder is one of three steps everywhere:\n\n- PdfPreview.tsx:80   /80 → no opacity\n  Module body content; primary readable text shouldn't be muted at\n  all. The print:text-black override is unaffected.\n- BurgerMenu.tsx:305  /40 → /50\n- SequenceSignOff.tsx:94  /40 → /50  (pending-state hourglass icon)\n- AppLayout.tsx:254   /30 → /50      (breadcrumb separator)\n- NotFoundPage.tsx:9  /30 → /50      (decorative 404 number)\n\nNew distribution: /50 ×38, /60 ×34, /70 ×14. Closest existing tier\nchosen for each outlier; visual delta is small. No semantic-token\nchanges; only opacity steps adjusted.\n\nTags: ui, theme, refactor\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: dark-first-default\nSemver: patch\n\nhttps://claude.ai/code/session_01TVYXEU2QJcmBA17ZNWhcZP",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dark-first-default",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 5,
+    "deletions": 5
+  },
+  "files": [
+    "src/components/agreements/PdfPreview.tsx",
+    "src/components/agreements/SequenceSignOff.tsx",
+    "src/components/common/BurgerMenu.tsx",
+    "src/layouts/AppLayout.tsx",
+    "src/pages/NotFoundPage.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 1,
+  "impact": "user-facing"
+}

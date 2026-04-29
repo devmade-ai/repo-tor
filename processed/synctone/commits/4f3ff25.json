@@ -1,0 +1,42 @@
+{
+  "sha": "4f3ff25",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T22:49:38Z",
+  "subject": "refactor(styling): move font, color, and layout inline styles to className",
+  "body": "Convert inline style objects to Tailwind className utilities where the\nproperties have direct equivalents. Eliminates redundant style props and\nreduces the useTheme()/colors dependency footprint.\n\nKey changes:\n- Font styles: fontSize/fontWeight/letterSpacing → text-xl, font-bold,\n  tracking-tight, text-[28px], etc.\n- Theme colors: style={{ color: colors.primary }} → text-primary,\n  style={{ backgroundColor: colors.base200 }} → bg-base-200\n- Layout: flex/padding/margin/minHeight/width/overflow → flex-1, px-3,\n  py-2.5, min-h-8, w-[280px], overflow-hidden\n- Conditional colors: ternary style objects → conditional className strings\n- Removed redundant style={{ color: colors.baseContent }} where className\n  already had text-base-content (ChatHeaderMenu)\n\nImport cleanup:\n- ToneEditModal: removed useTheme + withAlpha (fully className-based now)\n- MessageInfoModal: removed useTheme (fully className-based now)\n- DesktopLayout.DesktopLayout: removed unused useTheme\n\nFiles: home.tsx, DesktopLayout, ComposeBar, ToneSelector, ChatListItem,\nInstallInstructionsModal, ToneEditModal, MessageInfoModal, ChatHeaderMenu,\nBubbleContent\n\nNet reduction: -112 lines across 10 files.\n\nTags: styling, tailwind, code-quality, cleanup\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theming\nSemver: patch\n\nhttps://claude.ai/code/session_012JvcWBL7DAWLeDbMpXjeg9",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theming",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 10,
+    "additions": 67,
+    "deletions": 179
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "components/BubbleContent.tsx",
+    "components/ChatHeaderMenu.tsx",
+    "components/ChatListItem.tsx",
+    "components/ComposeBar.tsx",
+    "components/DesktopLayout.tsx",
+    "components/InstallInstructionsModal.tsx",
+    "components/MessageInfoModal.tsx",
+    "components/ToneEditModal.tsx",
+    "components/ToneSelector.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

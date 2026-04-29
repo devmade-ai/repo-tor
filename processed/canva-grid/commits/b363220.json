@@ -1,0 +1,39 @@
+{
+  "sha": "b363220",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T23:33:16Z",
+  "subject": "refactor(hooks): extract useDialogSync, fix a11y, remove dead code",
+  "body": "Code review cleanup from /simplify pass:\n\n- Extract useDialogSync hook — eliminates ~70 lines of duplicated\n  dialog open/close/backdrop/escape sync code across 4 modal components\n- Add missing aria-label=\"Close dialog\" on 3 icon-only close buttons\n  (TutorialModal, InstallInstructionsModal, KeyboardShortcutsOverlay)\n- Remove unused checkboxRef from CollapsibleSection\n\nTags: hooks, a11y, cleanup, modal, refactor\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_017oR3zVWAu68xTcZgGmoFM1",
+  "tags": [
+    "refactor",
+    "accessibility",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 80,
+    "deletions": 103
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/CollapsibleSection.jsx",
+    "src/components/InstallInstructionsModal.jsx",
+    "src/components/KeyboardShortcutsOverlay.jsx",
+    "src/components/SaveLoadModal.jsx",
+    "src/components/TutorialModal.jsx",
+    "src/hooks/useDialogSync.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,32 @@
+{
+  "sha": "00eab83",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T14:14:08Z",
+  "subject": "fix(theme): make ComposeBar glass style theme-reactive",
+  "body": "ComposeBar had a module-level glassStyle constant using THEME_HEX.luxury\ndirectly — locked to luxury dark theme and never updated on theme change.\nThe compose bar background/border would show luxury colors even when\nusing Retro combo or light mode.\n\nFix: Convert to getGlassStyle(colors) function called inside the\ncomponent with fresh colors from useTheme() on each render.\n\nThis was the only remaining theme reactivity bug found in the full\ncomponent audit. All other files either call useTheme() for inline\nstyles or use className-only styling (auto-updated by Uniwind).\n\nTags: theme, bugfix, reactivity\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: patch\n\nhttps://claude.ai/code/session_01B19ShhBXLzVzbptkz9Tuew",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 15,
+    "deletions": 15
+  },
+  "files": [
+    "components/ComposeBar.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

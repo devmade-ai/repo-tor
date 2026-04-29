@@ -1,0 +1,37 @@
+{
+  "sha": "6b4c0f2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T14:21:01Z",
+  "subject": "feat(debug): circular buffer, console intercept, PWA tab, inline pill/styles",
+  "body": "Complete DEBUG_SYSTEM pattern sync. debugLog.ts: circular buffer replaces\nArray.shift() O(n) with head/count O(1), console.error/warn intercepted\nat module load, URL params redacted in reports, DebugSource accepts ad-hoc\nstrings, subscribers receive current entries immediately. DebugPill.vue:\nall Tailwind replaced with inline styles (survives CSS load failure),\nnew PWA Diagnostics tab with active health checks (protocol, SW state,\nmanifest validation, standalone, install prompt). index.html: pre-framework\ninline pill with error buffer, __debugPushError(), and 20-second loading\ntimeout. main.ts: bridges pre-mount errors and clears load timer on mount.\nTypeScript clean, build verified.\n\nTags: debug, pwa, a11y, glow-props-sync\nComplexity: 4\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: glow-props-sync\nSemver: minor\n\nhttps://claude.ai/code/session_01HStghTVMRxyymnHn4AWxUi",
+  "tags": [
+    "feature",
+    "monitoring",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "glow-props-sync",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 438,
+    "deletions": 100
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "index.html",
+    "src/debug/DebugPill.vue",
+    "src/debug/debugLog.ts",
+    "src/main.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

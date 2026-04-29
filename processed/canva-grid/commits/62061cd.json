@@ -1,0 +1,45 @@
+{
+  "sha": "62061cd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:14:15Z",
+  "subject": "fix(export): tighten font-embed approach — tests, timeout, observability, cleanup",
+  "body": "Follow-up to 8312157 addressing the seven self-review findings (`approach`):\n\n1. Tests for fontEmbed (9 cases, 1 file): empty/unknown IDs, happy-path\n   inlining, per-URL cache, inflight dedup, partial-failure tolerance,\n   non-200 handling, relative URL resolution, abort timeout. Mocks fetch +\n   FileReader; mocks the .ts fonts config (Jest can't parse TS in this repo).\n\n2. AbortController timeout on every fontEmbed fetch (8s). A hung gstatic.com\n   response can no longer freeze the export indefinitely — it falls back to\n   system fonts after the timeout.\n\n3. Resolve relative url(...) refs against the CSS document URL via new URL().\n   Google Fonts uses absolute https today, but a future format change or\n   non-Google CDN with relative refs would have silently broken inlining.\n\n4. exportHelpers logs fontEmbed failures via debugLog instead of swallowing\n   them silently. Silent degradation in the field is what produced the\n   original CORS noise — surfacing it preserves observability.\n\n5. Removed the dead noise filter from debugLog. With fontEmbedCSS provided,\n   html-to-image short-circuits before getCSSRules runs (verified in\n   embed-webfonts.js:188-192), so the four filtered patterns can't fire from\n   the export path. Defensive-suppressing patterns we no longer trigger\n   means a future genuine regression would be hidden.\n\n6. New utils/pwaCleanup.js fires caches.delete for the old `google-fonts-cache`\n   and `gstatic-fonts-cache` names on app load. Idempotent. Reclaims storage\n   from existing PWA installs that were holding ~1y of opaque entries before\n   the *-v2 rename.\n\n7. Inlined the comment justifications on the four <link> tags\n   (index.html + MobileLayout/DesktopLayout/ReaderMode). The previous\n   \"see index.html note\" cross-references would rot if the index.html\n   comment moved.\n\nTest count CLAUDE.md/TODO.md: 141 → 150.\n\nTags: export, fonts, html-to-image, tests, pwa, observability, cleanup\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: mobile-export-fidelity\nSemver: patch\n\nhttps://claude.ai/code/session_01QRw1MjzQ87B6weXuqwvz19",
+  "tags": [
+    "bugfix",
+    "test-unit",
+    "error-handling",
+    "caching"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-export-fidelity",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 12,
+    "additions": 330,
+    "deletions": 59
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/TODO.md",
+    "index.html",
+    "src/components/DesktopLayout.jsx",
+    "src/components/MobileLayout.jsx",
+    "src/components/ReaderMode.jsx",
+    "src/main.jsx",
+    "src/utils/__tests__/fontEmbed.test.js",
+    "src/utils/debugLog.js",
+    "src/utils/exportHelpers.js",
+    "src/utils/fontEmbed.js",
+    "src/utils/pwaCleanup.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

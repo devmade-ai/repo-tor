@@ -1,0 +1,33 @@
+{
+  "sha": "48ed876",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T01:25:17Z",
+  "subject": "fix(ui): burger menu position and alpha pill rendering on web",
+  "body": "Burger menu Modal backdrop lacked explicit full-screen positioning on web,\ncausing the absolute-positioned menu card to anchor incorrectly (left side\ninstead of below the button). Fixed with position: fixed on web backdrop.\n\nAlpha badge pill background (bg-primary className) wasn't rendering on web,\nmaking it look like highlighted text. Switched to inline StyleSheet styles\nwith useTheme colors for reliable cross-platform rendering.\n\nTags: ui, pwa, web\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pwa-fixes\nSemver: patch\n\nhttps://claude.ai/code/session_016aoh6y6rxMijMFgoTTyWgD",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pwa-fixes",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 34,
+    "deletions": 4
+  },
+  "files": [
+    "app/(tabs)/_layout.tsx",
+    "src/components/ui/BurgerMenu.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

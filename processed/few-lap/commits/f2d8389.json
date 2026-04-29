@@ -1,0 +1,33 @@
+{
+  "sha": "f2d8389",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-06T00:30:18Z",
+  "subject": "fix(pwa): add explicit \"Check for updates\" to burger menu",
+  "body": "The \"Refresh\" button only reloaded the page, which doesn't reliably\ntrigger SW update detection due to race conditions between register()\nand the updatefound listener setup. Added a dedicated \"Check for\nupdates\" menu item that explicitly calls registration.update() with\na 1.5s settle delay for the SW lifecycle, then reports the result\nvia toast. The update strip in _layout.tsx still shows automatically\nwhen an update is found.\n\nTags: pwa, ux, bug-fix\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pwa-updates\nSemver: patch\n\nhttps://claude.ai/code/session_01Gv6uyMLMvAT8QWVxYdZdhM",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pwa-updates",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 24,
+    "deletions": 6
+  },
+  "files": [
+    "src/components/ui/BurgerMenu.tsx",
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

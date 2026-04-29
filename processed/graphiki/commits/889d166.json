@@ -1,0 +1,38 @@
+{
+  "sha": "889d166",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T22:15:09Z",
+  "subject": "fix(theme): address audit findings — DRY, color-scheme, cleanup",
+  "body": "Fix 5 code issues found during CLAUDE.md compliance audit:\n\n1. Extract getCSSColor to src/utils/cssColor.ts — eliminates duplication\n   between cytoscapeStyles.ts and DebugPill.tsx (DRY violation)\n2. Add root.style.colorScheme to useTheme hook — now all three layers\n   (.dark class, data-theme, color-scheme) set explicitly by the hook\n3. Add root.style.colorScheme to flash prevention script — prevents\n   native form elements flashing in wrong color-scheme before CSS loads\n4. Remove unused _isDark parameter from getCytoscapeStylesheet — colors\n   read from DaisyUI CSS variables at runtime, parameter was dead code\n5. Replace rounded-[3px] with rounded-sm in TimelineView — consistent\n   with token-only approach\n\nTags: theme, audit, dry, cleanup, color-scheme\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 22,
+    "deletions": 23
+  },
+  "files": [
+    "index.html",
+    "src/components/debug/DebugPill.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/graph/cytoscapeStyles.ts",
+    "src/components/views/TimelineView.tsx",
+    "src/hooks/useTheme.ts",
+    "src/utils/cssColor.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "user-facing"
+}

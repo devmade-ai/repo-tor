@@ -1,0 +1,33 @@
+{
+  "sha": "d826dc4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T08:40:21Z",
+  "subject": "chore(dx): declare node engines; clean test output; document lint/test",
+  "body": "dx trigger pass:\n\n- package.json engines.node: \">=18.18.0\" — minimum required by ESLint 9\n  (our strictest runtime dep). Makes onboarding friction visible at\n  install time instead of failing mysteriously later.\n\n- package.json test script: add --no-warnings alongside\n  --experimental-vm-modules. Previously every `npm test` spewed 11 lines\n  of \"ExperimentalWarning: VM Modules is an experimental feature\" before\n  real output. The flag suppresses node-level warnings only; Jest output\n  and failures are unaffected.\n\n- README.md Commands block: add `npm run lint` and `npm test`. They\n  were documented in CLAUDE.md (AI-facing) but absent from the README\n  contributors actually read.\n\nScan clean on: .github/, .vscode/, CONTRIBUTING.md absence (small\nproject, CLAUDE.md covers onboarding). No .nvmrc added — the engines\nfield communicates the contract without picking a specific version\nmanager.\n\nTags: dx, readme, package-json, tooling, tidy\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: clean-sweep-2026-04\nSemver: patch\n\nhttps://claude.ai/code/session_012r7JyJzHjENMhqhWtdGywz",
+  "tags": [
+    "documentation",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "clean-sweep-2026-04",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 6,
+    "deletions": 1
+  },
+  "files": [
+    "README.md",
+    "package.json"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

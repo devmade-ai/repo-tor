@@ -1,0 +1,35 @@
+{
+  "sha": "6723e17",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T13:27:07Z",
+  "subject": "feat(pwa): add dedicated 180px apple-touch-icon",
+  "body": "Apple recommends exactly 180x180 for the home-screen icon. Previously\n<link rel=\"apple-touch-icon\"> pointed at icon-192.png, forcing iOS to\ndownscale and losing crispness on Retina displays. Adds a dedicated\n180x180 PNG rendered from the SVG source at density 400, copies it to\npublic/assets/images/ so Expo serves it at /assets/images/..., and\nupdates +html.tsx to reference the new file at the correct size.\n\nTags: pwa, ios, icons\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-polish\nSemver: patch\n\nhttps://claude.ai/code/session_01MmYgkDuYLSCs1giR4bz6kF",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 9,
+    "deletions": 3
+  },
+  "files": [
+    "app/+html.tsx",
+    "assets/images/apple-touch-icon.png",
+    "public/assets/images/apple-touch-icon.png",
+    "scripts/generate-icons.mjs"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

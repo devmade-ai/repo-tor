@@ -1,0 +1,37 @@
+{
+  "sha": "f30c31d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-09T20:41:31Z",
+  "subject": "docs(pdf): update user-facing docs, fix code inconsistencies",
+  "body": "- USER_GUIDE.md: add \"Saving as PDF\" section with step-by-step\n  instructions and what the PDF includes\n- TESTING_GUIDE.md: add regression checklist item, dedicated test\n  scenario (1.6) with dark mode verification, renumber subsequent\n  sections, update actions menu expectation\n- README.md: add \"Save as PDF\" to features list\n- TransactionTable: fix empty state checks to use displayRows instead\n  of paginatedRows for consistency with the v-for data source\n- Remove unused print-show-flex CSS utility (was speculative)\n\nTags: docs, pdf, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: download-pdf\nSemver: patch\n\nhttps://claude.ai/code/session_01JjbdKNBLFZ6CmJkVqngkqm",
+  "tags": [
+    "docs",
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "download-pdf",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 44,
+    "deletions": 11
+  },
+  "files": [
+    "README.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md",
+    "src/components/TransactionTable.vue",
+    "src/index.css"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}

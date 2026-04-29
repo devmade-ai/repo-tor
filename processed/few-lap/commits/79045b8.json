@@ -1,0 +1,36 @@
+{
+  "sha": "79045b8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T21:05:20Z",
+  "subject": "feat(debug): capture console.error / console.warn in the debug log",
+  "body": "Patches console.error / console.warn at module load (web-only) so the\nLog tab reflects everything React and app code log at error/warn\nseverity — PropType failures, hydration mismatches, key warnings,\ncaught exceptions, etc. — alongside manual debugAdd calls.\n\n- Add 'console' to the DebugSource union; add a zinc-gray hex to the\n  SOURCE palette in DebugPill.\n- describeConsoleArgs() maps the first arg to the entry's `event`\n  (truncated at 160 chars) and subsequent args to `details`.\n- formatArg() serialises args safely: Error → stack/message, primitive\n  → String(), object → JSON.stringify with a circular-ref replacer\n  that also collapses React elements to '[ReactElement]' (would\n  otherwise dump huge objects). Unserialisable values fall back to\n  '[Unserializable]'.\n- reentrant flag prevents infinite loops (e.g. a React subscriber\n  logs a console.warn during render, which would retrigger the patch).\n- __debugPatched sentinel makes the patch idempotent under Fast\n  Refresh; without it, a module re-execute would wrap the already-\n  wrapped console.error as the \"original\" and eventually recurse.\n- Native skipped: RN's LogBox patches console itself at RN boot and\n  module order is unreliable — whoever patches last wins, so cross-\n  platform capture would silently lose entries mid-session.\n- Original console.error / console.warn are still called afterwards,\n  so DevTools' red/yellow message rendering is preserved.\n\nDeviation from task snippet: task used debugAdd({ ... }) object form\nand details: { args } (raw object). Existing debugAdd is positional\nwith details: string, used at 10 callsites. Reconciled by writing a\nsmall helper that respects the existing API instead of migrating it.\n\ntsc --noEmit: 0 errors. jest: 52/52. expo web build: clean.\n\nTags: debug, logging, console, pwa\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "feature",
+    "monitoring"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 97,
+    "deletions": 4
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "src/debug/DebugPill.tsx",
+    "src/debug/debugLog.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

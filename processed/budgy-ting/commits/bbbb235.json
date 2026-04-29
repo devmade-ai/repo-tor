@@ -1,0 +1,42 @@
+{
+  "sha": "bbbb235",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-17T09:24:26Z",
+  "subject": "chore(docs,pwa): remove HISTORY.md, add Communication section, ship icon cache-bust",
+  "body": "Cross-project cleanup sweep against budgy-ting:\n\n- Delete docs/HISTORY.md; git history is the changelog. Update CLAUDE.md\n  Documentation rules + AI_MISTAKES.md + TODO.md header comment to match.\n- Add Communication section to CLAUDE.md (verbatim from glow-props) and\n  insert COMMUNICATION into the header reminder line. Removed duplicate\n  communication bullet from AI Notes.\n- Content-hash every PWA icon URL: iconCacheBustHtml() Vite plugin rewrites\n  <link rel=\"icon\"> hrefs at build time; versioned() helper carries the\n  same ?v=<sha256-8> into the manifest. Workbox now strips the v param on\n  precache lookup (ignoreURLParametersMatching). Covers 4 of the 5 cache\n  layers (HTTP, CDN, SW precache, Chrome WebAPK); OS icon cache is a\n  user-side problem — surfaced in the install modal as a collapsible\n  reinstall hint with iOS / Android / desktop branches.\n- src/iconCacheBust.test.ts: 6-assertion tripwire (source-level wiring +\n  dist-level verification) so a future removal of any piece fails CI\n  instead of silently shipping stale icons.\n- Record EVENT_BUS as Not Applicable: no cross-service pub/sub need\n  surfaced. Vue reactivity + Dexie liveQuery + postMessage cover the\n  current demand.\n- Save-as-PDF button was already in place (WorkspaceDetailView.vue:152);\n  no code change needed.\n\nAll 112 tests pass, vue-tsc clean, vite build emits versioned hrefs in\ndist/index.html + dist/manifest.webmanifest and the /^v$/ ignore in\ndist/sw.js.\n\nTags: pwa, docs, infra, cleanup, test\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: cross-repo-cleanup\nSemver: minor",
+  "tags": [
+    "feature",
+    "build",
+    "test-unit",
+    "docs",
+    "removal"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-repo-cleanup",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 8,
+    "additions": 254,
+    "deletions": 952
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/InstallInstructionsModal.vue",
+    "src/iconCacheBust.test.ts",
+    "vite.config.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

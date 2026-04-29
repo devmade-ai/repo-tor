@@ -1,0 +1,35 @@
+{
+  "sha": "0a2d666",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-03T20:38:03Z",
+  "subject": "feat(map): always show search center location marker",
+  "body": "Previously, the blue dot location marker only appeared when GPS was\nactive. Users searching by address or using the default Johannesburg\nlocation had no visual indicator of where results were anchored.\n\nNow a blue dot marker is always shown at the search center — whether\nthe location comes from GPS, a manual address search, or the default.\n\nTags: map, ux, location\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: map-ux\nSemver: minor\n\nhttps://claude.ai/code/session_013YVzHNappET4vENJVZKWwH",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "map-ux",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 43,
+    "deletions": 19
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "src/components/map/FuelMap.tsx",
+    "src/components/map/FuelMapWeb.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

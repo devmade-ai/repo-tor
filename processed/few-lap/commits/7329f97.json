@@ -1,0 +1,32 @@
+{
+  "sha": "7329f97",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T21:25:19Z",
+  "subject": "docs: capture deferred PWA items in TODO + add test scenarios",
+  "body": "Wrap pass from session meta-sweep found two doc gaps:\n- TESTING_GUIDE.md had no scenarios for the three new PWA behaviors\n  (visibility-paused polling, icon cache-bust cycle, install-modal\n  disclosure). Added three numbered scenarios continuing the existing\n  numbering + format.\n- TODO.md wasn't tracking the two items I deferred during the branch\n  audits: the injector script fixture test (from cold pass) and the\n  remaining edges + a11y trigger passes (from session pwa pass).\n  These existed only in session-notes prose; tracking them in TODO\n  so they surface when the next person looks for work.\n\nTags: documentation, testing, todo\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pwa-polish\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-polish",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 8,
+    "deletions": 0
+  },
+  "files": [
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "internal"
+}

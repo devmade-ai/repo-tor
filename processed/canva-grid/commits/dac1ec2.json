@@ -1,0 +1,38 @@
+{
+  "sha": "dac1ec2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T20:34:23Z",
+  "subject": "fix(export): cold-audit round 2 — DRY, magic numbers, doc precision",
+  "body": "Addresses all 5 findings from the cold-audit pass on this branch:\n\n1. OLD_CACHES duplication — pwaCleanup.js now exports OLD_CACHES;\n   DebugPill.jsx imports it. Single source of truth; adding a third\n   pre-rename cache propagates to both sites automatically.\n\n2. DebugPill SW Caches race — added explicit code comment documenting\n   the (microsecond) race window between cleanupOldCaches()'s fire-and-\n   forget deletes and a user opening the diagnostic at startup. The\n   Re-run button surfaces settled state. No behavior change — just\n   writing down what's already true.\n\n3. Bundle test magic numbers — lifted `100 * 1024` / `750 * 1024` to\n   named constants VENDOR_PDF_MIN_KB / APP_CHUNK_HARD_MAX_KB next to\n   APP_CHUNK_MAX_KB. Size assertions now use KB throughout (symmetric\n   with the other tests). Comments updated.\n\n4. TESTING_GUIDE E8 step 10 — rewrote the ambiguous \"once the user has\n   loaded the new SW at least once\" into concrete action (\"After a full\n   reload following the deploy\"), documented the pre-reload transient\n   `warn` state as expected, and surfaced the Re-run button as the\n   confirmation step. A tester can now follow the guide literally.\n\n5. SESSION_NOTES.md bloat — rewritten from per-commit changelog form\n   (~100 lines, 4 commit-history blocks) into snapshot form (42 lines,\n   single consolidated accomplishments list). Matches CLAUDE.md's\n   \"compact context summary... not a changelog\" rule.\n\nNo production code changes outside items 1–2. Tripwires + docs only.\n\nTags: pwa, debug-pill, tests, claude-md, docs, dry\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: mobile-export-fidelity\nSemver: patch\n\nhttps://claude.ai/code/session_01QRw1MjzQ87B6weXuqwvz19",
+  "tags": [
+    "refactor",
+    "simplify",
+    "documentation",
+    "test-unit"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-export-fidelity",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 58,
+    "deletions": 67
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "src/__tests__/bundleSize.test.js",
+    "src/components/DebugPill.jsx",
+    "src/utils/pwaCleanup.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

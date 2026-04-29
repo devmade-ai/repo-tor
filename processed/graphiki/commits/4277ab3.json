@@ -1,0 +1,31 @@
+{
+  "sha": "4277ab3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-20T23:09:37Z",
+  "subject": "docs(todo): clarify theme-picker scope — not a one-off",
+  "body": "Revised my earlier \"1-2h\" estimate after reading\nscripts/generate-theme-meta.mjs. The meta-color generation regex\ncaptures only the first combo's light/dark theme ids; adding more\ncombos requires script + index.html changes before a picker makes\nsense. The updated entry spells out the full scope so the next session\ndoesn't pick this up expecting a quick task.\n\nTags: docs, todo, planning\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: alpha-debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_015rKh5k6MFgfyjNZDfGaWzV",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "alpha-debug-system",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    "docs/TODO.md"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

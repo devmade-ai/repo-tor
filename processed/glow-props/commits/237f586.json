@@ -1,0 +1,40 @@
+{
+  "sha": "237f586",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T20:39:44Z",
+  "subject": "feat(pwa): add dynamic meta theme-color that updates per DaisyUI theme",
+  "body": "Status bar (time, wifi, battery) now reflects the active theme color in\nPWA standalone mode. Uses canva-grid's proven pattern: light themes get\nprimary/neutral hex (dark enough for white text), dark themes get\nbase-100 hex. Fixes the invisible status bar text bug from the old\napproach of using page background colors.\n\nTags: pwa, theme, ui, status-bar\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: minor\n\nhttps://claude.ai/code/session_013uiRVkePPtxNmtemRkSStH",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 9,
+    "additions": 202,
+    "deletions": 16
+  },
+  "files": [
+    "docs/AI_MISTAKES.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/implementations/THEME_DARK_MODE.md",
+    "index.html",
+    "partials/head-common.html",
+    "pattern.html",
+    "project.html",
+    "public/theme.js"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

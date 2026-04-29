@@ -1,0 +1,32 @@
+{
+  "sha": "c9b5a1f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-18T00:26:08Z",
+  "subject": "refactor(debug): extract console patch into src/debug/consoleCapture.ts",
+  "body": "debugLog.ts was carrying three distinct concerns: the pub/sub event\nstore, environment + report generation, and the console.error /\nconsole.warn runtime patch. The console patch block (describeConsoleArgs\n+ PATCHED_MARK sentinel + wrappedError / wrappedWarn + reentrant flag)\nis ~60 lines of single-purpose code with its own idempotency semantics\n— clean extraction candidate.\n\n- New: src/debug/consoleCapture.ts exports installConsoleCapture(),\n  which checks Platform.OS === 'web' at runtime and no-ops otherwise.\n  Single file (no .web.ts + .ts split) because (a) the platform gate is\n  a one-line runtime check, not a bundle-split concern, and (b) keeping\n  it single-file means the existing jest tests exercise the real\n  implementation via the react-native mock without needing\n  jest-specific .web resolution config.\n- debugLog.ts imports installConsoleCapture and calls it once after\n  the boot debugAdd. Circular import is safe — consoleCapture's\n  required deps (debugAdd, safeStringify) are hoisted function\n  exports, available when consoleCapture evaluates.\n- Removed describeConsoleArgs + PATCHED_MARK + the patch block from\n  debugLog.ts.\n\nBefore: debugLog.ts 386 lines, console patch inline.\nAfter: debugLog.ts 345 lines, consoleCapture.ts 88 lines.\n\nNo behaviour change. The jest tests continue to cover the capture\npath end-to-end (console.error call → debug entry), so the refactor\nis transparent to the tests. 83/83 passing. tsc 0. expo web build\nclean.\n\nTags: debug, refactor, modularity\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-pill-hardening",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 97,
+    "deletions": 71
+  },
+  "files": [
+    "src/debug/consoleCapture.ts",
+    "src/debug/debugLog.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "internal"
+}

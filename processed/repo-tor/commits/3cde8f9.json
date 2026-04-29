@@ -1,0 +1,34 @@
+{
+  "sha": "3cde8f9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-13T10:40:38Z",
+  "subject": "docs: record second DaisyUI audit pass findings + update cheat sheet",
+  "body": "Captures the second 10-step DaisyUI v5 audit pass (commit de2e6ad)\nin SESSION_NOTES, HISTORY, TODO, and the DAISYUI_V5_NOTES cheat sheet.\n\ndocs/SESSION_NOTES.md:\n  New \"Recent Updates (2026-04-13 — second audit pass)\" block at\n  the top of Current State. Documents all four audit gap fixes\n  (hardcoded Tailwind colors -> semantic tokens, loading-spinner\n  shadow removal, single-value progress bars -> native <progress>,\n  dead metric-selector / pin-btn marker classes) with rejection\n  reasons for items deliberately NOT migrated (hamburger-divider,\n  HeatmapTooltip portal pattern, DebugPill isolated root).\n\ndocs/HISTORY.md:\n  New \"Second audit pass\" section above the \"Post-migration audit\n  loose-end fixes\" entry from earlier today. Full breakdown of all\n  four gap fixes with:\n    1. Color mapping table (Tailwind shade -> DaisyUI semantic\n       token -> typical use case)\n    2. loading-spinner shadow removal + CSS cleanup list\n    3. Progress bar migration pattern with before/after JSX\n    4. Dead marker class removal rationale\n  Plus a \"Verification\" section listing every grep command run\n  to confirm the build output.\n\ndocs/TODO.md:\n  Footer \"Last updated\" paragraph rewritten to cover all 8\n  follow-up fixes across both audit passes (was 4 after the first\n  pass) and to explicitly call out zero hardcoded Tailwind shades\n  and zero dead marker classes as the post-audit invariants.\n\ndocs/DAISYUI_V5_NOTES.md:\n  New \"Data-viz color tokens\" section with the canonical semantic\n  token mapping table for good/success/bad/neutral/primary/etc.\n  categories. New \"Loading spinners\" and \"Progress bars\" entries\n  under \"Project conventions we use\" with the required class\n  patterns and the single-value vs stacked-bar decision rule.\n  Header rationale block updated to mention that a SECOND audit\n  pass caught three more gaps (hardcoded colors, loading-spinner\n  shadow, progress bar structure) so future sessions know the\n  cheat sheet already accounts for every gap caught so far.\n\nTags: documentation, daisyui, migration, audit\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
+  "tags": [
+    "documentation"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-component-migration",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 4,
+    "additions": 134,
+    "deletions": 1
+  },
+  "files": [
+    "docs/DAISYUI_V5_NOTES.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

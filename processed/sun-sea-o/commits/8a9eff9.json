@@ -1,0 +1,34 @@
+{
+  "sha": "8a9eff9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T17:15:27Z",
+  "subject": "docs(claude): align CLAUDE.md and docs with glow-props cross-fleet policy",
+  "body": "Remove local docs/HISTORY.md (git log is the changelog), delete the\ninline ~470-line Suggested Implementations section in favour of fetching\npatterns from the glow-props source of truth, and sync the Communication\nand Triggers sections (48 triggers across 8 groups + meta sweeps +\nreflective passes) with the fleet template. AI Notes and Prohibitions\nnow carry the no-local-copies rule; Shared References points at the\nGitHub Pages URL and the dynamic listing command.\n\nTags: documentation, fleet-alignment, claude-md\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
+  "tags": [
+    "docs",
+    "removal"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cross-fleet-docs",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 3,
+    "additions": 207,
+    "deletions": 791
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/HISTORY.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}
