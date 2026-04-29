@@ -1,0 +1,58 @@
+{
+  "sha": "443eff8",
+  "fullSha": "443eff832774fba30b435cc0aeda4503aa4fd374",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T21:52:12Z",
+  "commitDate": "2026-04-02T21:52:12Z",
+  "subject": "fix(audit): Phases 2-4, 6 — docs, security, debug logs, code quality",
+  "body": "Phase 2 — Documentation:\n- SESSION_NOTES.md: rewrite with current session state\n- USER_GUIDE.md: update reset filters (no X button, use \"All\" + radius dropdown)\n- CLAUDE.md: add generate-theme-colors.mjs, update header layout, add new status items\n- HISTORY.md: add 2026-04-02 entries for all recent changes\n\nPhase 3 — Security:\n- +html.tsx: add Content-Security-Policy meta tag (restrict origins, allow unsafe-inline\n  for PWA install script + RNW inline styles)\n- admin/station/[id].tsx: add maxLength to all TextInput fields (200/100/500/100/50)\n- admin/bulk-import.tsx: add maxLength=5MB to JSON textarea\n\nPhase 4 — Debug logs (10 missing → 0):\n- admin/station/[id].tsx: log station save success/failure\n- admin/bulk-update.tsx: log bulk price update success/failure\n- admin/bulk-import.tsx: log bulk import success/failure\n- useLocation.ts: log manual location set\n- StationList.tsx: log sort mode toggle\n- useTheme.ts: log meta theme-color update\n\nPhase 6 — Code quality:\n- usePriceHistory.ts: fix loading race — always clear loading in finally block\n- config.ts: add shared MODAL_TOP_MARGIN constant\n- HeaderFilters.tsx, index.tsx, BurgerMenu.tsx: use MODAL_TOP_MARGIN (DRY)\n- Toast listener cleanup and blur timer already correctly implemented (verified)\n\nTags: audit, docs, security, debug, code-quality\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: audit-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01JiHLm7X1zVwrcYAJuVaPFN",
+  "tags": [
+    "bugfix",
+    "security",
+    "monitoring"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "audit-sweep",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "Phases 2-4, 6 — docs, security, debug logs, code quality",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 16,
+    "additions": 119,
+    "deletions": 61
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(tabs)/index.tsx",
+    "app/+html.tsx",
+    "app/admin/bulk-import.tsx",
+    "app/admin/bulk-update.tsx",
+    "app/admin/station/[id].tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_GUIDE.md",
+    "src/components/search/HeaderFilters.tsx",
+    "src/components/station/StationList.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/constants/config.ts",
+    "src/hooks/useLocation.ts",
+    "src/hooks/usePriceHistory.ts",
+    "src/hooks/useTheme.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

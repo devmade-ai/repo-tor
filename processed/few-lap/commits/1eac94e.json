@@ -1,0 +1,41 @@
+{
+  "sha": "1eac94e",
+  "fullSha": "1eac94e48c24302c7a117f36a423951ff4d06d67",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T22:22:48Z",
+  "commitDate": "2026-04-02T22:22:48Z",
+  "subject": "fix(pwa): remove unconditional skipWaiting from SW install handler",
+  "body": "The install event called self.skipWaiting() unconditionally, which\nauto-activated every new service worker immediately on install. This\nbypassed the prompt-based update flow — the user never saw the \"New\nversion available\" banner because the SW activated before the UI could\ndetect the waiting state.\n\nNow the new SW stays in waiting state until the user clicks \"Update\"\nin PWABanner, which sends the SKIP_WAITING message. This matches the\nregisterType: 'prompt' pattern from the glow-props PWA spec.\n\nTags: pwa, service-worker, update-flow\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa-system\nSemver: patch\n\nhttps://claude.ai/code/session_01JiHLm7X1zVwrcYAJuVaPFN",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pwa-system",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "remove unconditional skipWaiting from SW install handler",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 5,
+    "deletions": 1
+  },
+  "files": [
+    "public/sw.js"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,45 @@
+{
+  "sha": "845c40c",
+  "fullSha": "845c40cc184cdf74a6f540eebe611fe0fc8c17f7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T23:33:48Z",
+  "commitDate": "2026-04-02T23:33:48Z",
+  "subject": "fix(ui): prevent burger menu overlapping search button in header",
+  "body": "On narrow screens, the filter buttons + burger menu exceeded available width,\ncausing the burger icon to visually overlap the search pill. Fixed by:\n- Removing maxWidth: 200 from search button (let it truly flex-fill)\n- Adding flexShrink: 0 to filter buttons and burger wrapper (prevent squishing)\n- Replacing marginRight: 15 on burger with flexShrink: 0 (header has its own padding)\n- Adding marginHorizontal: 0 to headerTitleContainerStyle (prevent React Navigation default margins)\n\nTags: ui, layout, header, bugfix\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: header-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01RzsrbdRZPkrzmNNEwDFHaq",
+  "tags": [
+    "revert",
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "header-layout",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "prevent burger menu overlapping search button in header",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 3,
+    "deletions": 3
+  },
+  "files": [
+    "app/(tabs)/_layout.tsx",
+    "src/components/search/HeaderFilters.tsx",
+    "src/components/ui/BurgerMenu.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

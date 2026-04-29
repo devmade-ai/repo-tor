@@ -1,0 +1,45 @@
+{
+  "sha": "217be46",
+  "fullSha": "217be4669b4bde248c65beefc2c7083aa16e3830",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T22:15:25Z",
+  "commitDate": "2026-04-02T22:15:25Z",
+  "subject": "feat(pwa): cache headers, security headers, toast queue, install UX",
+  "body": "Apply PWA improvements from glow-props shared standards:\n\nvercel.json:\n- Cache-Control: immutable for /assets/ and /_expo/static/ (hashed files)\n- Cache-Control: no-cache for everything else (index.html, sw.js)\n- Security headers: X-Content-Type-Options nosniff, X-Frame-Options DENY,\n  Referrer-Policy strict-origin-when-cross-origin\n\nToast.tsx:\n- Queue support: stack up to 3 toasts (was single-replace)\n- Extract ToastItem: each toast has own animation + auto-dismiss timer\n- Add 'warning' type with PRICE_COLORS.aging (yellow-600) background\n- showToast() API unchanged — all existing callers unaffected\n\nInstallInstructionsModal.tsx:\n- Add 'note' field to instruction data (Firefox desktop, unknown browser)\n- Render warning-styled note row with info-circle icon\n- Add benefits section: offline, home screen, full-screen (helps\n  non-technical users understand WHY to install)\n\nusePWAUpdate.ts:\n- Verified: interval is properly cleaned up via intervalRef + useEffect\n  cleanup. The glow-props warning about onRegistered leak doesn't apply\n  (this hook doesn't use the onRegistered callback pattern).\n\nTags: pwa, security, toast, install, vercel\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-system\nSemver: minor\n\nhttps://claude.ai/code/session_01JiHLm7X1zVwrcYAJuVaPFN",
+  "tags": [
+    "feature",
+    "security",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-system",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "cache headers, security headers, toast queue, install UX",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 151,
+    "deletions": 39
+  },
+  "files": [
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/ui/Toast.tsx",
+    "vercel.json"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

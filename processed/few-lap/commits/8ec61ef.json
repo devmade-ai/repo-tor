@@ -1,0 +1,43 @@
+{
+  "sha": "8ec61ef",
+  "fullSha": "8ec61efcdb7dc4a550247a41defb61634f631d2b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T23:38:36Z",
+  "commitDate": "2026-04-02T23:38:36Z",
+  "subject": "fix(ui): move burger menu to headerRight to prevent overlap with search",
+  "body": "The burger was crammed into headerTitle alongside title + search + filters,\ncausing it to overlap the search button on narrow screens. Moved burger to\nheaderRight — React Navigation's dedicated right-side slot — so it stays\nas the rightmost element without competing for flex space.\n\nTags: ui, layout, header, bugfix\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: header-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01RzsrbdRZPkrzmNNEwDFHaq",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "header-layout",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "move burger menu to headerRight to prevent overlap with search",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 9,
+    "deletions": 8
+  },
+  "files": [
+    "app/(tabs)/_layout.tsx",
+    "src/components/ui/BurgerMenu.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

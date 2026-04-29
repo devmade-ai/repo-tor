@@ -1,0 +1,42 @@
+{
+  "sha": "3e7c117",
+  "fullSha": "3e7c117f616527b17be08677ba3d1aeef0b6ba41",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T23:48:51Z",
+  "commitDate": "2026-04-02T23:48:51Z",
+  "subject": "fix(ui): truncate filter labels to 3 chars for compact header",
+  "body": "Fuel type shows first 3 chars (e.g. \"ULP\", \"Die\", \"All\"). Radius shows\nnumber + \"k\" (e.g. \"10k\", \"25k\"). Full names kept in accessibility labels.\nRemoved maxWidth constraints since short labels no longer need them.\n\nTags: ui, layout, header\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: header-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01RzsrbdRZPkrzmNNEwDFHaq",
+  "tags": [
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "header-layout",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "truncate filter labels to 3 chars for compact header",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 6,
+    "deletions": 6
+  },
+  "files": [
+    "src/components/search/HeaderFilters.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

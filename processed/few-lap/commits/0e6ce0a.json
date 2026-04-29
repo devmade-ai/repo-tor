@@ -1,0 +1,42 @@
+{
+  "sha": "0e6ce0a",
+  "fullSha": "0e6ce0a3a2a8c708206cf831505bfd2faca676c3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T22:05:37Z",
+  "commitDate": "2026-04-02T22:05:37Z",
+  "subject": "feat(ui): add Refresh option to burger menu for standalone PWA",
+  "body": "In standalone PWA mode there's no browser refresh button. \"Check for\nupdates\" only checks the service worker — it doesn't reload the page\nto fetch fresh station/price data. Add a \"Refresh\" item that calls\nwindow.location.reload(), placed in the PWA group (web only).\n\nUses 'repeat' icon to differentiate from 'refresh' (Check for updates).\n\nTags: ui, pwa, burger-menu\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pwa\nSemver: minor\n\nhttps://claude.ai/code/session_01JiHLm7X1zVwrcYAJuVaPFN",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pwa",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "add Refresh option to burger menu for standalone PWA",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 8,
+    "deletions": 1
+  },
+  "files": [
+    "src/components/ui/BurgerMenu.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}
