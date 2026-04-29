@@ -489,7 +489,11 @@ function main() {
   const repoNames = Object.keys(repos);
 
   if (repoNames.length === 0) {
-    console.error('\nNo processed data found. Run extraction first.');
+    console.error(
+      '\nNo processed data found in processed/.\n' +
+      'Run extraction + analysis first — see docs/DATA_OPERATIONS.md ' +
+      '("Hatch the Chicken" for a fresh start, "Feed the Chicken" for incremental).',
+    );
     process.exit(1);
   }
 
@@ -594,7 +598,18 @@ function main() {
 // from this file; without this guard, importing would run a full aggregation.
 // realpathSync resolves both sides through symlinks (npx, monorepo tools,
 // container-mounted volumes can otherwise produce paths that compare unequal
-// even though they reference the same file).
-if (fs.realpathSync(process.argv[1]) === fs.realpathSync(__filename)) {
+// even though they reference the same file). Falls back to direct equality
+// if either path can't be resolved (e.g. process.argv[1] is unset in
+// non-standard launchers).
+function isInvokedAsCli() {
+  if (!process.argv[1]) return false;
+  try {
+    return fs.realpathSync(process.argv[1]) === fs.realpathSync(__filename);
+  } catch {
+    return process.argv[1] === __filename;
+  }
+}
+
+if (isInvokedAsCli()) {
   main();
 }

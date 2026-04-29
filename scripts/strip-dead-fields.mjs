@@ -20,7 +20,7 @@
  * Safe to run on a clean tree (no-op if all files are already stripped).
  */
 
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, renameSync, unlinkSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DASHBOARD_UNUSED_FIELDS } from './aggregate-processed.js';
@@ -31,6 +31,15 @@ const PROCESSED_DIR = join(REPO_ROOT, 'processed');
 
 // Single source of truth: imported from aggregate-processed.js.
 const DEAD_FIELDS = new Set(DASHBOARD_UNUSED_FIELDS);
+
+if (!existsSync(PROCESSED_DIR)) {
+  console.error(
+    `processed/ not found at ${PROCESSED_DIR}.\n` +
+    `Run extraction + analysis first — see docs/DATA_OPERATIONS.md ` +
+    `("Hatch the Chicken" for a fresh start, "Feed the Chicken" for incremental).`,
+  );
+  process.exit(1);
+}
 
 let scanned = 0;
 let modified = 0;
@@ -79,11 +88,30 @@ for (const repo of repoDirs.sort()) {
   }
 }
 
-// Pass 2: write only after all files parsed cleanly.
-for (const { path, data, changed } of planned) {
-  writeFileSync(path, JSON.stringify(data, null, 2));
-  modified += 1;
-  fieldsStripped += changed;
+// Pass 2: write only after all files parsed cleanly. Each write is
+// atomic per-file via .tmp + rename so a mid-run disk failure leaves
+// every file in either its old or new state — never half-written.
+const writtenTmps = [];
+try {
+  for (const { path, data, changed } of planned) {
+    const tmpPath = `${path}.tmp`;
+    writeFileSync(tmpPath, JSON.stringify(data, null, 2));
+    writtenTmps.push(tmpPath);
+    renameSync(tmpPath, path);
+    writtenTmps.pop(); // succeeded — no longer needs cleanup
+    modified += 1;
+    fieldsStripped += changed;
+  }
+} catch (e) {
+  // Clean up any orphan .tmp files from incomplete writes.
+  for (const tmp of writtenTmps) {
+    try { unlinkSync(tmp); } catch { /* best effort */ }
+  }
+  throw new Error(
+    `Write failed after ${modified} of ${planned.length} files updated. ` +
+    `Already-renamed files have new content; remaining files are unchanged. ` +
+    `Re-run after fixing the underlying issue: ${e.message}`,
+  );
 }
 
 console.log(`Scanned: ${scanned} | Modified: ${modified} | Fields stripped: ${fieldsStripped}`);
