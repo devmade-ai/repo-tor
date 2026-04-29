@@ -1,17 +1,11 @@
 {
   "sha": "ea0acc5",
-  "fullSha": "ea0acc505c174f33f7b79bb59b4b768a944aa3e6",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-16T17:22:25Z",
-  "commitDate": "2026-04-16T17:22:25Z",
   "subject": "fix(pwa): cache-bust icon URLs via content hash so re-install shows new icon",
   "body": "Re-installing the PWA (or clearing site data) was still showing the old\nicon because the icon URLs (`assets/images/icon-192.png`,\n`apple-touch-icon.png`, `favicon.ico`, ...) never changed — the browser\nHTTP cache, Vercel CDN, Workbox precache, and Chrome's WebAPK shadow all\nkept serving the previous bytes.\n\nvite.config.js:\n- SHA-256 each icon in `dashboard/public/` at config-load time, take the\n  first 8 chars, and append `?v=<hash>` to the three manifest icon\n  entries and the three static `<link>` tags in `index.html` (via a new\n  `iconCacheBustHtml` transformIndexHtml plugin).\n- Add `workbox.cleanupOutdatedCaches: true` so the SW drops the previous\n  build's precache entries on activation. This was missing entirely —\n  caught during a glow-props PWA_SYSTEM.md pattern review.\n- Add `workbox.ignoreURLParametersMatching: [/^utm_/, /^v$/]` so the\n  versioned URLs still match the precached `icon-192.png` / etc. entries\n  (Workbox would otherwise miss `?v=...` and fall through to network).\n\nHash is content-derived → bumps automatically when icons regenerate, no\nmanual version constant to forget. New URL → fresh fetch at every cache\nlayer the web app controls; new manifest icon URL → Chrome WebAPK regen\non next update check. OS-level icon caches (Springboard, Android\nlauncher, Windows icon cache, macOS Icon Services) are platform-\ncontrolled and still require a full PWA uninstall — documented inline.\n\nVerified: `dist/manifest.webmanifest` icons render as\n`icon-192.png?v=de08cd78`, `dist/index.html` link tags render as\n`favicon.png?v=05809e07`, `dist/sw.js` contains\n`cleanupOutdatedCaches()` and\n`ignoreURLParametersMatching:[/^utm_/,/^v$/]`. 65/65 tests pass.\n\nTags: pwa, caching, icons, workbox, vite-config\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-resilience\nSemver: patch",
   "tags": [
@@ -24,13 +18,7 @@
   "debt": "paid",
   "epic": "pwa-resilience",
   "semver": "patch",
-  "scope": "pwa",
-  "title": "cache-bust icon URLs via content hash so re-install shows new icon",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "SHA-256"
-  ],
   "stats": {
     "filesChanged": 3,
     "additions": 126,

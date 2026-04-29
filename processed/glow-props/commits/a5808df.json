@@ -1,17 +1,11 @@
 {
   "sha": "a5808df",
-  "fullSha": "a5808df06590a29b6dcaa86f6697c2a054586447",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-17T01:04:47Z",
-  "commitDate": "2026-04-17T01:04:47Z",
   "subject": "docs+fix: document frontmatter contract, harden parser",
   "body": "- Added frontmatter contract documentation to CLAUDE.md's\n  Implementation Patterns section (required fields, how it works,\n  generatePatternManifest plugin)\n- Hardened parseFrontmatter and stripFrontmatter against \\r\\n\n  line endings (Windows git clients)\n- Added slug format validation: must be lowercase alphanumeric\n  with hyphens (rejects invalid slugs at build time)\n\nTags: documentation, hardening, patterns\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pattern-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01CKqDf6SZ2KGeAXjZS2s91W",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "pattern-alignment",
   "semver": "patch",
-  "scope": null,
-  "title": "docs+fix: document frontmatter contract, harden parser",
-  "is_conventional": false,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 29,

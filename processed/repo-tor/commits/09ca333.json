@@ -1,17 +1,11 @@
 {
   "sha": "09ca333",
-  "fullSha": "09ca3330c2177b4c1823c8babb9ab7d75c99aba8",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-15T22:31:00Z",
-  "commitDate": "2026-04-15T22:31:00Z",
   "subject": "docs(claude): expand exceptions for debug subsystem + ErrorBoundary + paths",
   "body": "Fresh-eyes audit findings #1, #2, #3, #11, #12 — the CLAUDE.md\nexception lists had drifted out of sync with both the filesystem\nand the actual code in three distinct ways.\n\n1. Hex-literal exception list only named `DebugPill.jsx`, but the\n   2026-04-15 DebugPill split (commit feb7129) moved most hex\n   literals into `components/debug/debugStyles.js` and\n   `components/debug/DebugTabs.jsx`. Both new files inherit the\n   \"isolated React root must survive CSS load failure\" rationale,\n   but the rationale was tied to a specific path that no longer\n   holds all the hex. Expanded the exception to cover the entire\n   DebugPill subsystem: `DebugPill.jsx` PLUS every file under\n   `components/debug/`. Any future file added to that subdirectory\n   inherits the exception automatically — stated explicitly in the\n   expanded wording so a future reader doesn't re-litigate.\n\n2. Bracket-value exception for `grid-cols-[auto_repeat(7,1fr)]`\n   referenced `Timing.jsx full heatmap`, but the 2026-04-15\n   TimingHeatmap split (commit 4f38b72) moved the grid into\n   `components/TimingHeatmap.jsx` `HourlyHeatmap`. Same exception,\n   new path. Fixed the file reference and added a parenthetical\n   note about when the move happened so the path change isn't\n   confusing to a reader cross-referencing git history.\n\n3. Inline-style rule said \"No inline `style={}` objects in JSX\n   unless values are runtime-computed from data\" with ONE list of\n   data-derived allowances. But the root ErrorBoundary in main.jsx\n   has a small static-literal inline style block (min-h, flex\n   centering, padding, gap) that's defensively inlined so the\n   error fallback renders even if the Tailwind CSS bundle failed\n   to load — structurally the same resilience concern as the\n   DebugPill exception. Added a new \"Exceptions for static inline\n   styles\" sub-list with two entries: the root ErrorBoundary and\n   the DebugPill subsystem. The ErrorBoundary entry explicitly\n   notes that text colours still use DaisyUI utilities so they\n   apply when CSS does load, and that this is the ONLY such\n   exception outside the debug subsystem.\n\n4. Docs table was missing `docs/ADMIN_GUIDE.md` despite the\n   \"After Each Significant Task\" checklist (line 341) saying\n   \"Update docs/ADMIN_GUIDE.md if setup, extraction, or\n   configuration changed\". Added a row between USER_GUIDE.md and\n   TESTING_GUIDE.md.\n\n5. Key Components list (js/components/, js/sections/, js/hooks/)\n   was stale after the 2026-04-15 extraction pass — missing\n   `TimingHeatmap`, the `components/debug/` subdirectory, the\n   `sections/discover/` subdirectory, and `useTimelineCharts`.\n   Rewrote the three bullets to mention each new location with a\n   one-line summary of what's in it, so the list matches a `ls`\n   of the tree. `useClickOutside` is still listed because commit\n   2 hasn't removed it yet — will be taken out in the next commit.\n\nBuild clean, 60/60 tests pass (no code touched, docs only).\n\nTags: documentation, audit, policy\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
   "tags": [
@@ -22,17 +16,7 @@
   "debt": "paid",
   "epic": "post-audit-cleanup",
   "semver": "patch",
-  "scope": "claude",
-  "title": "expand exceptions for debug subsystem + ErrorBoundary + paths",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#1",
-    "#2",
-    "#3",
-    "#11",
-    "#12"
-  ],
   "stats": {
     "filesChanged": 1,
     "additions": 9,

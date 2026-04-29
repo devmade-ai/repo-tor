@@ -1,17 +1,11 @@
 {
   "sha": "7d74ab9",
-  "fullSha": "7d74ab9329ebe396f00fc2ce8f8380afc9433d66",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-09T05:18:39Z",
-  "commitDate": "2026-04-09T05:18:39Z",
   "subject": "docs: update all docs for PWA hook changes per CLAUDE.md requirements",
   "body": "USER_GUIDE.md:\n- Add Opera, Samsung Internet, Vivaldi, Arc to browser support table\n- Add Samsung Internet and Opera install instructions\n- Group Vivaldi/Arc with Chrome/Edge/Brave in automatic install section\n- Add iOS non-Safari cross-redirect note explaining Safari requirement\n- Update Updates section to mention visibility-based checking\n\nTESTING_GUIDE.md:\n- Add 4 PWA test scenarios: update banner on tab refocus, install prompt\n  on Chromium, manual install instructions on Safari/Firefox, iOS\n  non-Safari cross-redirect\n- Add PWA regression checklist items\n\nTODO.md:\n- Add usePWAUpdate.js and usePWAInstall.js to untested modules list\n  with notes on what needs mocking (SW registration, beforeinstallprompt)\n\nCLAUDE.md:\n- Add AI note for PWA module-level singleton pattern and CHROMIUM_BROWSERS\n- Add AI note for iOS browser detection (CriOS/FxiOS/EdgiOS)\n\nTags: docs, pwa, testing\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pwa-reliability\nSemver: patch\n\nhttps://claude.ai/code/session_01AC1UWyZGqVwHGuu6SPJr72",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "pwa-reliability",
   "semver": "patch",
-  "scope": null,
-  "title": "update all docs for PWA hook changes per CLAUDE.md requirements",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 72,

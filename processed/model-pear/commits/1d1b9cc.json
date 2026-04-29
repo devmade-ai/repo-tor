@@ -1,17 +1,11 @@
 {
   "sha": "1d1b9cc",
-  "fullSha": "1d1b9cc46c5ed04c170840a41c87e1b42c55f11f",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T17:30:33Z",
-  "commitDate": "2026-04-10T17:30:33Z",
   "subject": "fix(ui): remove click-to-close from modal backdrops",
   "body": "The previous commit added on:click handlers to the backdrop divs,\nintroducing click-outside-to-close behavior that didn't exist before.\nThis is a UX change, not a z-index structural change — the Save Modal's\ncancelSave clears user input, so an accidental outside click would\ndiscard typed text. Removed the handlers to keep this commit purely\nstructural (z-index normalization only, no behavior changes).\n\nBackdrops remain as separate z-40 divs with default pointer-events,\nwhich correctly blocks clicks from reaching page content underneath.\n\nTags: ui, z-index, ux\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: z-index-scale\nSemver: patch\n\nhttps://claude.ai/code/session_01L9bYUdziLDmew97oAkb8w9",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "neutral",
   "epic": "z-index-scale",
   "semver": "patch",
-  "scope": "ui",
-  "title": "remove click-to-close from modal backdrops",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 2,

@@ -1,17 +1,11 @@
 {
   "sha": "b24ef95",
-  "fullSha": "b24ef95751ab0118dfc4fe4faae00f128ceb505f",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-17T01:02:08Z",
-  "commitDate": "2026-04-17T01:02:08Z",
   "subject": "feat: dynamic pattern discovery from YAML frontmatter",
   "body": "Patterns are no longer hardcoded in index.html cards or the\npattern.html PATTERNS map. Adding a new pattern is now a single\nstep: drop a .md file with YAML frontmatter into\ndocs/implementations/ and it appears in the app automatically.\n\nImplementation:\n- Added YAML frontmatter (slug, title, badge, description, tags,\n  order) to all 10 pattern .md files\n- New generatePatternManifest Vite plugin scans docs/implementations/,\n  parses frontmatter, validates required fields, and serves\n  patterns/manifest.json (dev middleware + build-time emit)\n- pattern.html fetches manifest to resolve slug → file mapping\n  (replaces hardcoded 7-entry PATTERNS map)\n- index.html renders pattern cards dynamically from manifest\n  (replaces 90 lines of hardcoded HTML with a fetch + DOM build)\n- stripFrontmatter in src/markdown.js prevents frontmatter from\n  rendering as visible content\n- Scroll observer and card-interactive behaviors refactored to\n  work with dynamically inserted elements\n- globPatterns updated to include json for SW precaching\n\nAll 10 patterns now visible (was 7 — EVENT_BUS, Z_INDEX_SCALE,\nPWA_ICON_CACHE_BUST were missing from the UI).\n\nTags: feature, patterns, dynamic-content, vite-plugin\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pattern-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01CKqDf6SZ2KGeAXjZS2s91W",
   "tags": [
@@ -25,11 +19,7 @@
   "debt": "paid",
   "epic": "pattern-alignment",
   "semver": "minor",
-  "scope": null,
-  "title": "dynamic pattern discovery from YAML frontmatter",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 14,
     "additions": 339,

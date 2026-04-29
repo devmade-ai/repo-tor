@@ -1,17 +1,11 @@
 {
   "sha": "28a59cd",
-  "fullSha": "28a59cdae0f97c660200ccda7dc264c3ac116834",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-02-16T02:03:36+00:00",
-  "commitDate": "2026-02-16T02:03:36+00:00",
   "subject": "fix(quality): comprehensive code review improvements across codebase",
   "body": "Fix metadata mismatch (index.html had \"John Doe\" instead of actual name),\nmemory leak in usePWAUpdate.ts (setInterval without cleanup), array index\nReact keys in 6 components, missing fetch timeout in InterestForm, and\nseveral accessibility gaps.\n\nAdded Vitest test suite with 42 tests covering API payload validation,\nemail regex, browser detection, and CV data integrity. Improved API\nsecurity with explicit CORS origin rejection and stricter email validation.\nEnhanced UX with error auto-dismiss, UpdatePrompt error handling, and\nproper ARIA attributes. Added lint step to CI/CD pipeline.\n\nTags: quality, testing, accessibility, security, ux, ci\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-review-improvements\nSemver: minor\n\nhttps://claude.ai/code/session_01Sx74RdGUuRWr2j6eKPZ7iw",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": null,
   "semver": "minor",
-  "scope": "quality",
-  "title": "comprehensive code review improvements across codebase",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 23,
     "additions": 1728,

@@ -1,17 +1,11 @@
 {
   "sha": "739d2d3",
-  "fullSha": "739d2d365095a595669c87b3a3e44022f58f9f7f",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-22T23:37:27Z",
-  "commitDate": "2026-04-22T23:37:27Z",
   "subject": "docs(claude): close final two align drifts — HMR tip + Documentation ordering",
   "body": "Follow-up to commit e99afb7 (six-point align fix). Running `align` again\nsurfaced two residual minor drifts between this repo's CLAUDE.md and\nglow-props' — both applied.\n\n1. Code Standards → Timer and Subscription Cleanup: kept the repo-local\n   `__debugLogListenersAttached` example citation AND added back the\n   `import.meta.hot.dispose()` tip from glow-props. Sun-sea-o is a\n   Vite project that exposes `import.meta.hot`, so the release-on-HMR\n   advice is directly applicable; losing it in the earlier swap was a\n   minor regression.\n\n2. Documentation section ordering: moved `README.md` from position 2\n   (right after CLAUDE.md) down to position 6 (after AI_MISTAKES.md)\n   to match glow-props' order exactly:\n     CLAUDE → SESSION_NOTES → TODO → USER_ACTIONS → AI_MISTAKES →\n     README → USER_GUIDE → TESTING_GUIDE.\n   Cosmetic change; all entries were present, just reordered.\n\nTags: docs, alignment, claude-md\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "patch",
-  "scope": "claude",
-  "title": "close final two align drifts — HMR tip + Documentation ordering",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 16,

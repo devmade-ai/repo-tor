@@ -1,17 +1,11 @@
 {
   "sha": "aa08088",
-  "fullSha": "aa080882a90d766bdc302b43353d6bc755a1378e",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-05T07:56:25Z",
-  "commitDate": "2026-04-05T07:56:25Z",
   "subject": "fix(theme): replace color: white with DaisyUI -content tokens",
   "body": "Every element using a DaisyUI semantic background color now uses its\nmatching -content token for text instead of hardcoded white. This\nensures correct contrast in all themes (e.g., pastel primary is light\npurple — white text on it would have poor contrast).\n\nFixes: app-alpha-badge, btn-update-banner, view-switcher-tab.active,\nqb-mode-toggle.active, qb-logic-toggle:hover, qb-mode-btn.active,\nqb-negate-btn.active, query-help-tab.active, install step counter.\n\nTags: theme, daisyui, contrast, a11y\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "theme-dark-mode",
   "semver": "patch",
-  "scope": "theme",
-  "title": "replace color: white with DaisyUI -content tokens",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 9,

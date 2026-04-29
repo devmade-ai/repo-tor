@@ -1,17 +1,11 @@
 {
   "sha": "8bac9c4",
-  "fullSha": "8bac9c4aae6dfb7d5427d1b6b2d5b5393becd25a",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-15T07:36:36Z",
-  "commitDate": "2026-04-15T07:36:36Z",
   "subject": "docs: Phase 6 — vanilla-DaisyUI sweep documentation",
   "body": "Updates CLAUDE.md + DAISYUI_V5_NOTES.md + SESSION_NOTES.md +\nHISTORY.md to reflect the completed 8-phase vanilla-DaisyUI sweep.\n\nCLAUDE.md \"Frontend: Styles and Scripts\":\n  - Replaced the 6-tier precedence rule with a vanilla-only policy:\n    only DaisyUI component classes + DaisyUI semantic tokens + stock\n    Tailwind v4 utilities. Zero custom CSS, zero @theme extensions,\n    zero @utility directives, zero arbitrary bracket values, zero\n    brand hex literals.\n  - Listed the two remaining exceptions: DebugPill.jsx inline hex\n    (isolated root that survives CSS failure) and themes.js:137\n    fallback `#808080` (single safety-net).\n\nDAISYUI_V5_NOTES.md:\n  - \"Project conventions\" rewritten as vanilla-only policy. Migration\n    path for new patterns: stock utility → DaisyUI token → component\n    class → runtime CSS var resolution → out of scope.\n  - \"Tag chips\" section rewritten to document the 7-variant DaisyUI\n    badge system (success/error/warning/secondary/info/accent/neutral)\n    replacing the deleted 34-hex palette.\n  - \"Custom CSS policy: zero\" section enumerates every deleted class\n    and its migration target.\n  - \"Previously deliberately NOT used — now used\" section flips\n    `drawer` and `collapse` from the rejected list to adopted,\n    with rationale for why the previous objections were overblown.\n  - `dropdown` + `menu` stay in \"deliberately NOT used\" — HamburgerMenu\n    still uses React-state disclosure for the same reasons.\n  - Chart.js dataset colours section rewritten for runtime\n    getComputedStyle resolution of 8 semantic vars.\n  - Toast convention updated to note `z-[var(--z-toast)]` is the only\n    permitted arbitrary bracket (design-token CSS var reference).\n  - Drawer + Collapse conventions added with full JSX examples.\n\nHISTORY.md:\n  - Added top-level \"Vanilla-DaisyUI sweep — 8 phases, zero custom CSS\"\n    entry with per-phase commit hashes, visual regressions, and URL\n    params removed.\n\nSESSION_NOTES.md:\n  - Added current-state block at the top summarising the 8-phase sweep\n    and final state (zero custom classes, full DaisyUI adoption).\n\nVerified: vite build clean (2.66s), 60/60 tests pass, final audit\nconfirms:\n  - 0 custom class primary rules in dashboard/styles.css\n  - 0 arbitrary `text-[Npx]` usages in dashboard/js\n  - 0 hex colour literals in chartColors.js or utils.js (tag palette)\n\nBranch state after this commit: the full vanilla-DaisyUI sweep is\ncomplete. The dashboard uses exclusively DaisyUI components, DaisyUI\nsemantic tokens, and stock Tailwind utilities.\n\nTags: docs, daisyui, cleanup, vanilla\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
   "tags": [
@@ -22,13 +16,7 @@
   "debt": "paid",
   "epic": "daisyui-v5-migration",
   "semver": "patch",
-  "scope": null,
-  "title": "Phase 6 — vanilla-DaisyUI sweep documentation",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#808080"
-  ],
   "stats": {
     "filesChanged": 4,
     "additions": 271,

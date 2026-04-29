@@ -1,17 +1,11 @@
 {
   "sha": "ba28c7c",
-  "fullSha": "ba28c7c238641fc9e395d3ba6df245bb66b4375a",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-09T22:22:48Z",
-  "commitDate": "2026-04-09T22:22:48Z",
   "subject": "feat(theme): migrate from custom CSS variables to DaisyUI v5",
   "body": "Replace the custom :root/.dark CSS variable token system with DaisyUI's\nsemantic theme architecture. This gives users theme switching for free\nand eliminates ~200 manual dark: class pairs across 30+ components.\n\n6-phase migration following glow-props THEME_DARK_MODE.md:\n- Phase 0: Install daisyui@5, configure @plugin with 4 themes\n- Phase 1-2: Audit + remove custom --color-* variables\n- Phase 3: Replace all component classes with DaisyUI semantics\n- Phase 4: Z-index already aligned (no changes needed)\n- Phase 5: TypeScript + Vite build verification\n- Phase 6: Documentation updates\n\nKey changes:\n- Dual-layer theming: data-theme (DaisyUI) + .dark class (Tailwind)\n- Named combos (Approach B): \"Classic\" (lofi/black), \"Nature\" (emerald/forest)\n- Flash prevention script sets both layers before first paint\n- Print handler saves/restores data-theme alongside .dark class\n- HelpDrawer prose: oklch(var(--bc)) replaces var(--color-text-default)\n- Brand colors retained in @theme for chart data visualization\n\nTags: theme, daisyui, dark-mode, css, migration, ux\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01BPc1xJr4LVbLgvTxtZf2i1",
   "tags": [
@@ -25,11 +19,7 @@
   "debt": "paid",
   "epic": "daisyui-migration",
   "semver": "minor",
-  "scope": "theme",
-  "title": "migrate from custom CSS variables to DaisyUI v5",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 39,
     "additions": 529,

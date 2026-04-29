@@ -1,17 +1,11 @@
 {
   "sha": "b5ed99b",
-  "fullSha": "b5ed99bb0c74e94efb4616ebbc5741fe8bd0d6ea",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-23T18:49:26Z",
-  "commitDate": "2026-04-23T18:49:26Z",
   "subject": "docs(user-actions): sync to backend's single-gate revision (tool-till-tees@1f82153)",
   "body": "Backend agent shipped a revision (1f82153) that dropped the\nSANCIO_AUTH_BYPASS env var and consolidated to a single-gate bypass:\ncall-site opt-in (`allowDevBypass: true`) alone, no env var. The sun-\nsea-o USER_ACTIONS.md was still describing the env var as \"the second\ngate\" from the two-gate brief — needed to match the shipped reality.\n\nChanges:\n\n- Renamed top entry from \"Activate the sancio backend bypass in Vercel\"\n  to \"Sancio backend bypass — active on next deploy (no setup\n  required)\". The Vercel dashboard step is gone; there's nothing for\n  the owner to click.\n\n- Recorded the gate-count choice transparently (not argumentatively):\n  original brief specified two gates for safety-net + dashboard-\n  flippable kill switch; backend chose single-gate; trade-off is\n  consistent with this project's \"one environment\" policy (bypass is\n  always on anyway) but means the removal path is code-change-only\n  rather than env-var-flippable. Future-me or future-owner can read\n  this and know why it's like this.\n\n- Updated the removal-path steps in BOTH entries (top and the\n  \"Re-enable authentication\" one below): backend removal is now\n  \"delete the allowDevBypass block from lib/auth.ts + strip the option\n  from 25 sancio call sites\" rather than \"remove env var, optional\n  code-delete later.\"\n\n- Kept the coordinated-flip requirement intact — frontend and backend\n  must flip together, same release window, or one side exposes the\n  other.\n\nNo code change. Docs only.\n\nTags: docs, auth, coordination, user-actions\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: auth-bypass-coordination\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "auth-bypass-coordination",
   "semver": "patch",
-  "scope": "user-actions",
-  "title": "sync to backend's single-gate revision (tool-till-tees@1f82153)",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 8,

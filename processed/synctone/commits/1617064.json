@@ -1,17 +1,11 @@
 {
   "sha": "1617064",
-  "fullSha": "1617064cd3e4a6bf1ed18ed3081e4f6973e926ab",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-24T22:25:52Z",
-  "commitDate": "2026-04-24T22:25:52Z",
   "subject": "refactor(types): runtime-validate icon hashes + drop dead casts",
   "body": "Three type-hygiene items from the `types branch` trigger:\n\n1. hooks/usePWAInstall.ts: removed two dead-weight casts.\n   `(window as Window & { __pwaPromptReceived?: boolean })` and\n   `(navigator as Navigator & { standalone?: boolean })` were both\n   made redundant by the `types/rn-web-style.d.ts` module augmentations\n   in commit d314346 — those ambient declarations already add the\n   properties to the base Window/Navigator types. Pre-existing casts\n   became dead weight once my own infrastructure landed; closing the\n   loop.\n\n2. app/+html.tsx: replaced the bare `JSON.parse(raw) as Record<string,\n   string>` cast with a `parseIconHashes()` helper that validates the\n   parsed shape at runtime. Top-level must be a JSON object (not\n   null/array/primitive); every value must be a string. Throws with\n   a specific \"got <actualType>\" error + remediation (`Regenerate\n   with node scripts/inject-icon-hashes.mjs`) if either check fails.\n   Catches the \"someone hand-edited icon-hashes.json to an invalid\n   shape\" case that a bare type assertion would miss — the failure\n   would otherwise surface as a cryptic downstream `iconUrl()` throw.\n\n3. components/debug/DebugPill.tsx: extracted the per-source color\n   override map out of the PALETTE object literal. The inline\n   `{ ... } as Record<string, string>` inside `as const` was a\n   self-contradicting cast (outer wants literal keys, inner wants\n   widened-string keys). Moved to a dedicated top-level\n   `SOURCE_PALETTE: Record<string, string> = { ... }` that uses\n   variable-level type annotation instead of assertion. Callers\n   updated; no semantic change.\n\nVerification:\n- npx tsc --noEmit: 0 errors\n- npm run verify:inline-scripts: 47 passed, 0 failed\n- Unit-tested parseIconHashes against 7 input variants:\n  - null → throws \"got null\"\n  - string → throws \"got string\"\n  - number → throws \"got number\"\n  - array → throws \"got array\"\n  - object with number value → throws \"value must be a string, got number\"\n  - object with null value → throws \"value must be a string, got null\"\n  - valid {string: string} → parses correctly\n- Expo export with malformed icon-hashes.json aborts the build\n  (confirmed via `npx expo export -p web`)\n\nTags: types, code-quality, pwa, debug\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01UiYobyYgDFYNeVKZrChVXH",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "patch",
-  "scope": "types",
-  "title": "runtime-validate icon hashes + drop dead casts",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 60,

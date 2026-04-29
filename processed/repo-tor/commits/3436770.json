@@ -1,17 +1,11 @@
 {
   "sha": "3436770",
-  "fullSha": "34367705093392ef3c29bec101fc6133caad72db",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-15T19:16:10Z",
-  "commitDate": "2026-04-15T19:16:10Z",
   "subject": "chore(audit): hygiene pass + document element-selector exceptions",
   "body": "#10 — SettingsPane.jsx broken indentation\n  Lines 105-216 had inconsistent indentation after the drawer\n  migration: body div opened at indent 16 but children sat at indent\n  20-28 (off by 4). The Work Hours hint div sat at indent 20 (sibling\n  of mb-6 visually) when it should have been a child at indent 24.\n  React parsed it fine, but the indentation misled readers about the\n  tree structure. Re-indented the entire body block consistently.\n  Pure cosmetic, no behavior change.\n\n#11 — Dead --z-drawer / --z-drawer-backdrop CSS vars\n  The :root z-index scale had `--z-drawer-backdrop: 28` and\n  `--z-drawer: 30` left over from the pre-DaisyUI-drawer\n  `.filter-sidebar` / `.detail-pane` / `.settings-pane` custom CSS.\n  Those classes are gone; nothing references the vars anymore.\n  Deleted both lines + updated the comment block.\n\n#14 — Stale 30-line heatmap migration comment in styles.css\n  The lines 276-308 comment described the `.heatmap-grid` /\n  `.heatmap-header` / `.heatmap-label` / `.heatmap-cell` / `.heatmap-cell-sm`\n  / `.heatmap-tooltip-inner` migration with arbitrary-bracket values\n  (`text-[9px] sm:text-[11px]`, `grid-cols-[36px_repeat(7,1fr)]`,\n  `shadow-[0_2px_8px_rgba(0,0,0,0.3)]`). All those arbitrary values\n  were also deleted in Phase 3 — the comment described a transitional\n  state that no longer exists. Replaced with a 7-line summary\n  pointing to Timing.jsx for the current implementation.\n\n#8 + #9 — Element-selector exceptions documented in code + CLAUDE.md\n  styles.css has 4 element-selector / pseudo-element rules that\n  technically violate \"vanilla only, no custom CSS\":\n    - `* { font-family: var(--font-sans) }` global font reset\n    - `body { background-color, color }` DaisyUI fallbacks\n    - `h1, h2, h3 { font-family: var(--font-mono) }` mono headings\n    - `body::before` decorative grid background\n\n  These were deemed unavoidable:\n    - Pseudo-elements cannot be Tailwind utilities\n    - The font-family reset / heading styling is app-wide design\n      intent applied via semantic HTML rather than per-consumer\n      utility classes (~15-20 JSX edits to migrate)\n    - The grid background is the dashboard's visual signature\n\n  Added a 30-line block comment in styles.css explaining the four\n  exceptions with rationale and rejected alternatives. Also added a\n  reference in CLAUDE.md \"Frontend: Styles and Scripts\" so future\n  sessions know these element-selector rules are sanctioned.\n\nVerified: vite build clean (2.82s), 60/60 tests pass.\n\nTags: chore, hygiene, docs, daisyui, vanilla\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
   "tags": [
@@ -24,17 +18,7 @@
   "debt": "paid",
   "epic": "daisyui-v5-migration",
   "semver": "patch",
-  "scope": "audit",
-  "title": "hygiene pass + document element-selector exceptions",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#10",
-    "#11",
-    "#14",
-    "#8",
-    "#9"
-  ],
   "stats": {
     "filesChanged": 3,
     "additions": 153,

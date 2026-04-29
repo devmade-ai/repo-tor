@@ -1,17 +1,11 @@
 {
   "sha": "3e93987",
-  "fullSha": "3e939874289927ae0e6f87281c896680951ca9d4",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-23T20:51:30Z",
-  "commitDate": "2026-04-23T20:51:30Z",
   "subject": "perf(dashboard): debounce cashOnHand for runway recompute",
   "body": "Typing in the Cash on hand input previously fired a keystroke-level\nreactivity cascade: cashOnHand → runway computed → CashflowGraph\nseries prop → ApexCharts cash-balance series re-render. While\nindividual steps are fast (runway walks ~90-365 daily points;\nApexCharts updates series in place), the per-keystroke visible\nflicker in the chart is jarring mid-type.\n\nAdded a 300ms debounced mirror `cashOnHandForRunway` wired via\nwatch(cashOnHand, …) → setTimeout. Runway reads the debounced ref\nfor both its gating check and the calculation. Timer is cleared on\nunmount alongside the existing 500ms DB-save timer.\n\nDB persistence path is unchanged (still debounced 500ms). The new\n300ms affects only the reactive recompute → chart redraw.\n\nType-check clean. 116/116 tests pass.\n\nTags: perf, dashboard, debounce, apexcharts\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "ux-polish",
   "semver": "patch",
-  "scope": "dashboard",
-  "title": "debounce cashOnHand for runway recompute",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 22,

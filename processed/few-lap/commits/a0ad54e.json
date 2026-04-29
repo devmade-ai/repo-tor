@@ -1,17 +1,11 @@
 {
   "sha": "a0ad54e",
-  "fullSha": "a0ad54e17a22003fc1c8d7694970df9f42bc6e86",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-09T11:12:33Z",
-  "commitDate": "2026-04-09T11:12:33Z",
   "subject": "fix(security): wrap spatial_ref_sys RLS in DO block + update docs",
   "body": "Wrap the ALTER TABLE + CREATE POLICY in a DO block with pg_tables\nexistence check so the migration is a complete no-op if PostGIS isn't\ninstalled. Update HISTORY.md and SESSION_NOTES.md.\n\nTags: security, database, rls, postgis, documentation\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: security-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01NznLYRXfKT1d4frhKMrwtU",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "security-hardening",
   "semver": "patch",
-  "scope": "security",
-  "title": "wrap spatial_ref_sys RLS in DO block + update docs",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 30,

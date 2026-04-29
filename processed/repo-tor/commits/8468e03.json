@@ -1,17 +1,11 @@
 {
   "sha": "8468e03",
-  "fullSha": "8468e03f0481ae47a272b40a4ca431402b3240ed",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T16:09:07Z",
-  "commitDate": "2026-04-02T16:09:07Z",
   "subject": "fix: medium and low-priority audit fixes (M1-M16, L1-L6)",
   "body": "Medium fixes:\n- M1: Add 30s fetch timeout via AbortController; user-friendly timeout\n  error message instead of indefinite hang\n- M3: Cache tag style objects in module-level Map to avoid creating\n  500+ new objects per render cycle\n- M5: Replace duplicate work hours logic in useHealthData with\n  getWorkPattern() from utils.js for consistency\n- M10: Add network status and theme to debug pill diagnostics\n- M12: Wrap UrgencyBar and ImpactBar in React.memo (pure presentational)\n- M14: Validate ?bg= param against hex regex to prevent CSS injection\n- M15: Remove token source name from extract-api.js log output\n- M16: Replace aria-hidden=\"true\" with role=\"presentation\" on backdrop\n  overlays (DetailPane, SettingsPane, FilterSidebar, QuickGuide)\n\nLow fixes:\n- L1: Add vertical clamping to heatmap tooltip (was only horizontal)\n- L2: Increase loading timeout from 10s to 20s for slow networks\n- L6: Add explanatory comment for ISO week calculation magic number\n\nTags: performance, security, a11y, debug, cleanup\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: audit-fixes\nSemver: patch\n\nhttps://claude.ai/code/session_01TTPDz1J9eg8GxxJHYf5DXG",
   "tags": [
@@ -25,11 +19,7 @@
   "debt": "paid",
   "epic": "audit-fixes",
   "semver": "patch",
-  "scope": null,
-  "title": "medium and low-priority audit fixes (M1-M16, L1-L6)",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 11,
     "additions": 54,

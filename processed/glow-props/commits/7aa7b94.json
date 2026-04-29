@@ -1,17 +1,11 @@
 {
   "sha": "7aa7b94",
-  "fullSha": "7aa7b94b7a59734ba81607ac24fc190bed09a781",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T22:32:34Z",
-  "commitDate": "2026-04-21T22:32:34Z",
   "subject": "docs(todo): full re-validation via 11 parallel agents (coverage + 10 per-repo)",
   "body": "Spawned 1 coverage agent + 10 per-repo agents against live GitHub state.\nDeltas since 2026-04-18:\n\nCoverage:\n- tool-till-tees: untracked first-party backend (powers four-ems +\n  Sancio) — added to tracking list with placeholder section pending\n  first-pass audit. canva-grid-assets correctly skipped.\n\nPer-repo progress since 2026-04-18:\n- repo-tor: Triggers section VERIFIED DONE (all 8 group tables +\n  Meta sweeps + Reflective passes). Small new gap: DOWNLOAD_PDF\n  missing .no-print class + trigger button.\n- few-lap: Triggers DONE (Meta sweeps + Reflective passes now\n  present), Z_INDEX_SCALE DONE (src/constants/zIndex.ts typed\n  tiers), ICON_CACHE_BUST DONE (scripts/inject-icon-hashes.mjs +\n  IconCacheDisclosure.tsx).\n- model-pear: Communication section DONE (CLAUDE.md line 365),\n  Z_INDEX_SCALE DONE (Tailwind config extends).\n- graphiki: Z_INDEX_SCALE DONE, ICON_CACHE_BUST user communication\n  DONE (collapsible in InstallInstructionsModal.tsx).\n- sun-sea-o: MASSIVE PROGRESS — HISTORY.md/CLAUDE.md/Triggers/\n  Communication/prohibition, BurgerMenu, DaisyUI, THEME_DARK_MODE\n  framework, PWA singleton, ICON_CACHE_BUST core all DONE. Remaining:\n  DEBUG_SYSTEM 6 items, PWA install-modal user comm, theme color\n  migration audit.\n\nRegression corrections:\n- see-veo: \"PWA Diagnostics third tab already present\" claim was\n  FALSE — DebugBanner.tsx has only 2 tabs (type Tab = 'diagnostics'\n  | 'log'). Corrected in TODO + added as 9th DEBUG_SYSTEM item.\n- model-pear: confirmed docs/HISTORY.md still exists; removal items\n  remain valid (agent earlier claim was wrong).\n\nBonus findings:\n- synctone: local docs/implementations/ folder has 3 patterns not\n  in glow-props (HTTPS_PROXY, KEY_LESSONS, TIMER_LEAKS). Flag for\n  human review before deletion.\n- few-lap: __DEV__ guard in debugLog.ts still missing (TEMPORARY\n  comment still present, production debug-pill leak risk).\n\nUpdated Gap Matrix (3 rows improved: model-pear, few-lap, graphiki,\nsun-sea-o), added tool-till-tees row with ? placeholders, updated\nCross-Cutting Gaps summary.\n\nTags: documentation, audit, todo, cross-fleet, coverage\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01Mx2aebqgqtBaC611uxsp7q",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "cross-fleet-alignment",
   "semver": "patch",
-  "scope": "todo",
-  "title": "full re-validation via 11 parallel agents (coverage + 10 per-repo)",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 105,

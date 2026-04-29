@@ -1,17 +1,11 @@
 {
   "sha": "6b0eb0f",
-  "fullSha": "6b0eb0f1343faeb94934da28579765fd07d932dc",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T00:53:05Z",
-  "commitDate": "2026-04-02T00:53:05Z",
   "subject": "feat(design): adopt circle pin as app icon, regenerate all PNGs",
   "body": "Replace the fuel gauge icon with a green circle map pin on abyss dark\nteal background. Immediately recognizable as a location marker.\n\n- Replaced assets/icon-source.svg with circle pin design\n- Regenerated all 6 icon PNGs via scripts/generate-icons.mjs (400 DPI)\n- Updated app.json splash + adaptive icon backgroundColor to #0D3B40\n- Copied PWA icons to public/assets/images/\n- Deleted all draft icon files (fuel-pump v1-v3, pin v1-v2)\n\nTags: design, icon, pwa\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-theme-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01EAwig8kSZ6S91pb3wP7tv4",
   "tags": [
@@ -23,13 +17,7 @@
   "debt": "paid",
   "epic": "daisyui-theme-migration",
   "semver": "minor",
-  "scope": "design",
-  "title": "adopt circle pin as app icon, regenerate all PNGs",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#0"
-  ],
   "stats": {
     "filesChanged": 21,
     "additions": 13,

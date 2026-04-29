@@ -1,17 +1,11 @@
 {
   "sha": "4ff7ef9",
-  "fullSha": "4ff7ef9149dc540917a67a1944943dc3050bdff4",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-09T06:59:27Z",
-  "commitDate": "2026-04-09T06:59:27Z",
   "subject": "refactor(ui): replace theme prop drilling with ThemeContext",
   "body": "Created useTheme.js — React Context wrapping useDarkMode. ThemeSelector\nand MenuThemeSection now consume useTheme() directly instead of receiving\n4 props (isDark, toggleDarkMode, comboId, setCombo) forwarded through\nApp → DesktopLayout/MobileLayout/ReaderMode → consumer.\n\nRemoves 12 prop passes across 3 layout components that were pure\nforwarders — they never used the theme values, only forwarded them.\n\nApp.jsx no longer calls useDarkMode or useTheme — ThemeProvider wraps\nthe app in AppWithProviders, and only the leaf components consume it.\n\ncreateElement used in ThemeProvider instead of JSX — hooks use .js\nextension per project convention, Vite only parses JSX in .jsx/.tsx.\n\nTags: ui, hooks, refactor, state\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: theme-context\nSemver: minor\n\nhttps://claude.ai/code/session_01AC1UWyZGqVwHGuu6SPJr72",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "theme-context",
   "semver": "minor",
-  "scope": "ui",
-  "title": "replace theme prop drilling with ThemeContext",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 6,
     "additions": 41,

@@ -1,17 +1,11 @@
 {
   "sha": "1eb6911",
-  "fullSha": "1eb6911a31c9290f218d9f4c01512dde0848c57d",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-23T20:15:28Z",
-  "commitDate": "2026-04-23T20:15:28Z",
   "subject": "refactor(pwa-icons): wrap-pass cleanups + docs + Metro quirk note",
   "body": "All 6 items from the icon cache-busting wrap pass. Nothing deferred.\n\n## Fix 1 — Dead filter removed\n\n`scripts/inject-icon-hashes.mjs` had\n`.filter((name) => name !== 'icon.svg' || true)` — leftover from a\ndraft where I considered excluding SVGs from sw.js precaching. The\n`|| true` made the predicate always true, so the filter was a no-op\nthat obscured the intent. Removed.\n\n## Fix 2 — Preserve VERSIONED_ICONS declaration order\n\nScript previously sorted PWA_ICON_PATHS alphabetically when\nrewriting sw.js, producing spurious diff noise (favicon.ico kept\nmoving to the top of the list on every re-run even when contents\nwere unchanged). Now the rewrite follows the same order as\nVERSIONED_ICONS in the script — human-readable, matches source\nintent, byte-identical output on unchanged inputs.\n\nVerified: re-running `node scripts/inject-icon-hashes.mjs` on\nclean state produces zero git diff.\n\n## Fix 3 — Legacy `assets/images/favicon.png` documented\n\nInvestigated whether `assets/images/favicon.png` (48×48 Expo web\nlegacy) is reachable. It's referenced by `app.json` as `web.favicon`\nbut that field is honored only by the legacy Expo Web toolchain;\nsynctone's Expo Router static-export pipeline emits icon `<link>`s\nfrom `app/+html.tsx` pointing at `public/favicon.ico?v=<hash>`.\nLeft file alone (harmless, unused at runtime); existing CLAUDE.md\nIcon Assets table row already labels it \"Browser tab fallback\n(Expo web legacy)\".\n\n## Fix 4 — docs/TODO.md live-browser entry expanded\n\n7 new icon-cache-bust verification scenarios appended to the\nexisting High Priority live-browser entry:\n - Cold visit → every icon URL on the wire has `?v=<hash>`\n - Offline hard-reload → icons still display (precache hit)\n - Icon-change roundtrip: edit SVG → `gen:icons` → only the\n   changed icon's hash diffs\n - Post-rebuild reload → changed icon fetched fresh, others\n   cached\n - Android Chrome WebAPK regenerator picks up manifest URL\n   change within ~24h\n - iOS Safari home-screen icon stays cached until\n   Remove-App + re-Add-to-Home-Screen\n - `npm run build:web && npm run verify:inline-scripts`\n   → 44/44 passing\n\n## Fix 5+6+7 — CLAUDE.md docs\n\nAdded three notes to the Icon Cache Busting subsection:\n\n- **Depends on Vercel Cache-Control headers.** The whole chain\n  requires `manifest.json` being served with `max-age=0,\n  must-revalidate`. Without that header the browser caches the\n  manifest, so an updated `icons[].src` wouldn't reach the client.\n  Same for `sw.js` and `version.json`.\n\n- **Metro quirk: `process.cwd()`, NOT `import.meta.url`, for\n  filesystem reads in `+html.tsx`.** Discovered the hard way —\n  my initial implementation used `fileURLToPath(import.meta.url)`\n  which resolves to a Metro-internal bundled-chunk path and\n  breaks the build with a very unhelpful \"Failed to statically\n  export route: _sitemap\" error. `path.join(process.cwd(),\n  'public', 'icon-hashes.json')` works because Expo's static\n  export runs from the project root. Documented so the next\n  person doesn't repeat the investigation.\n\n- **Dev-mode caveat.** `npm run web` doesn't re-run\n  inject-icon-hashes; hashes come from the committed\n  `icon-hashes.json`. Mid-session icon edits without `gen:icons`\n  leave dev serving old hashes. Non-issue for prod (Vercel's\n  `buildCommand` always runs the full chain).\n\n## Fix 8 — TESTING_GUIDE.md § PWA icon verification\n\nNew section matching the § Theme verification style, with five\nstep-by-step tables:\n - Build-time verification (automated via verify:inline-scripts)\n - Runtime cache behavior (Network/Application panels + offline)\n - Icon-change roundtrip (most important correctness test)\n - Install + OS-level cache (physical Android + iOS)\n - Manifest integrity (loud-failure contract)\n\n## Verification\n\n`tsc --noEmit` → 0 errors.\n`npm run build:web` → succeeds.\n`npm run verify:inline-scripts` → 44 passed, 0 failed.\nIdempotency: re-running `inject-icon-hashes.mjs` on clean state\nproduces byte-identical sw.js / manifest.json / icon-hashes.json.\n\nTags: pwa, caching, docs, testing, fleet-alignment\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "patch",
-  "scope": "pwa-icons",
-  "title": "wrap-pass cleanups + docs + Metro quirk note",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 5,
     "additions": 100,

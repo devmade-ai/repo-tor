@@ -1,17 +1,11 @@
 {
   "sha": "4830149",
-  "fullSha": "4830149126e46e66f40101469ea5402a1a17b663",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T21:50:37Z",
-  "commitDate": "2026-04-10T21:50:37Z",
   "subject": "fix(icons): remove inline SVG favicon, use generated PNG from single source",
   "body": "The inline SVG data URL (blue rect with \"g\") was a second icon design\noutside the generation pipeline, violating the single SVG source\nprinciple from APP_ICONS pattern. Replaced with a <link> to the\ngenerated favicon.png (48x48) from icon-source.svg.\n\nAll favicons now flow from one source: icon-source.svg → generate-icons.mjs\n→ favicon.png (48px, modern browsers) + favicon.ico (32px, legacy).\n\nTags: icons, cleanup, pwa\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: patch\n\nhttps://claude.ai/code/session_01FZx63vfq6y3XePEh5evu7P",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "pwa",
   "semver": "patch",
-  "scope": "icons",
-  "title": "remove inline SVG favicon, use generated PNG from single source",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 5,

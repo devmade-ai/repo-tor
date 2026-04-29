@@ -1,17 +1,11 @@
 {
   "sha": "a0d68bf",
-  "fullSha": "a0d68bff079170b2415a1c765384e80083618fb7",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T15:04:31Z",
-  "commitDate": "2026-04-21T15:04:31Z",
   "subject": "feat(theme-picker): wire combo picker into burger menu",
   "body": "Builds on the previous commit's combo storage. The burger menu now exposes\na theme picker section with one item per combo and a selected-state\ncheckmark on the active one. With only one combo today (Sancio Default —\ncorporate + business), the section is hidden via visible:false; it appears\nautomatically as soon as THEME_COMBOS gains a second entry.\n\n- BurgerMenu: extend the items API from a flat MenuItem[] to a\n  discriminated union MenuEntry = MenuAction | MenuSection. MenuAction\n  is the existing item shape (kept as `MenuItem` alias for back-compat —\n  no consumer churn). MenuSection adds non-interactive header rows\n  rendered via DaisyUI's `menu-title` styling, automatically skipped by\n  arrow-key navigation (the existing query selector matches buttons only).\n  MenuAction also gains `selected?: boolean` which renders a trailing\n  checkmark + accent highlight, with `aria-current=\"true\"` for screen\n  readers.\n- useActiveCombo hook: reactive read of the active combo id. Two\n  observers — MutationObserver on <html data-theme> (catches every\n  applyTheme call: same-tab setCombo/toggleDark, cross-tab sync after\n  theme.ts re-applies, OS-preference change) and storage event listener\n  (catches the future case where two combos share a theme-per-mode and\n  only the combo id changes — data-theme wouldn't mutate then). setState\n  is idempotent so double-fires are harmless.\n- AppLayout: wires both the dark-mode toggle (uses toggleDark) and the\n  picker section (one MenuAction per THEME_COMBOS entry, calls setCombo,\n  selected by useActiveCombo). Section + items use visible:THEME_COMBOS.\n  length > 1 so the section is dormant until a second combo lands.\n- CLAUDE.md → THEME_DARK_MODE: rewritten to document the combo schema +\n  storage migration. BURGER_MENU deviation note updated to mention the\n  hidden-when-single-combo picker.\n\nCross-tab sync verified by inspection: theme.ts storage handler mutates\ndata-theme; useActiveCombo's MutationObserver fires; AppLayout re-renders\nthe picker with the new selected state.\n\nTags: feature, theme, picker, burger-menu, daisyui\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-picker\nSemver: minor",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "theme-picker",
   "semver": "minor",
-  "scope": "theme-picker",
-  "title": "wire combo picker into burger menu",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 185,

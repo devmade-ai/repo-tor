@@ -1,17 +1,11 @@
 {
   "sha": "c09a4fe",
-  "fullSha": "c09a4fe694d11bd074b52d6917dc8a879d19dda7",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-18T13:41:27Z",
-  "commitDate": "2026-04-18T13:41:27Z",
   "subject": "test(debug): cover 4 regression gaps identified by ship/tests trigger",
   "body": "T1 — Circular buffer overflow semantics. Fills the buffer to\nMAX_ENTRIES (200), adds one more, asserts length stays at 200,\noldest entry shifted out, newest present. Pins the contract so a\nrefactor of the shift() location can't silently break it.\n\nT2 — debugSubscribe unsubscribe. Direct test of the returned\nunsub function: subscribe → replay fires → debugAdd → cb fires\nagain → unsub() → debugAdd → cb does NOT fire. Previously only\ntested implicitly via other tests calling unsub() for cleanup.\n\nT3 — `console.error()` with zero args produces a synthetic\n`(empty)` event. Dead-unless-tested branch in describeConsoleArgs.\nRare in practice but pins the contract.\n\nT4 — debugGenerateReport with zero log entries. Contains the\nenv + `--- Log (0 entries) ---` headers, doesn't throw. Guards\nagainst refactors that assume non-empty entries.\n\nSkipped / acceptable gaps (documented in sweep report):\n- DebugPill / PwaDiagnosticsTab render tests: react-native-web\n  act() boilerplate disproportionate for a debug surface.\n  Manual verification via TESTING_GUIDE.md steps covers visuals.\n- debugRootMount.web.tsx module-level mount: side-effect module\n  with no testable export surface. Actual boundary + pill tested\n  separately.\n- +html.tsx SSR rendering + inline script strings: static content,\n  review-time validation adequate.\n- Regression guards for the B/E/R/EDG/SEC/PRIV/A11Y one-liner\n  fixes: disproportionate — the bug-surface is the fix itself.\n\ntsc 0, jest 96/96 (up from 92), expo web build clean.\n\nTags: debug, tests, coverage\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "debug-pill-hardening",
   "semver": "patch",
-  "scope": "debug",
-  "title": "cover 4 regression gaps identified by ship/tests trigger",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 53,

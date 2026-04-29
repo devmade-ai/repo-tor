@@ -1,17 +1,11 @@
 {
   "sha": "6759a61",
-  "fullSha": "6759a61619960dad532567fabd065bfe6974a423",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-17T21:58:25Z",
-  "commitDate": "2026-04-17T21:58:25Z",
   "subject": "docs(claude): add doc-cleanup trigger — structural doc hygiene",
   "body": "Gap: `docs` covers content accuracy (drift, outdated claims, missing\nAPI docs) and `clean` covers code duplication. Neither covers the\nstructural-hygiene questions around docs:\n- Same content duplicated across multiple doc files\n- Stale doc files no longer relevant (old design docs, migration notes\n  from finished migrations)\n- Orphaned docs nothing links to\n- Files superseded by a replacement but never deleted\n- Sections describing features that no longer exist\n\nNew trigger `doc-cleanup` / `dcl` in the quality group, placed next to\n`docs` so accuracy and hygiene audits sit together.\n\nTrigger count: 42 → 43.\n\nTags: documentation, triggers, claude-md\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: triggers-redesign\nSemver: minor\n\nhttps://claude.ai/code/session_013TSNyXMQiUmG4hPbycbrZT",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "triggers-redesign",
   "semver": "minor",
-  "scope": "claude",
-  "title": "add doc-cleanup trigger — structural doc hygiene",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 20,

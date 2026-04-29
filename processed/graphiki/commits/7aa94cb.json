@@ -1,17 +1,11 @@
 {
   "sha": "7aa94cb",
-  "fullSha": "7aa94cb5c7577cea04a8dc9cb43aa6233d6819b8",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-06T06:32:11Z",
-  "commitDate": "2026-04-06T06:32:11Z",
   "subject": "perf(graph): hoist arcFallbackColor outside arc loop",
   "body": "getCSSColor reads getComputedStyle() — calling it per-arc inside forEach\nwas redundant DOM access. Hoisted to compute once before the loop.\n\nTags: graph, performance, styling\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: graph-styling\nSemver: patch\n\nhttps://claude.ai/code/session_018d3PqkTDHTTaWEi28E4Rg3",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "graph-styling",
   "semver": "patch",
-  "scope": "graph",
-  "title": "hoist arcFallbackColor outside arc loop",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 4,

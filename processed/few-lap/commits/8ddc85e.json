@@ -1,17 +1,11 @@
 {
   "sha": "8ddc85e",
-  "fullSha": "8ddc85e1efae8776402ee46ff41e56f09e6f2dc6",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-04T08:14:42Z",
-  "commitDate": "2026-04-04T08:14:42Z",
   "subject": "fix(web): complete hydration mismatch cleanup and theme deduplication",
   "body": "Extends the initial #418 fix with thorough cleanup across all affected files:\n\n- usePWAUpdate: useState initializers used module-level _hasUpdate/_offlineReady\n  which are set by async browser APIs. Changed to explicit false defaults.\n- DebugPill: useState initialized from debugGetEntries()/debugGetCounts() which\n  read module-level entries populated by global error listeners at import time.\n  Changed to empty defaults, synced on mount in useEffect. EnvTab called\n  debugGetEnvironment() (navigator, matchMedia, location) during render — moved\n  to useEffect.\n- useTheme: 29 components call useTheme(), each running Uniwind.setTheme() +\n  debug logging on mount. Added _lastAppliedTheme module-level guard so theme\n  application only fires once per actual theme change (was 12x on boot).\n- Updated AI_MISTAKES.md with permanent hydration rules\n- Updated HISTORY.md and SESSION_NOTES.md\n\nTags: hydration, pwa, debug, theme, cleanup\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: patch\n\nhttps://claude.ai/code/session_01MQNjzz5kPEg68WcyZKFnp7",
   "tags": [
@@ -23,13 +17,7 @@
   "debt": "paid",
   "epic": "pwa",
   "semver": "patch",
-  "scope": "web",
-  "title": "complete hydration mismatch cleanup and theme deduplication",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#418"
-  ],
   "stats": {
     "filesChanged": 6,
     "additions": 79,

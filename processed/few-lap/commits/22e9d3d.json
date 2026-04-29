@@ -1,17 +1,11 @@
 {
   "sha": "22e9d3d",
-  "fullSha": "22e9d3d02e8221b6eb7a7b53e1463ad6ad0da44f",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-19T06:38:23Z",
-  "commitDate": "2026-04-19T06:38:23Z",
   "subject": "refactor(z-index): migrate LocationSearch Tailwind z-20 to inline Z.sticky",
   "body": "LocationSearch was the last zIndex in src/ not referencing the Z scale\nconstant — it used Tailwind's z-20 utility class. Numerically aligned\nwith Z.sticky, but the mix meant a single grep couldn't enumerate every\nstacking-order decision in the codebase.\n\nNow a single 'zIndex' grep across src/ finds every callsite, all of\nwhich reference Z.*. Updated the zIndex.ts header to reflect the new\n100%-coverage state (no Tailwind z-* utilities for stacking order).\n\nTags: refactor, z-index, convention\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "patch",
-  "scope": "z-index",
-  "title": "migrate LocationSearch Tailwind z-20 to inline Z.sticky",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 5,

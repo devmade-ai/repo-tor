@@ -1,17 +1,11 @@
 {
   "sha": "ff6f983",
-  "fullSha": "ff6f9830ff249320e03eaf172be02b0cb7c2cc97",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-23T19:46:07Z",
-  "commitDate": "2026-04-23T19:46:07Z",
   "subject": "copy: compliance with CLAUDE.md \"what went wrong AND what to do next\" rule",
   "body": "Closes 5 out of 5 cases where failure toasts stopped at \"what went\nwrong\" without naming the recovery path — a direct breach of the\n\"User Experience (Non-Negotiable)\" rule in CLAUDE.md. Also tidies\ntwo toast labels to match their companion buttons + rewrites one\nstilted error string into natural voice.\n\nToasts now compliant (all 6 sites):\n- ProjectDetailPage: \"Failed to save changes\" → \"...— try again.\"\n- AgreementHeader: \"Failed to save changes\" → \"...— try again.\"\n- AgreementDetailPage: 3 sites — update agreement status, generate\n  verification code, split agreement — all get \"— try again.\"\n- TemplateSelector parse-error fallback: the fallback only fires when\n  parseDocument surfaced no message of its own (the library-supplied\n  message is already user-readable). Extended copy: \"Failed to read\n  this file. Try a different file, or convert it to .txt / .docx /\n  .pdf under 5 MB.\" Comment explains why the fallback is generic —\n  we can only guess the root cause at that point.\n\nButton/toast parity (2 sites):\n- ModuleEditorPage: \"Ready status removed\" → \"Ready status cleared\".\n  The button it refers to is already labelled \"Clear ready status\"\n  (from the earlier ux pass); the toast now uses the same verb.\n\nStilted-voice rewrite (1):\n- ProposeChangeForm: \"Please make changes to the content before\n  submitting\" → \"No changes yet — edit the content to submit your\n  proposal.\" Reads like a peer prompt rather than a form-validator\n  string; names the same constraint more directly.\n\nNOT a copy fix — a behaviour asymmetry surfaced by the audit:\n\nThe audit flagged \"Proposal accepted\" vs \"Proposal accepted —\nmodule content updated\" as inconsistent. On inspection, the two\ntoasts accurately describe two DIFFERENT behaviours:\n\n- ModuleEditorPage:169-172 (creator accepts a counterparty proposal)\n  calls updateModule(mod.id, { content: proposal.proposed_content })\n  THEN resolveProposal(...). Module content updates. Toast says so.\n- ModuleEditorPage:312-314 (counterparty accepts a creator's\n  counter-proposal) calls resolveProposal(...) only. No updateModule.\n  Toast correctly says just \"Proposal accepted\".\n\nThe toasts are right. The missing updateModule call on the\ncounterparty branch is almost certainly a bug — accepting a\ncounter-proposal should replace module content with the counter's\nbody, same as the creator path. Logged to docs/TODO.md under a new\n\"Behaviour Asymmetry\" section so it gets investigated as a bug\n(needs verification of intent + either a fix or explanatory\ncomment), not patched as a copy issue.\n\nVerified clean (from the audit):\n- Zero jargon in user-visible strings (realtime / API / mutation /\n  payload / session / JWT / token / endpoint / CRUD / RLS — no\n  matches across src/).\n- Voice consistent: sentence-case, active verbs, no marketing copy.\n- All handshake / empty / signing state copy was already solid.\n\nTests 155/155 passing. tsc -b clean, eslint clean.\n\nTags: copy, ux, a11y\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: frontend-audit-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "frontend-audit-sweep",
   "semver": "patch",
-  "scope": null,
-  "title": "compliance with CLAUDE.md \"what went wrong AND what to do next\" rule",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 7,
     "additions": 25,

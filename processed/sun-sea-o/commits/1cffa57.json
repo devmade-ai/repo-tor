@@ -1,17 +1,11 @@
 {
   "sha": "1cffa57",
-  "fullSha": "1cffa575106b4e0cff002376cdcc1bc4d3c5f900",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T02:01:28Z",
-  "commitDate": "2026-04-21T02:01:28Z",
   "subject": "refactor(ui-primitives): migrate common components to DaisyUI classes",
   "body": "Ship 9 primitives as thin wrappers around DaisyUI component classes so theme\ncolors, focus rings, hover/active/disabled states, sizing, and border-radius\nall follow data-theme automatically instead of being hand-rolled.\n\n- Button: `btn btn-{primary|outline|error|ghost}`. Variant map is the only\n  app concern; sizes keep WCAG 2.5.5 min-h overrides (sm=40, md=44, lg=48)\n  because DaisyUI's native btn-sm is 32px. Removed 60-char base-string and\n  per-variant Tailwind strings.\n- Input / TextArea: `input input-bordered` / `textarea textarea-bordered`\n  inside `form-control` with DaisyUI `label-text` + `input-error` /\n  `textarea-error`. Removed hand-rolled border/focus-ring/placeholder\n  styling (~80% of the class string).\n- Modal: native <dialog> (Z_INDEX_SCALE still requires the top-layer) with\n  DaisyUI `modal` + `modal-box` replacing custom backdrop/centering/sizing\n  markup. Close button is now `btn btn-ghost btn-sm btn-circle` with a 44px\n  touch-target override. Focus trap preserved (native dialog doesn't trap).\n- ConfirmDialog: inherits Modal+Button changes; swaps manual action flex\n  for DaisyUI `modal-action`.\n- Toast: `toast toast-center toast-bottom` + `alert`. Kept the safe-area\n  padding and `no-print` + `animate-fade-in` since those are app concerns\n  not covered by DaisyUI's toast container.\n- LoadingSpinner: DaisyUI `loading loading-spinner loading-{size}`. Replaces\n  the inline SVG animation.\n- EmptyState: no DaisyUI equivalent fits (vertical content card isn't\n  hero/card/alert). Kept plain layout, swapped all slate-* for base-*.\n- ErrorBoundary: full-page layout via DaisyUI `hero` + `card` + `card-body`\n  + `card-actions`. Icon uses `text-error` so the error color follows the\n  theme palette.\n\nVisual changes to expect: slightly different padding/heights on buttons\n(DaisyUI's rhythm differs from the prior custom), themed focus rings, and\ndarker elevated surfaces in corporate mode (base-200 vs old slate-50).\n\nTags: refactor, ui, daisyui, primitives\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-migration\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "daisyui-migration",
   "semver": "patch",
-  "scope": "ui-primitives",
-  "title": "migrate common components to DaisyUI classes",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 9,
     "additions": 97,

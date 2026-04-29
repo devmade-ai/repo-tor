@@ -1,17 +1,11 @@
 {
   "sha": "3cf8c12",
-  "fullSha": "3cf8c1235c6dc94e8a66647c04db28c5fc777ecb",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T08:28:02Z",
-  "commitDate": "2026-04-10T08:28:02Z",
   "subject": "revert(css): restore brand color palette — it's the app identity",
   "body": "Brand palette (brand-50 through brand-900) is the app's visual identity,\nnot dead code. Restored the full 10-shade emerald scale. Available as\nTailwind utilities (bg-brand-500, text-brand-600, etc.) for any future\nUI that needs brand-colored elements outside DaisyUI's theme system.\n\nTags: css, theme, revert\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01BPc1xJr4LVbLgvTxtZf2i1",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "neutral",
   "epic": "daisyui-migration",
   "semver": "patch",
-  "scope": "css",
-  "title": "restore brand color palette — it's the app identity",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 13,

@@ -1,17 +1,11 @@
 {
   "sha": "7a5a5c9",
-  "fullSha": "7a5a5c9f2e6cb4a96a4aa191b4f8001c5b16de66",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-15T22:37:46Z",
-  "commitDate": "2026-04-15T22:37:46Z",
   "subject": "refactor(charts): replace chartHeight inline style with utility classes",
   "body": "Audit finding #17 — every chart container in the sections/ tree used\nthe inline-style pattern:\n\n    const chartHeight = isMobile ? 'NNNpx' : 'MMMpx';\n    ...\n    <div style={{ height: chartHeight }}>\n\nCLAUDE.md explicitly forbids inline style={} unless values are\nruntime-computed from data, and a breakpoint-based switch is not\ndata — it's a responsive class. Eleven call sites across five files\nconverted to `className={chartHeightClasses}` using stock Tailwind\nh-N utilities.\n\nHeight mapping (CLAUDE.md rule: \"round to nearest stock, redesign,\nor drop the feature\"):\n\n  sections/Timing.jsx:   200px / 250px  → h-50 sm:h-62  (200 exact, 248 ≈ 250, -2px)\n  sections/Progress.jsx: 220px / 300px  → h-55 sm:h-75  (220 exact, 300 exact)\n  sections/Timeline.jsx: 220px / 300px  → h-55 sm:h-75  (220 exact, 300 exact)\n  sections/Tags.jsx:     250px / 350px  → h-62 sm:h-87  (248 ≈ 250, 348 ≈ 350, -2px)\n\nThe 2px deltas at Timing (250→248) and Tags (250/350 → 248/348) are\nvisually imperceptible — less than a pixel on retina at default zoom.\nRounding down rather than up was chosen so there's no risk of\ntouching the next breakpoint transition. Timeline/Progress are exact\nmatches since the original design already snapped to Tailwind's\ndefault spacing scale.\n\nWhy not add custom spacing tokens? CLAUDE.md forbids @theme tokens\n— the existing policy is \"use Tailwind's stock scale as-is\". The\nstock dynamic spacing scale (each unit = 0.25rem = 4px) covers every\nheight we need after snapping to the nearest integer multiple.\n\nVerified the JIT content scanner picked up every new class — grep\nover `dist/assets/index-*.css` confirms `.h-50`, `.h-55`, `.h-62`,\n`.h-75`, `.h-87` rules all emitted correctly by Tailwind v4.\n\nBundle size impact: 879.92 KiB → 880.14 KiB (+0.22 KiB = 5 new\nutility rules + their sm: variants). Inline style object\nallocations per render also eliminated for all 11 call sites.\n\nFiles touched:\n  - dashboard/js/sections/Timing.jsx    (2 call sites)\n  - dashboard/js/sections/Progress.jsx  (2 call sites)\n  - dashboard/js/sections/Timeline.jsx  (5 call sites)\n  - dashboard/js/sections/Tags.jsx      (1 call site)\n\nContributors.jsx line 266 is DELIBERATELY left as inline style —\nits height is `Math.max(200, aggregated.slice(0, 8).length *\n(isMobile ? 35 : 40))px` which is runtime-computed from the number\nof top contributors (1 to 8), not a breakpoint switch. CLAUDE.md\nexplicitly lists \"chart container heights [runtime-derived]\" as\nan allowed inline-style use case. Not touched.\n\nBuild clean, 60/60 tests pass.\n\nTags: refactor, ui, performance, audit\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
   "tags": [
@@ -23,13 +17,7 @@
   "debt": "paid",
   "epic": "post-audit-cleanup",
   "semver": "patch",
-  "scope": "charts",
-  "title": "replace chartHeight inline style with utility classes",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#17"
-  ],
   "stats": {
     "filesChanged": 4,
     "additions": 34,

@@ -1,17 +1,11 @@
 {
   "sha": "707d63c",
-  "fullSha": "707d63c990c11d266bf54b9f602bc6a7f937ea3d",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T21:08:25Z",
-  "commitDate": "2026-04-21T21:08:25Z",
   "subject": "fix(db): make spatial_ref_sys RLS migration idempotent",
   "body": "The prior version errored on re-run with \"policy already exists\" and\n\"duplicate key value\" on the schema_migrations INSERT. If a paste into\nStudio partially succeeded (ALTER ok, CREATE POLICY failed for any\nreason), the user couldn't safely re-run the same block.\n\nChanges to the migration file:\n- DROP POLICY IF EXISTS before CREATE POLICY so re-runs don't error on\n  the policy name. ENABLE RLS is already a no-op when already enabled.\n- Header note explaining the ownership constraint (supabase_admin vs\n  postgres) and the Studio SQL Editor escape hatch.\n\nChanges to USER_ACTIONS.md:\n- Inlined the full SQL block (including the ON CONFLICT DO NOTHING\n  ledger insert) so the user runs one paste, not two — prior version\n  sent them to open the migration file + a separate INSERT snippet.\n- Stronger verification query (checks RLS flag, policy count, and\n  ledger row in one call).\n- Documented the platform-change fallback (if Studio also errors 42501,\n  open a support ticket — don't retry via CLI).\n\nTags: database, migrations, supabase, security, idempotency\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: db-sync\nSemver: patch",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "db-sync",
   "semver": "patch",
-  "scope": "db",
-  "title": "make spatial_ref_sys RLS migration idempotent",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 53,

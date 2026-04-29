@@ -1,17 +1,11 @@
 {
   "sha": "9ffd180",
-  "fullSha": "9ffd1800d4c95974ee9981aa70e09d010c185bd8",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-09T01:02:18Z",
-  "commitDate": "2026-04-09T01:02:18Z",
   "subject": "feat(pwa): add visibility-based update checks, 30s suppression, and install singleton",
   "body": "usePWAUpdate: Rewrite as module-level singleton with pub/sub. Adds\nvisibilitychange listener to check for SW updates when tab regains focus,\n30-second sessionStorage suppression after user clicks Update (prevents\nfalse re-detection during SW lifecycle settle), controllerchange reload\nguard (only reloads if user explicitly triggered update), and manual\ncheckForUpdate() with checking state for future menu integration.\n\nusePWAInstall: Lift canInstall and showManualInstructions from per-instance\nReact state to module-level variables with pub/sub notification. All hook\nconsumers now share state — when one instance sets canInstall=false after\ninstall, all others update immediately.\n\nTags: pwa, hooks, state\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa-reliability\nSemver: minor\n\nhttps://claude.ai/code/session_01AC1UWyZGqVwHGuu6SPJr72",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "pwa-reliability",
   "semver": "minor",
-  "scope": "pwa",
-  "title": "add visibility-based update checks, 30s suppression, and install singleton",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 151,

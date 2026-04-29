@@ -30,13 +30,30 @@ Detailed history lives in the git log (`git log --oneline` / `git log -p`).
    wrap-pass follow-up). Greppable absence in `dashboard/js/` confirmed
    7 fields were never read: `fullSha`, `committer`, `commitDate`,
    `scope`, `is_conventional`, `references`, `title`. Stripped at the
-   aggregator's dashboard-output boundary (not in `processed/` —
-   audit trail keeps every field). Also removed `dashboard/public/repos/`
-   generation entirely: dashboard never fetched those files, comment
-   in aggregator confirmed they were "backward compat" leftover from
-   before the data-commits/ migration. CLAUDE.md prohibits backcompat
-   shims. Net effect: PWA precache went from 41 → 26 entries (15
-   per-repo files dropped); per-month JSON payloads ~12% smaller.
+   aggregator's dashboard-output boundary. Also removed
+   `dashboard/public/repos/` generation entirely: dashboard never
+   fetched those files, comment in aggregator confirmed they were
+   "backward compat" leftover from before the data-commits/ migration.
+   CLAUDE.md prohibits backcompat shims. Net effect: PWA precache went
+   from 41 → 26 entries (15 per-repo files dropped); per-month JSON
+   payloads ~12% smaller.
+5. **Dead fields removed at source, not just at output** (this session,
+   surface-pass follow-up). Initial fix in step 4 stripped only at the
+   aggregator boundary, leaving `processed/` files carrying the 7 dead
+   fields as 1.2 MB of inert pass-through. Source fix:
+     - `extract.js`, `extract-api.js`, `fix-malformed.js` no longer
+       emit those 7 fields. `extractReferences` import removed (dead).
+       `extract.js` git format trimmed (8 fields, was 10) — committer
+       name/email/date no longer extracted at all. `fullSha` kept as
+       transient stats-merge key via a side map; not persisted.
+     - One-time clean: 4034 of 4183 existing `processed/*.json` files
+       had at least one dead field; all stripped. 26,058 fields removed.
+       JSON formatting preserved (matched original Node output via
+       `ensure_ascii=False`); diff is 39,336 deletions / 185 insertions.
+     - New tripwire: `scripts/__tests__/aggregate-output.test.mjs`
+       (7 tests) catches re-introduction of any dead field, the
+       deletion of stripCommitForDashboard, the resurrection of
+       `dashboard/public/repos/` output, and missing required fields.
 
 **Why the build-artefact change matters:**
 

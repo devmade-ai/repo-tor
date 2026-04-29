@@ -1,17 +1,11 @@
 {
   "sha": "e47f171",
-  "fullSha": "e47f171d09708e2a8c5bac2dde68e7f7a344495c",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-05T22:18:05Z",
-  "commitDate": "2026-04-05T22:18:05Z",
   "subject": "docs: address audit findings — TutorialModal, guides, codebase docs, TODO",
   "body": "Fix 5 documentation gaps found during CLAUDE.md compliance audit:\n\n- TutorialModal: Add dark mode mention to step 7 (tips section)\n- TESTING_GUIDE.md: Add Dark/Light Mode test scenario section (7 cases)\n- USER_GUIDE.md: Add Dark/Light Mode section with plain-language guide\n- CODEBASE_DOCUMENTATION.md: Add Theming section (dual-layer approach,\n  hooks, localStorage keys, flash prevention, Cytoscape awareness)\n- TODO.md: Add tech debt entries (flash prevention sync fragility,\n  theme picker UI deferred, queryParser.ts 536 lines)\n\nTags: docs, theme, audit, tutorial, testing-guide, user-guide\nComplexity: 2\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "neutral",
   "epic": "theme-dark-mode",
   "semver": "patch",
-  "scope": null,
-  "title": "address audit findings — TutorialModal, guides, codebase docs, TODO",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 5,
     "additions": 73,

@@ -1,17 +1,11 @@
 {
   "sha": "4025433",
-  "fullSha": "4025433a40604aca4409a8c1343049c554022690",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-05T22:32:46Z",
-  "commitDate": "2026-04-05T22:32:46Z",
   "subject": "refactor(debug): use DaisyUI className tokens directly, remove JS color maps and useTheme()",
   "body": "The intermediate DEBUG_SEVERITY_COLOR_KEYS / DEBUG_SOURCE_COLOR_KEYS maps in themeColors.ts\nwere unnecessary indirection — DaisyUI className tokens (bg-error, text-primary, etc.) can be\napplied directly via className, eliminating the need to resolve hex colors through useTheme().\n\n- Replace SEVERITY_COLORS/SOURCE_COLORS hex maps with className maps (SEVERITY_BG, SEVERITY_TEXT, SOURCE_TEXT)\n- Remove useTheme() call from DebugPill — all colors now via className\n- Remove all color prop drilling (textColor, subtextColor, colors) from LogRow, EnvTab, PwaDiagnosticsTab\n- Remove DEBUG_SEVERITY_COLOR_KEYS and DEBUG_SOURCE_COLOR_KEYS from themeColors.ts\n- Reduce StyleSheet from 11 entries to 4 (container, panel, contentInner, logRow)\n- Convert remaining inline text styles (fontSize, color) to className equivalents\n\nTags: refactor, debug, daisyui, tailwind, cleanup\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theme-integration\nSemver: patch\n\nhttps://claude.ai/code/session_01VJGL4EBYzHhRdw1gp7EMHL",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "theme-integration",
   "semver": "patch",
-  "scope": "debug",
-  "title": "use DaisyUI className tokens directly, remove JS color maps and useTheme()",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 82,

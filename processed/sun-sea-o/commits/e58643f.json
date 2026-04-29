@@ -1,17 +1,11 @@
 {
   "sha": "e58643f",
-  "fullSha": "e58643f183e887fc84adb048fd6846eadf54859d",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-20T00:06:01Z",
-  "commitDate": "2026-04-20T00:06:01Z",
   "subject": "chore(cleanup): delete legacy supabase/ folder; route ErrorBoundary through debugLog",
   "body": "The supabase/ directory had no runtime dependencies — zero supabase.from\n/ supabase.rpc calls in src/, no imports, no npm scripts. Schema and\nmigrations are owned by the tool-till-tees backend repo. Deleted the\n13 files (config.toml, 10 migrations, one edge function, one seed file),\ndropped supabase/.temp/ from .gitignore, removed the \"remove supabase/\"\nTODO line, and trimmed CLAUDE.md's Architecture tree.\n\nErrorBoundary.componentDidCatch previously only logged to the console\nin dev and no-op'd in production. Now routes every caught error through\ndebugLog('render', 'error', ...) so it lands in the in-app DebugPill\nbuffer in both environments. Users can export via the pill's Copy\nbutton; a remote reporter can be wired later by subscribing to\ndebugLog. Removed the aspirational \"// send to Sentry\" comment.\n\nSESSION_NOTES.md updated to reflect the deletion.\n\nTags: cleanup, supabase, error-reporting, docs\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "cross-fleet-docs",
   "semver": "patch",
-  "scope": "cleanup",
-  "title": "delete legacy supabase/ folder; route ErrorBoundary through debugLog",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 18,
     "additions": 11,

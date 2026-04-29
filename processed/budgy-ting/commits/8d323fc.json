@@ -1,17 +1,11 @@
 {
   "sha": "8d323fc",
-  "fullSha": "8d323fc005203011fcc79372e35a0e178bb78e20",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-09T14:25:33Z",
-  "commitDate": "2026-04-09T14:25:33Z",
   "subject": "fix(debug): recursion guard, dedup errors, robust diagnostics, DOM panel",
   "body": "Console interception re-entrancy guard prevents infinite loop if a\nsubscriber error triggers console.error. Inline pill error listeners\nyield to debugLog.ts via __debugLogReady flag to prevent duplicate\nentries. Hardcoded diagnostic indices (results[5], results[6]) replaced\nwith label-based findIndex lookup. Inline pill alert() replaced with\ntoggleable DOM panel. Removed unnecessary immediate subscriber delivery.\nUpdated CLAUDE.md project status. TypeScript clean, build verified.\n\nTags: debug, cleanup, glow-props-sync\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: glow-props-sync\nSemver: patch\n\nhttps://claude.ai/code/session_01HStghTVMRxyymnHn4AWxUi",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "glow-props-sync",
   "semver": "patch",
-  "scope": "debug",
-  "title": "recursion guard, dedup errors, robust diagnostics, DOM panel",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 5,
     "additions": 59,

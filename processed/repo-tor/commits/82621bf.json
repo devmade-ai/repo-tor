@@ -1,17 +1,11 @@
 {
   "sha": "82621bf",
-  "fullSha": "82621bf86593b4d2a5615590600eb8a01be42bdb",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-13T14:17:37Z",
-  "commitDate": "2026-04-13T14:17:37Z",
   "subject": "refactor(heatmap): theme-track CSS fills via color-mix + embed override",
   "body": "The old heatmap CSS used rgba(var(--chart-accent-rgb, 45, 104, 255), X%)\nwith a comma-separated RGB triple stored in a CSS variable, set once\nat bootstrap from chartColors.accentColor. That pattern had two\nfundamental problems:\n\n1. One-shot bootstrap: the RGB triple was computed at module load\n   from the resolved accentColor. Theme changes after mount didn't\n   update it, so heatmap cells stayed frozen at brand blue\n   regardless of which theme the user picked.\n\n2. Wrong format: DaisyUI exposes --color-primary as an oklch() value,\n   not an RGB triple. The heatmap CSS couldn't use DaisyUI's native\n   theme variable even if it wanted to — the rgba() function needs\n   R,G,B numbers, and there's no CSS way to destructure an oklch()\n   color into components.\n\nMigrated to the nested-var + color-mix approach:\n\n  .heatmap-1 { background-color: color-mix(in oklab,\n    var(--chart-accent-override, var(--color-primary)) 15%,\n    transparent); }\n  .heatmap-4 {\n    background-color: var(--chart-accent-override, var(--color-primary));\n    color: var(--color-primary-content);\n  }\n\nMechanics:\n\n- Default path: var(--color-primary) resolves per-theme via\n  DaisyUI's theme plugin, so the heatmap cells pick up `nord` blue\n  / `emerald` green / `coffee` brown / `caramellatte` peach\n  automatically. No JavaScript involvement, no theme-change handler,\n  no cache invalidation — the browser's CSS parser does the work.\n\n- Embedder override: when the embedder sets --chart-accent-override\n  via main.jsx (from the URL ?accent= param), the nested var()\n  fallback chain uses that value instead. Branded embeds survive\n  theme picker clicks because --chart-accent-override is set once\n  at bootstrap and never re-written.\n\n- Text contrast: high-intensity cells (.heatmap-3, .heatmap-4) now\n  use var(--color-primary-content) instead of hardcoded `white`.\n  On light themes (lofi, nord, emerald, caramellatte) where the\n  primary is a pale color, white text was invisible. DaisyUI's\n  --color-primary-content is the semantic \"contrasting foreground\n  for content on primary\" token that each theme plugin defines.\n\nmain.jsx bootstrap:\n\n- The --chart-accent-override CSS variable is now set ONLY when\n  hasUrlAccentOverride === true. Previously main.jsx always set\n  --chart-accent-rgb from the resolved accentColor, shadowing the\n  theme's --color-primary even when no embedder was involved. By\n  guarding on hasUrlAccentOverride, the default bootstrap path\n  leaves --chart-accent-override unset so the CSS var() fallback\n  chain resolves to --color-primary.\n- Rationale block added explaining the embedder-override escape\n  hatch and why the bootstrap no longer force-sets the variable.\n- Deleted the old --chart-accent-rgb RGB-parse block (the three-\n  line hex-to-RGB slice + setProperty).\n\nBuild verification:\n\n- vite build clean.\n- grep of dist/assets/index-*.css confirms .heatmap-[0-4] rules\n  resolve to the nested-var + color-mix chain.\n- .heatmap-4 uses color: var(--color-primary-content) as expected.\n- --chart-accent-rgb fully removed from the built CSS (comments\n  in styles.css reference it historically but no rule emits it).\n\nKnown trade-off:\n\n- Lightning CSS auto-generates fallback rules for color-mix()\n  declarations (standard behavior when the input color contains\n  a var() reference). Output has two .heatmap-N rules per level:\n  a fallback using the raw var() (full-intensity primary, incorrect\n  visual) and the modern color-mix() version. Modern browsers\n  (Chrome 111+, Firefox 113+, Safari 16.2+) use the color-mix\n  rule and render the correct intensity bands. Ancient browsers\n  fall back to full-intensity primary — degraded but still\n  functional. Our browserslist targets modern browsers so this\n  is an accepted cost — we already use color-mix() extensively\n  in the rest of the stylesheet.\n\nTags: ui, refactor, daisyui, heatmap, theming, css\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "daisyui-component-migration",
   "semver": "patch",
-  "scope": "heatmap",
-  "title": "theme-track CSS fills via color-mix + embed override",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 60,

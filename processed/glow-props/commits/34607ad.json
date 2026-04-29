@@ -1,17 +1,11 @@
 {
   "sha": "34607ad",
-  "fullSha": "34607ad65e354762a9610cbd1823c20daad2e845",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-22T09:31:25Z",
-  "commitDate": "2026-04-22T09:34:19Z",
   "subject": "docs(patterns): add TIMER_LEAKS pattern + Code Standards subsection",
   "body": "Closes a real gap in glow-props' preferences layer and pattern\ncatalogue:\n\n- CLAUDE.md §Cleanup (lines 73-78) covered cosmetic cleanup only\n  (console.log, unused imports, dead code, scratch files) with no\n  timer/subscription rule.\n- The `hacks` trigger flags `setTimeout` used as a timing fix as an\n  anti-pattern — that's about abuse, not cleanup hygiene.\n- The `race` trigger mentions \"event leaks\" tangentially but as a\n  review lens, not a standards rule.\n- No docs/implementations/TIMER_LEAKS.md existed.\n- The rule lived only in synctone's local CLAUDE.md §Code Standards\n  and its stale docs/implementations/ folder — no other repo in the\n  fleet inherited it.\n\nTwo-pronged upstream:\n\n1. New pattern doc docs/implementations/TIMER_LEAKS.md covering five\n   concrete variants:\n   - Nested timeouts (React useEffect with array of ids)\n   - Single-shot timer / interval (const or useRef)\n   - AbortController for fetch + multiple listeners\n   - Plain-module singletons with named dispose()\n   - HMR-safe global listener guard\n   Plus a \"Related patterns\" block, \"The Rule\" statement, and seven\n   Key Lessons — including an explicit anti-pattern call-out tying\n   back to the `hacks` trigger so readers don't mistake the rule\n   for permission to overuse setTimeout.\n\n2. New CLAUDE.md §Code Standards subsection \"Timer and Subscription\n   Cleanup\" placed between §Cleanup and §Quality Checks. Five-bullet\n   summary that downstream CLAUDE.mds inherit at the preferences\n   level on every curl-fetch — not just as a pattern doc reference.\n\nFrontmatter: slug=timer-leaks, badge=Convention (matches\nZ_INDEX_SCALE precedent for cross-project standards), order=11\n(appended; existing 1-10 all filled). The generatePatternManifest\nVite plugin picks the new doc up automatically on next build — no\nmanifest index update needed.\n\nOnce this merges:\n- Every downstream repo (synctone, model-pear, see-veo, sun-sea-o,\n  four-ems, few-lap, etc.) inherits the rule on next CLAUDE.md\n  fetch.\n- synctone's local docs/implementations/TIMER_LEAKS.md can be\n  deleted as part of its CLAUDE.md alignment chunk (already tracked\n  in docs/TODO.md).\n\nTags: documentation, patterns, cleanup, convention, cross-fleet\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01Mx2aebqgqtBaC611uxsp7q",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "minor",
-  "scope": "patterns",
-  "title": "add TIMER_LEAKS pattern + Code Standards subsection",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 178,

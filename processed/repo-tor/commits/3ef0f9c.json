@@ -1,17 +1,11 @@
 {
   "sha": "3ef0f9c",
-  "fullSha": "3ef0f9c69cfd38749d5aabb6b209743a657e9df3",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T23:51:37Z",
-  "commitDate": "2026-04-10T23:51:37Z",
   "subject": "fix(ui): normalize debug pill z-index from 99999 to 80",
   "body": "The inline debug pill in index.html used hardcoded zIndex:'99999' in\nthree render states (expanded panel, collapsed error pill, collapsed\n\"0 errors\" pill). The CSS z-index scale defines --z-debug: 80 as the\ntopmost layer. Normalized all three to zIndex:'80' per the glow-props\nZ_INDEX_SCALE pattern.\n\nAudit confirmed no other ad-hoc z-index values in the codebase.\n\nTags: ui, debug, z-index, cleanup\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: z-index-scale\nSemver: patch\n\nhttps://claude.ai/code/session_01MnhxXijTTmk9cxGLiWqh7R",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "z-index-scale",
   "semver": "patch",
-  "scope": "ui",
-  "title": "normalize debug pill z-index from 99999 to 80",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 17,

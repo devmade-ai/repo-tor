@@ -1,17 +1,11 @@
 {
   "sha": "fd0985b",
-  "fullSha": "fd0985b696988bb4623c99b6e0fe4b2942ac127e",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-15T21:07:08Z",
-  "commitDate": "2026-04-15T21:07:08Z",
   "subject": "docs(todo): add audit-cleanup verification + aggregate.js investigation",
   "body": "Audit finding #17 follow-through. Three new entries added:\n\nPost-sweep verification:\n  2. Live browser verification of the audit-cleanup pass — tracks\n     the SettingsPane fieldset/radio refactor, Progress.jsx semver\n     doughnut h-45/h-50 utility, Header handleOpenFilters →\n     OPEN_FILTER_SIDEBAR action.\n  3. Live browser verification of the file-extraction refactors —\n     TimingHeatmap, DebugTabs+debugStyles, discoverData, and\n     useTimelineCharts. All four are pure code-organization splits\n     that need spot-checking in a real browser.\n\nInvestigations:\n  1. scripts/aggregate.js data flow — the script writes 5 JSON\n     files into dashboard/ that no JS module imports. Either it's\n     dead code (delete) or has an out-of-tree consumer (document).\n     The entry includes investigation steps so the next session can\n     resolve it definitively without re-doing the discovery work.\n\nFooter \"Last updated\" rewritten to reflect the audit-cleanup\nstate — every audit finding addressed, every section component now\nunder the 500-line soft-limit, doc files trimmed.\n\nTags: documentation, todo, audit\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: vanilla-daisyui-cleanup\nSemver: patch",
   "tags": [
@@ -22,13 +16,7 @@
   "debt": "paid",
   "epic": "vanilla-daisyui-cleanup",
   "semver": "patch",
-  "scope": "todo",
-  "title": "add audit-cleanup verification + aggregate.js investigation",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#17"
-  ],
   "stats": {
     "filesChanged": 1,
     "additions": 10,

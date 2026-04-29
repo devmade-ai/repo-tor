@@ -1,17 +1,11 @@
 {
   "sha": "e91e038",
-  "fullSha": "e91e038154f8815a50d138b1b4d1ff6c45dc966c",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-09T01:09:36Z",
-  "commitDate": "2026-04-09T01:09:36Z",
   "subject": "chore(pwa): eager _canInstall init + update docs",
   "body": "Initialize _canInstall from pre-captured window.__pwaInstallPrompt at\nmodule scope so the first render has the correct value — eliminates an\nextra render cycle on cached SW repeat visits.\n\nUpdate SESSION_NOTES.md and HISTORY.md for this session's work.\n\nTags: pwa, docs, hooks\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: pwa-reliability\nSemver: patch\n\nhttps://claude.ai/code/session_01AC1UWyZGqVwHGuu6SPJr72",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "neutral",
   "epic": "pwa-reliability",
   "semver": "patch",
-  "scope": "pwa",
-  "title": "eager _canInstall init + update docs",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 23,

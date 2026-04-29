@@ -1,17 +1,11 @@
 {
   "sha": "9fdb004",
-  "fullSha": "9fdb00438e888bd5001dd2fb6aa6a3319fa6ee59",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T19:23:45Z",
-  "commitDate": "2026-04-10T19:23:45Z",
   "subject": "fix(debug): harden debug system — SSR safety, cleanup, type exports",
   "body": "Audit and fix issues from initial implementation:\n\n- debugLog.ts: Wrap all browser side-effects (console interception,\n  global error listeners, pre-framework bridge) in typeof window guard\n  to prevent Node.js console patching during SSR build. Export\n  DebugSource, DebugSeverity, MAX_ENTRIES for consumers. Extract shared\n  formatDebugTimestamp() helper (eliminates duplication between report\n  generator and pill display). After bridge imports pre-framework\n  errors, remove inline listeners and clear buffer to prevent\n  double-capture. Add boot log entry on module init.\n\n- app.html: Store inline error/rejection listeners as named window\n  references (__debugInlineErrorHandler, __debugInlineRejectionHandler)\n  so debugLog.ts can remove them after takeover.\n\n- DebugPill.svelte: Use shared formatDebugTimestamp(). Show structured\n  entry.details below event text when present. Remove unnecessary\n  typeof window guard inside onMount. Type tab array with as-const for\n  type safety. Add stale-run guards after each async probe in PWA\n  diagnostics. Log boot confirmation on mount.\n\n- +layout.svelte: Dynamic import of DebugPill (confirmed debugLog.ts\n  absent from SSR bundle). Store pill reference, return cleanup\n  function for proper $destroy() on unmount.\n\nTags: debug, diagnostics, ssr, cleanup\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_011693rELt3wTKg28uRw5BSR",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "debug-system",
   "semver": "patch",
-  "scope": "debug",
-  "title": "harden debug system — SSR safety, cleanup, type exports",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 6,
     "additions": 165,

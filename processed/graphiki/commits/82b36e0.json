@@ -1,17 +1,11 @@
 {
   "sha": "82b36e0",
-  "fullSha": "82b36e08916629099db62a66ebcd2af5992ed77c",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-20T22:56:18Z",
-  "commitDate": "2026-04-20T22:56:18Z",
   "subject": "docs(todo): remove stale fuzzy-matching item — semantic embeddings already subsume it",
   "body": "The backlog entry predates the Semantic Duplicate Detection milestone.\nmergeService.ts:13 now explicitly rejects Levenshtein/fuzzy matching in\nfavor of sentence-transformer embeddings (cosine similarity on 384-dim\nvectors via all-MiniLM-L6-v2). Both import-time matching and the\nstandalone Find Duplicates scanner use the same path. The TODO item\nwas carried over and never cleaned up.\n\nTags: docs, cleanup, todo\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: alpha-debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_015rKh5k6MFgfyjNZDfGaWzV",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "alpha-debug-system",
   "semver": "patch",
-  "scope": "todo",
-  "title": "remove stale fuzzy-matching item — semantic embeddings already subsume it",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 1,

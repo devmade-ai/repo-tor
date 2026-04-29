@@ -1,17 +1,11 @@
 {
   "sha": "1050afa",
-  "fullSha": "1050afa753554ba7eee87d858b7bd8153003f8ff",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-05T21:48:15Z",
-  "commitDate": "2026-04-05T21:48:15Z",
   "subject": "refactor(theme): replace rounded-[--radius-box] with DaisyUI rounded-box",
   "body": "Replace 66 occurrences of rounded-[--radius-box] and\nrounded-[var(--radius-box)] with DaisyUI's built-in rounded-box\nutility class across 26 files. Directional variants (rounded-l-,\nrounded-r-, rounded-b-) kept as arbitrary values since DaisyUI\ndoesn't provide directional radius shortcuts.\n\nTags: theme, daisyui, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "theme-dark-mode",
   "semver": "patch",
-  "scope": "theme",
-  "title": "replace rounded-[--radius-box] with DaisyUI rounded-box",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 26,
     "additions": 66,

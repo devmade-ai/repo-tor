@@ -1,17 +1,11 @@
 {
   "sha": "ac4c4ad",
-  "fullSha": "ac4c4adc90365f7a03b7932ee3da6e672a0a8f59",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-07T22:35:31Z",
-  "commitDate": "2026-04-07T22:35:31Z",
   "subject": "refactor(docs): delete local implementation patterns, fetch from glow-props",
   "body": "Deleted all 7 local copies of implementation pattern files from\ndocs/implementations/. These are now fetched directly from the glow-props\nrepo via GitHub API every time — no local copies exist or should be created.\n\nUpdated CLAUDE.md with fetch instructions, added prohibition against\ncreating local copies. Updated AI_MISTAKES.md reference to clarify source.\n\nTags: documentation, cleanup, cross-project\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-project-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01GruVdwQN6HVyM2g2LaTDgi",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "cross-project-alignment",
   "semver": "patch",
-  "scope": "docs",
-  "title": "delete local implementation patterns, fetch from glow-props",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 9,
     "additions": 16,

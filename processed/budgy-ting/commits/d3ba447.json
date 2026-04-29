@@ -1,17 +1,11 @@
 {
   "sha": "d3ba447",
-  "fullSha": "d3ba447594806ca35fa0d497bd6cb1421f551135",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-23T19:17:54Z",
-  "commitDate": "2026-04-23T19:17:54Z",
   "subject": "fix(copy): remove accounting jargon and clarify ambiguous labels",
   "body": "High-severity\n1. \"Import Actuals\" → \"Import transactions\".\n   \"Actuals\" is bookkeeping jargon non-technical users don't recognise.\n   Fixed in ImportStepUpload.vue h1 and WorkspaceDetailView.vue import\n   button title. The route name `import-actuals` is internal (URL path\n   is /workspace/:id/import — clean) so left unchanged.\n   Also caught by verification: CashflowGraph chart legend showed\n   \"Actuals\" as the series name — changed to \"Spending\" (+ updated\n   the colour-match switch and the screen-reader summary string).\n\nMedium-severity\n2. \"Continue to classify\" → \"Review & import\".\n   Next step title is \"Review transactions\" — old copy told users they\n   were going somewhere else (\"classify\"). New copy matches the wizard\n   step labels + states the final action in the button.\n3. Import save-error clarified.\n   \"Couldn't save imported data. Please try again.\" →\n   \"Couldn't save your transactions. Your review is still loaded —\n    please try again.\" The added clause tells the user their work\n   isn't lost on retry, which the old message left ambiguous.\n4. \"Mark all unmatched as once-off\" → \"Mark remaining as one-time\".\n   \"Unmatched\" leaked an implementation detail (didn't match a\n   pattern). \"Remaining\" + \"one-time\" matches the existing user\n   vocabulary in the classification badges.\n5. Pattern-matching dev-speak swept from ImportStepReview progress UI.\n   \"Preparing tag suggestions and pattern matching...\" →\n   \"Preparing tag suggestions and recurring detection…\"\n   Progress bar label \"Pattern matching\" → \"Recurring detection\".\n   Error states updated consistently (\"Recurring detection unavailable\",\n   \"Smart detection unavailable — you can still review manually\").\n\nDropped finding: agent flagged ErrorBoundary's \"Something went wrong\"\nas inconsistent with the \"Couldn't…\" voice. Verified — the full\ncopy is actually fine: title + reassurance (\"Your data is safe\") +\nclear next action. Title is conventional for an error boundary.\n\nType-check clean. 116/116 tests pass. Production build succeeds.\n\nUI verification note: \"Spending\" replacing \"Actuals\" in the chart\nlegend should be confirmed visually — worth checking the colour\nmapping and tooltip still render correctly.\n\nTags: copy, microcopy, jargon, errors, import\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "ux-polish",
   "semver": "patch",
-  "scope": "copy",
-  "title": "remove accounting jargon and clarify ambiguous labels",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 5,
     "additions": 12,

@@ -1,17 +1,11 @@
 {
   "sha": "dd92479",
-  "fullSha": "dd92479b480b82f6d4b939e64f2a5f873c9edd85",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-01T22:38:54Z",
-  "commitDate": "2026-04-01T22:38:54Z",
   "subject": "fix(quality): resolve audit findings from DaisyUI migration review",
   "body": "7 issues found and fixed:\n\n1. CLAUDE.md Architecture: Remove 5 deleted files (useAppTheme.ts,\n   Colors.ts, Themed.tsx, useColorScheme x2), add 4 new files\n   (global.css, metro.config.js, themeColors.ts, useTheme.ts)\n\n2. CLAUDE.md Project Status: Update 3 stale references — useAppTheme\n   to useTheme, old theme description to DaisyUI combos, BurgerMenu\n   description to include combo picker\n\n3. TutorialModal step 6: Update user-facing text to mention theme\n   combo picker (Teal, Nature, Nordic, Bold) alongside dark/light toggle\n\n4-5. Remove unused useTheme imports from +not-found.tsx and StationCard.tsx\n     (both use only className, no hex colors needed)\n\n6. Fix pre-existing TS error: Export VALID_AMENITIES and VALID_PROVINCES\n   from stationValidation.ts, import in bulk-import.tsx (was referencing\n   unexported constants)\n\n7. Empty constants/ directory confirmed — git handles automatically\n\nTags: quality, cleanup, documentation, audit\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-theme-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01EAwig8kSZ6S91pb3wP7tv4",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "daisyui-theme-migration",
   "semver": "patch",
-  "scope": "quality",
-  "title": "resolve audit findings from DaisyUI migration review",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 6,
     "additions": 12,

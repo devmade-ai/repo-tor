@@ -1,17 +1,11 @@
 {
   "sha": "a71e149",
-  "fullSha": "a71e1497a51fcf4b1d8fc2970f08a7b406e72cc2",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T20:43:27Z",
-  "commitDate": "2026-04-02T20:43:27Z",
   "subject": "fix(ui): restructure header to prevent filter/title overlap",
   "body": "Remove ALPHA badge and reset button to reclaim header space. Replace\nsmall search icon with a flex-fill search button between the title and\nfilters. All header elements now live in a single flex row via\nheaderTitle (headerRight is null) so they never overlap.\n\n- Search button: flex:1, fills gap between \"FuelHunt\" and fuel filter\n- Filter buttons: smaller padding and maxWidth (56px text, 11px font)\n- Reset button: removed — filters can be changed directly\n- ALPHA badge: removed per user request\n- headerTitleContainerStyle: flex:1 so the row spans full header width\n\nTags: ui, layout, header, search\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: header-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01JiHLm7X1zVwrcYAJuVaPFN",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "header-layout",
   "semver": "patch",
-  "scope": "ui",
-  "title": "restructure header to prevent filter/title overlap",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 47,

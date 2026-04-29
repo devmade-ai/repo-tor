@@ -1,17 +1,11 @@
 {
   "sha": "c52a2a4",
-  "fullSha": "c52a2a481775d16ccd9efb16528ce7800b9ee89e",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-08T19:30:33Z",
-  "commitDate": "2026-04-08T19:30:33Z",
   "subject": "fix(debug): normalize 12 invalid 'debug' severity calls to 'info'",
   "body": "Valid severities are info/success/warn/error. Twelve calls across 4 files\nused 'debug' as severity — not in the valid set. These are all low-noise\nUI/state events that belong at 'info' level. Dropped explicit severity arg\nwhere it was the default, removed dead 'debug' key from SEVERITY_COLORS.\n\nFiles: App.jsx (5), useAdState.js (4), ExportButtons.jsx (1), ReaderMode.jsx (2)\n\nTags: debug, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01KWPHuYLV1weWg2cFm9VtjN",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "debug-system",
   "semver": "patch",
-  "scope": "debug",
-  "title": "normalize 12 invalid 'debug' severity calls to 'info'",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 5,
     "additions": 12,

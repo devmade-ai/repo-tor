@@ -1,17 +1,11 @@
 {
   "sha": "83c6c8a",
-  "fullSha": "83c6c8aa789fe2c42df9b6bc266513dcbc45a9c8",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T02:45:05Z",
-  "commitDate": "2026-04-21T02:45:05Z",
   "subject": "refactor(cards): unify ModuleCard + restore inline-edit focus rings",
   "body": "- ModuleCard was the one card-family outlier using raw `rounded-lg border\n  p-4` markup. Migrate to `card card-compact` + `card-body` structure and\n  add hover states matching ProjectCard/AgreementCard (hover:border-base-\n  content/30 + hover:shadow-sm) when the module is active. Expired cards\n  stay static (no hover) since the card is preserved for reference, not\n  interaction. Pending-proposal cards get a warning-tinted hover variant.\n- AgreementHeader + ProjectDetailPage inline-title edit: `input-ghost` had\n  only `focus:border-primary focus:outline-none` — no visible ring. A\n  keyboard-focused user couldn't tell which field was active. Add\n  `focus:ring-2 focus:ring-primary/30` so there's a persistent halo\n  alongside the bottom-border indicator.\n\nNot touched (decisions):\n- ProposalCard / NotesList / VersionHistoryPanel lack hover states by\n  design — they're display-only surfaces, not clickable cards. Flagged\n  by the visual audit but rejected here; consistency with clickable cards\n  is not appropriate for static content.\n- BatchSignActions uses bg-base-200 intentionally — it's a nested panel\n  within page content, a tier below the regular bg-base-100 cards.\n\nTags: refactor, ui, daisyui, card-family, a11y\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "daisyui-migration",
   "semver": "patch",
-  "scope": "cards",
-  "title": "unify ModuleCard + restore inline-edit focus rings",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 84,

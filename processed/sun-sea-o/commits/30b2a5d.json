@@ -1,17 +1,11 @@
 {
   "sha": "30b2a5d",
-  "fullSha": "30b2a5d8aae2dcc62d157cb2ebf68b8c3f6dfccd",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-24T23:23:06Z",
-  "commitDate": "2026-04-24T23:23:06Z",
   "subject": "fix(ui): suppress iOS focus-zoom on five sub-16px form controls",
   "body": "iOS Safari auto-zooms into any <input> / <textarea> with computed\nfont-size < 16px on focus. Input.tsx / TextArea.tsx wrappers already\nenforce text-base, but five bare elements bypassed that guard:\n\n- ContractUploadPreview.tsx:294  text-sm -> text-base   (rename input)\n- AgreementHeader.tsx:66         text-sm -> text-base   (description)\n- ProjectDetailPage.tsx:92       text-sm -> text-base   (description)\n- ModuleSummaryEditor.tsx:120    +text-base on input-sm (DaisyUI v5\n                                  input-sm is 14px; min-h-[44px]\n                                  fixes height but not font-size)\n- ToneSelector.tsx:128           +text-base on input-sm (same)\n\nAll five keep their compact visual variants (input-sm or text-sm\nremoved in favor of text-base on full-size); only rendered font-size\nchanges from 14px to 16px so iOS no longer zooms.  min-h-[44px]\nalready in place on each so the touch-target rule (CLAUDE.md\n\"User Experience (Non-Negotiable)\") is unaffected.\n\nAudit triggered by mobile debug report at 360x674 / Android Chrome 147.\nSame report also surfaced GET /api/sancio/* -> 404; that's a\ntool-till-tees Vercel platform firewall (now returning 403\nx-deny-reason: host_not_allowed) and is recorded in\ndocs/USER_ACTIONS.md as a backend dashboard fix.  Frontend rewrites\n+ client are correct (apiRewrites.test.ts green).\n\nTags: ui, mobile, accessibility, bug\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-viewport\nSemver: patch\n\nhttps://claude.ai/code/session_01TVYXEU2QJcmBA17ZNWhcZP",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "mobile-viewport",
   "semver": "patch",
-  "scope": "ui",
-  "title": "suppress iOS focus-zoom on five sub-16px form controls",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 7,
     "additions": 50,

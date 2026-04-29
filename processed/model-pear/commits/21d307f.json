@@ -1,17 +1,11 @@
 {
   "sha": "21d307f",
-  "fullSha": "21d307f40e7d66ce5d92a4438ad81f3baf82e81f",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T15:22:39Z",
-  "commitDate": "2026-04-10T15:22:39Z",
   "subject": "fix(print): overhaul print CSS for dark theme — fix invisible text, align with glow-props pattern",
   "body": "The existing print CSS only set `body { background: white; color: black }`\nbut Tailwind utility classes (text-foreground, bg-card, bg-secondary-light)\nstill resolved to dark theme values — producing white text on white paper\nand dark gray card backgrounds. This was a critical readability bug for\nanyone using the \"Save as PDF\" or \"Print / PDF\" features.\n\nFix: Override :root CSS variables with light-theme values in @media print\nso all Tailwind classes automatically resolve to print-friendly colors.\nAlso override hardcoded dark hex colors (secondary-light, secondary-dark),\nadd link styling, .print-avoid-break utility class, sticky→static override,\nsection/card/result-panel break-inside rules, and !important on\nprint-color-adjust. Full alignment with glow-props DOWNLOAD_PDF pattern.\n\nTags: print, css, bugfix, pdf, dark-theme\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pdf-download\nSemver: patch\n\nhttps://claude.ai/code/session_01WsnhVtrg3t35GkwdkGdzQf",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "pdf-download",
   "semver": "patch",
-  "scope": "print",
-  "title": "overhaul print CSS for dark theme — fix invisible text, align with glow-props pattern",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 122,

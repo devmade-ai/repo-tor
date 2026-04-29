@@ -1,17 +1,11 @@
 {
   "sha": "1a33c23",
-  "fullSha": "1a33c23e72826fcde170dc71b97038ff61261959",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-03-31T08:20:14Z",
-  "commitDate": "2026-03-31T08:20:14Z",
   "subject": "feat(themes): add light/dark variants for all color themes",
   "body": "Each of 19 themes now has independently designed light and dark variants\nwith accent colors chosen per variant — not just primary/secondary swaps.\nAccent colors differ per variant because an accent that works on a dark\nbackground often washes out, clashes, or loses its visual role on light.\n\n- Restructured themes.js: flat colors → variants object with defaultVariant\n- Merged old dark/light themes into single 'neutral' theme\n- Added variant field to theme state, setThemeVariant callback\n- Light/Dark toggle UI with sun/moon icons in Presets → Themes\n- Theme swatches show current variant colors, tooltip shows both\n- Backward compat: loadDesign migrates old preset IDs and missing variant\n\nTags: themes, state, ui, config, backward-compat\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: theme-variants\nSemver: minor\n\nhttps://claude.ai/code/session_018wuGq47B845KqHWD9whWMK",
   "tags": [
@@ -25,11 +19,7 @@
   "debt": "paid",
   "epic": "theme-variants",
   "semver": "minor",
-  "scope": "themes",
-  "title": "add light/dark variants for all color themes",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 9,
     "additions": 481,

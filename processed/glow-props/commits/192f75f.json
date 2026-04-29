@@ -1,17 +1,11 @@
 {
   "sha": "192f75f",
-  "fullSha": "192f75f780df12545efdd007f3cbf0c32bf3408b",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-22T07:53:48Z",
-  "commitDate": "2026-04-22T07:53:48Z",
   "subject": "docs(todo): correct synctone-only pattern count (3 -> 2); add TIMER_LEAKS upstream note",
   "body": "Spot-check of glow-props/docs/implementations/ shows HTTPS_PROXY.md\nIS present today — my earlier claim that synctone had 3 unique\npatterns was wrong. Only KEY_LESSONS and TIMER_LEAKS are truly\nsynctone-only.\n\nAlso recorded the two-pronged TIMER_LEAKS upstream recommendation:\n- glow-props CLAUDE.md §Cleanup (lines 73-78) is cosmetic-only; no\n  timer/subscription cleanup rule in the preferences layer.\n- `hacks` trigger (line 378) flags setTimeout-for-timing-fixes as\n  an anti-pattern but does not mandate cleanup hygiene.\n- `race` trigger mentions \"event leaks\" tangentially, but as a\n  review lens, not a standards rule.\n- No docs/implementations/TIMER_LEAKS.md exists today.\n\nRecommendation parked in TODO: add both the pattern doc and a\n\"Timer and Subscription Cleanup\" bullet-group to CLAUDE.md\n§Code Standards, so every downstream fetching from glow-props\ninherits the rule.\n\nTags: documentation, audit, todo, correction, cross-fleet\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01Mx2aebqgqtBaC611uxsp7q",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "cross-fleet-alignment",
   "semver": "patch",
-  "scope": "todo",
-  "title": "correct synctone-only pattern count (3 -> 2); add TIMER_LEAKS upstream note",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 1,

@@ -1,17 +1,11 @@
 {
   "sha": "78ebe20",
-  "fullSha": "78ebe209648c1165e46f152107ce4e526f37fc11",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-20T23:54:20Z",
-  "commitDate": "2026-04-20T23:54:20Z",
   "subject": "refactor(debug): finish DEBUG_SYSTEM compliance — 3-method clipboard + structured ErrorBoundary details",
   "body": "DebugPill.tsx:\n- copyToClipboard now tries ClipboardItem Blob → writeText → textarea\n  in order, matching the pattern's 3-method fallback. The Blob path\n  handles contexts where writeText is blocked (some iframes, strict\n  permission contexts); writeText is the standard path; the textarea\n  fallback catches mobile PWA webviews where even the clipboard API\n  is locked down.\n\nErrorBoundary.tsx:\n- componentDidCatch now passes the error stack and React component\n  stack as structured `details` on the debugLog entry instead of\n  splicing the first stack line into the event string. A future\n  remote reporter subscribing to debugLog (Sentry etc.) can pick\n  these up cleanly without parsing free text.\n\nTags: debug, error-handling, clipboard\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "cross-fleet-docs",
   "semver": "patch",
-  "scope": "debug",
-  "title": "finish DEBUG_SYSTEM compliance — 3-method clipboard + structured ErrorBoundary details",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 27,

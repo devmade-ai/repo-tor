@@ -1,17 +1,11 @@
 {
   "sha": "771a370",
-  "fullSha": "771a37078881d6cacb2def29d9f754904e88be4f",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T23:46:55Z",
-  "commitDate": "2026-04-02T23:46:55Z",
   "subject": "fix(ui): cap filter button width so long labels don't crowd the search",
   "body": "Filter buttons (fuel type, radius) had no maxWidth — long labels like\n\"Diesel 500ppm\" or \"Illuminating Paraffin\" could push the search button\noff screen. Added maxWidth: 100 on the button itself and flexShrink: 0\nso they stay compact and fixed. Search keeps flex: 1 to fill remaining space.\n\nTags: ui, layout, header, bugfix\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: header-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01RzsrbdRZPkrzmNNEwDFHaq",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "header-layout",
   "semver": "patch",
-  "scope": "ui",
-  "title": "cap filter button width so long labels don't crowd the search",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 2,

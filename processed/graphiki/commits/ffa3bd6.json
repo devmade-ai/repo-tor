@@ -1,17 +1,11 @@
 {
   "sha": "ffa3bd6",
-  "fullSha": "ffa3bd661fd2e9e970220d42cf6b7f2294cc500e",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-05T22:35:58Z",
-  "commitDate": "2026-04-05T22:35:58Z",
   "subject": "feat(icons): add Sharp-based icon generator from single SVG source",
   "body": "Single SVG source (assets/icon-source.svg) generates all PWA icon PNGs\nvia Sharp at 400 DPI for crisp edges. Replaces manually-maintained PNGs.\n\nNew files:\n- assets/icon-source.svg — 1024x1024, geometricPrecision, safe zone\n- scripts/generate-icons.mjs — Sharp conversion (4 sizes)\n- public/favicon.png — 48x48 PNG favicon for older browsers\n- public/icon-1024-maskable.png — full-bleed maskable (was 512)\n\nRemoved:\n- public/icon-512-maskable.png — replaced by 1024 version\n- public/icon-maskable.svg — replaced by assets/icon-source.svg\n\nPWA manifest updated: separate purpose values (any: 192+512, maskable:\n1024). Added PNG favicon link to index.html. npm run generate:icons.\n\nSVG design rules: square canvas, full-bleed bg, content in inner 80%\nsafe zone, legible at 48px, shape-rendering=\"geometricPrecision\".\n\nTags: icons, pwa, sharp, build-script\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: minor\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
   "tags": [
@@ -25,11 +19,7 @@
   "debt": "paid",
   "epic": "theme-dark-mode",
   "semver": "minor",
-  "scope": "icons",
-  "title": "add Sharp-based icon generator from single SVG source",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 13,
     "additions": 106,

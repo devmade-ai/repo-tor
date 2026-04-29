@@ -1,17 +1,11 @@
 {
   "sha": "588e7c2",
-  "fullSha": "588e7c2f91f230164f90142dacfd54812a1ebf31",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-13T07:37:54Z",
-  "commitDate": "2026-04-13T07:37:54Z",
   "subject": "feat(health): Phase 3 — migrate security summary containers to DaisyUI alert",
   "body": "Third of 10 phases from the DaisyUI component-class audit. This phase\nconverts the three \"N security-related commits\" summary containers in\nthe Health section to DaisyUI `alert alert-error` with proper\nrole=\"alert\" ARIA semantics.\n\nChanges:\n\nHealth.jsx — three summary containers (Phase-1 loading view, Executive\nview, Management view) switched from:\n\n    <div className=\"p-4 bg-error/10 border border-error/40 rounded-lg text-center\">\n      <div className=\"text-3xl font-bold text-error\">{count}</div>\n      <div className=\"text-sm text-base-content/80\">Security-related commits</div>\n    </div>\n\nto:\n\n    <div role=\"alert\" className=\"alert alert-error flex flex-col items-center text-center\">\n      <div className=\"text-3xl font-bold\">{count}</div>\n      <div className=\"text-sm opacity-80\">Security-related commits</div>\n    </div>\n\nWhy: alert is a semantic notification component in both ARIA and\nDaisyUI. These containers tell the user \"you have N security events\nto pay attention to\" — the exact use case. With role=\"alert\" screen\nreaders announce the count immediately when the section renders; with\n`alert alert-error` we get DaisyUI's theme-aware error tint +\n`alert-content` text color pairing automatically, and we no longer need\nto hand-roll bg-error/10 + border-error/40 + text-error.\n\nText colors changed from explicit text-base-content/80 and text-error\nto opacity-80 and opacity-60, inheriting from the alert-error\n`--alert-color` token so the text stays legible against the alert\nbackground regardless of the active DaisyUI theme (black, dim, coffee,\ndracula — each has its own error palette).\n\nThe two individual-commit list-item containers (Phase-1 .slice(0,5)\nloop and Developer view securityCommits.map) stay as bespoke\nbg-error/10 divs — they're list items inside a security panel, not\nalerts themselves. Converting them to alert-error would produce three\nnested alerts per section, which is semantically wrong and visually\nnoisy.\n\nflex flex-col items-center text-center layout is added inline because\nalert-error defaults to a row layout (icon slot + flex-1 message). Our\nsummary containers stack the big number above the label, so we\noverride to column with centered items.\n\nBuild verification:\n  - npm run build: passes\n  - .alert-error class now present in built CSS\n\nTags: ui, daisyui, a11y, refactor, alert\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch\n\nhttps://claude.ai/code/session_018prUZYyhuCZQGS1azip9bG",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "daisyui-component-migration",
   "semver": "patch",
-  "scope": "health",
-  "title": "Phase 3 — migrate security summary containers to DaisyUI alert",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 16,

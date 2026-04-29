@@ -1,17 +1,11 @@
 {
   "sha": "4049bc4",
-  "fullSha": "4049bc456a78d65a7aea793fd2d01bbf8c690e63",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T23:09:38Z",
-  "commitDate": "2026-04-21T23:09:38Z",
   "subject": "test(security): add JWT-leakage guard + schedule-monitoring TODO",
   "body": "Two additions from the post-lockdown wrap pass:\n\n1. scripts/__tests__/secret-leakage.test.ts — walks src/, scripts/,\n   public/, app/ and fails if any file contains a JWT-shaped token\n   (`eyJ[...]{30,}.eyJ[...]{10,}`). Protects against the category of\n   bug where a service-role key accidentally gets committed to\n   client-side code — far worse than the spatial_ref_sys exposure\n   since service_role bypasses RLS on every table.\n\n   Verified the detector by temporarily dropping a fake JWT into\n   src/_test-leak-temp.ts, running the test (fails with file+line),\n   removing it, re-running (passes). Standing state: 0 findings —\n   repo has no committed JWTs anywhere.\n\n   Current baseline (as of this commit): anon key lives only in .env\n   / .env.example (as it should — ANON key is meant to be public and\n   bundled at build time); no service_role key anywhere in the repo;\n   the only \"service_role\" string is an allowlist mention in the\n   migration 20260421000001 header.\n\n2. docs/TODO.md — new entry: schedule periodic runs of\n   spatial-ref-sys-lockdown.test.ts in CI. The trigger-based DoS\n   mitigation installed in 19ed26d could theoretically be dropped by\n   a platform operation (PostGIS upgrade, table rebuild) without\n   any signal. A daily cron run of this one test would catch a\n   regression within ~24h. Needs SUPABASE_ACCESS_TOKEN_CLAUDE_WEB\n   as a CI secret. Becomes unnecessary once Supabase support lands\n   the RLS fix (robustly preserved, no monitoring needed).\n\nAlso verified during this pass:\n- RLS policies on our own tables (stations, fuel_prices, fuel_types,\n  price_history): 11 policies, all as expected — public SELECT on\n  active data, admin-only writes via auth.jwt() role claim, price\n  history append-only via INSERT-only policy. No regressions.\n- No other supabase_admin-owned writable tables in public beyond\n  spatial_ref_sys (re-confirmed).\n\nTags: testing, security, documentation\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: db-sync\nSemver: patch",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "db-sync",
   "semver": "patch",
-  "scope": "security",
-  "title": "add JWT-leakage guard + schedule-monitoring TODO",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 105,

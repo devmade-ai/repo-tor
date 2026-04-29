@@ -1,17 +1,11 @@
 {
   "sha": "a228923",
-  "fullSha": "a22892370374f6c89af77802fb05c110593ba584",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-09T14:10:02Z",
-  "commitDate": "2026-04-09T14:10:02Z",
   "subject": "fix(burger-menu): route errors to debug, remove redundant outside click",
   "body": "handleItem now catches action errors and routes them to debugLog() so\nfailures surface in the debug pill. Removed redundant handleOutsideClick\ndocument listener — the backdrop @click=\"close\" already covers all\noutside clicks. Removed unused onMounted import. Build verified.\n\nTags: burger-menu, debug, cleanup, glow-props-sync\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: glow-props-sync\nSemver: patch\n\nhttps://claude.ai/code/session_01HStghTVMRxyymnHn4AWxUi",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "glow-props-sync",
   "semver": "patch",
-  "scope": "burger-menu",
-  "title": "route errors to debug, remove redundant outside click",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 18,

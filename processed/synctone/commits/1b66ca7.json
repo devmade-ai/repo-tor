@@ -1,17 +1,11 @@
 {
   "sha": "1b66ca7",
-  "fullSha": "1b66ca76676c230956af5368f187522899765a00",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-22T07:40:54Z",
-  "commitDate": "2026-04-22T07:40:54Z",
   "subject": "chore(docs): tighten fleet-alignment branch; drop orphaned web/index.html",
   "body": "Wrap-pass cleanup following the two alignment commits on this branch.\n\n- Delete `web/index.html`. Expo Router's static export uses\n  `app/+html.tsx` as the HTML source of truth; `web/index.html` had no\n  runtime references and was carrying a legacy `z-index: 9999` that the\n  new scale couldn't reach. Remove the three references to it from\n  CLAUDE.md (PWA §HTML Template paragraph; Z-Index Scale rule #5).\n  Replace rule #5 with a useful invariant — every current modal uses\n  React Native's `<Modal>` (native stacking), so `Z.modal` stays\n  reserved for any future inline dialog instead.\n- `constants/zIndex.ts`:\n  - Strengthen the doc comment on why `Z.debug` covers the\n    `<noscript>` JS-disabled fallback (no React tree ever mounts, so\n    \"topmost\" is semantically equivalent to a dedicated `noscript`\n    tier that could never conflict with anything).\n  - Explain `Z.modal`'s reserved status (modals route through RN's\n    `<Modal>` component, which manages its own stacking).\n  - Drop the `ZTier` type export — unused, and the Cleanup standard\n    (\"delete unused exports immediately\") applies.\n- `docs/TODO.md`:\n  - Remove the \"Legacy implementation patterns — triage decisions\"\n    block from High Priority. Those items described completed work\n    (2 × DELETE, 1 × DELETE-local); git history is the changelog.\n  - Add a new top-level \"## Cross-repo actions\" section holding the\n    one remaining forward-looking item (upstream TIMER_LEAKS to\n    glow-props). That work can't be done from a synctone session\n    because the GitHub MCP scope is restricted to this repo; the\n    section surfaces it for a future glow-props session.\n  - Remove stale `HISTORY.md` reference comment.\n- `docs/SESSION_NOTES.md`: rewrite with a fresh snapshot of this\n  session's work (alignment + z-index + wrap cleanup), per the\n  \"rewrite at session end\" rule in CLAUDE.md §Documentation.\n- Verified with `tsc --noEmit` against installed deps: 14 pre-existing\n  errors at HEAD, 14 at the commit before this branch's z-index work\n  — zero new errors introduced. The one hit in `Toast.tsx` is a\n  pre-existing `return null` vs `JSX.Element` mismatch unrelated to\n  the z-index changes.\n\nTags: documentation, cleanup, fleet-alignment, z-index\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
   "tags": [
@@ -24,13 +18,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "patch",
-  "scope": "docs",
-  "title": "tighten fleet-alignment branch; drop orphaned web/index.html",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#5"
-  ],
   "stats": {
     "filesChanged": 5,
     "additions": 82,

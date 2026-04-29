@@ -1,17 +1,11 @@
 {
   "sha": "9bde742",
-  "fullSha": "9bde7421ef8194e4ab46644e91e15c0da06b5279",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-22T10:33:39Z",
-  "commitDate": "2026-04-22T10:33:39Z",
   "subject": "docs: close residual audit items via live spot-checks on 4 repos",
   "body": "Ran live spot-checks on the 4 repos that weren't re-verified after\nthe parallel agent audit (synctone, see-veo, model-pear, four-ems)\nplus fetched synctone's KEY_LESSONS.md for the upstream decision.\nOne drift found, one decision made, one wording nit fixed.\n\nmodel-pear — DRIFT FOUND, corrected:\nThe parallel-validation agent claimed \"Communication section DONE\nat line 365\" — wrong. Live fetch shows line 365 is\n\"## Implementation Patterns (Source of Truth)\", not Communication.\nNo \"## Communication\" top-level heading exists in model-pear's\nCLAUDE.md at all. Corrections:\n- Preamble claim \"Communication section DONE\" → reverted to \"still\n  missing\" with explicit note re: agent error\n- Restored the \"CLAUDE.md — Add Communication section\" subsection\n  that I had mistakenly deleted\n- Gap Matrix: model-pear CLAUDE.md Pass → Partial (Implementation\n  Patterns + prohibition present; Communication still missing)\n- Cross-Cutting Gap #2: moved model-pear from \"Pass\" list to\n  \"Partial\" with specific rationale\n- Added live-verified details on other known gaps: p-2 button still\n  at line 68, `class=\"dark\"` hardcoded at app.html line 2.\n\nsynctone, see-veo, four-ems — TODO accurate:\nAll three repos re-verified against live state. No drift.\n- synctone: docs/HISTORY.md exists, docs/implementations/ has 8\n  files, Suggested Implementations at CLAUDE.md line 1623, no\n  Communication section, PWADebugBanner still inside _layout.tsx\n  line 192, no flash prevention script in app/+html.tsx.\n- see-veo: CLAUDE.md 717 lines, Suggested Implementations at 323,\n  DebugBanner confirmed 2 tabs only (type Tab = 'diagnostics' |\n  'log'), no iconCacheBust in vite.config.ts, index.css has\n  @media print + .no-print but no print-color-adjust.\n- four-ems: CLAUDE.md 957 lines, Suggested Implementations at 326,\n  DebugPill has only 'log'|'env' tabs (no PWA Diagnostics),\n  usePWAUpdate.ts has no visibilitychange/wasJustUpdated/\n  controllerchange/30_000.\n\nKEY_LESSONS — DECIDED: DELETE:\nFetched synctone's local KEY_LESSONS.md. All 7 lessons are already\ncovered by existing glow-props pattern docs:\n- L1 (separate maskable icon), L2 (manifest id) → APP_ICONS.md +\n  PWA_SYSTEM.md\n- L3 (registerType prompt), L7 (single SW per scope) → PWA_SYSTEM.md\n- L4 (timer cleanup, nested-timeout array) → new TIMER_LEAKS.md\n- L5 (Node ignores proxy env), L6 (HTTP CONNECT) → HTTPS_PROXY.md\nZero synctone-specific content. Delete with the rest of the folder\nas part of synctone's CLAUDE.md alignment chunk — no upstream work.\n\nTIMER_LEAKS Key Lesson #2 wording fix:\nPrevious phrasing contradicted itself (\"wait for outer, unmount —\ninner never runs because it hadn't been scheduled\"). Rewritten to\nclarify the happy-path test passes precisely because unmount lands\nBEFORE outer fires; the leak only surfaces in the outer-fire-to-\ninner-fire window.\n\nTags: documentation, todo, audit, correction, cross-fleet\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01Mx2aebqgqtBaC611uxsp7q",
   "tags": [
@@ -22,13 +16,7 @@
   "debt": "paid",
   "epic": "cross-fleet-alignment",
   "semver": "patch",
-  "scope": null,
-  "title": "close residual audit items via live spot-checks on 4 repos",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#2"
-  ],
   "stats": {
     "filesChanged": 2,
     "additions": 13,

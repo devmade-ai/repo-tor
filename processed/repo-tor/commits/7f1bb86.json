@@ -1,17 +1,11 @@
 {
   "sha": "7f1bb86",
-  "fullSha": "7f1bb864ce15aba715cba33ff6dfda36e82cb5f6",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-15T10:15:37Z",
-  "commitDate": "2026-04-15T10:15:37Z",
   "subject": "fix(audit): vanilla-DaisyUI sweep post-audit cleanups",
   "body": "Second-pass audit of the 8-phase vanilla sweep caught 6 loose ends.\n\nPlaywright e2e spec (daisyui-surfaces.spec.js Phase 9):\n  The test asserted the now-deleted `.hamburger-dropdown` +\n  `.dashboard-header` + `.hamburger-backdrop` custom classes. Updated\n  selectors to match the vanilla state:\n    - `nav[aria-label=\"Secondary actions\"]` for the portal content\n    - `[data-testid=\"hamburger-backdrop\"]` for the backdrop\n    - `<header>` tag check instead of `.dashboard-header` classList\n  Added `data-testid=\"hamburger-backdrop\"` to the HamburgerMenu\n  backdrop div for test isolation (inline Tailwind doesn't give a\n  stable selector otherwise).\n\nHeader.jsx filter toggle button:\n  Added `lg:hidden` to the filter toggle button so it disappears at\n  lg+ breakpoint. The filter drawer uses `lg:drawer-open` in App.jsx\n  which forces the filter sidebar open on desktop — the toggle was\n  a no-op at lg+ because CSS overrode the React state. Now the button\n  only appears on mobile where it's actually useful.\n\nAppContext.jsx themeAccent/themeMuted init seed:\n  Previously `themeAccent: ''` / `themeMuted: ''` at reducer init\n  with a comment claiming \"chart sections gate their dataset builders\n  on non-empty themeAccent\". Grep confirmed no such guard exists —\n  first render would have used empty strings as chart colours.\n  Replaced with `resolveRuntimeAccent()` / `resolveRuntimeMuted()`\n  direct calls at init time. Vite builds main.jsx with styles.css\n  linked before the script, and index.html's flash-prevention\n  script has already set `<html data-theme>` before React mounts,\n  so getComputedStyle returns correct values at reducer init. If\n  for some reason CSS isn't ready, the functions return '' and the\n  useEffect dispatch backfills on mount — no worse than before.\n\nAppContext.jsx stale brand-blue comment:\n  Updated the `#2D68FF` reference to describe the current vanilla-\n  DaisyUI runtime resolver instead.\n\ndocs/EMBED_IMPLEMENTATION.md:\n  \"How It Works\" step list rewrote to describe the vanilla-DaisyUI\n  flow (isEmbedMode short-circuit in CollapsibleSection, runtime\n  getComputedStyle resolution, no brand palette). \"Color Architecture\"\n  section rewrote to list the new `chartColors.js` API. Files table\n  updated with current roles. Testing checklist removed 6 stale\n  checkboxes for deleted `?palette`, `?colors`, `?accent`, `?muted`\n  URL parameter tests.\n\ndocs/TODO.md:\n  Removed the \"Data-viz palette (out of scope by design)\" note that\n  documented the deleted 20-colour `seriesColors` palette as\n  intentionally hardcoded. Replaced with a post-sweep verification\n  checklist:\n    - Re-capture Playwright visual regression baselines\n    - Live browser verification of nested drawers, collapse, heatmap\n  Updated the \"Last updated\" trailer to reflect the 2026-04-14 state.\n\nVerified: vite build clean (3.52s), 60/60 tests pass.\n\nTags: fix, audit, docs, daisyui, cleanup\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
   "tags": [
@@ -23,13 +17,7 @@
   "debt": "paid",
   "epic": "daisyui-v5-migration",
   "semver": "patch",
-  "scope": "audit",
-  "title": "vanilla-DaisyUI sweep post-audit cleanups",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#2"
-  ],
   "stats": {
     "filesChanged": 6,
     "additions": 64,

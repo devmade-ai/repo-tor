@@ -1,17 +1,11 @@
 {
   "sha": "63b2d91",
-  "fullSha": "63b2d915108a4e739ad1dc833611e6059fb301e3",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-23T19:19:59Z",
-  "commitDate": "2026-04-23T19:19:59Z",
   "subject": "a11y(motion): boot-loader spinner respects prefers-reduced-motion",
   "body": "index.html hosts the pre-React loading spinner in an inline <style>\nblock that renders before Vite injects src/index.css. The app's\nreduced-motion rules live in index.css, so the spinner kept spinning\nthrough the boot window (~0.2-2s, longer on slow connections) even\nwhen the user had reduced-motion enabled at the OS level.\n\nFix:\n- Added `boot-spinner` class to the animating <div>.\n- Extended the inline <style> block with a scoped reduced-motion rule:\n  `@media (prefers-reduced-motion: reduce){ .boot-spinner{animation:\n  none !important} }`.\n- Left an explanatory comment so a future edit doesn't wonder why the\n  keyframes live in the HTML rather than the CSS bundle.\n\nPost-mount, index.css's global reduced-motion rules take over for all\nDaisyUI + custom animations (already verified compliant in the motion\naudit).\n\nNo test lock on the boot-loader markup; iconCacheBustHtml's literal\nreplacements target <link rel=\"icon|apple-touch-icon\"> tags, not the\n<style> block, so the plugin ran cleanly through build.\n\nTests 155/155, tsc clean, eslint clean, npm run build clean.\n\nTags: a11y, motion, wcag\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: frontend-audit-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "frontend-audit-sweep",
   "semver": "patch",
-  "scope": "motion",
-  "title": "boot-loader spinner respects prefers-reduced-motion",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 11,

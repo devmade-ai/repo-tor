@@ -1,17 +1,11 @@
 {
   "sha": "f396c96",
-  "fullSha": "f396c969d29f4d8109e6dd12bd56f5f2422608f4",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-23T20:13:45Z",
-  "commitDate": "2026-04-23T20:13:45Z",
   "subject": "fix(proposals): counterparty-accept now replaces module content (parity with creator-accept)",
   "body": "Bug surfaced by the `copy` trigger audit. Left unfixed in the copy\ncommit because the symptom was a toast inconsistency but the root\ncause was a missing state mutation — a behaviour bug, not a copy\nissue.\n\nThe proposal flow:\n\n1. Counterparty creates Proposal A (proposed_by: counterparty.id,\n   proposed_content: their change request).\n2. Creator reviews. Three resolutions available:\n   - Accept → updateModule({ content: A.proposed_content }) +\n     resolveProposal(A, 'accepted'). Module becomes A's body. ✓\n   - Reject → resolveProposal(A, 'rejected'). No content change.\n   - Counter → resolveProposal(A, 'countered', <creator's text>) AND\n     createProposal(…) as Proposal B (proposed_by: creator.id,\n     proposed_content: creator's counter text).\n3. Counterparty reviews Proposal B. Can accept / reject / counter.\n\nThe creator's accept-path (ModuleEditorPage:169-172) correctly does\nupdateModule + resolveProposal before the toast. The counterparty's\naccept-path (lines 312-315 pre-fix) ONLY resolved the proposal —\nnever called updateModule. Accepting the creator's counter was a\nno-op on module content.\n\nProposalCard gates the Accept button with `status === 'pending' &&\n!isOwnProposal`, so this path only fires when the counterparty is\naccepting a proposal they didn't author. In practice that means\nthey're accepting a creator-authored counter, and\n`proposal.proposed_content` is the target body — same semantics as\nthe creator branch accepting a counterparty-authored original.\n\nFix: mirror the creator branch — updateModule +\nresolveProposal + matching toast. Added a brief in-code comment\nexplaining the symmetry so a future reviewer sees why both branches\nwrite updateModule before resolveProposal.\n\nRemoved the corresponding `## Behaviour Asymmetry` entry from\ndocs/TODO.md since it's fixed.\n\nNo new test: ModuleEditorPage doesn't have a component test yet (both\ncreator and counterparty branches share ProposalCard + useProposals +\nuseModules, which would all need mocking for an end-to-end accept\nassertion). The fix is one line mirroring an existing working\npattern; verified against the creator branch's contract in the\naudit above.\n\nTests 155/155 passing, tsc -b clean, eslint clean.\n\nTags: bug-fix, proposals, domain-logic\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: frontend-audit-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "frontend-audit-sweep",
   "semver": "patch",
-  "scope": "proposals",
-  "title": "counterparty-accept now replaces module content (parity with creator-accept)",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 7,

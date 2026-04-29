@@ -1,17 +1,11 @@
 {
   "sha": "884bb72",
-  "fullSha": "884bb72deea37934618dce18d9b2e13406623a02",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-22T22:36:13Z",
-  "commitDate": "2026-04-22T22:36:13Z",
   "subject": "docs(claude): close glow-props fleet drift (align trigger fixes)",
   "body": "Five upstream rules that synctone's CLAUDE.md was missing after\nglow-props updated:\n\n1. § Communication — add \"Work, not process.\" bullet. Keeps process\n   opinions (branching, PR shape, commit granularity, etc.) out of\n   work discussions since those are the user's domain.\n\n2. § Prohibitions — add three new rules that extend the\n   work-not-process principle into explicit \"never\" forms:\n   - Never mention branches/PRs/rebasing etc. unless the user\n     raises the topic first.\n   - Never frame work as \"out of scope\" — work is either doable\n     or blocked on missing input.\n   - Never opine on git history editing / branch strategy / PR\n     size / review flow / commit structure.\n\n3. § AI Notes — add \"All code is yours.\" as the first bullet.\n   Every change in every tracked repo is the assistant's own work;\n   don't hedge authorship, don't investigate prior changes as if\n   written by a third party, read diffs when you need to understand\n   a change.\n\n4. § Code Standards → Timer and Subscription Cleanup:\n   - Replace the local verbose version (prose + inline code block)\n     with glow-props' canonical 5-bullet form referencing\n     `docs/implementations/TIMER_LEAKS.md` for concrete patterns.\n     The upstream pattern file now exists as a proper glow-props\n     implementation doc; the code example lives there instead of\n     inline in CLAUDE.md.\n   - Reposition the subsection to sit directly after ### Cleanup\n     and before ### Quality Checks, matching glow-props' ordering\n     (Cleanup and Timer cleanup are adjacent topics).\n\n5. § Documentation — promote from `### Documentation` nested under\n   `## Instructions for Claude` to a top-level `## Documentation`\n   section, matching glow-props. All doc subsections promoted from\n   `####` to `###`. The previously-awkward `### REMINDER:` and its\n   `####` children (Workflow for EVERY Session, External Reference)\n   now sit at consistent `###` level under `## Documentation`.\n   `## Instructions for Claude` remains as a separate section for\n   synctone-specific User Preferences / Technical Guidelines /\n   Important Implementation Details.\n\nRe-ran the align trigger after each fix; all shared sections now\neither MATCH verbatim (Process, Principles, Communication, Code\nStandards Timer subsection, Triggers, Implementation Patterns) or\ndiffer only by defensible downstream customization (the § Fetching\nThis File framing, which better describes synctone's role as a\ndownstream consumer of glow-props).\n\nTags: documentation, fleet-alignment, claude-md\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "patch",
-  "scope": "claude",
-  "title": "close glow-props fleet drift (align trigger fixes)",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 28,

@@ -1,17 +1,11 @@
 {
   "sha": "b437249",
-  "fullSha": "b437249a7ab4ced16a21fd91a0ae96eadcfe4e04",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-06T00:29:22Z",
-  "commitDate": "2026-04-06T00:29:22Z",
   "subject": "fix(ui): use DaisyUI modal component classes, refine tab transitions",
   "body": "BaseModal rewritten to use DaisyUI's modal system properly:\n- Outer wrapper: modal modal-open modal-middle (DaisyUI overlay, centering, entrance animation)\n- Inner content: modal-box (theme-aware surface, shadow, border-radius, responsive sizing)\n- Previous approach used custom Tailwind overlay + bare div with 'modal' class that\n  collided with DaisyUI's hidden-by-default .modal component\n- Backdrop color now uses DaisyUI default (oklch 40% black vs custom 60%)\n- Surface color now uses base-100 (DaisyUI standard) vs base-200 (arbitrary)\n- Border replaced by DaisyUI's box-shadow (standard for modal-box)\n\nViewSwitcher: transition-all → transition-colors to avoid transitioning z-index,\nmargins, and layout properties that can interfere with mobile touch responsiveness.\n\nRemoved dead 'duplicate-scanner-modal' className (no CSS definition existed).\n\nTags: ui, modals, daisyui, tabs, cleanup\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: bug-fixes\nSemver: patch\n\nhttps://claude.ai/code/session_01TsXhmNKMKj2g5gSNAr8LXB",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "bug-fixes",
   "semver": "patch",
-  "scope": "ui",
-  "title": "use DaisyUI modal component classes, refine tab transitions",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 13,

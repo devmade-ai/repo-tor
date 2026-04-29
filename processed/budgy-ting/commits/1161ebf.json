@@ -1,17 +1,11 @@
 {
   "sha": "1161ebf",
-  "fullSha": "1161ebf419947d85ad42c818a0bd34ea45e3bde3",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-23T18:59:31Z",
-  "commitDate": "2026-04-23T18:59:31Z",
   "subject": "fix(motion): ApexCharts reduced-motion + bounded kebab pulse",
   "body": "High-severity\n1. ApexCharts now respects prefers-reduced-motion.\n   The CSS reduced-motion clamp in index.css covers Tailwind/DaisyUI\n   animations, but ApexCharts drives SVG animations imperatively via\n   its own RAF loop — line draw-in, tooltip fades, and legend\n   transitions still played for motion-sensitive users. CashflowGraph\n   reads the media query into a reactive ref (with a change listener\n   so mid-session OS toggles apply), then passes it to the chart\n   options: `chart.animations.enabled: !reducedMotion.value`.\n   Added reducedMotion to the chart :key so the instance re-inits\n   on preference change — ApexCharts reads animations config at init\n   time, not reactively.\n\nMedium-severity\n2. Kebab-menu hint pulse now bounded.\n   The UX pass removed the 6s auto-dismiss to make the hint persist\n   until tapped, but animate-pulse runs forever by default. WCAG 2.2.2\n   requires a stop mechanism for motion lasting >5s. Replaced with\n   a new `animate-hint-pulse` class (5 iterations ≈ 10s) defined in\n   index.css; the surrounding `ring-2 ring-primary/30` remains\n   visible after the animation ends, so the affordance is preserved\n   without continuous motion.\n\nDropped finding: the agent flagged HelpDrawer.vue setTimeout leak,\nbut that file already clears the timer in onUnmounted — verified\nat HelpDrawer.vue:50-52. False positive.\n\nNon-motion findings (chart re-render cost, dashboard computed chain,\nBottomSheet per-frame reactivity) deferred to the `perf` trigger.\n\nType-check clean. 116/116 tests pass. Production build succeeds.\n\nUI verification note: The ApexCharts fix needs testing with a real\nprefers-reduced-motion setting. On macOS: System Settings → Accessibility\n→ Display → Reduce motion. The chart line should appear instantly on\nload instead of drawing in.\n\nTags: motion, a11y, reduced-motion, chart, apexcharts, wcag\nComplexity: 2\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "ux-polish",
   "semver": "patch",
-  "scope": "motion",
-  "title": "ApexCharts reduced-motion + bounded kebab pulse",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 52,

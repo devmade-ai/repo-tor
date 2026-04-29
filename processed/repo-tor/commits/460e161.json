@@ -1,17 +1,11 @@
 {
   "sha": "460e161",
-  "fullSha": "460e1614013433d7af3d91457377dce46c790201",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-16T00:44:46Z",
-  "commitDate": "2026-04-16T00:44:46Z",
   "subject": "docs(todo): flag pwa.js + scripts/ file-size findings from retrospective",
   "body": "The three audit passes focused on `dashboard/js/sections/` and the\nshared components in `dashboard/js/components/`. A retrospective\nfile-size sweep over the whole repo caught three files that the\naudit missed:\n\n  - **dashboard/js/pwa.js: 578 lines** (OVER soft-limit 500) — not\n    touched by any audit pass because none of them ran a file-size\n    sweep over the top-level `dashboard/js/*.js` modules. Has clear\n    responsibility boundaries that could be split (install flow,\n    update flow, instructions data, event bridge).\n\n  - **scripts/aggregate-processed.js: 1042 lines** (OVER strong-limit\n    800) — the active data pipeline for the dashboard. Not touched\n    by the audit because `scripts/` was out of scope. Should be split\n    via a `scripts/aggregate/` subdirectory with per-concern modules\n    (read-commits, summary, time-windows, authors) orchestrated by a\n    thin top-level file.\n\n  - **scripts/extract-api.js: 699 lines** (OVER soft-limit 500) —\n    same out-of-scope reason. Monitor for growth.\n\nAll three added to the existing `File-size monitoring` section in\ndocs/TODO.md with concrete split suggestions for each. None are\nactionable today (the audit batch is closing), but they're now\ncaptured so the next session doesn't re-discover them from scratch.\n\nThe existing `useTimelineCharts.js` (416) and `AppContext.jsx` (338)\nentries renumbered to make room.\n\nNot a code change — docs only. Build and tests unaffected (63/63\npass from the previous tripwire commit).\n\nTags: documentation, todo, audit, retrospective\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: added\nEpic: post-audit-cleanup\nSemver: patch",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "added",
   "epic": "post-audit-cleanup",
   "semver": "patch",
-  "scope": "todo",
-  "title": "flag pwa.js + scripts/ file-size findings from retrospective",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 19,

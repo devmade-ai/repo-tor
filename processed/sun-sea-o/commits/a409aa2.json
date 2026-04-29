@@ -1,17 +1,11 @@
 {
   "sha": "a409aa2",
-  "fullSha": "a409aa286107075a97a83e32cf76963952d0afb5",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-22T11:05:49Z",
-  "commitDate": "2026-04-22T11:05:49Z",
   "subject": "polish(tests+setup): apply findings from parallel cold/tests/comments/race audits",
   "body": "Ran four triggers in parallel (cold, race, tests, comments) against the\nbranch. Three returned with actionable findings; one minor pre-existing\nrace is tracked in TODO.\n\nApplied:\n- HeadingInput.test.tsx: switched getByTestId('h') to the semantic\n  getByRole('textbox'), matching the rest of the suite's accessibility-\n  query discipline (tests flagged the one exception).\n- ContractUploadPreview.test.tsx: removed unused `within` import + its\n  `void within` suppression. Import-and-suppress is the anti-pattern\n  the tests audit caught.\n- ToneSelector.tsx: added an inline comment explaining why `#FFFFFF`\n  is hardcoded (WCAG AA guarantee across all 16 TONE_PALETTE entries,\n  cross-referencing the CLAUDE.md exceptions table). Cold audit asked\n  for this so readers don't hunt the exception table for a hex value\n  whose reason isn't obvious at the call site.\n- __tests__/setup.ts: extended the HTMLDialogElement close shim to\n  accept an optional returnValue and set `this.returnValue` before\n  firing the close event. jsdom-complete behavior for a future consumer\n  that reads returnValue; no existing consumer does, so no test change.\n- Modal.test.tsx: replaced the three `document.querySelector('dialog')\n  as HTMLDialogElement` casts with a querySelector + null-throw guard.\n  If the component stops rendering a dialog, tests now fail with a\n  helpful error instead of crashing on `.close()` against null.\n\nTracked in TODO (not fixed inline):\n- TemplateSelector.handleFileSelect has a narrow stale-closure race on\n  `splitSubSections` across the parseDocument await. Pre-existing, not\n  introduced by the reduction epic, narrow user-visible impact\n  (re-toggling in preview state re-splits correctly). Race trigger\n  audit flagged it; fix requires either a ref-read pattern or a\n  setter-callback split. Left as a follow-up.\n\nComments audit: zero violations. Trigger reports \"Branch is ready.\nLand with confidence.\"\n\nTests verified: 20 files / 155 passing. tsc -b clean, eslint clean.\n\nTags: testing, polish, audit\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: custom-code-reduction\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "custom-code-reduction",
   "semver": "patch",
-  "scope": "tests+setup",
-  "title": "apply findings from parallel cold/tests/comments/race audits",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 6,
     "additions": 20,

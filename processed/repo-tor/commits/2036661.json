@@ -1,17 +1,11 @@
 {
   "sha": "2036661",
-  "fullSha": "20366615084d298744ebdb414d47495149452edc",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-15T20:51:29Z",
-  "commitDate": "2026-04-15T20:51:29Z",
   "subject": "docs(history): split HISTORY.md, archive pre-April-2026 entries",
   "body": "Audit finding #15 — HISTORY.md had grown to 4401 lines covering every\nsignificant change since 2026-01-18. The active section (April 2026\nentries from the vanilla-DaisyUI sweep through the audit cleanup) was\nburied under three months of older history, and reading the file\ntop-to-bottom to find recent context was impractical.\n\nSplit into two files at the `## 2026-03-27` heading:\n\n  docs/HISTORY.md         — 1518 active lines (2026-04-15 → 2026-04-01)\n  docs/HISTORY_ARCHIVE.md — 2898 archived lines (2026-03-27 → 2026-01-18)\n\nThe cut is line-based — no entry content was modified. Each file gets\na header explaining the split rule and pointing at the other:\n\n  - HISTORY.md ends with an \"Older Entries\" pointer to the archive.\n  - HISTORY_ARCHIVE.md opens with a header explaining when entries\n    should be moved here (\"only when HISTORY.md becomes unwieldy\n    again — the 2026-04-15 split happened at ~4400 lines\").\n\nCLAUDE.md docs table updated:\n  - HISTORY.md row label clarifies \"active = April 2026 onward\"\n  - New HISTORY_ARCHIVE.md row with rule \"only when trimming\n    HISTORY.md once it grows unwieldy again\"\n\nThis pattern lets the same split happen again in the future without\nambiguity — a future agent reading CLAUDE.md sees the rule, reads the\narchive header, and knows to make a fresh split rather than touching\nthe existing archive.\n\nTags: documentation, cleanup, audit\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: vanilla-daisyui-cleanup\nSemver: patch",
   "tags": [
@@ -22,13 +16,7 @@
   "debt": "paid",
   "epic": "vanilla-daisyui-cleanup",
   "semver": "patch",
-  "scope": "history",
-  "title": "split HISTORY.md, archive pre-April-2026 entries",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#15"
-  ],
   "stats": {
     "filesChanged": 3,
     "additions": 2907,

@@ -1,17 +1,11 @@
 {
   "sha": "95fc4a7",
-  "fullSha": "95fc4a7e99e3f8467f7760be1d36574ca93f6486",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-25T16:07:25Z",
-  "commitDate": "2026-04-25T16:07:25Z",
   "subject": "fix(timers): close out TIMER_LEAKS wrap-up — splice on fire, theme.js variant 4, tripwire, doc gaps",
   "body": "Resolves every item flagged in the prior wrap-up pass.\n\nsrc/pwa.js + src/markdown.js — fired timer ids now splice themselves out of toastTimeouts and feedbackTimeouts so the arrays stay bounded by pending count rather than session lifetime.\n\nsrc/pwa.js — explicit comment block on the registerSW call documenting why it is intentionally NOT wrapped in __pwaModuleAttached: vite-plugin-pwa creates a fresh Workbox instance per call with no public unregister API; guarding it would prevent HMR'd onNeedRefresh / onOfflineReady changes from taking effect (OLD Workbox would keep firing OLD callbacks against OLD module closures), breaking dev UX. The trade-off — one orphaned Workbox per HMR cycle — is benign because showUpdateBanner already has an existence-dedupe guard and prod has no HMR.\n\npublic/theme.js — full variant-4 refactor: every module-level addEventListener now flows through a trackListener(target, type, handler, options) helper that pushes a removal closure onto a cleanups[] array. Window storage, matchMedia change, document click/keydown, plus all per-element listeners (theme toggle, random toggle, burger trigger, menu) are now named handlers stored in refs. window.__theme.dispose() releases everything and restores body.style.overflow / scrollbarGutter in case the menu was open.\n\npublic/theme.js:370 — removed the `setTimeout(closeMenu, 100)` Key Lesson 7 timing-fix hack. The click event's default action (anchor navigation, button click) runs after the delegated handler returns regardless of subsequent CSS class changes; closing synchronously is functionally equivalent and removes the arbitrary delay. Replaced inline anonymous handlers with named ones (onTriggerClick, onDocumentClickForMenu, onDocumentKeydown, onMenuClick) for the dispose path.\n\nscripts/verify-timer-cleanup.mjs (new) — static tripwire that fails when any src/ module gains a setTimeout / setInterval / addEventListener / .subscribe registration without a matching import.meta.hot.dispose() block, or when public/theme.js loses its window.__theme.dispose surface. Wired as `npm run verify:timer-cleanup`. No new test framework introduced — fits the existing scripts/ codegen + verify pattern.\n\nCLAUDE.md AI Notes — pointer to the canonical examples (src/pwa.js variants 1+4+5, src/markdown.js variant 4, public/theme.js variant 4) plus the tripwire command, so future sessions implementing the pattern in another file have a local reference.\n\ndocs/TODO.md — verified the cross-fleet \"TIMER_LEAKS subsection inheritance\" claim by directly grepping each repo's CLAUDE.md via the GitHub API. Surprise findings: the subsection is MISSING in repo-tor and few-lap (both flagged \"FULLY RESOLVED\" elsewhere in the file but predate the 2026-04-22 upstream addition). Added a CLAUDE.md doc-alignment touch-up item to each. Repo classification adjusted: 6 repos fully clean (was 7), 2 repos with doc-alignment touch-ups only (repo-tor, few-lap). Cross-Cutting Gap #17 rewritten with verified per-repo presence list.\n\nBuild verified with `./node_modules/.bin/vite build` — green, 33 precache entries, no new warnings beyond the pre-existing theme.js bundling notice (intentional: theme.js is a static-asset script for synchronous flash prevention before module scripts load).\n\nTags: pwa, timers, hmr, cleanup, pattern-compliance, fleet-alignment, tripwire\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: timer-leaks-pattern\nSemver: patch\n\nhttps://claude.ai/code/session_015awbkU5yyDJASgioN77uTW",
   "tags": [
@@ -25,13 +19,7 @@
   "debt": "paid",
   "epic": "timer-leaks-pattern",
   "semver": "patch",
-  "scope": "timers",
-  "title": "close out TIMER_LEAKS wrap-up — splice on fire, theme.js variant 4, tripwire, doc gaps",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#17"
-  ],
   "stats": {
     "filesChanged": 7,
     "additions": 192,

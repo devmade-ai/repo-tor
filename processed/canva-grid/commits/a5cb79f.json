@@ -1,17 +1,11 @@
 {
   "sha": "a5cb79f",
-  "fullSha": "a5cb79fc57c55bdf352a09ef23e5d0f8ee0d9fbd",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T20:01:02Z",
-  "commitDate": "2026-04-02T20:01:02Z",
   "subject": "fix(ui): improve range slider visibility in light and dark themes",
   "body": "Track was using base-300 which barely contrasted with panel backgrounds.\nNow uses base-content at 20% opacity with a subtle border, ensuring\nvisibility across all 16 DaisyUI themes. Thumb border changed from\nbase-100 to primary-content for better contrast.\n\nTags: ui, accessibility, theming\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: restructure-panel-layout\nSemver: patch\n\nhttps://claude.ai/code/session_013WAQutJawUtoLdnVPBNnFc",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "restructure-panel-layout",
   "semver": "patch",
-  "scope": "ui",
-  "title": "improve range slider visibility in light and dark themes",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 13,

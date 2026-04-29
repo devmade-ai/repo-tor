@@ -1,17 +1,11 @@
 {
   "sha": "3b879b0",
-  "fullSha": "3b879b088d49b2084b00d9a8852939b46bbb7e7e",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T15:44:13Z",
-  "commitDate": "2026-04-21T15:44:13Z",
   "subject": "feat(scripts): generate-theme-meta.mjs — drift detection + auto-fix",
   "body": "Closes out the last deferred pattern item from THEME_DARK_MODE. Script\nverifies that every combo's metaColorLight/metaColorDark hex matches the\nDaisyUI oklch definition, across the three places these values live:\n  1. src/constants/themes.ts (THEME_COMBOS)\n  2. index.html inline bootstrap COMBOS map\n  3. index.html static <meta name=\"theme-color\"> tags (first combo wins\n     the pre-JS fallback role)\n\nModes:\n  - `node scripts/generate-theme-meta.mjs`  — verify, exit 1 on drift\n  - `node scripts/generate-theme-meta.mjs --write`  — rewrite corrected hex\n\nAccessed via `npm run check-theme-meta` for the common case.\n\nImplementation notes:\n  - Reads DaisyUI's per-theme oklch values from node_modules/daisyui/\n    theme/object.js (CJS default export).\n  - oklch → hex conversion inlined (~30 lines, matches pattern doc\n    reference code). No color-conversion dependency.\n  - Convention: light combos use their light theme's --color-primary\n    (vibrant branded status bar); dark combos use their dark theme's\n    --color-base-100 (seamless match to page background).\n  - Catalog parsed from source via stable regex anchored on the\n    `id: '...'` field; we own both the script and the file format, so\n    acceptable. Script errors loudly if the catalog structure changes\n    and the regex no longer matches.\n  - Tested end-to-end: introduce drift → verify fails with diff →\n    --write restores → verify passes → byte-for-byte identical to the\n    pre-drift state.\n\nNot wired into `npm run build` — keeps build fast. Intended usage:\nmanual after adding a combo / swapping DaisyUI theme / bumping DaisyUI\nversion.\n\nTags: feature, tooling, theme, drift-detection\nComplexity: 3\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pattern-compliance\nSemver: minor",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "pattern-compliance",
   "semver": "minor",
-  "scope": "scripts",
-  "title": "generate-theme-meta.mjs — drift detection + auto-fix",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 321,

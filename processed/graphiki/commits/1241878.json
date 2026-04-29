@@ -1,17 +1,11 @@
 {
   "sha": "1241878",
-  "fullSha": "12418787504d40b61a288fbe11a86dc0bcb45c42",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-22T22:48:35Z",
-  "commitDate": "2026-04-22T22:48:35Z",
   "subject": "docs(claude-md): align with glow-props CLAUDE.md",
   "body": "Full alignment pass against the upstream fleet CLAUDE.md\n(https://devmade-ai.github.io/glow-props/CLAUDE.md). Adds missing\nsections, rules, and the expanded trigger taxonomy so graphiki\ninherits fleet-wide conventions. Project-specific content (Alpha\nPhase notes, Frontend styles rules, TutorialModal sync, PROJECT\nsection, CROSS-REFERENCES) preserved as graphiki extensions.\n\nChanges:\n- Promote H1 to match glow-props (\"READ AND FOLLOW …\").\n- Add Process section (3-step: read → gather → proceed).\n- Add Principles section (7 numbered principles).\n- Communication: add \"Work, not process\" rule (no opining on\n  branching/PRs/git history editing).\n- Code Organization: threshold terminology \"class\" → \"component\",\n  drop redundant \"Split large classes\" bullet.\n- Add Timer and Subscription Cleanup subsection (HMR-safe guards,\n  AbortController, dispose patterns).\n- AI Notes: add \"All code is yours\" and \"Discontinued repos\"\n  (plant-fur, coin-zapp skipped).\n- Prohibitions: add 3 missing rules (no mentioning\n  branches/PRs/squashing unless raised, no \"out of scope\" framing,\n  no opinions on git history editing).\n- Documentation: expand compressed table into per-doc H3 sections\n  matching glow-props format, add README.md entry, keep\n  graphiki-only CODEBASE_DOCUMENTATION.md entry.\n- Triggers: replace 10-row flat list with glow-props' 48-trigger\n  taxonomy (8 groups + meta sweeps + reflective passes + fleet\n  alignment triggers `align`/`pattern-audit`).\n- Rename ## HARD RULES → ## Code Standards umbrella.\n- Add REMINDER footers to Process, Principles, Code Standards,\n  Documentation, AI Notes, Triggers, Prohibitions.\n\nNo behavior changes — pure documentation alignment.\n\nTags: documentation, claude-md, fleet-alignment, glow-props\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01BWtvfymwxSnoGr13R5qc9a",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "patch",
-  "scope": "claude-md",
-  "title": "align with glow-props CLAUDE.md",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 324,

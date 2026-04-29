@@ -1,17 +1,11 @@
 {
   "sha": "9c6358b",
-  "fullSha": "9c6358be467ff59d0b3c085fdf3879d8c07c14d5",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-05T10:22:01Z",
-  "commitDate": "2026-04-05T10:22:01Z",
   "subject": "refactor(theme): migrate ImportModal, modals, QueryHelp, TimelineView to Tailwind",
   "body": "Convert 7 more components/sections from custom CSS to Tailwind utilities:\n- ImportModal + SmartMatchingStep (import flow)\n- CreateNodeModal + ConnectNodeModal (shared modal classes)\n- QueryHelpModal (fully eliminated CSS file)\n- TimelineView (375→31 lines, pseudo-elements retained)\n- MergeReview.css partial migration\n\nDelete ~1,100 lines of CSS. QueryHelpModal.css fully deleted.\n\nTags: theme, tailwind, migration, components\nComplexity: 4\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "theme-dark-mode",
   "semver": "patch",
-  "scope": "theme",
-  "title": "migrate ImportModal, modals, QueryHelp, TimelineView to Tailwind",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 13,
     "additions": 247,

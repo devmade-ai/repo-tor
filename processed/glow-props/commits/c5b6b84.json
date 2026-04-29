@@ -1,17 +1,11 @@
 {
   "sha": "c5b6b84",
-  "fullSha": "c5b6b844790f17637feaad9b9ebbbdc4a2c9e99b",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-01T07:40:21Z",
-  "commitDate": "2026-04-01T07:40:21Z",
   "subject": "fix(theme): code quality fixes and documentation for theme combo picker",
   "body": "Fixes 7 issues found during CLAUDE.md compliance review:\n\n1. Touch targets: combo picker buttons now have min-h-11 (44px) matching\n   all other burger menu items — was py-1.5 (~32px), violating the 44px\n   minimum for mobile touch targets.\n\n2. Hero gradient: switched from fixed amber/rose to DaisyUI from-primary\n   to-accent tokens so the gradient auto-matches the active theme combo.\n   Monochrome themes (lofi, black) degrade gracefully to solid text.\n\n3. Cross-tab sync: added skipPersist flag to applyTheme() so the storage\n   event handler doesn't redundantly write values back to localStorage.\n\n4. Dead data: removed unused label and desc properties from COMBOS array\n   in theme.js — HTML is the source of truth for display text.\n\n5. SESSION_NOTES.md: rewritten with this session's work (was stale from\n   CSS migration session).\n\n6. HISTORY.md: added entries for theme combo picker, icon redesign, and\n   code quality fixes.\n\n7. README.md + TODO.md: updated tech stack description, added notes about\n   combo map duplication and bundle size trade-off.\n\nTags: fix, accessibility, documentation, theme, cleanup\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-combos\nSemver: patch\n\nhttps://claude.ai/code/session_01C2FG2QoW6mcLRfipB5eddP",
   "tags": [
@@ -25,11 +19,7 @@
   "debt": "paid",
   "epic": "theme-combos",
   "semver": "patch",
-  "scope": "theme",
-  "title": "code quality fixes and documentation for theme combo picker",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 7,
     "additions": 116,

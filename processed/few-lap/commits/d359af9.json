@@ -1,17 +1,11 @@
 {
   "sha": "d359af9",
-  "fullSha": "d359af9e4721e6e5b056bc5c6433eb0f41250762",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-18T19:42:25Z",
-  "commitDate": "2026-04-18T19:42:25Z",
   "subject": "refactor(z-index): centralize stacking tiers in src/constants/zIndex.ts",
   "body": "Hardcoded zIndex values across DebugPill, DebugRootBoundary, Toast,\nand BottomSheet already matched the glow-props Z_INDEX_SCALE tiers\n(80, 70, 30), but each referenced the scale only via comment. Extract\nthem to a shared Z constant so drift can't happen silently.\n\nAlso record EVENT_BUS evaluation: not adopted. The app's data flow is\nrequest/response via hooks, shared UI state lives in FilterContext,\nand there's no service layer emitting mutation events. Re-evaluate if\na service layer emerges.\n\nTags: refactor, convention, z-index, documentation\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "patch",
-  "scope": "z-index",
-  "title": "centralize stacking tiers in src/constants/zIndex.ts",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 6,
     "additions": 52,

@@ -1,17 +1,11 @@
 {
   "sha": "8924fa4",
-  "fullSha": "8924fa443a52322d21ede38b52af2350cebe7eea",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T16:54:58Z",
-  "commitDate": "2026-04-10T16:54:58Z",
   "subject": "fix(chart,pwa): strengthen timeline presets, persist forecast horizon, fix localStorage usage",
   "body": "- Lookback presets now use Date setMonth/setFullYear instead of fixed\n  ms constants — proper calendar-aware boundaries (1M back from\n  Mar 31 lands on Feb 28, not Mar 1)\n- Persist forecastMonths to localStorage per workspace\n  (farlume:forecast-months:{id}) with validation against allowed\n  values — survives navigation without requiring DB schema migration\n- Migrate usePWAUpdate checkVersionUpdate() from raw localStorage to\n  safeGetItem/safeSetItem for consistent error handling\n- Fix stale HISTORY entry (zoom restricted → zoom disabled)\n- Add WorkspaceDetailView raw localStorage to TODO as tech debt\n- Update SESSION_NOTES with full session context\n\nTags: chart, pwa, ux, cleanup\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: dashboard\nSemver: patch\n\nhttps://claude.ai/code/session_01YKKtG3bLPmwxKSbzU6SFT4",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "dashboard",
   "semver": "patch",
-  "scope": "chart,pwa",
-  "title": "strengthen timeline presets, persist forecast horizon, fix localStorage usage",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 6,
     "additions": 69,

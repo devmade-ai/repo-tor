@@ -1,17 +1,11 @@
 {
   "sha": "221a1ee",
-  "fullSha": "221a1ee53ccd1c93c03350c276f1cb4f0e1a927d",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-22T09:49:01Z",
-  "commitDate": "2026-04-22T09:49:01Z",
   "subject": "test(components): composite-component regression suite — 8 new files, 72 new tests",
   "body": "Closes out the \"complex composites\" TODO item. Every component touched\nduring the custom-code-reduction epic now has a regression test file.\n\nNew test files (jsdom env):\n- IntentSelector — 7 tests: DEFAULT_INTENTS render, add/remove, cap,\n  custom-intent persistence to recentTones, intent-specific label +\n  placeholder.\n- ProposeChangeForm — 8 tests: pre-fill, hasChanges gate on submit,\n  whitespace-only rejects, successful submit payload, Cancel,\n  counter-proposal copy flip, character counter.\n- AddNoteForm — 7 tests: default state (source=in-app, empty content),\n  all 6 source options render, empty + whitespace rejected,\n  successful submit payload, typing clears error, Cancel.\n- ModuleSummaryEditor — 6 tests: collapsed-by-default, auto-expand\n  when populated, toggle, blur-save with trim, unchanged-skip,\n  empty-to-null clear.\n- NotificationBell — 11 tests: no-badge / badge-N / 9+ cap, open via\n  trigger, empty state, Escape closes, outside-click closes, item\n  click fires mark-read + navigate + close, delete X, mark-all-read\n  visibility + action.\n- PwaInstallPrompt — 9 tests (mocks usePWAInstall): 30s delay gate,\n  native-Install button for Chromium, How-to-Install for Safari/\n  Firefox, hidden when installed / dismissed / no-install-path,\n  native Install click, manual instructions click opens modal,\n  dismiss click.\n- ContractUploadPreview — 15 tests: filename + count + format notice,\n  parserWarning alert, Create count reflects included-only, include\n  toggle, Confirm payload excludes deselected, Cancel, rename via\n  Enter, rename Escape abort, reorder via Move-down, Move-up-disabled\n  on first, oversized Split + disabled Create, Merge-with-next, batch\n  progress UI, Retry failed, split-sub-sections toggle.\n- TemplateSelector — 9 tests: default to Templates tab, Upload-tab\n  hidden without onUploadModules, template click fires onSelect,\n  Blank module fires onSelect(null), Cancel, tab-switch reveals file\n  picker, oversized file → alert, disallowed file type → alert via\n  fireEvent.change bypassing userEvent's accept-filter.\n\nNotes on test approach:\n- PwaInstallPrompt: mocked usePWAInstall via vi.mock for hermetic\n  control over state. Fake timers advance past SHOW_DELAY_MS inside\n  act(); real timers restored before userEvent interactions so the\n  event pipeline's internal microtasks resolve normally.\n- TemplateSelector upload tests: for disallowed MIME types userEvent.\n  upload's applyAccept filter silently drops the file, so the\n  validateFile() guard was untested. fireEvent.change + direct\n  files-property defineProperty bypasses the accept filter and\n  exercises the runtime guard — which is what actually matters for\n  drag-and-drop paths in real browsers.\n- IntentSelector `cap: string[]` annotation: DEFAULT_INTENTS's literal-\n  union element type makes `cap.includes(otherLiteral)` a type error;\n  widening cap to string[] lets us search the full tuple without casts.\n\nResult: npm test → 20 files / 155 tests passing (was 12 / 83). tsc -b\nclean, eslint clean. TODO \"Testing Infrastructure\" entry collapsed:\ncomposite-component coverage shipped; only coverage-reporting item\nremains.\n\nTags: testing, components, regression\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: custom-code-reduction\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "custom-code-reduction",
   "semver": "patch",
-  "scope": "components",
-  "title": "composite-component regression suite — 8 new files, 72 new tests",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 10,
     "additions": 1305,

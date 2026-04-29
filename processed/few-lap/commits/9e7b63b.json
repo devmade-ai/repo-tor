@@ -1,17 +1,11 @@
 {
   "sha": "9e7b63b",
-  "fullSha": "9e7b63b07a89bb3431a6970b21e920194f7c595a",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-18T13:26:19Z",
-  "commitDate": "2026-04-18T13:26:19Z",
   "subject": "a11y(debug): role=alert on boundary, tablist on tabs, live region on Copy feedback",
   "body": "Three small accessibility gaps from ship/a11y trigger. All three are\nstate-announcement issues — the visible state is correct, but screen\nreaders weren't getting the information.\n\nA11Y1 — DebugRootBoundary.tsx: the DOM fallback div rendered when\nthe pill crashes had no role=\"alert\". Screen readers stayed silent\non crash. Added role=\"alert\" to match the pre-React boot pill's\nbehaviour (+html.tsx also uses role=\"alert\" for the same\n\"something-broke\" banner semantics). Inconsistency resolved.\n\nA11Y2 — DebugPill.tsx: the three tab buttons each had\naccessibilityRole=\"tab\" + accessibilityState.selected, but the\nwrapping View had no accessibilityRole=\"tablist\" — per ARIA spec,\nrole=\"tab\" elements should live inside a role=\"tablist\" container.\nAdded it to the parent View. Spec-complete now.\n\nA11Y3 — DebugPill.tsx: the Copy button's visible text transitions\nbetween 'Copy' → 'Copied' / 'Failed' → 'Copy' after user action.\nSighted users see the confirmation; screen readers got nothing.\nAdded accessibilityLiveRegion=\"polite\" to the feedback Text so the\nstate change is announced without interrupting current SR speech.\n\nVerified correct, no changes:\n- Collapsed pill's accessibilityLabel enumerates counts/severities.\n- Collapse / Copy / Clear buttons all have role=button + descriptive\n  labels.\n- numberOfLines truncation doesn't hide content from SRs.\n- Severity dots are sighted-only visual redundancy (label covers\n  equivalent info).\n- Boot pill already has role=alert.\n\nNoted, not fixed: collapsed pill is 56×28 (below WCAG AAA 44×44\nbut above AA 24×24). Debug tool in a corner — deliberate tradeoff\nto not crowd the app.\n\ntsc 0, jest 92/92, expo web build clean.\n\nTags: debug, a11y, aria, live-region\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "debug-pill-hardening",
   "semver": "patch",
-  "scope": "debug",
-  "title": "role=alert on boundary, tablist on tabs, live region on Copy feedback",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 13,

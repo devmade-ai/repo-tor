@@ -1,17 +1,11 @@
 {
   "sha": "8bb0fc2",
-  "fullSha": "8bb0fc28d0fec4b29381500081d5b4b5c41b76bd",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T17:04:05Z",
-  "commitDate": "2026-04-10T17:04:05Z",
   "subject": "refactor(ui): normalize z-index values to glow-props standard scale",
   "body": "Audited and aligned all z-index values to the standardized Z_INDEX_SCALE\nfrom glow-props. The previous values were ad-hoc and didn't follow a\nconsistent layering system, risking stacking conflicts as new UI layers\n(toasts, debug overlays) are added.\n\nChanges:\n- Sticky header: z-40 → z-20 (Sticky headers layer)\n- Save Modal: z-50 → z-60 (Modal layer)\n- Comparison View modal: z-50 → z-60 (Modal layer)\n- Sticky thead z-10: already correct (Base content layer)\n- Extended Tailwind config with z-60/70/80 named utilities\n\nScale: 0-10 base, 20 sticky, 30 sheets, 40 backdrop, 50 menu,\n60 modal, 70 toast, 80 debug.\n\nTags: ui, z-index, infrastructure, tailwind\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: z-index-scale\nSemver: patch\n\nhttps://claude.ai/code/session_01L9bYUdziLDmew97oAkb8w9",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "z-index-scale",
   "semver": "patch",
-  "scope": "ui",
-  "title": "normalize z-index values to glow-props standard scale",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 6,
     "additions": 35,

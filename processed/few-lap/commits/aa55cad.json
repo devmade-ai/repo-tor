@@ -1,17 +1,11 @@
 {
   "sha": "aa55cad",
-  "fullSha": "aa55cadc3cfddb6c8291a3ac75a80c91dce7db88",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T22:46:56Z",
-  "commitDate": "2026-04-21T22:46:56Z",
   "subject": "test(migrations): add return-type-drift detector to migration-files test",
   "body": "Complements the filename-uniqueness check with a second static\nassertion: every CREATE OR REPLACE FUNCTION across all migration files\nmust either keep its RETURNS signature identical to any prior\ndefinition, or be preceded (same file or any earlier file, before the\nnew CREATE) by a matching DROP FUNCTION. Postgres refuses to change a\nfunction's return type via CREATE OR REPLACE alone — we shipped this\nexact bug in 20260322000002 (widened bulk_insert_stations from 2 cols\nto 3) and only caught it when this session tried to push.\n\nDetector walks events (CREATE and DROP) per function name in\nchronological file order. On CREATE: if returnType differs from the\nlast-seen for the same name AND no DROP has been seen since the last\nCREATE, record a drift. On DROP: reset the per-function tracker so\nthe next CREATE is treated as fresh.\n\nParsing is regex-based against our plpgsql migration style (strip\nline comments first, then match CREATE...RETURNS...LANGUAGE/AS and\nDROP FUNCTION [IF EXISTS]). Avoids pulling in a full Postgres\nparser like libpg_query.\n\nVerified the detector actually catches regressions by temporarily\nremoving the DROP FUNCTION IF EXISTS line from migration\n20260322000002, running the test, and confirming it fails with a\ndiff-output naming the previous/new files and return types. Then\nrestored.\n\n4 tests in this file now (was 3): filename count, timestamp format,\nunique versions, return-type consistency.\n\nTags: testing, migrations, static-analysis\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: db-sync\nSemver: patch",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "db-sync",
   "semver": "patch",
-  "scope": "migrations",
-  "title": "add return-type-drift detector to migration-files test",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 153,

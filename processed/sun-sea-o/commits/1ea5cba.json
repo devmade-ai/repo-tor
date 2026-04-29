@@ -1,17 +1,11 @@
 {
   "sha": "1ea5cba",
-  "fullSha": "1ea5cba2ec8da1b7e97d8e5e7eb9bf0e5efa7cbe",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T02:14:49Z",
-  "commitDate": "2026-04-21T02:14:49Z",
   "subject": "refactor(modules): migrate module domain to DaisyUI card/badge/alert/tabs",
   "body": "Largest chunk of the migration — 18 files. Every status/decision surface\ngets its DaisyUI equivalent so the entire module workflow tints coherently\nwith the active theme.\n\n- ModuleCard: expired / pending-proposal / default surfaces are bg-base-*\n  combinations. Status pills become badge-error/success/info/warning. Move\n  up/down become `btn btn-ghost btn-sm btn-square`. Delete button keeps\n  ghost styling with `text-error` override.\n- ModuleViewer / ModuleEditor: back button → `btn btn-ghost`. Content\n  textarea → `textarea textarea-bordered`. Sticky save bar uses bg-base-100\n  border-base-300. Success/failure feedback → text-success / text-error.\n- ModuleSummaryCard: left-border accent is `border-l-primary` so the\n  theme-accent tint carries across. Body surface is bg-base-200.\n- ModuleSummaryEditor: wrapper is bg-base-200 + base-300. Fields use\n  `input input-bordered input-sm` via new SummaryField form-control shell.\n- ProposalCard: `card card-compact` with variant-mapped badges; counter-\n  proposal block uses `bg-info/10`; reject button is ghost + text-error.\n- NotesList: each row is a `card card-compact`, source chip is `badge\n  badge-ghost badge-sm`. Delete button `text-error hover:bg-error/10`.\n- AddNoteForm / ProposeChangeForm: `textarea textarea-bordered`, `select\n  select-bordered`, `label-text` wrappers. Error text → text-error.\n- ContractUploadPreview: batch progress dots use bg-base-300/info/success/\n  error; parser/duplicate warnings become `alert alert-warning/error`;\n  file drop zone uses base-300 dashed border with base-200 hover; rename\n  inline input → `input input-bordered input-sm`; split/merge actions →\n  DaisyUI `link`.\n- TemplateSelector: tab bar is `tabs tabs-bordered tab/tab-active`.\n  Template cards use base-300 borders; upload tab warnings are alert-*.\n- VersionHistoryPanel: current version is base-100 card, prior versions\n  are base-200 card (softer past surface). Signature chips are `badge\n  badge-success badge-sm`.\n- SigningStatus: locked = `alert alert-success`, ready = `alert alert-\n  warning`. Icons inherit currentColor from the alert.\n- ReadyToSignToggle / BatchSignActions / SignatureLog / NudgeExpiryConfig:\n  inputs → DaisyUI form controls; surfaces → card bg-base-200.\n- ToneSelector: input + add button → input-bordered + btn; label /\n  muted text → label-text + base-content/50. Hash-based tone colors stay\n  hardcoded (data palette, brand exception documented in the hex map).\n\nOutside print: overrides in PdfPreview, `src/` has zero hardcoded slate /\ngray / colored-palette utilities.\n\nTags: refactor, ui, daisyui, modules\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-migration\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "daisyui-migration",
   "semver": "patch",
-  "scope": "modules",
-  "title": "migrate module domain to DaisyUI card/badge/alert/tabs",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 18,
     "additions": 323,

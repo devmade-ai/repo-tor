@@ -1,17 +1,11 @@
 {
   "sha": "1aa12c8",
-  "fullSha": "1aa12c840758f4097d51eced4895f67c34108370",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T08:32:09Z",
-  "commitDate": "2026-04-10T08:32:09Z",
   "subject": "feat(theme): use DaisyUI tokens for all colors, remove @theme block",
   "body": "All colors now come from DaisyUI semantic tokens — zero custom color\ndefinitions remain.\n\n- Removed @theme block entirely (overspend/underspend/data-neutral were\n  unused; brand palette already removed)\n- Created useThemeColor.ts: resolveThemeColor() reads DaisyUI's oklch\n  CSS variables from <html> at runtime and converts to hex via a 1x1\n  canvas pixel — no manual color math, browser handles gamut mapping\n- CashflowGraph: replaced 8 hardcoded hex values with DaisyUI token\n  reads (info=actuals, warning=forecast, success=balance, base-content\n  =labels, base-300=grid). Chart colors now adapt to any DaisyUI theme.\n  Hex fallbacks only used if CSS variable read fails (SSR, tests).\n- Print CSS: kept hardcoded hex — print output is always forced white/black\n  regardless of theme\n\nTags: theme, daisyui, charts, cleanup\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01BPc1xJr4LVbLgvTxtZf2i1",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "daisyui-migration",
   "semver": "minor",
-  "scope": "theme",
-  "title": "use DaisyUI tokens for all colors, remove @theme block",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 60,

@@ -1,17 +1,11 @@
 {
   "sha": "374d1dd",
-  "fullSha": "374d1dd42a49a6f369242715c783154803c80f89",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-17T19:56:51Z",
-  "commitDate": "2026-04-17T19:56:51Z",
   "subject": "chore(types): add @types/react-dom devDep",
   "body": "Required by src/debug/debugRootMount.web.tsx which imports createRoot\nfrom 'react-dom/client'. react-dom@19.1.0 ships no bundled types.\nPinned to ~19.1.0 to match the installed react-dom/react versions.\n\nTags: types, tooling\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "neutral",
   "epic": "debug-pill-hardening",
   "semver": "patch",
-  "scope": "types",
-  "title": "add @types/react-dom devDep",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 12,

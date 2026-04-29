@@ -1,17 +1,11 @@
 {
   "sha": "0128995",
-  "fullSha": "0128995614f8c3eff714f6e0fcfc33ce48c9fed0",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-13T07:39:26Z",
-  "commitDate": "2026-04-13T07:39:26Z",
   "subject": "feat(badges): Phase 4 — Timeline work-pattern badges to DaisyUI semantic variants",
   "body": "Fourth of 10 phases from the DaisyUI component-class audit. This phase\neliminates the .badge + .badge-holiday / .badge-weekend / .badge-after-hours\nshadow of DaisyUI's built-in badge component.\n\nChanges:\n\nTimeline.jsx — three conditional work-pattern badges switched from\n  <span className=\"badge badge-holiday\">Holiday</span>\nto\n  <span className=\"badge badge-accent badge-sm\">Holiday</span>\n\nMapping:\n  isHoliday                     -> badge-accent (warm pink-ish — festive)\n  isWeekend                     -> badge-info   (cool blue — informational)\n  isAfterHours (not weekend)    -> badge-warning (amber — \"attention\")\n\nbadge-sm keeps the footprint compact inside the commit metadata row\nwhere the badges appear alongside author/date/repo text.\n\nstyles.css — deleted ~20 lines of custom badge CSS:\n  - .badge (base rule: inline-flex, padding, radius, font-size, uppercase,\n    letter-spacing) — was SHADOWING DaisyUI's .badge\n  - .badge-after-hours (rgba-amber)\n  - .badge-weekend (rgba-purple)\n  - .badge-holiday (rgba-pink)\n\nReplaced with a one-line comment pointing at Timeline.jsx.\n\nWhy this matters beyond Timeline:\n\nOur .badge rule was unlayered CSS that won every specificity contest\nagainst DaisyUI's @layer components badge. Deleting it means any\nfuture badge usage anywhere in the codebase (e.g. a new contributor\nrole badge in Contributors section, status badges on Projects, etc.)\nwill correctly get DaisyUI's component styles without having to\nremember that \"we shadow .badge\". One less footgun.\n\nBuild verification:\n  - npm run build: passes\n  - .badge-holiday, .badge-weekend, .badge-after-hours confirmed GONE\n  - DaisyUI .badge, .badge-accent, .badge-info, .badge-warning, .badge-sm\n    confirmed present in built CSS\n\nTags: ui, daisyui, refactor, badges\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch\n\nhttps://claude.ai/code/session_018prUZYyhuCZQGS1azip9bG",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "daisyui-component-migration",
   "semver": "patch",
-  "scope": "badges",
-  "title": "Phase 4 — Timeline work-pattern badges to DaisyUI semantic variants",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 17,

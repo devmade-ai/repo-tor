@@ -1,17 +1,11 @@
 {
   "sha": "2932b79",
-  "fullSha": "2932b7932faed9dffc0afb23f94f2d9e95da1e5f",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-19T17:22:31Z",
-  "commitDate": "2026-04-19T17:22:31Z",
   "subject": "fix(graph): normalize oklch() CSS variables before handing them to Cytoscape",
   "body": "DaisyUI v5 emits oklch() values for its semantic color tokens. Cytoscape's\nstyle engine only accepts hex/rgb/named colors, so every themed property\nbacked by --color-warning / --color-info / --color-success / --color-secondary\n/ --color-accent / --color-primary / --color-base-content was silently\nrejected — selected-node borders, dual-query A/B/bridge/overlap colors,\nanalysis highlights, and arc fallback colors reverted to Cytoscape defaults\non every install that rendered the app in a modern browser. Only symptom\nin logs was a flood of \"The style property ... is invalid\" warnings.\n\ncssColor.ts now routes raw computed values through a shared 2D canvas's\nfillStyle, which the HTML spec forces to serialize any valid CSS color to\n#rrggbb / rgba(...) / #rrggbbaa. Results cached by raw input. A transparent-\nblack sentinel written before the real assignment detects inputs the browser\nsilently rejects so they stay un-cached and a later theme load can retry.\ngetCSSColor's signature is unchanged; all 7 callsites work as-is.\n\nAlso removes the custom wheelSensitivity: 0.3 (Cytoscape author's own\nadvice: \"change only if you can guarantee all users will use the same\nhardware\" — a guarantee a cross-device PWA can't make). Kills the one-time\nwarning without trading it for unpredictable zoom feel across mice,\ntrackpads, and touchscreens.\n\nTests: cssColor.test.ts (12) covers normalization, hex pass-through, cache,\nsentinel detection, non-caching of rejections, transparent-vs-sentinel\ndisambiguation, missing-canvas fallback, empty-input short-circuit, CSS\nvariable read + fallback, and cache invalidation. Full suite: 302/302.\n\nDocs: CLAUDE.md (cssColor entry, Cytoscape normalization + wheelSensitivity\nconventions), CODEBASE_DOCUMENTATION.md (expanded Cytoscape Theme Awareness),\nAI_MISTAKES.md (new class-of-bug entry), SESSION_NOTES.md, TODO.md (follow-up\ndev-only assertion on Cytoscape warnings).\n\nTags: bugfix, cytoscape, daisyui, theme, css, oklch, graph\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-and-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_015rKh5k6MFgfyjNZDfGaWzV",
   "tags": [
@@ -25,11 +19,7 @@
   "debt": "paid",
   "epic": "theme-and-dark-mode",
   "semver": "patch",
-  "scope": "graph",
-  "title": "normalize oklch() CSS variables before handing them to Cytoscape",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 9,
     "additions": 298,

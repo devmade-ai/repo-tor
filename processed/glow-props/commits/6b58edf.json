@@ -1,17 +1,11 @@
 {
   "sha": "6b58edf",
-  "fullSha": "6b58edf6333ea0d72f40be09ceb643e7cef0af41",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-07T10:31:08Z",
-  "commitDate": "2026-04-07T10:31:08Z",
   "subject": "docs(patterns): add cross-references between all implementation docs",
   "body": "7 of 8 pattern docs now have \"Related patterns\" sections linking to\neach other (HTTPS_PROXY has no natural UI relationships). Previously\nonly BURGER_MENU and THEME_DARK_MODE had any cross-references.\n\nKey relationships documented:\n- DEBUG_SYSTEM ↔ PWA_SYSTEM (diagnostics tab)\n- DEBUG_SYSTEM ↔ BURGER_MENU (error routing, z-index scale)\n- DEBUG_SYSTEM ↔ THEME_DARK_MODE (separate root, .dark class)\n- PWA_SYSTEM ↔ APP_ICONS (manifest icons)\n- PWA_SYSTEM ↔ BURGER_MENU (install/update menu items)\n- DOWNLOAD_PDF ↔ BURGER_MENU (no-print class)\n- DOWNLOAD_PDF ↔ THEME_DARK_MODE (print override)\n- EVENT_BUS → DEBUG_SYSTEM (error reporting dependency)\n\nTags: documentation, patterns, cross-references\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pattern-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_016uMc5mZcqau5orf2HUr4aL",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "pattern-alignment",
   "semver": "patch",
-  "scope": "patterns",
-  "title": "add cross-references between all implementation docs",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 7,
     "additions": 33,

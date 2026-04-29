@@ -1,17 +1,11 @@
 {
   "sha": "b6e595a",
-  "fullSha": "b6e595aab4183ede5cd17aec6356fed5ad3c8617",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-24T20:40:07Z",
-  "commitDate": "2026-04-24T20:40:07Z",
   "subject": "feat(pwa-manifest): align theme_color with light-first default",
   "body": "Follow-up to 2ab4e0b. Previous commit flipped the runtime theme default\nfrom OS-driven to light-first, but left the PWA manifest's install-time\n`theme_color` at `#202020` (business base-100, dark). That created a\nsplash → app chrome mismatch for installed PWAs: dark chrome splash\nfollowed by light app, which is the exact jarring flash the light-first\npolicy was introduced to avoid.\n\nUpdated vite.config.ts:\n- `theme_color: '#202020'` → `'#0082ce'` (corporate `--color-primary`,\n  matches the meta theme-color tag the app applies at mount).\n- `background_color: '#ffffff'` unchanged — already light-aligned.\n\nBehaviour on install:\n- Majority path (user never toggles dark): splash shows blue\n  status bar + white background; app opens in light mode with the\n  same blue status bar. Consistent.\n- Minority path (user toggles dark and reinstalls from icon): static\n  light splash → dark app status bar transition. Trade-off accepted\n  per the light-first policy.\n\nCLAUDE.md \"PWA manifest theme_color\" paragraph under THEME_DARK_MODE\nupdated to record the new rationale + a restore-previous-color\ninstruction if the light-first policy ever reverts.\n\nNOT changed:\n- `public/icon-source.svg` — #1e293b background + white S is visual\n  identity, not theme-coupled. Like most branded app icons (Slack,\n  Gmail, etc.), it keeps its own palette against any splash/chrome.\n  The dark icon now actually has more contrast against the white\n  splash than it did against the previous dark splash — slight\n  recognisability win.\n- `background_color` — already white.\n- Icon generation — no bytes changed; `npm run generate-icons`\n  output identical.\n\nVerified: dist/manifest.webmanifest emits \"theme_color\":\"#0082ce\"\n+ \"background_color\":\"#ffffff\". Tests 155/155, tsc -b clean, eslint\nclean, `npm run build` clean, iconCacheBust tripwires still pass\n(manifest path + versioned URLs intact).\n\nTags: pwa, theme, manifest\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-policy\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
   "tags": [
@@ -24,15 +18,7 @@
   "debt": "paid",
   "epic": "theme-policy",
   "semver": "patch",
-  "scope": "pwa-manifest",
-  "title": "align theme_color with light-first default",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#202020",
-    "#0082",
-    "#1"
-  ],
   "stats": {
     "filesChanged": 2,
     "additions": 12,

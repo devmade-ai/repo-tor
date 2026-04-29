@@ -1,17 +1,11 @@
 {
   "sha": "df3643a",
-  "fullSha": "df3643a9a1a847967946314a7101c527cb11b363",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-19T14:09:45Z",
-  "commitDate": "2026-04-19T14:09:45Z",
   "subject": "feat(auth): surface bypass state in AppLayout",
   "body": "Show a red top banner while AUTH_BYPASS_ENABLED is on so visitors and\nreviewers can immediately see the app is unsecured, and hide the Sign\nout button since it is a no-op under bypass.\n\nTags: auth, ui, dev\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: dev-auth-bypass\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "neutral",
   "epic": "dev-auth-bypass",
   "semver": "patch",
-  "scope": "auth",
-  "title": "surface bypass state in AppLayout",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 29,

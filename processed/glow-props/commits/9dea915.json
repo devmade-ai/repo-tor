@@ -1,17 +1,11 @@
 {
   "sha": "9dea915",
-  "fullSha": "9dea915272082eac99e0d6a6877137a472b0b3a8",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-17T01:11:41Z",
-  "commitDate": "2026-04-17T01:11:41Z",
   "subject": "fix(pattern): closure-scoped rawMarkdown, manifest fetch timeout",
   "body": "- Moved rawMarkdown from window.__rawMarkdown back to closure scope,\n  eliminating global namespace pollution\n- Added 10-second AbortController timeout to the manifest.json fetch\n  (previously had no timeout — page would hang indefinitely)\n- Extracted headerHtml() and showError() helpers to deduplicate the\n  header rendering and error display logic\n\nTags: fix, patterns, reliability\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pattern-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01CKqDf6SZ2KGeAXjZS2s91W",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "pattern-alignment",
   "semver": "patch",
-  "scope": "pattern",
-  "title": "closure-scoped rawMarkdown, manifest fetch timeout",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 40,

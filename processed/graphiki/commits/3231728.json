@@ -1,17 +1,11 @@
 {
   "sha": "3231728",
-  "fullSha": "3231728c5e0a5bfb423685f8757089f7160cfbfe",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-05T08:05:09Z",
-  "commitDate": "2026-04-05T08:05:09Z",
   "subject": "refactor(theme): remove CSS variable bridge — use DaisyUI tokens directly",
   "body": "Replace all 362 bridge variable references with direct DaisyUI tokens\nacross 14 CSS files. The bridge layer (--color-bg → --color-base-100,\n--color-surface → --color-base-200, etc.) added unnecessary indirection.\n\nMapping applied:\n  --color-bg → --color-base-100\n  --color-surface → --color-base-200\n  --color-surface-hover → --color-base-300\n  --color-border → --color-base-300\n  --color-text → --color-base-content\n  --color-text-muted → color-mix(in oklab, --color-base-content 60%, transparent)\n  --color-danger → --color-error\n  --color-accent → --color-warning\n  --color-label-bg → color-mix(in oklab, --color-primary 20%, transparent)\n  --color-label-text → --color-primary-content\n  --color-primary-hover → color-mix(in oklab, --color-primary 80%, white)\n  --color-success-hover → color-mix(in oklab, --color-success 80%, white)\n  --radius → --radius-box (DaisyUI native)\n\nThe :root bridge block is removed. Only --header-height remains.\n\nTags: theme, daisyui, refactor, bridge-removal\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "theme-dark-mode",
   "semver": "patch",
-  "scope": "theme",
-  "title": "remove CSS variable bridge — use DaisyUI tokens directly",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 14,
     "additions": 414,

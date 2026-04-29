@@ -1,17 +1,11 @@
 {
   "sha": "6dba61b",
-  "fullSha": "6dba61b6096210b18eff4c89a5d944578051a8bf",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-08T12:01:49Z",
-  "commitDate": "2026-04-08T12:01:49Z",
   "subject": "refactor(hooks): simplify useFocusTrap to pure Tab-trapping",
   "body": "useFocusTrap previously did three things: focus first element on\nactivate, trap Tab/Shift+Tab at boundaries, and restore focus on\ndeactivate. The first and third are redundant with useDisclosureFocus\nwhich already handles initial focus (via rAF) and return-to-trigger\n(on close). No other consumers — modals use native <dialog> focus trap.\n\nStripped to just Tab boundary wrapping. Removes useRef import and\n~15 lines of redundant focus management.\n\nAlso tracks App.jsx stale closure Escape handlers (lines 332-338)\nin TODO.md — discovered during burger menu review.\n\nTags: a11y, hooks, cleanup, burger-menu\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: burger-menu\nSemver: patch\n\nhttps://claude.ai/code/session_011MQhy7g7xUiNtQ2i94SRqB",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "burger-menu",
   "semver": "patch",
-  "scope": "hooks",
-  "title": "simplify useFocusTrap to pure Tab-trapping",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 9,

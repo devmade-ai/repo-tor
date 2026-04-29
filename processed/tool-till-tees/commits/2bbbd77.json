@@ -1,17 +1,11 @@
 {
   "sha": "2bbbd77",
-  "fullSha": "2bbbd77053530960017d0a1edc9276bddae21384",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-22T23:38:24Z",
-  "commitDate": "2026-04-22T23:38:24Z",
   "subject": "docs(claude): move Prohibitions before Triggers to match glow-props order",
   "body": "`align` trigger identified section-order drift — glow-props orders AI Notes →\nProhibitions → Triggers, ours had AI Notes → Triggers → Prohibitions. Moved\nProhibitions block (and its reminder) to sit between AI Notes and Triggers.\n\nTags: documentation, alignment, claude-md, fleet\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "patch",
-  "scope": "claude",
-  "title": "move Prohibitions before Triggers to match glow-props order",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 20,

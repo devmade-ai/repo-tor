@@ -14,7 +14,7 @@
 import { execFileSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import { parseCommitMessage, extractBreakingChange, extractReferences } from './lib/commit-parsing.js';
+import { parseCommitMessage, extractBreakingChange } from './lib/commit-parsing.js';
 import { toKebabCase, writeJson } from './lib/utils.js';
 
 // === Argument Parsing ===
@@ -52,17 +52,17 @@ function git(args, cwd) {
 function extractCommits() {
   console.log('Extracting commits...');
 
-  // Custom format for parsing
+  // Custom format for parsing.
+  // Full hash is needed only for the stats merge below (`git log --numstat`
+  // emits %H boundaries); we keep it as a transient lookup key but do not
+  // persist it to the commit object — dashboard uses the 7-char `sha`.
   const delimiter = '---COMMIT_DELIMITER---';
   const format = [
-    '%H',      // full hash
+    '%H',      // full hash (transient — used to merge stats by COMMIT_BOUNDARY)
     '%h',      // short hash
     '%an',     // author name
     '%ae',     // author email
     '%aI',     // author date ISO
-    '%cn',     // committer name
-    '%ce',     // committer email
-    '%cI',     // commit date ISO
     '%s',      // subject
     '%b',      // body
   ].join('%n');
@@ -82,34 +82,32 @@ function extractCommits() {
   const commitBlocks = logOutput.split(delimiter).filter(Boolean);
   const commits = [];
 
+  // Side map: short sha -> full sha. Used only by the stats merge below
+  // so we can skip persisting fullSha onto every commit object.
+  const fullShaByShortSha = new Map();
+
   for (const block of commitBlocks) {
     const lines = block.trim().split('\n');
-    if (lines.length < 9) continue;
+    if (lines.length < 6) continue;
 
-    const [hash, shortHash, authorName, authorEmail, authorDate,
-           committerName, committerEmail, commitDate, subject, ...bodyLines] = lines;
+    const [hash, shortHash, authorName, authorEmail, authorDate, subject, ...bodyLines] = lines;
 
     const body = bodyLines.join('\n').trim();
     const parsed = parseCommitMessage(subject);
-    const references = extractReferences(subject, body);
 
     // Check for breaking change in body
     const hasBreakingChange = extractBreakingChange(subject, body) || parsed.breaking;
 
+    fullShaByShortSha.set(shortHash, hash);
+
     commits.push({
       sha: shortHash,
-      fullSha: hash,
       author_id: authorEmail.toLowerCase(),
       author: {
         name: authorName,
         email: authorEmail
       },
-      committer: {
-        name: committerName,
-        email: committerEmail
-      },
       timestamp: authorDate,
-      commitDate: commitDate,
       subject: subject,
       body: body,
       tags: [],              // Empty - AI will populate via @data persona
@@ -118,11 +116,7 @@ function extractCommits() {
       debt: null,            // Null - AI will assess (added|paid|neutral)
       epic: null,            // Null - AI will assign free-text grouping label
       semver: null,          // Null - AI will assess (patch|minor|major)
-      scope: parsed.scope,
-      title: parsed.title,
-      is_conventional: parsed.is_conventional,
       has_breaking_change: hasBreakingChange,  // Flag for AI to consider
-      references: references
     });
   }
 
@@ -172,9 +166,10 @@ function extractCommits() {
       statsByFullSha.set(currentSha, { ...currentStats, filesChanged: currentStats.files.length });
     }
 
-    // Merge stats into commits
+    // Merge stats into commits (look up full sha via side map — fullSha is
+    // intentionally not persisted on the commit object)
     for (const commit of commits) {
-      const stats = statsByFullSha.get(commit.fullSha);
+      const stats = statsByFullSha.get(fullShaByShortSha.get(commit.sha));
       if (stats) {
         commit.stats = {
           filesChanged: stats.filesChanged,

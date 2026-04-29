@@ -1,17 +1,11 @@
 {
   "sha": "ac19cad",
-  "fullSha": "ac19cad4af8fe55595af9f19b3a11e1754c3ff3c",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-09T10:14:24Z",
-  "commitDate": "2026-04-09T10:14:24Z",
   "subject": "fix(pwa): fix stale hasUpdate closure in checkForUpdate handlers",
   "body": "handleCheckForUpdate in both DesktopLayout and MobileLayout read\nhasUpdate after the async checkForUpdate() settle delay. But hasUpdate\nis a prop captured at render time — if onNeedRefresh fires during the\n1500ms settle, the closure still holds the stale pre-check value. This\ncaused \"You're on the latest version\" toast even when an update was\njust detected.\n\nFix: toast always says \"Check complete\" on success. If an update was\nfound during the settle, the update banner/menu item appears via normal\nhasUpdate prop re-render — no need to duplicate that signal in the toast.\n\nAlso fix CLAUDE.md Quick Reference: TEST_RUNNER was \"Manual\" but the\nproject now has Jest with 133 automated unit tests.\n\nTags: pwa, ui, bug\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-reliability\nSemver: patch\n\nhttps://claude.ai/code/session_01AC1UWyZGqVwHGuu6SPJr72",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "pwa-reliability",
   "semver": "patch",
-  "scope": "pwa",
-  "title": "fix stale hasUpdate closure in checkForUpdate handlers",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 10,

@@ -1,17 +1,11 @@
 {
   "sha": "fe5561c",
-  "fullSha": "fe5561c6a35f6ed723ad098b6a918ceb0ff1a402",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T11:35:02Z",
-  "commitDate": "2026-04-10T11:35:02Z",
   "subject": "fix(debug): inline pill responsive width + session notes update",
   "body": "Pre-framework inline debug panel in index.html had the same fixed\nwidth:320px overflow bug as DebugPill.vue. Applied matching fix:\nwidth:calc(100vw - 2rem);max-width:320px. Updated session notes\nfor current session.\n\nTags: debug, mobile, docs\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01BcrjMzrkT3CbZ9axt9gXnm",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "debug-system",
   "semver": "patch",
-  "scope": "debug",
-  "title": "inline pill responsive width + session notes update",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 13,

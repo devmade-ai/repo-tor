@@ -1,17 +1,11 @@
 {
   "sha": "db3cc6a",
-  "fullSha": "db3cc6ab7fdafef1d44e58fd549047a5296ca6ae",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-25T19:01:30Z",
-  "commitDate": "2026-04-25T19:01:30Z",
   "subject": "fix(sancio): percent-decode URL segments; correct cron verification guidance",
   "body": "Two issues found on a follow-up audit of the req.url-based dispatcher:\n\n(1) Behavioral regression vs the previous implementation. The old code\nread req.query.slug, which Node's querystring parser had already\npercent-decoded — so a segment captured from \"/api/sancio/projects/foo%20bar\"\narrived at handlers as \"foo bar\". The new path-splitting approach skipped\nthat decode, leaving handlers to receive \"foo%20bar\" verbatim.\n\nFor the current Sancio routes (UUIDs + literal action words like \"status\",\n\"split\") there is no observable difference, but the semantics change is\nsilent and would bite the moment any segment ever held a space, slash,\nor other reserved char. Standard HTTP routing decodes path segments;\nthe dispatcher should too.\n\nFix: map decodeURIComponent over each segment (after split, so an encoded\n\"%2F\" stays as one segment rather than being split into two), wrapped in\na try/catch so malformed encoding (e.g. lone \"%\") returns [] → 404. Two\nnew dispatcher tests pin both behaviors.\n\n(2) Misleading cron verification in USER_ACTIONS.md. The previous\nguidance suggested running the cron endpoints manually with CRON_SECRET\n\"to verify routing.\" That is unsafe: nudge sends real notifications and\nauto-expire actually expires modules. Running them against production\nfires real user-visible side effects.\n\nReplace with side-effect-free verification: curl without Authorization,\nexpect 401 {\"error\":\"Unauthorized\"}. That response proves the dispatcher\nmatched the cron route and reached the handler's auth check, with no\nnotifications sent and no modules expired. The doc lists all three\ndistinguishable outcomes (401 = pass; sancio 404 = dispatch regression;\nHTML 404 = Vercel routing broken) so the user can read the failure mode\noff the response alone.\n\nTags: bugfix, sancio, dispatcher, testing, documentation, cron, safety\nComplexity: 2\nUrgency: 3\nImpact: api\nRisk: low\nDebt: paid\nEpic: sancio-api-stability\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "sancio-api-stability",
   "semver": "patch",
-  "scope": "sancio",
-  "title": "percent-decode URL segments; correct cron verification guidance",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 55,

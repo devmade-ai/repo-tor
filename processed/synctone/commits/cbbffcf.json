@@ -1,17 +1,11 @@
 {
   "sha": "cbbffcf",
-  "fullSha": "cbbffcfc0bf5b672a89b87bc45fef03b777c107a",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-24T20:41:12Z",
-  "commitDate": "2026-04-24T20:41:12Z",
   "subject": "fix(pwa): dodge stale-closure race in Check-for-Updates toast feedback",
   "body": "The handleCheckForUpdates consumer I added in the prior commit had a\nreal bug: it read `hasUpdate` from React state AFTER awaiting\n`checkForUpdates()`, but the closure captured the pre-check value.\nDuring the await, a SW update event can fire → `_hasUpdate = true` →\nlistener calls `setHasUpdate(true)`, but React's re-render hasn't\nflushed by the time the handler resumes. Result: user sees\n\"You're up to date\" toast AT THE SAME TIME the Update button lights\nup in the header. Confusing.\n\nFix: split the `'done'` discriminator into two values — `'up-to-date'`\nand `'update-available'` — so the hook itself reports the outcome\ninstead of forcing the caller to infer from stale React state.\nRead `_hasUpdate` (module-private var, always current) right before\nthe hook's return statement, not from the React view of it.\n\nChanges:\n- hooks/usePWAUpdate.ts:\n  - CheckForUpdatesResult: `'done'` → `'up-to-date' | 'update-available'`\n  - Updated TSDoc to explain the race-dodging rationale\n  - checkForUpdates returns `_hasUpdate ? 'update-available' : 'up-to-date'`\n- app/(app)/home.tsx handleCheckForUpdates:\n  - Switch case renamed + `!hasUpdate` check removed (no longer needed)\n  - Comment updated to reflect why 'update-available' is silent\n- docs/TODO.md verification scenario: updated with new discriminator values\n\nVerification:\n- npx tsc --noEmit: 0 errors\n- npm run verify:inline-scripts: 47 passed, 0 failed\n\nTags: pwa, bugfix, types\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01UiYobyYgDFYNeVKZrChVXH",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "patch",
-  "scope": "pwa",
-  "title": "dodge stale-closure race in Check-for-Updates toast feedback",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 44,

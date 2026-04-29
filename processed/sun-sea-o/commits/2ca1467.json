@@ -1,17 +1,11 @@
 {
   "sha": "2ca1467",
-  "fullSha": "2ca14674524d5833042ae1f7ed93ffa55f490416",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-19T23:23:04Z",
-  "commitDate": "2026-04-19T23:23:04Z",
   "subject": "feat(icons): harden APP_ICONS — 400 DPI + apple-touch-icon + favicon.ico",
   "body": "Sharp now rasterizes the source SVG at 400 DPI before downscaling, so\nevery PNG (especially the 48px favicon, 180px Apple touch icon, and\n192px PWA icon) is anti-aliased from a high-res source instead of the\ndefault 72. The SVG also gains shape-rendering=\"geometricPrecision\"\nper the pattern doc so the rasterizer prioritises geometry accuracy.\n\nNew outputs:\n- apple-touch-icon.png (180×180) — iOS home-screen icon, wired up via\n  <link rel=\"apple-touch-icon\"> in index.html.\n- favicon.ico (16/32/48 multi-size) — Windows taskbar pinning + older\n  browsers, packed inline in the script (no png-to-ico dependency)\n  using the standard ICO directory format.\n\nManifest icons (192/512/maskable-512/1024) keep their current\npurpose values; only their DPI improves.\n\nTags: pwa, icons, build\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "cross-fleet-docs",
   "semver": "patch",
-  "scope": "icons",
-  "title": "harden APP_ICONS — 400 DPI + apple-touch-icon + favicon.ico",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 11,
     "additions": 75,

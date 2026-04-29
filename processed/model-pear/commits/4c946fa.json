@@ -1,17 +1,11 @@
 {
   "sha": "4c946fa",
-  "fullSha": "4c946fa18140aca0fa446c6d3e4d46a1eb51ef96",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T16:50:44Z",
-  "commitDate": "2026-04-10T16:50:44Z",
   "subject": "fix(icons): favicon type/sizes, manifest id, stale build commands",
   "body": "- Add type=\"image/png\" and sizes=\"48x48\" to favicon link for proper\n  browser handling of non-ICO favicons\n- Add \"id\": \"/\" to manifest.webmanifest for stable PWA identity across\n  URL changes (prevents browsers treating the app as separate installs)\n- Add pnpm generate-icons to SESSION_NOTES.md build commands (was\n  already in CLAUDE.md but SESSION_NOTES.md copy was stale)\n\nTags: icons, meta, docs\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: app-icons\nSemver: patch\n\nhttps://claude.ai/code/session_01CAEv1WhXFsUQWnJwRk8p34",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "app-icons",
   "semver": "patch",
-  "scope": "icons",
-  "title": "favicon type/sizes, manifest id, stale build commands",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 3,

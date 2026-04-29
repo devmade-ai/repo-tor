@@ -1,17 +1,11 @@
 {
   "sha": "1f71c6d",
-  "fullSha": "1f71c6d9d65cb166b4f1bb062383e5c0ad843f48",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-13T09:43:20Z",
-  "commitDate": "2026-04-13T09:43:20Z",
   "subject": "fix(menu): portal HamburgerMenu backdrop + dropdown to escape header stacking context",
   "body": "Closes the long-standing \"Stacking Context\" entry in docs/TODO.md.\n\nProblem:\n\n  .dashboard-header has `position: relative; z-index: var(--z-sticky-header)`\n  (z-21) which creates a stacking context. The hamburger menu's\n  backdrop and dropdown were children of the header subtree, so their\n  effective stacking-context z-index was clamped to z-21 from the\n  document level — even though the CSS declared them at z-menu-backdrop=40\n  and z-menu=50.\n\n  Drawer overlays (.filter-sidebar, .detail-pane, .settings-pane)\n  render at z-drawer=30 at the document root, which meant drawers\n  appeared ABOVE the menu backdrop. Functionally rare because the\n  menu auto-closes on item selection, so the overlap was hard to\n  hit in practice — but it was a real regression trap waiting to\n  bite if a drawer stayed open alongside the menu, or if the menu\n  was kept open for theme picking (which it now routinely is via\n  `keepOpen: true` — the trap was moving from theoretical to likely).\n\nFix — React Portal:\n\n  HamburgerMenu.jsx imports `createPortal` from `react-dom` and\n  renders the backdrop + dropdown via createPortal(portalContent,\n  document.body). The portal target is document.body, which lives\n  outside every stacking context, so the z-index values declared\n  in the CSS now take effect at their literal document-root level.\n\n  The trigger button stays inside the header subtree (it has to, so\n  it sticks with the nav bar when the header is sticky-positioned).\n  Only the dropdown surface + backdrop portal out.\n\nPositioning — position:fixed with computed anchor:\n\n  Because the dropdown is no longer a child of the trigger's\n  containing block, its old `position: absolute; top: calc(100%\n  + 6px); left: 0` anchor no longer works — there is no \"100%\" to\n  refer to. Replaced with `position: fixed` and an inline style\n  that sets `top` / `left` from the trigger's\n  `getBoundingClientRect()`.\n\n  Measurement runs in a useLayoutEffect (NOT useEffect) so the\n  first frame of the open menu is already correctly placed. If we\n  used useEffect, users would briefly see the dropdown flash at\n  0,0 before the measurement ran.\n\n  An additional `triggerPos` state guard prevents rendering the\n  portal content at all until measurement has happened — on first\n  open, the render returns null until useLayoutEffect fires, then\n  re-renders with the computed position. This avoids a one-frame\n  flash in the corner of the viewport.\n\n  Position stays in sync while the menu is open via window resize\n  + scroll (capture-phase) listeners. Capture-phase is required so\n  that scrolling any nested scroll container (e.g. the dashboard's\n  sticky-header offset changes during document scroll) also\n  triggers an update, not just the document root.\n\nstyles.css update:\n\n  .hamburger-dropdown rule: `position: absolute; top: calc(100% +\n  6px); left: 0` replaced with `position: fixed` (no static\n  offsets) and a comment block explaining the inline-style anchor\n  pattern with a pointer to HamburgerMenu.jsx.\n\nAlternatives rejected:\n\n  - Popper.js / @floating-ui/react: would give auto-flip,\n    auto-shift, collision detection out of the box, but adds a\n    dependency (~15 KB gzipped) for a single menu with no complex\n    placement needs. Our menu opens downward from a trigger that's\n    always at the top of the viewport — no flip needed.\n  - Remove the stacking context from .dashboard-header: can't\n    drop z-index (header needs to stack above the sticky tabs-bar)\n    or position: relative (::after pseudo-element requires a\n    positioned parent). The stacking context is structurally\n    required by the header's own design.\n  - ResizeObserver on the trigger instead of window scroll: doesn't\n    catch document scroll that moves the trigger under a sticky\n    header. Need scroll listener anyway.\n\nVerified:\n\n  - `vite build` clean.\n  - `createPortal`, `hamburger-dropdown`, and `hamburger-backdrop`\n    all present in the built JS bundle.\n  - `position: fixed` present in the built CSS for `.hamburger-dropdown`.\n  - Keyboard nav (arrow keys, Enter, Escape, click-outside) unchanged.\n  - keepOpen theme-picker behavior unchanged.\n\nTags: ui, refactor, react-portal, accessibility, audit, bugfix, stacking\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "daisyui-component-migration",
   "semver": "patch",
-  "scope": "menu",
-  "title": "portal HamburgerMenu backdrop + dropdown to escape header stacking context",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 124,

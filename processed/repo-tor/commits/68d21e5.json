@@ -1,17 +1,11 @@
 {
   "sha": "68d21e5",
-  "fullSha": "68d21e55aeb35fe372e042505d04252a2e710071",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-15T07:19:37Z",
-  "commitDate": "2026-04-15T07:19:37Z",
   "subject": "refactor(dashboard): Phase 4b+4g — CollapsibleSection to DaisyUI collapse, embed-mode to conditional render",
   "body": "Tightly coupled phases — CollapsibleSection and embed-mode share state\nassumptions so they migrate together. Replaces the hand-rolled card +\nmax-height:none transition with DaisyUI's native `collapse` component,\nand strips the `.embed-mode` root class + its 7 descendant selectors\nin favour of a conditional short-circuit in CollapsibleSection.\n\nCollapsibleSection.jsx rewritten:\n  - Imports isEmbedMode from urlParams\n  - Embed mode short-circuit: `if (isEmbedMode) return <>{children}</>`\n    — no card wrapper, no header, no collapse mechanism, just the\n    children so embedders get the bare chart\n  - Non-embed: DaisyUI `collapse collapse-arrow` with native checkbox\n    wired to React state via onChange. `collapse-open` / `collapse-close`\n    modifier classes force the React-controlled state to survive\n    DaisyUI's default click-to-toggle behaviour\n  - No custom className, no custom CSS — the component renders\n    entirely through DaisyUI + stock Tailwind utilities\n\nEmbedRenderer.jsx updated:\n  - Dropped `className=\"embed-mode\"` wrapper, replaced with\n    `p-4 bg-base-100` stock Tailwind\n  - DOM traversal no longer walks to `.card` ancestors (since\n    CollapsibleSection doesn't render cards in embed mode). New\n    implementation walks from `[data-embed-id]` to the top-level\n    child of the container and toggles its display — simpler and\n    matches the new embed-mode JSX tree\n  - Removed `card.classList.add('embed-target')` — the matching\n    embed-target class rule was deleted from styles.css\n\nstyles.css rule deletions:\n  - .collapsible-content + .collapsible-content.expanded\n    (the custom max-height:0 → max-height:none transition)\n  - .embed-mode root rule (padding + bg-base-100)\n  - .embed-mode .collapsible-header rule\n  - .embed-mode .card.embed-target rule\n  - .embed-mode .card.embed-target:hover rule\n  - .embed-mode .collapsible-content .pt-2 rule\n  - .embed-mode .collapsible-content rule\n  - body:has(.embed-mode)::before rule (hid decorative grid)\n  - .embed-mode ~ #debug-error-banner / body:has(.embed-mode) #debug-error-banner rules\n  All replaced with rationale comment block explaining where each\n  behaviour moved.\n\nTests (daisyui-surfaces.test.mjs):\n  - LEGITIMATE_CUSTOM_CLASSES allowlist: removed `collapsible-content`\n    and `embed-mode`\n  - \"Phase 5 — CollapsibleSection uses DaisyUI card + card-body\"\n    renamed to \"Phase 5 — CollapsibleSection uses DaisyUI collapse\n    component\" with updated assertions matching the new structure\n    (collapse/collapse-arrow/collapse-title/collapse-content) plus\n    isEmbedMode short-circuit check\n\nVisual regression:\n  - DaisyUI's collapse component has its own default animation (less\n    custom than our previous max-height:none transition). Open/close\n    feel slightly different but functionally identical.\n  - Embed iframes no longer get the `.embed-mode` padding/bg —\n    replaced with inline `p-4 bg-base-100` on the EmbedRenderer root\n    div, which is visually equivalent.\n  - The decorative page grid `body::before` rule that hid for embeds\n    is gone — embeds never had the grid in the first place because\n    they don't render body chrome, so this was a dead rule.\n\nVerified: vite build clean (2.81s), 60/60 tests pass.\n\nAllowlist status: custom CSS classes dropped from 24 → 18\n(removed: collapsible-content, embed-mode, heatmap-0..4 from Phase\n4c earlier).\n\nTags: refactor, ui, daisyui, cleanup, vanilla, embed\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "daisyui-v5-migration",
   "semver": "patch",
-  "scope": "dashboard",
-  "title": "Phase 4b+4g — CollapsibleSection to DaisyUI collapse, embed-mode to conditional render",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 98,

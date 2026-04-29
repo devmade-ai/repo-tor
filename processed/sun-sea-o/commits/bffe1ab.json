@@ -1,17 +1,11 @@
 {
   "sha": "bffe1ab",
-  "fullSha": "bffe1ab9dd1f6821c48cada3f75202a5d5c9d386",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-25T05:26:51Z",
-  "commitDate": "2026-04-25T05:26:51Z",
   "subject": "docs(session): use the real target host as the sandbox sanity probe",
   "body": "Earlier note told the next session to curl google.com as a \"is the\nsandbox open?\" canary.  Pointless — they only need to know whether\nthey can reach tool-till-tees.vercel.app, which is the actual\ntarget.  Replaced the canary with a direct probe of /api/health on\ntool-till-tees and explicitly told the next session not to curl\narbitrary hosts to test connectivity.\n\nAlso pinned the original misdiagnosis (the \"Vercel firewall\"\nmistake) onto the same bullet so the next session sees the cause-\nand-effect inline: same 403 from google.com that came from\ntool-till-tees was the trap.\n\nNo source changes.\n\nTags: documentation, session-notes, handoff\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: mobile-viewport\nSemver: patch\n\nhttps://claude.ai/code/session_01TVYXEU2QJcmBA17ZNWhcZP",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "mobile-viewport",
   "semver": "patch",
-  "scope": "session",
-  "title": "use the real target host as the sandbox sanity probe",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 2,

@@ -1,17 +1,11 @@
 {
   "sha": "e5e26ba",
-  "fullSha": "e5e26bab5e5048f1ed008d38d95bb29a7741e918",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T06:42:12Z",
-  "commitDate": "2026-04-10T06:42:12Z",
   "subject": "docs: add DaisyUI sync points, modal z-index notes, theme picker TODO",
   "body": "Document maintenance requirements discovered during migration:\n- CLAUDE.md AI Notes: 3 sync points for theme combos (themes.ts,\n  index.css plugin config, index.html flash prevention), and why\n  z-[60] must stay on modals (overrides DaisyUI's z-999)\n- TODO.md: theme combo picker UI needed — useDarkMode exposes\n  setCombo() but no UI exists in the burger menu yet\n\nTags: docs, daisyui, theme\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01BPc1xJr4LVbLgvTxtZf2i1",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "neutral",
   "epic": "daisyui-migration",
   "semver": "patch",
-  "scope": null,
-  "title": "add DaisyUI sync points, modal z-index notes, theme picker TODO",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 6,

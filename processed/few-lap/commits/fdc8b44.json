@@ -1,17 +1,11 @@
 {
   "sha": "fdc8b44",
-  "fullSha": "fdc8b4402362e02ed2e8e8d47b5f4e26dceded70",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-01T15:15:25Z",
-  "commitDate": "2026-04-01T15:15:25Z",
   "subject": "refactor(theme): migrate 14 medium components to Uniwind + DaisyUI tokens",
   "body": "Convert BottomSheet, Toast, BurgerMenu, PriceDisplay, StationCard,\nStationList, TutorialModal, InstallPrompt, InstallInstructionsModal,\nLocationSearch, PriceHistoryChart, PriceEditor, admin station edit,\nand admin index from StyleSheet + useAppTheme to Uniwind className\nwith DaisyUI semantic classes.\n\nPattern: useTheme().colors for hex values (icons, indicators),\nclassName for View/Text styling (bg-base-100, text-primary, etc.),\nPRICE_COLORS for domain-specific staleness indicators.\n\nTwo admin screens (bulk-import, bulk-update) remain for next commit.\n\nTags: theme, daisyui, uniwind, refactor, migration\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-theme-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01EAwig8kSZ6S91pb3wP7tv4",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "daisyui-theme-migration",
   "semver": "patch",
-  "scope": "theme",
-  "title": "migrate 14 medium components to Uniwind + DaisyUI tokens",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 14,
     "additions": 302,

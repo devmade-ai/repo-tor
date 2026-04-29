@@ -1,17 +1,11 @@
 {
   "sha": "5e90946",
-  "fullSha": "5e90946b41b795d3615fb5ee59762cb402ad09c0",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-09T21:57:18Z",
-  "commitDate": "2026-04-09T21:57:18Z",
   "subject": "feat(pwa): version.json supplementary update detection",
   "body": "Adds the last remaining item from the glow-props PWA_SYSTEM pattern:\nbuild-time version.json for detecting app changes that don't modify\nsw.js (edge case where precache manifest stays identical).\n\n- versionJsonPlugin() in vite.config.ts emits version.json with an\n  ISO buildTime timestamp on every production build\n- checkVersionUpdate() in usePWAUpdate.ts fetches /version.json with\n  cache: 'no-store', compares against localStorage\n- Runs on initial load (stores current version) and on visibility\n  change (throttled to once per minute to avoid spamming the server)\n- If buildTime differs from stored value, sets hasUpdate = true\n  (suppression watcher still applies within 30s of an update)\n\nTags: pwa, service-worker, deployment\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: pwa-system\nSemver: patch\n\nhttps://claude.ai/code/session_01JjbdKNBLFZ6CmJkVqngkqm",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "neutral",
   "epic": "pwa-system",
   "semver": "patch",
-  "scope": "pwa",
-  "title": "version.json supplementary update detection",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 5,
     "additions": 82,

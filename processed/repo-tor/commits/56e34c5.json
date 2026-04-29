@@ -1,17 +1,11 @@
 {
   "sha": "56e34c5",
-  "fullSha": "56e34c57a86b308dfcb9e5b7c804b14e6f6151e1",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-14T14:11:09Z",
-  "commitDate": "2026-04-14T14:11:09Z",
   "subject": "refactor(dashboard): replace arbitrary Tailwind values with stock utilities",
   "body": "User asked for an audit of hardcoded / custom / inline code that could\nbe replaced with stock Tailwind utilities or DaisyUI tokens. Phase 1 =\nsafe drop-ins with no visual change.\n\nSpacing arbitraries → Tailwind v4 stock scale:\n  - App.jsx, EmbedRenderer.jsx: min-h-[200px] → min-h-50\n  - FilterSidebar.jsx: max-h-[200px] → max-h-50, w-[280px] → w-70\n  - Timing.jsx: min-w-[280px] → min-w-70, sm:min-w-[400px] → sm:min-w-100\n  - InstallInstructionsModal.jsx: w-[420px] → w-105\n\n  Tailwind v4's dynamic spacing scale (--spacing: .25rem) generates\n  these utilities on demand from integer indices, so `w-70` = 70*4 =\n  280px, `w-105` = 420px, etc. No arbitrary brackets needed.\n\nTheme-scale z-index restoration:\n  - Header.jsx: z-[21] → z-[var(--z-sticky-header)]\n\n  The --z-sticky-header: 21 custom property already lives in styles.css\n  :root alongside the other z-scale tokens. The round-3 migration\n  hardcoded the literal 21 instead of keeping the CSS var reference,\n  which silently decoupled the header from the design-token scale.\n  Fixed.\n\nInset focus ring → Tailwind ring utilities:\n  - HamburgerMenu.jsx:\n      focus-visible:shadow-[inset_0_0_0_2px_var(--color-primary)]\n    → focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary\n\n  Tailwind's ring utility with ring-inset modifier is exactly an inset\n  2px box-shadow in the primary colour — no need for the arbitrary\n  bracketed shadow syntax when a stock utility does the same job.\n\nToast z-index inline style → arbitrary class:\n  - Toast.jsx:\n      style={{ zIndex: 'var(--z-toast)' }}\n    → className includes `z-[var(--z-toast)]`\n\n  Both resolve the CSS var via the same DOM path at runtime; the class\n  form removes the last inline style from the toast container while\n  still pinning the z-index above DaisyUI's default.\n\nVerified:\n  - vite build clean (5.50s), 61/61 tests pass\n  - All new utilities ship in built CSS:\n      .min-h-50, .max-h-50, .w-70, .min-w-70, .sm\\:min-w-100, .w-105,\n      .focus-visible\\:ring-2, .focus-visible\\:ring-inset,\n      .focus-visible\\:ring-primary, .z-\\[var\\(--z-sticky-header\\)\\],\n      .z-\\[var\\(--z-toast\\)\\]\n  - Grep confirms no remaining min-h-[200px], w-[280px], max-h-[200px],\n    min-w-[280px], min-w-[400px], w-[420px], z-[21], or the inset\n    shadow arbitrary anywhere in dashboard/js\n\nOut of scope (reported separately for user decision):\n  - text-[Npx] arbitraries below 12px or between 12/14/16 — design-\n    precise pixel values with no stock equivalent\n  - shadow-[...] arbitraries with non-stock opacity or color-mix glow\n  - grid-cols-[36px_repeat(7,1fr)] — grid template string\n  - w-[min(420px,calc(100vw-32px))], max-w-[calc(100vw-32px)] — calc/min\n  - DebugPill.jsx inline styles — isolated React root (documented)\n  - main.jsx error boundary inline layout — resilience (documented)\n  - Dynamic style={{}} for progress % widths and chart heights\n\nTags: refactor, ui, tailwind, cleanup\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-v5-migration\nSemver: patch",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "daisyui-v5-migration",
   "semver": "patch",
-  "scope": "dashboard",
-  "title": "replace arbitrary Tailwind values with stock utilities",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 8,
     "additions": 16,

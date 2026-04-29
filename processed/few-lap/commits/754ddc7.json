@@ -1,17 +1,11 @@
 {
   "sha": "754ddc7",
-  "fullSha": "754ddc7028a83cdb817ce3feff3823f1d8ab7a14",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-03T01:01:37Z",
-  "commitDate": "2026-04-03T01:01:37Z",
   "subject": "refactor(styles): extract shared shadows, dropdowns, remove Platform.select duplication",
   "body": "Replaced 14 manual Platform.select shadow definitions with shared boxShadow\nconstants. RN 0.81 supports boxShadow natively — Platform.select for\nweb vs native shadows is no longer needed.\n\nChanges:\n- Created src/styles/shadows.ts: 8 shadow constants (SHADOW_CARD through SHADOW_SHEET_LG)\n- Created src/styles/dropdown.ts: shared DROPDOWN_CARD style for header menus\n- Replaced hardcoded rgba overlays with withAlpha(colors.neutral/text, opacity)\n- Replaced Toast platform-pixel padding (54/16/38px) with useSafeAreaInsets\n- Replaced hardcoded maxHeight (160/280/300px) with viewport-relative values\n- Removed unused Platform imports from 6 files\n\nNet: -139 lines across 15 files. All 52 tests pass.\n\nTags: refactor, styles, shadows, cleanup, deduplication\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: style-cleanup\nSemver: patch\n\nhttps://claude.ai/code/session_01RzsrbdRZPkrzmNNEwDFHaq",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "style-cleanup",
   "semver": "patch",
-  "scope": "styles",
-  "title": "extract shared shadows, dropdowns, remove Platform.select duplication",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 15,
     "additions": 122,

@@ -1,17 +1,11 @@
 {
   "sha": "c7e0af6",
-  "fullSha": "c7e0af6229886c87aaaa68932390d463ca69278a",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-25T06:43:57Z",
-  "commitDate": "2026-04-25T06:43:57Z",
   "subject": "docs: prune stale USER_ACTIONS entry, fix TODO test count",
   "body": "USER_ACTIONS.md: deleted the \"Sancio backend bypass — active on next\ndeploy\" entry.  The deploy referenced (tool-till-tees@1f82153) shipped\n2026-04-23 and is now superseded by f7b2f29; the entry's own body\nsays \"no action on your side unless you see 401s\", so it's a state\ndoc, not a pending action.  Its removal path was fully duplicated\nin the next entry (\"Re-enable authentication before release\"), which\nstays.  The single-gate vs two-gate rationale is architectural\nhistory — if it needs a home, CLAUDE.md AI Notes is the right place,\nnot the user-actions doc.\n\nTODO.md: testing-infrastructure section claimed \"155 tests passing\".\nCurrent is 159 (verified via npm test this session).  One-character\nfix.\n\nTags: documentation, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: docs-hygiene\nSemver: patch\n\nhttps://claude.ai/code/session_01TVYXEU2QJcmBA17ZNWhcZP",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "docs-hygiene",
   "semver": "patch",
-  "scope": null,
-  "title": "prune stale USER_ACTIONS entry, fix TODO test count",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 1,

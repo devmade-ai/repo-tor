@@ -1,17 +1,11 @@
 {
   "sha": "d1d52d9",
-  "fullSha": "d1d52d961516756d31396b560424b1ab61824b5c",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T21:03:23Z",
-  "commitDate": "2026-04-02T21:03:23Z",
   "subject": "refactor(theme): simplify to pure extraction — no heuristics, no manual lists",
   "body": "Script now does exactly two things:\n1. Reads DaisyUI's color-scheme to classify light/dark (no manual lists)\n2. Extracts primary hex (light) or base-100 hex (dark) — no neutral\n   fallbacks, no luminance checks, no judgment calls\n\nGenerates: META_COLORS, LIGHT_THEMES/DARK_THEMES arrays, bootstrap lt/dt\narrays, navbar button sections, and initial meta tag values. All from\nDaisyUI's theme objects as single source of truth.\n\nTags: pwa, theme, build, refactor\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pwa-theme-color\nSemver: minor\n\nhttps://claude.ai/code/session_01JrL2asTpesrUXcPYxuGUKw",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "pwa-theme-color",
   "semver": "minor",
-  "scope": "theme",
-  "title": "simplify to pure extraction — no heuristics, no manual lists",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 229,

@@ -1,17 +1,11 @@
 {
   "sha": "ccdbc1f",
-  "fullSha": "ccdbc1f9f449240e98adccf81779aabe15119e4f",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T02:06:16Z",
-  "commitDate": "2026-04-21T02:06:16Z",
   "subject": "refactor(pages): migrate pages to DaisyUI tokens",
   "body": "- LoginPage: headings drop text-slate-*; config-missing warning becomes\n  `alert alert-warning` (replaces hand-rolled amber alert block).\n- NotFoundPage: full-page `hero bg-base-200` + `hero-content` replaces\n  custom centering.\n- ProjectListPage: heading loses text-slate-800 (inherits base-content).\n- ProjectDetailPage: inline-edit input becomes `input input-ghost` with\n  a themed border-bottom; description textarea uses textarea-bordered.\n  Editing badge is `badge badge-info` (was bg-blue-100 text-blue-700).\n  Delete button's hover-red is `text-error` (was text-red-500 / 700).\n  Headings and body copy use base-content / base-content/60.\n- ModuleEditorPage: expired-module warnings become `alert alert-error`\n  (two occurrences — creator and counterparty views). Section dividers\n  move from border-slate-200 to border-base-300. Inline note forms wrap\n  in `card card-compact bg-base-200` + `card-body`. All h3 section\n  titles drop text-slate-700 (inherits base-content).\n\nZero hardcoded slate/gray/zinc + status-color utilities remain in src/pages/.\n\nTags: refactor, ui, daisyui, pages\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-migration\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "daisyui-migration",
   "semver": "patch",
-  "scope": "pages",
-  "title": "migrate pages to DaisyUI tokens",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 5,
     "additions": 57,

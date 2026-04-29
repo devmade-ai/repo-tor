@@ -1,17 +1,11 @@
 {
   "sha": "d56cec6",
-  "fullSha": "d56cec662480c1aef203e52355329d6861ec9546",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-17T22:59:09Z",
-  "commitDate": "2026-04-17T22:59:09Z",
   "subject": "refactor(debug): errDetails helper unifies the 10 structured-error callsites",
   "body": "The previous commit migrated 10 structure-losing callsites to inline\nternaries — { message, stack } for Error, { reason: String(e) } for\nnon-Error. Two different shapes meant a future filter doing\n`entry.details.message.includes('...')` would break silently on the\nnon-Error branch.\n\nExtracted `errDetails(err: unknown): { message: string; stack?: string }`\nin debugLog.ts. Same top-level shape for both paths: non-Error values\ncoerce to String() and land in `message`; stack is simply absent. All\n10 callsites collapse from 3-line ternaries to single-line helper calls.\n\nAlso applied to the unhandled-rejection global handler, which had\nthe same two-shape split. Global `error` event handler keeps its\nErrorEvent-specific fields (filename, lineno, colno) — those don't\nfit the error-ish shape and errDetails isn't the right abstraction\nfor them.\n\nNew tests:\n- `errDetails normalises Error and non-Error to a uniform { message,\n  stack? } shape` — covers primitives, strings, null/undefined, Error.\n- `debugGenerateReport formats both string and structured details` —\n  covers the previously-unexercised branching in the clipboard report.\n\n69 tests (up from 67). tsc --noEmit: 0. expo export --platform web: clean.\n\nTags: debug, refactor, api, consistency\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "debug-pill-hardening",
   "semver": "patch",
-  "scope": "debug",
-  "title": "errDetails helper unifies the 10 structured-error callsites",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 14,
     "additions": 61,

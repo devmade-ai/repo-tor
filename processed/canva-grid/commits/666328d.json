@@ -1,17 +1,11 @@
 {
   "sha": "666328d",
-  "fullSha": "666328dc79aaeb89b176b544e36685b29d045664",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-08T19:53:37Z",
-  "commitDate": "2026-04-08T19:53:37Z",
   "subject": "fix: add oklchToHex decimal tests, fix BottomSheet focus-stealing",
   "body": "Two remaining items from full branch audit:\n\n1. oklchToHex: Added 4 tests covering the decimal-without-percent path\n   that was untested after the L normalization fix. Tests verify:\n   - decimal 0.5 equals 50% (same mid-gray)\n   - decimal 1 (no %) is white (L=1.0, not 1%)\n   - percentage 1% is near-black (L=0.01)\n   - decimal 0 is black\n   Test count: 72 → 76.\n\n2. BottomSheet: Focus-steal useEffect fired on every open, including when\n   sheet was already open and user just switched tabs via MobileNav. This\n   yanked focus from the just-tapped nav button after 350ms. Now tracks\n   previous isOpen via wasOpenRef — only auto-focuses on closed→open\n   transition. Sheet starts open (useState true) so initial mount also\n   correctly skips the focus steal.\n\nTags: test, a11y, mobile, bugfix\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: branch-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01KWPHuYLV1weWg2cFm9VtjN",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "branch-audit",
   "semver": "patch",
-  "scope": null,
-  "title": "add oklchToHex decimal tests, fix BottomSheet focus-stealing",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 36,

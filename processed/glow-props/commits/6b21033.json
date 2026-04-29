@@ -1,17 +1,11 @@
 {
   "sha": "6b21033",
-  "fullSha": "6b21033be810d6b3c116856f8851907338e27a89",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-07T04:32:27Z",
-  "commitDate": "2026-04-07T04:32:27Z",
   "subject": "fix(theme): strengthen DaisyUI migration guide accuracy and coverage",
   "body": "Fixes from self-review:\n- Replace rg --type tsx (invalid) with -g '*.tsx' glob patterns\n- Add @tailwindcss/vite install step and safeStorage extraction to Phase 0\n- Add incremental migration note (DaisyUI coexists with custom vars)\n- Add React Native/Expo callout pointing to Uniwind sections\n- Expand dark: variant search to include hover/focus/placeholder states\n- Fix z-index arbitrary value syntax (z-[80] not z-80 for values >50)\n- Remove incorrect \"non-functional typo\" claim about z-[1000]\n- Add meta theme-color and accessibility checks to verification list\n\nTags: documentation, patterns, theme, migration, review\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pattern-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_016uMc5mZcqau5orf2HUr4aL",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "pattern-alignment",
   "semver": "patch",
-  "scope": "theme",
-  "title": "strengthen DaisyUI migration guide accuracy and coverage",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 33,

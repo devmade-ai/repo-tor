@@ -1,17 +1,11 @@
 {
   "sha": "2033775",
-  "fullSha": "2033775c2214e78ce70975bd9dc707e46d45e350",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-24T21:55:22Z",
-  "commitDate": "2026-04-24T21:55:22Z",
   "subject": "chore(types): align debugLog window-augmentation with other HMR files",
   "body": "debugLog.ts was the only HMR-guarded module still using\n`(window as any).__debugXxx` casts. The other HMR-safe files\n(useDialogA11y, usePWAInstall, usePWAUpdate, useDarkMode) all\nuse `declare global { interface Window { ... } }` instead.\n\nAdded a declare-global block for the three flags\n(__debugConsolePatched, __debugLogListenersAttached, __debugLogReady),\nremoved the 6 `as any` casts. `__debugLogReady` is also read by the\npre-framework inline pill in index.html; documented that in the\ndeclare-global comment.\n\nAlso trimmed the HMR dispose docblock (7 lines → 4) — the\nRequirement/Approach/Alternatives format was over-heavy for the\nnarrow point (\"without this, orphaned old-module debugLog receives\nevents\").\n\nThe `(navigator as any).standalone` cast at line 133 is pre-existing\n(iOS Safari's non-standard property) and out of scope.\n\nZero runtime effect — purely type-consistency.\n\nType-check clean. 145/145 tests pass.\n\nTags: types, debug, hmr, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "ux-polish",
   "semver": "patch",
-  "scope": "types",
-  "title": "align debugLog window-augmentation with other HMR files",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 24,

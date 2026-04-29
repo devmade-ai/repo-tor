@@ -1,17 +1,11 @@
 {
   "sha": "7bb3ec9",
-  "fullSha": "7bb3ec9773967a89afce9b03fbb396f9406a9fed",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T19:15:08Z",
-  "commitDate": "2026-04-10T19:15:08Z",
   "subject": "feat(debug): add in-memory debug log system with floating pill",
   "body": "Alpha-phase diagnostic tool following glow-props DEBUG_SYSTEM.md pattern.\nProvides runtime error visibility without external dependencies.\n\n- debugLog.ts: circular buffer (200 entries), typed sources/severities,\n  pub/sub with immediate delivery, console.error/warn interception,\n  global error/unhandledrejection capture, report generation with\n  URL redaction\n- clipboardUtils.ts: three-tier clipboard fallback (ClipboardItem Blob,\n  writeText, textarea execCommand) for all browser contexts\n- DebugPill.svelte: floating pill with inline styles (not Tailwind),\n  3 tabs (Log, Environment, PWA Diagnostics), mounted in separate\n  #debug-root outside SvelteKit tree for crash isolation\n- app.html: #debug-root div, pre-framework inline script with\n  window.__debugPushError() bridge and 20-second loading timeout\n- +layout.svelte: mounts DebugPill into #debug-root via new DebugPill()\n\nTags: debug, diagnostics, alpha, infrastructure\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: debug-system\nSemver: minor\n\nhttps://claude.ai/code/session_011693rELt3wTKg28uRw5BSR",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "neutral",
   "epic": "debug-system",
   "semver": "minor",
-  "scope": "debug",
-  "title": "add in-memory debug log system with floating pill",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 8,
     "additions": 792,

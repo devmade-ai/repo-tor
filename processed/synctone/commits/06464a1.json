@@ -1,17 +1,11 @@
 {
   "sha": "06464a1",
-  "fullSha": "06464a18232e06a06f92cd480a8a01b13a4e34d6",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-24T21:40:47Z",
-  "commitDate": "2026-04-24T21:40:47Z",
   "subject": "fix(bugs): reversed-marker guard + clipboard textarea cleanup",
   "body": "Two small correctness fixes surfaced by the `bugs branch` trigger:\n\n- scripts/inject-icon-hashes.mjs rewriteSwIconList: added\n  `endIdx <= beginIdx` guard. Without it, if someone accidentally\n  swaps the `@icon-cache-bust:begin` / `:end` markers in sw.js, both\n  `indexOf` calls succeed but the slice logic (`before + newBlock +\n  after`) produces silently-garbage output — no error, stale PWA\n  icons ship. Verified: reversing the markers now throws \"sw.js\n  markers are in the wrong order\" with specific offsets, aborting\n  the build. Byte-identical output on the normal path is preserved\n  (verified by post-fix run).\n\n- components/debug/DebugPill.tsx copyToClipboardWithFallback: wrapped\n  the textarea append→remove window in try/finally. Previously, if\n  any call between appendChild and removeChild threw (most\n  realistically `execCommand('copy')` in ancient browsers, or a\n  detached document edge case), the outer catch returned false but\n  left the textarea in the DOM. On repeated Copy failures under that\n  condition the leak accumulates. Finally-block guards the remove\n  with `textarea.parentNode === document.body` so appendChild-itself\n  failures don't double-throw on the remove.\n\nVerification:\n- npx tsc --noEmit: 0 errors\n- npm run verify:inline-scripts: 47 passed, 0 failed\n- Reversed-marker simulation: throws with clear offset-annotated message\n- Normal-case re-run: byte-identical output (idempotent)\n\nTags: bugfix, code-quality, pwa, debug\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01UiYobyYgDFYNeVKZrChVXH",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "patch",
-  "scope": "bugs",
-  "title": "reversed-marker guard + clipboard textarea cleanup",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 38,

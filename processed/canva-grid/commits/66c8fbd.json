@@ -1,17 +1,11 @@
 {
   "sha": "66c8fbd",
-  "fullSha": "66c8fbdbe8fab23be527dd3fc7fda9d456ed87cc",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-08T13:09:04Z",
-  "commitDate": "2026-04-08T13:09:04Z",
   "subject": "feat(debug): complete debug system with console interception, PWA diagnostics, and production availability",
   "body": "Upgrade debug system from dev-only to alpha-phase production tool per DEBUG_SYSTEM.md pattern.\n\nChanges:\n- debugLog.js: Add console.error/warn interception at module load, subscriber replay\n  (new subscribers get existing entries), debugGenerateReport() with URL query param\n  redaction, success severity support\n- DebugPill.jsx: Add PWA Diagnostics tab (HTTPS, SW state, manifest validation,\n  standalone mode, install prompt), embed mode skip (?embed=), use debugGenerateReport()\n  from module, mount into static #debug-root div, multi-fallback clipboard\n- index.html: Add static #debug-root div, pre-React inline pill with\n  window.__debugPushError() global and 20s loading timeout\n- main.jsx: Remove DEV-only gating, call __debugClearLoadTimer on mount\n- ErrorBoundary.jsx: Bridge crashes to pre-React pill via __debugPushError()\n- CLAUDE.md: Update debug system documentation to reflect new architecture\n\nTags: debug, diagnostics, pwa, alpha\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: minor\n\nhttps://claude.ai/code/session_01KWPHuYLV1weWg2cFm9VtjN",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "debug-system",
   "semver": "minor",
-  "scope": "debug",
-  "title": "complete debug system with console interception, PWA diagnostics, and production availability",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 6,
     "additions": 336,

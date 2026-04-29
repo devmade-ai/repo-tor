@@ -1,17 +1,11 @@
 {
   "sha": "e4a44b9",
-  "fullSha": "e4a44b95cae734f567a93c7d411c698105570cc2",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-05T22:29:18Z",
-  "commitDate": "2026-04-05T22:29:18Z",
   "subject": "refactor(styling): replace withAlpha() inline styles with Tailwind opacity modifiers",
   "body": "Migrate ~30 static withAlpha() calls and rgba() strings to Tailwind CSS\nopacity modifier classNames (bg-primary/15, border-base-content/10,\nbg-black/80, etc.). Reduces inline style objects and leverages Uniwind's\nfull support for Tailwind v4 opacity syntax.\n\nKey changes:\n- ChatListItem: card colors via className, simplified createCardStyles()\n- BubbleContent: own bubble bg/border, tone label bg, timestamps via className\n- bubbleStyles: removed border color from receivedBubble (now className)\n- ReplyReference/ReactionBar: fully className-based, removed withAlpha import\n- Modal backdrops: rgba(0,0,0,0.8) → bg-black/80 across 4 modals\n- DesktopLayout/home.tsx: header glass, ALPHA badge, action buttons via className\n- InstallInstructionsModal: step badge and info note via className\n- ChatPanel/chat screen: header borders via className\n- join screens: error boxes via className\n\nwithAlpha() retained for: Ionicons color props, placeholderTextColor,\nActivityIndicator, conditional/dynamic runtime colors, CSS gradients.\n\nNet reduction: -151 lines across 19 files.\n\nTags: styling, tailwind, code-quality, cleanup\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theming\nSemver: patch\n\nhttps://claude.ai/code/session_012JvcWBL7DAWLeDbMpXjeg9",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "theming",
   "semver": "patch",
-  "scope": "styling",
-  "title": "replace withAlpha() inline styles with Tailwind opacity modifiers",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 19,
     "additions": 101,

@@ -1,17 +1,11 @@
 {
   "sha": "a81289f",
-  "fullSha": "a81289f848db8b23869fed5a23abca9062af2eff",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-03T23:16:42Z",
-  "commitDate": "2026-04-03T23:16:42Z",
   "subject": "docs(claude): align CLAUDE.md with upstream glow-props shared patterns",
   "body": "Systematically compared SyncTone CLAUDE.md against the full glow-props\nupstream reference and applied all applicable changes to strengthen\nconsistency and completeness.\n\nChanges:\n- Add \"Fetching This File\" section with curl command for upstream reference\n- Add AI Notes: GITHUB_ALL_REPO_TOKEN, discontinued repos, CRITICAL TutorialModal\n- Add missing REMINDER lines for Code Standards, Prohibitions, Documentation, Triggers\n- Expand Documentation section to detailed Purpose/When/What/Why format\n- Separate Trigger behavior into distinct subsections (behavior + start/go)\n- Extract Suggested Implementations to docs/implementations/ (8 files)\n- Add Burger Menu implementation reference for ChatHeaderMenu.tsx pattern\n- Clean up External Reference to avoid duplication with Fetching This File\n- Update Project Structure to include docs/implementations/ directory\n\nTags: documentation, code-quality, cleanup, alignment\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: glow-props-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01GbaU7mCLP3RPLWhWacmhAE",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "glow-props-alignment",
   "semver": "patch",
-  "scope": "claude",
-  "title": "align CLAUDE.md with upstream glow-props shared patterns",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 11,
     "additions": 358,

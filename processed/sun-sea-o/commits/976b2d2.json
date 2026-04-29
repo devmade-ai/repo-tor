@@ -1,17 +1,11 @@
 {
   "sha": "976b2d2",
-  "fullSha": "976b2d2ed5856660d560b22e2df0619344810b67",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-22T19:50:14Z",
-  "commitDate": "2026-04-22T19:50:14Z",
   "subject": "docs(todo): reconcile Deployment & Configuration section with deployment reality",
   "body": "The section was written as if bootstrapping from scratch. Vercel has been\ndeploying through many commits, which means VITE_SUPABASE_URL,\nVITE_SUPABASE_ANON_KEY, and VITE_API_BASE_URL are already set to real\nvalues (the data-layer hooks boot against Supabase realtime + the\ntool-till-tees API regardless of AUTH_BYPASS_ENABLED — a placeholder\nURL would fail on first channel subscribe).\n\nRemaining owner-gated items clarified:\n- Flip AUTH_BYPASS_ENABLED — intentional per CLAUDE.md \"one environment\"\n  policy; note the mirrored backend switch required.\n- Verify Google OAuth in Supabase dashboard — only becomes relevant the\n  moment the bypass flips; may be untested until then.\n- Two-browser counterparty-flow testing with bypass off — the genuine\n  end-to-end regression gate.\n\nNo code change. Docs only.\n\nTags: docs, todo\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: custom-code-reduction\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "custom-code-reduction",
   "semver": "patch",
-  "scope": "todo",
-  "title": "reconcile Deployment & Configuration section with deployment reality",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 5,

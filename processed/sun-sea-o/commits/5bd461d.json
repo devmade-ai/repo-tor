@@ -1,17 +1,11 @@
 {
   "sha": "5bd461d",
-  "fullSha": "5bd461db8447f88f8d57beb7098704343f85c773",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T00:41:32Z",
-  "commitDate": "2026-04-21T00:41:32Z",
   "subject": "refactor(theme): narrow types, add debug observability, tighten CSS",
   "body": "- Export Theme union ('corporate' | 'business') so consumers (UI toggle\n  in Chunk 8, tests, debug surfaces) can type against the concrete set.\n  applyTheme keeps its string signature so ad-hoc themes pass without\n  casting — the union is the preferred shape, not a hard gate.\n- META_COLORS typed as Record<Theme, string> so the map can't drift\n  silently from the theme catalog.\n- resolveInitial returns {source: 'storage' | 'os'} for debugLog context.\n- HMR guard: module-level `initialized` flag so Vite hot-reload re-running\n  main.tsx can't attach duplicate storage/matchMedia listeners.\n- debugLog('theme', ...) emissions for init, apply, cross-tab sync, OS\n  preference change, and storage-cleared-elsewhere. Theme is infrequent\n  enough to log every event without flooding the DebugPill buffer.\n- index.css: annotate color-scheme base layer as a belt-and-braces safety\n  net (DaisyUI's per-theme CSS already handles it with higher specificity,\n  kept only for the CSS-failed-to-load fallback case).\n- index.css (print): replace fragile `.bg-slate-50` rule with theme-agnostic\n  `html, body, #root { background: white }`. Works whether the printed view\n  is rendering corporate, business, or a component still using slate-*\n  during migration.\n\nTags: refactor, theme, observability, typing\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "theme-dark-mode",
   "semver": "patch",
-  "scope": "theme",
-  "title": "narrow types, add debug observability, tighten CSS",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 43,

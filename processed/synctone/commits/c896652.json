@@ -1,17 +1,11 @@
 {
   "sha": "c896652",
-  "fullSha": "c8966525b3f02a265a5ed27d1168f8d1ec10c9fa",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-04T22:20:02Z",
-  "commitDate": "2026-04-04T22:20:02Z",
   "subject": "fix(theme): use correct DaisyUI -content text colors for all bg-* backgrounds",
   "body": "Audited all components and fixed 14 instances where background colors were\npaired with text-base-content instead of the matching -content class. DaisyUI\nconvention: bg-{color} should use text-{color}-content for readable contrast.\n\nFixes: Toast (success/error/info), TutorialModal (primary), MessageActionSheet\n(primary, secondary), ReactionBar (primary), ReportMessageModal (error,\nsecondary, primary radio dot), create/join screens (accent, secondary),\nhome error button (accent), chat error button (secondary).\n\nTags: theme, ui, code-quality, cleanup\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: uniwind-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01Gh9v3fwMHqZP5MbcrUgRuY",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "uniwind-migration",
   "semver": "patch",
-  "scope": "theme",
-  "title": "use correct DaisyUI -content text colors for all bg-* backgrounds",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 10,
     "additions": 21,

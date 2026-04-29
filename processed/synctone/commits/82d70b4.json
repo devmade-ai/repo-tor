@@ -1,17 +1,11 @@
 {
   "sha": "82d70b4",
-  "fullSha": "82d70b4b5b063a6ac9ba1c99be55877068b4d0e3",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-22T10:39:40Z",
-  "commitDate": "2026-04-22T10:39:40Z",
   "subject": "docs(todo): restore pattern triage decisions (task confirm item #9)",
   "body": "The fleet-alignment task spec (Part A) required:\n\"For each [of HTTPS_PROXY, KEY_LESSONS, TIMER_LEAKS], decide... Record\neach decision in docs/TODO.md before acting.\"\n\nCommit 2202a71 recorded all three decisions. Commit 1b66ca7 removed the\nblock with rationale \"those items described completed work; git history\nis the changelog\" — but that reasoning mis-applied the \"git is the\nchangelog\" rule to a spec-required persistent record. Re-running the\ntask's own confirm checklist caught the regression: `grep -cE\n\"HTTPS_PROXY|KEY_LESSONS|TIMER_LEAKS\" docs/TODO.md` was returning 2,\nnot covering all three.\n\nRestore the block under a new `## Pattern Triage Record (2026-04-22)`\nsection so its status-as-record (not active task) is obvious, and fold\nthe Cross-repo actions section into it — TIMER_LEAKS's upstream-PR\naction was already described within the triage record, so the separate\nCross-repo actions heading was redundant and created two places for\nthe TIMER_LEAKS decision to drift.\n\nAll 9 task confirm criteria now pass.\n\nTags: documentation, fleet-alignment, regression-fix\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch",
   "tags": [
@@ -22,13 +16,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "patch",
-  "scope": "todo",
-  "title": "restore pattern triage decisions (task confirm item #9)",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#9"
-  ],
   "stats": {
     "filesChanged": 1,
     "additions": 42,

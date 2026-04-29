@@ -1,17 +1,11 @@
 {
   "sha": "7d92b77",
-  "fullSha": "7d92b7799bccd5b9b52ace8cad28a3c89ac98852",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-15T20:40:05Z",
-  "commitDate": "2026-04-15T20:40:05Z",
   "subject": "fix(a11y): SettingsPane View Level uses native fieldset + radio inputs",
   "body": "The View Level radiogroup was a custom ARIA pattern with three\n`<div role=\"radio\" tabIndex={0}>` elements. Three accessibility issues:\n\n  1. Every option had `tabIndex={0}` — Tab cycled through all 3\n     individually instead of jumping past the radiogroup as a unit.\n  2. No arrow-key navigation between options. WAI-ARIA radiogroup\n     pattern requires Up/Down/Left/Right to move focus between radios;\n     the original onKeyDown handled only Enter/Space.\n  3. Screen readers announced \"1 of 3\" three times per group (once\n     per div), instead of once for the whole group with each radio\n     just announcing its label + checked state.\n\nReplaced with the native HTML pattern:\n  - `<fieldset>` + `<legend>` for the group container/label\n  - `<input type=\"radio\" name=\"view-level\">` per option (HTML radio\n    group association via shared `name` attribute)\n  - `<label>` wrapping each input + descriptive content (clicking\n    anywhere on the label toggles the input via native `for`-less\n    label association)\n  - DaisyUI `radio radio-primary` for the visual radio bullet\n  - `aria-describedby` linking each input to its description text\n\nNative HTML handles all three problems for free:\n  - Roving tabindex: only ONE radio in a group is in the tab order\n    at a time (the checked one if any, otherwise the first)\n  - Arrow-key navigation: Up/Down/Left/Right move focus between\n    radios in the same `name` group, automatically checking the\n    focused one\n  - Screen reader announces \"View Level, radio group, Executive,\n    1 of 3, checked\" for the group + first radio, then \"Management,\n    2 of 3, not checked\" etc. as user navigates\n\nThe visual layout (TOGGLE_ROW_CLASSES) is unchanged. The radio\nbullet is `order-2` so it appears on the right of the row (matching\nthe previous checkmark icon position) instead of the default left.\n\nVerified:\n  - vite build clean\n  - 60/60 tests pass\n  - .radio + .radio-primary classes ship in built CSS\n\nTags: fix, a11y, ui, daisyui\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: vanilla-daisyui-audit\nSemver: patch",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "vanilla-daisyui-audit",
   "semver": "patch",
-  "scope": "a11y",
-  "title": "SettingsPane View Level uses native fieldset + radio inputs",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 44,

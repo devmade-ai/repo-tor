@@ -1,17 +1,11 @@
 {
   "sha": "ef30c5b",
-  "fullSha": "ef30c5bf8ece688af4ca47a1995c27094d71fb14",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-06T06:53:53Z",
-  "commitDate": "2026-04-06T06:53:53Z",
   "subject": "fix(graph): remove duplicate toolbar comment, scope Escape handler to open state",
   "body": "Two cleanup fixes found during review:\n\n1. Removed duplicate comment block in App.tsx toolbar section — the original\n   was left in when the new one was added during graph settings implementation.\n\n2. GraphSettingsPopover's useEscapeKey now only fires when open=true. Previously\n   it registered a global keydown listener unconditionally, which could interfere\n   with other modals' Escape handlers when the popover was closed.\n\nTags: graph, cleanup, accessibility\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: graph-styling\nSemver: patch\n\nhttps://claude.ai/code/session_018d3PqkTDHTTaWEi28E4Rg3",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "graph-styling",
   "semver": "patch",
-  "scope": "graph",
-  "title": "remove duplicate toolbar comment, scope Escape handler to open state",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 4,

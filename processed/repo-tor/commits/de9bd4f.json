@@ -1,17 +1,11 @@
 {
   "sha": "de9bd4f",
-  "fullSha": "de9bd4f8c25c7950c682592edeee7215e7bc37f8",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-13T08:58:13Z",
-  "commitDate": "2026-04-13T08:58:13Z",
   "subject": "fix(dashboard): drop DaisyUI v4 *-bordered cruft, clean stale comments",
   "body": "Post-migration audit of the 10-phase DaisyUI component-class sweep\nfound one real bug and a couple of stale documentation strings.\n\nReal bug — `input-bordered` / `select-bordered` are NOT DaisyUI v5\nclasses:\n\n- DaisyUI v5 (5.5.19) makes the border the default for `.input` and\n  `.select` component classes. The `-bordered` modifier was a v4\n  idiom that v5 replaced with `*-ghost` (for the no-border variant).\n- Phase 8 used `select select-bordered select-sm` and\n  `input input-bordered input-sm w-full`. The `-bordered` tokens\n  did not exist in the generated DaisyUI CSS, so Tailwind silently\n  dropped them. The controls still rendered bordered (v5's default),\n  so the visual result was correct, but the tokens were dead cruft\n  and the code lied about its intent.\n- Grep verification after the fix: `grep -oE \"\\\\.input-bordered|\n  \\\\.select-bordered\" dist/assets/index-*.css` returns zero matches\n  both before and after the fix — confirming the tokens never\n  contributed a single rule. The fix is a pure code-hygiene change\n  with no behavioral delta.\n\nCleanup:\n- SettingsPane.jsx: `select select-bordered select-sm` ->\n  `select select-sm` for both work hour selects.\n- FilterSidebar.jsx: `input input-bordered input-sm w-full` ->\n  `input input-sm w-full` for both date inputs.\n- Toast.jsx: header comment said `toast toast-top toast-center`\n  while the implementation uses `toast toast-bottom toast-center`.\n  Aligned the comment with the code.\n- styles.css: the focus-visible comment block for `.tab-btn` /\n  `.collapsible-header` / `.filter-multi-select-trigger` referenced\n  \"Phase 7 migrates this\" and \"Phase 10 stretch\" as if those phases\n  were still pending. Updated to describe the current state\n  (composition layering alongside DaisyUI's `.tab`, custom listbox\n  with no DaisyUI primitive available).\n\nVerified:\n- `./node_modules/.bin/vite build` clean.\n- `node --test scripts/__tests__/oklchToHex.test.mjs` — 21/21 pass.\n- Grep audit of dashboard/js confirms no other `*-bordered` tokens\n  survive.\n\nTags: ui, refactor, daisyui, bugfix, audit, cleanup\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "daisyui-component-migration",
   "semver": "patch",
-  "scope": "dashboard",
-  "title": "drop DaisyUI v4 *-bordered cruft, clean stale comments",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 12,

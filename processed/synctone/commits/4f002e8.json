@@ -1,17 +1,11 @@
 {
   "sha": "4f002e8",
-  "fullSha": "4f002e89e40b40afbfeab74b588c46b06c5eea9f",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-24T20:56:19Z",
-  "commitDate": "2026-04-24T20:56:19Z",
   "subject": "docs(session-notes): fix drift — updated discriminator + assertion count",
   "body": "Two small doc-drift fixes caught in the final audit before merge:\n\n- docs/SESSION_NOTES.md item 4 (usePWAUpdate hardening): was still\n  showing the pre-refactor `checkForUpdates: Promise<'done' | ...>`\n  return type. Updated to the post-refactor `'up-to-date' |\n  'update-available' | ...` with a one-line rationale (the split\n  dodges the stale-React-state race). Also removed the forward-looking\n  \"future Check for Updates UIs can dispatch...\" since that UI now\n  exists in SettingsModal (cross-ref to the `undone` pass).\n- docs/SESSION_NOTES.md item 7 (Cross-pattern infrastructure): was\n  saying \"46 assertions\" — actual count is 47 after the wrap-pass\n  added marker-presence + parseable-array assertions to\n  verify-inline-scripts.mjs.\n\nAlso re-committing public/version.json from the fresh-build verification\nrun, so deployed clients see a new buildTime and the PWA update path\ncorrectly detects this commit as a new version.\n\nTags: docs, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01UiYobyYgDFYNeVKZrChVXH",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "patch",
-  "scope": "session-notes",
-  "title": "fix drift — updated discriminator + assertion count",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 3,

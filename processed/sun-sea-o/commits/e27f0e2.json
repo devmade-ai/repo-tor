@@ -1,17 +1,11 @@
 {
   "sha": "e27f0e2",
-  "fullSha": "e27f0e26b8d658cc3bc33a4cebdaef9a2054f14e",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T15:12:48Z",
-  "commitDate": "2026-04-21T15:12:48Z",
   "subject": "docs: refresh session notes, TODO, testing guide post-theme-picker",
   "body": "The 4-day branch shipped six tasks (theme plumbing → semantic-token\nmigration → audit fixes → burger menu → theme picker). Docs caught up:\n\n- SESSION_NOTES.md: full rewrite. Lists every sub-task chronologically,\n  current state of build/lint, key context for the next session\n  (storage schema is now 2-key, hex duplication is documented and\n  expected, manual browser verification is the outstanding gate).\n- TODO.md: drop done Chunks 8 (UI theme toggle) + 9 (DaisyUI semantic\n  migration) — both shipped this branch. Refine former Chunk 10\n  (auto-generated hex script) with concrete steps + escalation criterion\n  (\"worth the effort once we have 3+ combos\"). Add a checklist for the\n  next person adding a 2nd combo (5 places need updating, including the\n  unavoidable inline-bootstrap mirror).\n- TESTING_GUIDE.md: two new scenarios under the Theme section — Burger\n  Menu Toggle (keyboard nav + keepOpen + Escape behavior) and Picker\n  Cross-tab Combo Sync (verifies the useActiveCombo MutationObserver +\n  storage event handle the case once ≥ 2 combos exist).\n\nNo code changes. Builds, lint pass.\n\nTags: docs, session-notes, testing\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theme-picker\nSemver: patch",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "theme-picker",
   "semver": "patch",
-  "scope": null,
-  "title": "refresh session notes, TODO, testing guide post-theme-picker",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 54,

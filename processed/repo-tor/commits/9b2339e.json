@@ -1,17 +1,11 @@
 {
   "sha": "9b2339e",
-  "fullSha": "9b2339e4a8b61f1aa5f62034c8d61213f1383c7d",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-16T01:57:58Z",
-  "commitDate": "2026-04-16T01:57:58Z",
   "subject": "refactor(hamburger): drop max-w bracket value — use JS-measured maxWidth",
   "body": "Removes the `max-w-[calc(100vw-2rem)]` arbitrary bracket value\nexception from CLAUDE.md. The dropdown's max-width is now computed\nat runtime from `window.innerWidth - 32` in the same\n`useLayoutEffect` measurement pass that computes `top`/`left` portal\npositioning — applied as an inline `style={{ maxWidth }}` alongside\nthe existing portal position props.\n\nBefore:\n  className=\"... max-w-[calc(100vw-2rem)] ...\"\n  style={{ top, left }}\n\nAfter:\n  className=\"... (no max-w bracket value) ...\"\n  style={{ top, left, maxWidth }}\n\nWhy this is strictly better than the CSS approach:\n\n1. `window.innerWidth` excludes scrollbar width on browsers where\n   the scrollbar overlaps the viewport (mobile Safari, Chrome\n   on iOS/Android). CSS `100vw` includes the scrollbar, so the\n   previous approach left a slightly wider-than-intended max on\n   those browsers. The JS version is tighter and correct.\n\n2. The `maxWidth` is already being computed in the same\n   `useLayoutEffect` that measures the trigger button's\n   `getBoundingClientRect` — zero additional DOM reads. The\n   measurement runs on open, on resize, and on scroll (with\n   passive + capture for nested scroll containers), so viewport\n   changes are always reflected.\n\n3. Eliminates the fourth (and last removable) arbitrary bracket\n   value exception from CLAUDE.md. The remaining 3 exceptions\n   are genuine capability gaps where stock Tailwind has no\n   equivalent: z-21 (between z-20 and z-30), z-70 (above\n   Tailwind's z-50 ceiling), and grid-cols-[auto_repeat(7,1fr)]\n   (mixed auto + repeat() grid template). None can be eliminated\n   by moving to JS without losing the utility-class benefit.\n\nCLAUDE.md bracket-value exception list trimmed from 4 items to 3.\nThe removed entry carries a one-line note explaining the\nreplacement for traceability.\n\nTripwire test `ALLOWED_BRACKETS` set updated from 4 items to 3.\nComment added explaining the removal.\n\nFiles touched:\n  - dashboard/js/components/HamburgerMenu.jsx — updatePosition\n    now computes maxWidth; className drops max-w-[calc(...)]\n  - CLAUDE.md — exception list entry replaced with removal note\n  - scripts/__tests__/daisyui-surfaces.test.mjs — allowlist trimmed\n\nBuild clean, 63/63 tests pass.\n\nTags: refactor, vanilla-daisyui, hamburger-menu\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "post-audit-cleanup",
   "semver": "patch",
-  "scope": "hamburger",
-  "title": "drop max-w bracket value — use JS-measured maxWidth",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 35,

@@ -1,17 +1,11 @@
 {
   "sha": "92714d2",
-  "fullSha": "92714d2632ba3ec3efe26d6c667c85a15365c5b2",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-04T08:10:28Z",
-  "commitDate": "2026-04-04T08:10:28Z",
   "subject": "fix(theme): fix double opacity modifiers and stale bg-errorBg class",
   "body": "Audit found 4 issues from the className migration batch:\n\n1. Double opacity modifiers in BubbleContent.tsx and ChatListItem.tsx:\n   `text-textSecondary/70` was replaced to `text-base-content/70/70`\n   because the batch replaced `text-textSecondary` → `text-base-content/70`\n   without accounting for existing Tailwind opacity suffixes.\n   Fixed: /70/70 → /50 (compound 0.7*0.7), /70/60 → /40 (compound 0.7*0.6)\n\n2. Stale `bg-errorBg` className in join/index.tsx and join/[code].tsx:\n   This was a custom color from the old tailwind.config.js that wasn't\n   in the replacement batch list. Replaced with inline style using\n   withAlpha(colors.error, 0.1) for theme-aware error backgrounds.\n\nTags: theme, bugfix, cleanup\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: patch\n\nhttps://claude.ai/code/session_01B19ShhBXLzVzbptkz9Tuew",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "theme-system",
   "semver": "patch",
-  "scope": "theme",
-  "title": "fix double opacity modifiers and stale bg-errorBg class",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 12,

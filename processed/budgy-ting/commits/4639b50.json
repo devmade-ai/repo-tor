@@ -1,17 +1,11 @@
 {
   "sha": "4639b50",
-  "fullSha": "4639b50a0d8fab0086ab3670163e051f76a1fd3d",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-09T21:35:10Z",
-  "commitDate": "2026-04-09T21:35:10Z",
   "subject": "fix(pwa): Chromium fallback instructions were unreachable",
   "body": "The Chromium fallback instructions added to the install modal could\nnever be displayed because needsManualInstructions returned false for\nChromium browsers without a native prompt. The modal only opens when\nshowInstallPrompt is true, which requires either isNativeInstallAvailable\nor needsManualInstructions.\n\nFix: After the 5-second diagnostic timeout fires on a Chromium browser\nwithout a beforeinstallprompt event, set chromiumFallback ref to true.\nneedsManualInstructions now includes this flag, making the install\nbanner show \"How to Install\" with manual steps (address bar icon,\nbrowser menu). This covers the 90-day suppression window after a user\ndismisses Chrome's native prompt.\n\nAlso added clarifying comment for iOS Firefox → firefox-desktop mapping.\n\nTags: pwa, install, ux\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-system\nSemver: patch\n\nhttps://claude.ai/code/session_01JjbdKNBLFZ6CmJkVqngkqm",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "pwa-system",
   "semver": "patch",
-  "scope": "pwa",
-  "title": "Chromium fallback instructions were unreachable",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 15,

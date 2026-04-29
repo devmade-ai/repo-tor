@@ -1,17 +1,11 @@
 {
   "sha": "ef080d6",
-  "fullSha": "ef080d6182b34176b1d007cf976147ae76ca488c",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T08:29:05Z",
-  "commitDate": "2026-04-10T08:29:05Z",
   "subject": "cleanup(css): remove brand palette — DaisyUI theme colors are the brand",
   "body": "DaisyUI's semantic colors (primary, secondary, accent, etc.) are the\napp's brand identity now. Keeping a separate brand-* palette alongside\nDaisyUI creates two competing color systems — exactly what the migration\neliminated. Removed the 10-shade emerald brand scale.\n\nRetained: overspend (#ef4444), underspend (#22c55e), data-neutral\n(#6b7280) — these are fixed data-meaning colors for chart visualization,\nnot brand colors.\n\nTags: css, theme, cleanup\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01BPc1xJr4LVbLgvTxtZf2i1",
   "tags": [
@@ -22,14 +16,7 @@
   "debt": "paid",
   "epic": "daisyui-migration",
   "semver": "patch",
-  "scope": "css",
-  "title": "remove brand palette — DaisyUI theme colors are the brand",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#22",
-    "#6"
-  ],
   "stats": {
     "filesChanged": 1,
     "additions": 5,

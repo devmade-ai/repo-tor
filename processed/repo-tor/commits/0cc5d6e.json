@@ -1,17 +1,11 @@
 {
   "sha": "0cc5d6e",
-  "fullSha": "0cc5d6e23f7ae459a8ba8c02489548e2e3c4e91a",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-15T23:16:48Z",
-  "commitDate": "2026-04-15T23:16:48Z",
   "subject": "refactor(themes): getMetaColor fallback uses default theme's hex, not #808080",
   "body": "Removes the `themes.js #808080` entry from the hex-literal exception\nlist in CLAUDE.md. The fallback existed because getMetaColor() needed\nto return *some* hex string when a theme name wasn't in the META_COLORS\nmap — but the hardcoded neutral gray violated the vanilla-DaisyUI\n\"no hex literals in JS\" rule, even though it was documented as an\nexception.\n\nBefore:\n    export function getMetaColor(themeName) {\n        return META_COLORS[themeName] || '#808080';\n    }\n\nAfter: primary lookup against META_COLORS, debug-log on miss, then\nfall back to `META_COLORS[DEFAULT_LIGHT_THEME]`. The default-theme\nlookup is guaranteed by the generator's own build-time validation —\n`scripts/generate-theme-meta.mjs` refuses to regenerate the file if\nDEFAULT_LIGHT_THEME isn't in the generated META_COLORS map, so this\ncode path is safe by construction.\n\nThe new fallback has three properties the old gray didn't:\n\n  1. The returned hex matches an actual theme's `--color-base-100`\n     value (lofi's `#ebebeb` today), so the PWA status bar looks\n     coherent instead of \"stuck at #808080 grey\". Matters during the\n     window when a theme is added to scripts/theme-config.js but the\n     prebuild regenerator hasn't run yet — the meta tag shows the\n     default theme's colour, not a jarring neutral.\n\n  2. The source file dashboard/js/themes.js now contains ZERO hex\n     literals. Verified via grep — the only remaining `#` match is in\n     a comment describing the removal. The CLAUDE.md exception can be\n     dropped in the consolidation commit.\n\n  3. The debug-pill \"log\" tab now surfaces any unreachable-branch hit\n     via `debugAdd('theme', 'warn', ...)`, so if the generator ever\n     produces an inconsistent META_COLORS map the anomaly appears in\n     the diagnostic surface instead of silently rendering grey.\n\nThe Approach/Alternatives comment block above the function enumerates\nall four approaches that were considered (throw, gray literal, null,\ndefault lookup) so a future reader sees the reasoning without having\nto re-derive it from the commit history.\n\nVerified:\n  - Build clean (879.90 kB → 880.02 kB, +0.12 kB for the expanded\n    comment + debug-add call)\n  - 60/60 tests pass\n  - `grep '#[0-9a-fA-F]\\{6\\}' dashboard/js/themes.js` now matches only\n    the comment that describes the removal — no hex literals in code\n\nTags: refactor, resilience, vanilla-daisyui, debug\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
   "tags": [
@@ -22,13 +16,7 @@
   "debt": "paid",
   "epic": "post-audit-cleanup",
   "semver": "patch",
-  "scope": "themes",
-  "title": "getMetaColor fallback uses default theme's hex, not #808080",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#808080"
-  ],
   "stats": {
     "filesChanged": 1,
     "additions": 34,

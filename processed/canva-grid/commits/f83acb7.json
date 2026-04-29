@@ -1,17 +1,11 @@
 {
   "sha": "f83acb7",
-  "fullSha": "f83acb70516f1c2a586d1cc0171a5efd63dcf7db",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-01T23:57:06Z",
-  "commitDate": "2026-04-01T23:57:06Z",
   "subject": "refactor(mobile): align burger menu theme section with glow-props implementation",
   "body": "Rewrote the burger menu theme controls to match glow-props' actual\nimplementation (not just the suggested patterns). Key changes:\n\n- Dark mode toggle is a plain text button (\"Light mode\" / \"Dark mode\"),\n  not a toggle switch widget — matches glow-props\n- Theme list is always visible with scrollable max-h-52, not collapsed\n  behind an expandable chevron — matches glow-props\n- Section header shows \"Light themes\" / \"Dark themes\" above the list —\n  matches glow-props\n- Theme items show checkmark + name + description (ml-auto) — matches\n  glow-props layout exactly\n- Menu stays open on toggle and theme selection (children don't call\n  onClose), only action items close the menu — matches glow-props\n  data-close pattern\n- Removed ToggleSwitch component and expanded state — no longer needed\n- Cleaned up BurgerMenu.jsx: removed separator/trailing/preventClose\n  item properties, simplified to items + children pattern\n\nTags: ui, mobile, menu, theme, glow-props-alignment\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-ux\nSemver: minor\n\nhttps://claude.ai/code/session_01CArdGkf7Pw8EVWBHihPXvv",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "mobile-ux",
   "semver": "minor",
-  "scope": "mobile",
-  "title": "align burger menu theme section with glow-props implementation",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 73,

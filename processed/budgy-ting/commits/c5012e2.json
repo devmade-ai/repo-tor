@@ -1,17 +1,11 @@
 {
   "sha": "c5012e2",
-  "fullSha": "c5012e2fc519b5e8c90580482ecf83bf2643139c",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T11:27:37Z",
-  "commitDate": "2026-04-10T11:27:37Z",
   "subject": "fix(debug): make debug pill panel responsive to screen width",
   "body": "Panel had a fixed 360px width that overflowed on narrow viewports.\nNow uses calc(100vw-2rem) with a 360px max, and inner content uses\nmin-w-0/truncate instead of fixed max-widths so values shrink\ngracefully while labels stay readable.\n\nTags: debug, mobile, ux\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01BcrjMzrkT3CbZ9axt9gXnm",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "debug-system",
   "semver": "patch",
-  "scope": "debug",
-  "title": "make debug pill panel responsive to screen width",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 12,

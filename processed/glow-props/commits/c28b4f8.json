@@ -1,17 +1,11 @@
 {
   "sha": "c28b4f8",
-  "fullSha": "c28b4f8960d09734d37c498f87eae7edb1880947",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-06T22:17:59Z",
-  "commitDate": "2026-04-06T22:17:59Z",
   "subject": "docs(theme): give combo pattern equal treatment to per-mode independent",
   "body": "The combo pattern (Approach B) is used by 4 of 5 repos but was documented\nas a short \"Variant\" afterthought. Now both approaches get full coverage:\n\n- Restructured persistence section: \"Approach A\" (per-mode, 3 keys) vs\n  \"Approach B\" (combos, 2 keys) with comparison table\n- Added combo-specific: applyTheme with combo resolution, getStoredTheme\n  for combos, getMetaColor per combo side, combo validation\n- Added combo flash prevention bootstrap script with inline combo map\n- Added combo cross-tab sync for vanilla JS, React, and React Native\n- Added combo catalog structure with metaColorLight/metaColorDark per combo\n- Updated Key Lessons: new #5 (choose one approach), renumbered 5-24 → 5-26,\n  added #15 (combo map duplication in bootstrap)\n\nTags: documentation, theme, dark-mode, combos\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pattern-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01TWRtgwM2KfYuNoaMzR7r4V",
   "tags": [
@@ -23,14 +17,7 @@
   "debt": "paid",
   "epic": "pattern-alignment",
   "semver": "minor",
-  "scope": "theme",
-  "title": "give combo pattern equal treatment to per-mode independent",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#5",
-    "#15"
-  ],
   "stats": {
     "filesChanged": 1,
     "additions": 234,

@@ -1,17 +1,11 @@
 {
   "sha": "08478da",
-  "fullSha": "08478daaf11825ae7f129231a09ddd67da705cfe",
   "author_id": "noreply@anthropic.com",
   "author": {
     "name": "Claude",
     "email": "noreply@anthropic.com"
   },
-  "committer": {
-    "name": "Claude",
-    "email": "noreply@anthropic.com"
-  },
   "timestamp": "2026-01-12T07:32:51+00:00",
-  "commitDate": "2026-01-12T07:32:51+00:00",
   "subject": "feat: complete pricing calculator with all 5 models + remove legacy code",
   "body": "Pricing Calculator (Mode 1):\n- Implemented all 5 pricing models with equilibrium analysis:\n  * Subscription (SaaS): Monthly recurring revenue\n  * Usage-Based: Pay per unit (API calls, transactions)\n  * Per-Seat: Price per user/seat\n  * One-Time: Perpetual license + maintenance\n  * Marketplace: Commission-based model\n- Each model shows equilibrium zone (minimum to maximum viable price)\n- Displays suggested price, financial metrics, and ROI for both parties\n- Reactive calculations with proper input validation\n\nLegacy Cleanup:\n- Deleted entire /legacy/ folder (1.3MB vanilla JS code)\n- Updated CLAUDE.md to reflect new TypeScript + SvelteKit architecture\n- Removed ~50 legacy files (models, calculators, UI components)\n\nBoth modes now complete in new architecture:\n- Mode 1: Pricing Calculator (5 models)\n- Mode 2: Transaction Structuring (6 models, 47 variants)",
   "tags": [
@@ -21,11 +15,7 @@
   "complexity": 5,
   "urgency": 3,
   "impact": "user-facing",
-  "scope": null,
-  "title": "complete pricing calculator with all 5 models + remove legacy code",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 48,
     "additions": 488,

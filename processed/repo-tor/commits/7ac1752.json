@@ -1,17 +1,11 @@
 {
   "sha": "7ac1752",
-  "fullSha": "7ac17524338d830e45d6141454995714035be172",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-13T11:45:13Z",
-  "commitDate": "2026-04-13T11:45:13Z",
   "subject": "fix(a11y): loading spinners announce once, not twice",
   "body": "Third-pass audit finding. The post-audit review of the loading\nspinner migration surfaced a screen-reader redundancy: three of\nthe four migrated spinners had `aria-label=\"Loading\"` on the\nspinner AND were sitting beside visible \"Loading dashboard…\"\n(or similar) text. Screen readers would announce the message\ntwice — once from the spinner's aria-label, once from the\nadjacent paragraph.\n\nApplied the same WAI-ARIA 1.2 section 5.2.2 rule from the\nearlier Toast aria-live fix: don't stack live-region semantics\nwhen one element already carries the announcement.\n\nFixes:\n\n- App.jsx initial loading view:\n  - Container div gets `role=\"status\"` (implicit\n    aria-live=\"polite\" live region so screen readers hear the\n    Loading state announcement as soon as the div mounts).\n  - Spinner becomes `aria-hidden=\"true\"` (purely decorative).\n  - Visible \"Loading dashboard…\" <p> carries the actual message\n    via the container's live region.\n  - No explicit `aria-live` on the container — `role=\"status\"`\n    implies it, same as role=\"alert\" in the Toast fix.\n\n- sections/Timeline.jsx \"Loading commit details…\" state:\n  - Same treatment: container `role=\"status\"`, spinner\n    `aria-hidden=\"true\"`, visible text unchanged.\n\n- sections/Discover.jsx \"Loading file data…\" state:\n  - Same treatment.\n\n- sections/Projects.jsx empty-state spinner (the ONLY spinner\n  with no adjacent visible text):\n  - Container `role=\"status\"`.\n  - Spinner `aria-hidden=\"true\"`.\n  - NEW `<span className=\"sr-only\">Loading projects</span>`\n    sibling carries the message for screen readers (standard\n    Tailwind `sr-only` utility — shipped by default, verified\n    present in the built CSS).\n  - Visual layout unchanged (sr-only is positioned off-screen\n    via clip path, sighted users see only the spinner).\n\nAlso added a code-comment at the top of App.jsx's loading\nblock documenting the \"role='status' implies aria-live, don't\nduplicate it\" rule with a pointer to the earlier Toast fix so\nthe pattern is discoverable when someone reads this code next.\n\ndocs/TODO.md additions — two new \"Chart.js theme-tracking\"\nfollow-ups logged so they don't vanish into tribal knowledge:\n\n1. Chart.js single-accent fallback (`DEFAULT_ACCENT = '#2D68FF'`\n   in chartColors.js) doesn't track theme. In non-default\n   themes (`emerald`, `dracula`, etc.) the single-accent charts\n   (hour-of-day heatmap, some weekday bars) render in brand\n   blue while the rest of the dashboard follows the theme.\n   Not a correctness bug — embedder URL `?accent=hex` override\n   works — just a theme inconsistency for in-dashboard use.\n   Fix sketch + scope analysis included.\n\n2. Chart.js `seriesColors` 20-color palette is intentionally\n   hardcoded and embedder-customizable. Documented so a future\n   audit pass doesn't re-open this as a gap — it's deliberate\n   (data-viz perceptual distinctness needs more than 8 colors).\n\nVerified:\n- `./node_modules/.bin/vite build` clean.\n- `node --test scripts/__tests__/oklchToHex.test.mjs` 21/21.\n- `.sr-only` present in the built CSS (Tailwind ships it as\n  a utility by default).\n\nTags: a11y, accessibility, ui, refactor, audit, aria, cleanup\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
   "tags": [
@@ -23,13 +17,7 @@
   "debt": "paid",
   "epic": "daisyui-component-migration",
   "semver": "patch",
-  "scope": "a11y",
-  "title": "loading spinners announce once, not twice",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#2"
-  ],
   "stats": {
     "filesChanged": 5,
     "additions": 31,

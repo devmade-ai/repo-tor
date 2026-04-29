@@ -1,17 +1,11 @@
 {
   "sha": "16d568f",
-  "fullSha": "16d568f74971e3fe5c36a4579e3570d7e87f7435",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-18T08:23:35Z",
-  "commitDate": "2026-04-18T08:23:35Z",
   "subject": "chore(claude-md): replace Triggers section with glow-props v2026-04-17",
   "body": "Cross-fleet policy: glow-props CLAUDE.md redesigned the Triggers\nsurface. Old 10-trigger single-word list (rev/aud/doc/tap/cln/perf/\nsec/dbg/imp + start/go meta) is superseded by 48 triggers in 8\ngroups, 6 cadence meta sweeps, 7 reflective passes, and scope\nmodifiers (branch / staged / file <path>).\n\nFetched glow-props CLAUDE.md via the GitHub API pattern (direct\nHTTPS to devmade-ai.github.io is blocked in this sandbox, so used\napi.github.com/repos/devmade-ai/glow-props/contents/CLAUDE.md with\nGITHUB_ALL_REPO_TOKEN). Extracted the ## Triggers section and dropped\nit in verbatim.\n\nVerification:\n- grep -c '^## Triggers$' CLAUDE.md → 1.\n- All 8 group headings present (Correctness / Security / Performance /\n  User-facing / Maintainability / Operational / Design-level / Fleet\n  alignment).\n- No old trigger rows (review/audit/start/improve) remain.\n- No old 'Trigger behavior' or '`start` / `go` behavior' subheadings.\n- Scope modifiers + Meta sweeps + Reflective passes sections all\n  present.\n- Byte-diff of the extracted Triggers section against the glow-props\n  source is empty (only difference was a stray blank line before the\n  next `## Implementation Patterns` heading — trimmed).\n\nName collision note added to AI Notes: `docs` / `types` / `config` /\n`api` / `state` / `tests` all double as repo folder/file/script names.\nPrecedence rule: interpret as a trigger only when the user's message\nis the bare word (optionally + a scope modifier); any in-sentence use\nis literal.\n\nTags: claude-md, triggers, fleet, policy\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: fleet-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "patch",
-  "scope": "claude-md",
-  "title": "replace Triggers section with glow-props v2026-04-17",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 149,

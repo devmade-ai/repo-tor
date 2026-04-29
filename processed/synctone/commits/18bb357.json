@@ -1,17 +1,11 @@
 {
   "sha": "18bb357",
-  "fullSha": "18bb3578a32e4c72e71d849374540aea8d2b1e35",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-04T12:56:57Z",
-  "commitDate": "2026-04-04T12:56:57Z",
   "subject": "feat(theme): add Retro combo (cupcake/synthwave) + combo selector",
   "body": "Add a second theme combo using the canva-grid pattern for multi-combo\ntheme selection. Users can now choose between Luxe and Retro styles\nin Settings, each with its own light/dark variant.\n\nTheme combos:\n- Luxe: fantasy (light) + luxury (dark) — rich & elegant [default]\n- Retro: cupcake (light) + synthwave (dark) — neon & playful\n\nNew files:\n- constants/themeCombos.ts: Combo definitions with IDs, names,\n  descriptions, light/dark theme IDs, and meta colors. Pattern\n  adapted from canva-grid's daisyuiThemes.js.\n\nModified files:\n- global.css: Add cupcake and synthwave @variant blocks (oklch values\n  from daisyui@5.5.19)\n- metro.config.js: Add cupcake/synthwave to extraThemes\n- lib/themeColors.ts: Add cupcake/synthwave hex values to THEME_HEX,\n  update ThemeName type, make resolveThemeName combo-aware\n- hooks/useTheme.ts: Add combo selection with persistence (COMBO_KEY),\n  cross-tab sync, expose setCombo/combo/combos in hook result\n- components/SettingsModal.tsx: Add Style combo picker UI between\n  Theme toggle and Notifications\n- uniwind-types.d.ts: Add cupcake/synthwave to theme type list\n- scripts/generate-theme-colors.mjs: Generate hex for all 4 themes\n- CLAUDE.md: Document combos, update architecture table and structure\n\nTags: theme, daisyui, feature, settings, combos\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: theme-system\nSemver: minor\n\nhttps://claude.ai/code/session_01B19ShhBXLzVzbptkz9Tuew",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "neutral",
   "epic": "theme-system",
   "semver": "minor",
-  "scope": "theme",
-  "title": "add Retro combo (cupcake/synthwave) + combo selector",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 9,
     "additions": 314,

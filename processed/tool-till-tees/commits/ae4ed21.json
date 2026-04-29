@@ -1,17 +1,11 @@
 {
   "sha": "ae4ed21",
-  "fullSha": "ae4ed21885f8a313e04bd67d142374b28eca2713",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-02-17T06:11:46+00:00",
-  "commitDate": "2026-02-17T06:11:46+00:00",
   "subject": "Fix Vercel 404s by restructuring project to deploy from repo root",
   "body": "Vercel's GitHub integration uses the repo root as the project root,\nbut all config and function files were nested inside an api/ subdirectory.\nThis caused vercel.json to not be found and serverless functions to map\nto /api/api/* instead of /api/*, resulting in 404s on all endpoints.\n\nFlatten the structure: move config files (vercel.json, package.json,\ntsconfig.json, etc.) to repo root, move serverless functions from\napi/api/ to api/, and place favicons at repo root for static serving.\nUpdate documentation paths accordingly.\n\nhttps://claude.ai/code/session_018GdxVNVycPS8x1KTytw3hi",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": null,
   "semver": null,
-  "scope": null,
-  "title": "Fix Vercel 404s by restructuring project to deploy from repo root",
-  "is_conventional": false,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 17,
     "additions": 3,

@@ -1,17 +1,11 @@
 {
   "sha": "9e6c049",
-  "fullSha": "9e6c049c81de961a1a522a42cde7c1a42dd81629",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T07:15:55Z",
-  "commitDate": "2026-04-10T07:15:55Z",
   "subject": "feat(theme): add Vivid combo (cmyk/night), set as default",
   "body": "Add new theme combo pairing DaisyUI's cmyk (light) with night (dark).\nSet as the default — cmyk is a clean white theme with vivid cyan-blue\nprimary, night is a deep navy with matching blue accents.\n\nAll 4 sync points updated:\n- src/config/themes.ts: vivid combo first, DEFAULT_COMBO = 'vivid'\n- src/index.css: cmyk --default, night --prefersdark\n- index.html: flash script combos + meta theme-color (#45b5e6/#0f1729)\n- vite.config.ts: manifest theme_color = #45b5e6\n\nTags: theme, daisyui, ux\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: daisyui-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01BPc1xJr4LVbLgvTxtZf2i1",
   "tags": [
@@ -23,14 +17,7 @@
   "debt": "neutral",
   "epic": "daisyui-migration",
   "semver": "minor",
-  "scope": "theme",
-  "title": "add Vivid combo (cmyk/night), set as default",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#45",
-    "#0"
-  ],
   "stats": {
     "filesChanged": 5,
     "additions": 21,

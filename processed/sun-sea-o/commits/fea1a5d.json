@@ -1,17 +1,11 @@
 {
   "sha": "fea1a5d",
-  "fullSha": "fea1a5d95b35d9a9e8355d4c5bfd5d4d6b6f29ab",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-20T23:07:13Z",
-  "commitDate": "2026-04-20T23:07:13Z",
   "subject": "docs(todo): reorganize backend TODOs; record backend-drift lesson",
   "body": "TODO.md:\n- Move the six database/edge-function items from \"Post-MVP Improvements\"\n  into \"Backend: tool-till-tees Additions\" — they live in tool-till-tees\n  and were using pre-migration \"RPC\"/\"edge function\" wording.\n- Update each item to tool-till-tees terminology (handler, endpoint,\n  Supabase schema object name) and link to the frontend call-site where\n  relevant.\n- Add a reminder at the top of the Backend section to verify against\n  tool-till-tees before citing any item as a blocker.\n- Reword the \"Production error reporting\" entry under Post-MVP to\n  acknowledge that the in-app capture via ErrorBoundary → debugLog has\n  shipped; only the remote sink remains.\n\nAI_MISTAKES.md:\n- New 2026-04-20 entry: don't trust TODO items describing sibling-repo\n  work without verifying. Records the undone-pass mistake from this\n  session, the curl pattern for cross-repo verification, and points at\n  the TODO.md reminder that now backs it up.\n\nTags: documentation, todo, ai-mistakes\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "cross-fleet-docs",
   "semver": "patch",
-  "scope": "todo",
-  "title": "reorganize backend TODOs; record backend-drift lesson",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 28,

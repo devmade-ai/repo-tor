@@ -1,17 +1,11 @@
 {
   "sha": "30e7913",
-  "fullSha": "30e79138358e24700dfcb6e854e6901883d9b75d",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-22T08:05:33Z",
-  "commitDate": "2026-04-22T08:05:33Z",
   "subject": "test(components): close coverage gaps + add CI workflow + apply non-breaking audit fixes",
   "body": "Follow-up to tier-4 test infrastructure. Plugs the gaps I called out in\nthe wrap reflection, lands CI so the suite is enforced, and applies the\nnon-breaking slice of npm audit fixes.\n\nCoverage gaps closed (3 additions):\n- ToneSelector: added tone-pill click-to-toggle test (the primary\n  interaction tier-4 didn't cover) plus over-limit disabled-pill\n  click-ignored regression.\n- TextArea: added the className-merge assertion that Input had but\n  TextArea was missing — parallel files stay parallel.\n- BurgerMenu: new test file (6 tests) covering closed state, open via\n  trigger, Escape-closes (load-bearing useEscapeKey + close\n  useCallback regression), reopen-after-Escape (listener-leak\n  regression), close-then-act 150ms delay with fake timers, keepOpen\n  items fire without closing.\n\nDocumentation:\n- Toast \"unstable onDone\" test annotated as a CONTRACT test, not a\n  Toast-bug regression — it documents React's effect-re-run\n  semantics that justify the useCallback KEEP on `clearToast`.\n- vite.config.ts: one-line cross-reference to vitest.config.ts at the\n  config block so readers don't hunt for test config.\n\nCI enforcement:\n- .github/workflows/ci.yml: single-job pipeline on ubuntu-latest,\n  Node 20. Runs `npm ci` → `npm run lint` → `npm run build` →\n  `npm test` on push to main + every PR. `concurrency` group cancels\n  in-flight runs on new pushes to the same ref. Without this, the\n  83-test suite was advisory; now it's binding.\n\nnpm audit fixes:\n- `npm audit fix` applied (non-breaking). 6 of 10 advisories\n  resolved; package-lock.json updates land here. 4 HIGH advisories\n  remain, all in the build-toolchain transitive chain\n  (serialize-javascript → @rollup/plugin-terser → workbox-build →\n  vite-plugin-pwa) — build-time only, not runtime-reachable. TODO.md\n  gets a \"Build-Toolchain Security\" section tracking the remediation\n  path (wait for upstream vite-plugin-pwa or `audit fix --force`).\n\nTest count: 83/83 passing (was 80/83; the 3 dist-level icon\ncache-bust tests now run because CI builds before testing).\ntsc -b clean, eslint clean, npm run build clean.\n\nTags: testing, ci, security, documentation\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: custom-code-reduction\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "custom-code-reduction",
   "semver": "patch",
-  "scope": "components",
-  "title": "close coverage gaps + add CI workflow + apply non-breaking audit fixes",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 9,
     "additions": 270,

@@ -1,17 +1,11 @@
 {
   "sha": "733731d",
-  "fullSha": "733731d74e9b9fb6151f773955628869aa29b4f4",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-19T14:05:45Z",
-  "commitDate": "2026-04-19T14:05:45Z",
   "subject": "feat(auth): add AUTH_BYPASS flag to disable authentication",
   "body": "AuthContext injects a mock user and skips Supabase auth when the flag is\non; the API client swaps the JWT for dev identity headers. Enabled by\ndefault (incl. prod) for now — flip AUTH_BYPASS_ENABLED to false in\nsrc/config/authBypass.ts to restore the normal flow.\n\nNote: tool-till-tees still validates JWTs, so backend calls will 401\nuntil the backend also accepts unauthenticated requests.\n\nTags: auth, dev, temporary\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: high\nDebt: added\nEpic: dev-auth-bypass\nSemver: minor",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "added",
   "epic": "dev-auth-bypass",
   "semver": "minor",
-  "scope": "auth",
-  "title": "add AUTH_BYPASS flag to disable authentication",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 50,

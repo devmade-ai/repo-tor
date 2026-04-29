@@ -1,17 +1,11 @@
 {
   "sha": "a645671",
-  "fullSha": "a6456715f6f8afbf58c5f6ae8e9541bf2900f6f6",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-25T15:49:06Z",
-  "commitDate": "2026-04-25T15:49:06Z",
   "subject": "fix(timers): apply TIMER_LEAKS pattern to glow-props itself",
   "body": "src/pwa.js + src/markdown.js had raw setTimeout/setInterval/addEventListener calls without cleanup paths. Both modules sit in Vite's module graph, so HMR re-evaluation was layering fresh listeners on top of the old ones every cycle: a new SW update interval, a new beforeinstallprompt listener, a new appinstalled listener, a new 1s install-fallback timer, and unbounded toast/copy-feedback timers.\n\nsrc/pwa.js:\n- swUpdateIntervalId, manualInstallTimeoutId, toastTimeouts[], beforeInstallPromptListener, appInstalledListener, domContentLoadedListener tracked at module scope\n- nested toast exit/remove timeouts pushed into the same array (variant 1)\n- window-level beforeinstallprompt + appinstalled wrapped behind window.__pwaModuleAttached HMR guard (variant 5)\n- import.meta.hot.dispose() drains every tracked id, removes every tracked listener, closes any open install modal, resets the HMR flag (variant 4)\n\nsrc/markdown.js:\n- feedbackTimeouts[] tracks the 1500ms button-text-reset timers in copyMarkdown + copyCodeBlock\n- import.meta.hot.dispose() clears them\n\nCloses the self-compliance gap surfaced by the 2026-04-25 fleet re-validation. TODO Cross-Cutting Gaps item 17 updated; glow-props moves from \"trailing items\" to \"fully clean\".\n\nTags: pwa, timers, hmr, cleanup, pattern-compliance\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: timer-leaks-pattern\nSemver: patch\n\nhttps://claude.ai/code/session_015awbkU5yyDJASgioN77uTW",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "timer-leaks-pattern",
   "semver": "patch",
-  "scope": "timers",
-  "title": "apply TIMER_LEAKS pattern to glow-props itself",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 87,

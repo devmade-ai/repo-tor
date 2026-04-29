@@ -1,17 +1,11 @@
 {
   "sha": "3d0e2c9",
-  "fullSha": "3d0e2c96e131540566f8da489182f6d1c8670a75",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T22:33:48Z",
-  "commitDate": "2026-04-02T22:33:48Z",
   "subject": "docs: clarify why Expo upgrade is a USER_ACTION (proxy limitation)",
   "body": "Attempted npx expo install — fails because Expo CLI uses fetch()\ninternally which doesn't respect HTTPS_PROXY. Updated the entry\nto explain the proxy limitation and that it needs a session with\ndirect network access, not that it's inherently manual.\n\nTags: documentation\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: maintenance\nSemver: patch\n\nhttps://claude.ai/code/session_01JiHLm7X1zVwrcYAJuVaPFN",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "neutral",
   "epic": "maintenance",
   "semver": "patch",
-  "scope": null,
-  "title": "clarify why Expo upgrade is a USER_ACTION (proxy limitation)",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 7,

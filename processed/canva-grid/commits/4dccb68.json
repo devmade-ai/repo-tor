@@ -1,17 +1,11 @@
 {
   "sha": "4dccb68",
-  "fullSha": "4dccb68ec708626f380d00f59ab2cf9fe9557d53",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-09T00:52:02Z",
-  "commitDate": "2026-04-09T00:52:02Z",
   "subject": "fix(mobile): second snapPoint falsy-zero in animation effect",
   "body": "The effectiveSnap variable was fixed to use ?? on line 59, but the snap\nanimation effect on line 74 still used snapPoint || SNAP_HALF. When\nsnapPoint is SNAP_CLOSED (0), || treats it as falsy and animates to\nSNAP_HALF instead of staying closed. Consistent with the same fix\nalready applied to effectiveSnap.\n\nTags: mobile, bugfix\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: branch-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01KWPHuYLV1weWg2cFm9VtjN",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "branch-audit",
   "semver": "patch",
-  "scope": "mobile",
-  "title": "second snapPoint falsy-zero in animation effect",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 1,

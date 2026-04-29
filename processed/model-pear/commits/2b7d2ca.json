@@ -1,17 +1,11 @@
 {
   "sha": "2b7d2ca",
-  "fullSha": "2b7d2ca400204c37d8948357fe07341754fb81d6",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T19:32:33Z",
-  "commitDate": "2026-04-10T19:32:33Z",
   "subject": "fix(debug): HMR double-wrap, re-entrancy guard, race condition, tick()",
   "body": "Three bug fixes and one code quality improvement:\n\n- debugLog.ts: Store true original console.error/warn on window so HMR\n  module re-execution doesn't nest wrappers (each cycle was adding a\n  layer that duplicated log entries). Add re-entrancy guard flag on\n  console interception — prevents infinite recursion if any subscriber\n  or library calls console.error during a debugAdd callback chain.\n\n- +layout.svelte: Add `destroyed` flag to dynamic import callback.\n  Without it, if the layout unmounts before the import resolves, the\n  cleanup function runs with pill=null, then the import creates an\n  orphaned pill that's never destroyed.\n\n- DebugPill.svelte: Replace setTimeout(0) with Svelte's tick() for\n  auto-scroll — tick() waits for pending DOM updates to flush, which\n  is the correct Svelte primitive for \"act after DOM update\". Remove\n  redundant `entries = debugGetEntries()` before subscribe — the\n  subscriber's immediate delivery already handles initialisation.\n\nTags: debug, hmr, race-condition, svelte\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_011693rELt3wTKg28uRw5BSR",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "debug-system",
   "semver": "patch",
-  "scope": "debug",
-  "title": "HMR double-wrap, re-entrancy guard, race condition, tick()",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 5,
     "additions": 44,

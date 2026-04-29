@@ -1,17 +1,11 @@
 {
   "sha": "8d8dd83",
-  "fullSha": "8d8dd83baffda62f8ba5e5b02cb7cac5086ba7c7",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T02:23:53Z",
-  "commitDate": "2026-04-02T02:23:53Z",
   "subject": "fix(ui): consistent text contrast, tab active state, burger menu backdrop",
   "body": "Three fixes:\n\n1. Text contrast — standardized across all 19 components:\n   - LayoutTab: replaced text-primary/40, text-secondary/40, text-primary/70,\n     text-secondary/70 with text-base-content/50 (disabled) and\n     text-base-content/70 (helper) to match every other tab\n   - All components: bumped text-base-content/40 to /50 for subtle labels,\n     category headers, and helper text (better dark theme readability)\n\n2. Tab active state — MobileNav only highlights a tab when the bottom sheet\n   is expanded. Previously Presets appeared active on load despite sheet\n   being closed.\n\n3. Burger menu backdrop — moved from inside BurgerMenu (trapped by header's\n   backdrop-blur-sm stacking context) to MobileLayout (outside header).\n   Backdrop at z-[45] now covers the full viewport so tapping outside\n   the menu reliably closes it.\n\nTags: ui, contrast, mobile, burger-menu, dark-theme\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "mobile-ux",
   "semver": "patch",
-  "scope": "ui",
-  "title": "consistent text contrast, tab active state, burger menu backdrop",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 19,
     "additions": 66,

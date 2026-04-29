@@ -1,17 +1,11 @@
 {
   "sha": "4a6fe76",
-  "fullSha": "4a6fe76ed3c024fbaaef9992f984c7bee61f7c74",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-05T00:35:57Z",
-  "commitDate": "2026-04-05T00:35:57Z",
   "subject": "fix(markdown): prevent content truncation from unescaped HTML in rendered markdown",
   "body": "Root cause: The markdown parser had a two-phase design where structural\nreplacements (headings, lists, paragraphs) injected raw captured text\nwithout escaping, then a catch-all pass (/>([^<]+)</g) tried to apply\ninline formatting to all text between HTML tags. This caused three bugs:\n\n1. TRUNCATION: Raw < in markdown (e.g. \"use <details>\") passed through\n   unescaped into innerHTML, creating real HTML elements that swallowed\n   all subsequent content. The catch-all regex treated < as a tag\n   boundary rather than content to escape.\n\n2. DOUBLE-ESCAPING: Code block content (already escaped by escapeHtml)\n   was re-processed by the catch-all pass, turning &lt; into &amp;lt;\n   and corrupting displayed code.\n\n3. DOUBLE-PROCESSING: Table cells (already formatted by inlineMarkdown\n   in the table handler) were re-processed, double-escaping entities.\n\nFix: Apply inlineMarkdown() directly in each structural replacement\n(headings, lists, blockquotes, paragraphs, checkboxes). This escapes\nHTML entities BEFORE injection into the HTML string, then applies\ninline formatting (bold, italic, links, code). The catch-all phase 2\npass is removed entirely.\n\nAdditional fixes:\n- Normalize \\r\\n and \\r line endings to \\n at parse start — Windows\n  line endings broke the code block regex which requires \\n after the\n  opening fence\n- Table headers now use inlineMarkdown (were using escapeHtml only,\n  missing bold/italic/link/code formatting in headers)\n- Paragraph regex updated to also skip lines starting with </ and <!\n  (closing tags and HTML comments from code block wrappers)\n\nTags: markdown, bugfix, truncation, xss-prevention\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: markdown-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01XLixoiabXWHoMeE3te5uYs",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "markdown-ux",
   "semver": "patch",
-  "scope": "markdown",
-  "title": "prevent content truncation from unescaped HTML in rendered markdown",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 22,

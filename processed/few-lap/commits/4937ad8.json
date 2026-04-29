@@ -1,17 +1,11 @@
 {
   "sha": "4937ad8",
-  "fullSha": "4937ad892e532a08c03769c6ddf9c826e5e20494",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-18T10:02:43Z",
-  "commitDate": "2026-04-18T10:02:43Z",
   "subject": "fix(debug): LogRow renders event + details through redactUrls (security/SEC1)",
   "body": "The Env tab redacts env.url at construction and debugGenerateReport\nruns a final redactUrls sweep before the clipboard copy — so Env-tab\nscreenshots and pasted reports are both screenshot-safe. But the\nLog tab's on-screen rendering of entry.event and entry.details did\nNOT redact. A screenshot of the open pill's Log tab could leak URLs\nthat the report-copy path would redact.\n\nConcrete leak:\n1. App does console.error('Failed:', new Error('POST https://api/?apikey=X ...'))\n   or debugAdd('supabase', 'error', 'Request failed',\n     { url: 'https://api.com/?apikey=SECRET' })\n2. Entry lands in buffer; event + details contain the URL.\n3. User opens DebugPill → Log tab. URL + apikey visible on screen.\n4. Screenshot → leaked.\n\nFix: apply redactUrls in LogRow at render time to both\n  - entry.event (string)\n  - the stringified entry.details (whether details is already a\n    string or an object that needs safeStringify)\n\nMatches the screenshot-safety pattern already applied to env.url.\nThe raw entry.details are still unmodified in the in-memory buffer\n(preserves programmatic access for any future debug tooling); only\nthe displayed strings go through redaction.\n\nNew test covers the exact chain LogRow uses:\n  redactUrls(typeof details === 'string' ? details : safeStringify(details))\nThree assertions: structured detail with URL, string detail with URL,\nevent string with URL. All three paths must not leak the query.\n\nOther security findings from the sweep:\n- window.__debugPushError / __debugClearLoadTimer exposed globals:\n  low-risk, XSS-safe by design (textContent, not innerHTML).\n- 'unsafe-inline' CSP for scripts: pre-existing tradeoff, not touched\n  by this branch.\n- Supabase anon key + Mapbox token: intentionally public per each\n  platform's security model (RLS server-side; URL-restricted token).\n- localStorage writes: timestamps + browser name, no PII.\n- Linking.openURL / window.open: hardcoded URLs only, no user-input\n  redirect surface.\n- eval / new Function: none.\n- Exposed secrets in branch code: none.\n\ntsc 0, jest 92/92 (up from 91 — one new `it` block with three asserts),\nexpo web build clean.\n\nTags: debug, security, privacy, redaction\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "debug-pill-hardening",
   "semver": "patch",
-  "scope": "debug",
-  "title": "LogRow renders event + details through redactUrls (security/SEC1)",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 37,

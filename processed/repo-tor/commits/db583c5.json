@@ -1,17 +1,11 @@
 {
   "sha": "db583c5",
-  "fullSha": "db583c5c2e8336e824ce9297e1f62a0c7f58cb49",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-12T13:49:02Z",
-  "commitDate": "2026-04-12T13:49:02Z",
   "subject": "feat(theme): single-source config + 4x4 catalog + burger-menu picker + reference-shape cross-tab handler",
   "body": "Closes all seven residual gaps against docs/implementations/THEME_DARK_MODE.md\ndocumented in the previous \"differences\" audit. The user asked for \"no\nshortcuts, no skipping\", so this pass implements every actionable gap and\nexplicitly documents why the two remaining items would be speculative\nabstraction (CLAUDE.md prohibition).\n\nGaps closed:\n\n1. (C#1) Theme catalog was string arrays — now [{ id, name, description }, ...]\n   per reference. Validator sets rebuilt via .map(t => t.id).\n\n2. (C#2 + C#3) Generator only rewrote themeMeta.js — now rewrites FOUR files\n   from a single source (scripts/theme-config.js) via BEGIN/END GENERATED\n   marker blocks:\n     - dashboard/js/generated/themeMeta.js (full rewrite)\n     - dashboard/js/themes.js theme-catalog block\n     - dashboard/styles.css daisyui-plugin block\n     - dashboard/index.html flash-prevention-meta block\n   Each write is content-equality checked so idempotent reruns don't bump\n   mtimes / trigger Vite HMR. Validates config at load time: fails fast on\n   invalid defaults, wrong color-scheme classification, or nonexistent\n   DaisyUI theme ids.\n\n3. (C#5) Cross-tab handler filtered theme events by current mode — now\n   dispatches unconditionally for darkMode / lightTheme / darkTheme keys,\n   matching the reference's setIsDark/setLightThemeState/setDarkThemeState\n   shape. AppContext reducer gains lightTheme/darkTheme state with no-op\n   early-return guards to skip re-renders when cross-tab events replay\n   the current value.\n\n4. (C#7) No theme picker UI — new menu items in Header.jsx filtered to\n   the current mode via LIGHT_THEMES / DARK_THEMES. Active theme gets\n   the highlight class + checkmark icon, inactive themes get a palette\n   icon. Each item has an explicit ariaLabel like \"Use Nord theme\n   (Cool blue-gray), currently active\".\n\n5. Catalog expanded from 1+1 to 4+4 curated themes (prerequisite for C#7):\n     light: lofi / nord / emerald / caramellatte\n     dark:  black / dim / coffee / dracula\n   All DaisyUI stock — no custom theme definitions. Sits inside the\n   reference's \"2-5 curated combos (or 8-10 themes per mode)\" range.\n\n6. Generator fail-fast validation (new this pass) — error paths tested:\n     - Invalid DEFAULT_*_THEME          -> error + exit 1\n     - Nonexistent theme id             -> error + exit 1\n     - Wrong color-scheme classification -> error + exit 1\n\n7. setTheme(themeName) helper — new useAppDispatch() export that infers\n   which mode the theme belongs to via validLightTheme/validDarkTheme and\n   dispatches SET_LIGHT_THEME or SET_DARK_THEME. Unknown ids silently\n   ignored (reducer guards prevent garbage state).\n\nDeliberately NOT addressed (speculative abstraction per CLAUDE.md):\n\n- (C#4) CSP hash for inline flash prevention script. No CSP deployed,\n  computing a hash that nothing verifies is dead code. Revisit when\n  CSP is added to vercel.json.\n\n- (C#6) Legacy localStorage key cleanup (theme / colorMode / dark-mode).\n  Our pre-DaisyUI system used the same darkMode key, nothing to clean up.\n  Adding a defensive safeStorageRemove would be a no-op runtime cost.\n\nNew files:\n- scripts/theme-config.js\n\nRewritten:\n- scripts/generate-theme-meta.mjs (reads theme-config.js, propagates to 4 files,\n  idempotent writes, fail-fast validation)\n\nModified:\n- dashboard/js/themes.js (BEGIN/END markers, object-shape catalog, updated\n  validators, removed obsolete \"currently one theme per mode\" caveat)\n- dashboard/styles.css (BEGIN/END markers around @plugin \"daisyui\" block)\n- dashboard/index.html (BEGIN/END markers inside inline flash prevention script)\n- dashboard/js/AppContext.jsx (lightTheme/darkTheme reducer state, new action\n  types + guards, darkMode effect reads from reducer state, unconditional\n  cross-tab dispatch, setTheme helper via dispatch context)\n- dashboard/js/components/Header.jsx (imports LIGHT_THEMES/DARK_THEMES, new\n  palette/check icons, menuItems memo builds theme picker for current mode)\n- dashboard/js/generated/themeMeta.js (regenerated with 8 themes' hex values)\n\nDocs:\n- CLAUDE.md (architecture list: theme-config.js + expanded generator description)\n- docs/SESSION_NOTES.md + docs/HISTORY.md (full chronology, gap-by-gap resolution)\n- docs/TODO.md (collapsed — only optional component-class migration left)\n- docs/TESTING_GUIDE.md (generator tests, error path tests, idempotence\n  cross-check, theme picker tests, \"add a new theme\" developer flow)\n- docs/USER_GUIDE.md (theme picker explanation with all 8 themes)\n\nBuild: passes. CSS bundle 150.64 KB -> 157.40 KB (+6.76 KB, +4.5%) from 6\nadditional DaisyUI theme CSS-variable blocks (each ~1 KB, expected and\nunavoidable). 84 modules transform. Only CSS warning is DaisyUI's internal\n@property --radialprogress (not ours).\n\nSmoke test via vite preview + curl:\n- Inline HTML flash prevention script: all 4+4 theme ids + 8 hex values\n- Built CSS: all 8 [data-theme=\"...\"] selectors (lofi..dracula)\n- Built JS: all 8 theme names and descriptions (Lo-Fi/Minimal monochrome\n  through Dracula/Dev classic)\n- Generator idempotent: second run reports all 4 files \"unchanged\"\n- All 9 critical custom class families survived the CSS grow\n\nTags: theme, daisyui, refactor, a11y, build, ui\nComplexity: 5\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-migration\nSemver: minor\n\nhttps://claude.ai/code/session_018prUZYyhuCZQGS1azip9bG",
   "tags": [
@@ -24,19 +18,7 @@
   "debt": "paid",
   "epic": "theming",
   "semver": "minor",
-  "scope": "theme",
-  "title": "single-source config + 4x4 catalog + burger-menu picker + reference-shape cross-tab handler",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#1",
-    "#2",
-    "#3",
-    "#5",
-    "#7",
-    "#4",
-    "#6"
-  ],
   "stats": {
     "filesChanged": 14,
     "additions": 831,

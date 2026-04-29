@@ -1,17 +1,11 @@
 {
   "sha": "7ae924b",
-  "fullSha": "7ae924b47b22bd703141905771e8bd3bd1b3d02a",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-16T01:57:34Z",
-  "commitDate": "2026-04-16T01:57:34Z",
   "subject": "refactor(scripts): split aggregate-processed.js (1042 → 556 + 289 + 231)",
   "body": "Retrospective finding: scripts/aggregate-processed.js was 1042 lines\n— over the 800-line strong-refactor threshold from CLAUDE.md \"Code\nOrganization\". Missed by three audit passes because `scripts/` was\nout of scope. The file contained ~700 lines of pure aggregation\nfunctions alongside the orchestrator/data-loading logic.\n\nSplit into two new library modules under `scripts/lib/`:\n\n  scripts/lib/aggregateCalcs.js (289 lines, NEW)\n    14 pure calculator functions: calcTagBreakdown,\n    calcComplexityBreakdown, calcUrgencyBreakdown,\n    calcImpactBreakdown, calcRiskBreakdown, calcDebtBreakdown,\n    calcEpicBreakdown, calcRepoCommitCounts, calcHourlyHeatmap,\n    calcSemverBreakdown, calcCodeStats, calcAverage, calcDateRange,\n    calcFilterOptions. All take a `commits` array and return a\n    summary object with no dependency on module-level state.\n\n  scripts/lib/aggregateTimeWindows.js (231 lines, NEW)\n    9 time-bucketing functions: getISOWeekKey, getUTCDateKey,\n    getUTCMonthKey, accumulateBucket, createEmptyBucket,\n    finalizeBucket, calcWeeklyAggregations, calcDailyAggregations,\n    calcMonthlyAggregations. Internal helpers (bucket system) are\n    module-private; time-key generators and the three windowed\n    aggregators are exported.\n\n  scripts/aggregate-processed.js (556 lines, trimmed from 1042)\n    Keeps: config, author mapping (loadAuthorMap, resolveAuthorId,\n    getAuthorInfo — these depend on module-level emailToCanonical\n    state), data loading (validateCommit, loadRepoCommits,\n    loadAllRepos), calcContributorAggregations (depends on\n    resolveAuthorId/getAuthorInfo), generateAggregation\n    (orchestrator), output, main. Imports the 14 + 5 exported\n    functions from the two new modules.\n\nBuild clean, 63/63 tests pass.\n\nTags: refactor, scripts, code-organization\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: post-audit-cleanup\nSemver: patch",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "post-audit-cleanup",
   "semver": "patch",
-  "scope": "scripts",
-  "title": "split aggregate-processed.js (1042 → 556 + 289 + 231)",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 524,

@@ -1,17 +1,11 @@
 {
   "sha": "2ff1e71",
-  "fullSha": "2ff1e715abcd8bfdea4448e91ed055ad7bf0585e",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-17T21:13:07Z",
-  "commitDate": "2026-04-17T21:13:07Z",
   "subject": "test(debug): cover console capture with jest instead of deferring to manual test",
   "body": "Replaces the \"please run console.error() in DevTools\" manual step\nwith 11 unit tests that run under jest. Covers:\n\n- console.error / console.warn each produce a source=console entry\n- Original console fns are still invoked (DevTools behaviour preserved)\n- First arg → event (truncated at 160 + ellipsis), rest → details\n- Error instances preserve their stack in details\n- Circular refs collapse to [Circular], React elements to [ReactElement]\n- reentrant guard prevents infinite recursion when a subscriber logs\n  to the console from within a subscription callback\n- __debugPatched sentinel makes the patch idempotent under Fast\n  Refresh / repeat module execution (no chained wrappers, no recursion)\n\nreact-native is mocked (Platform.OS: 'web', Platform.select, Dimensions)\nso the web-only patch activates under jest's node test environment\nwithout pulling in the jest-expo preset.\n\nTotals: 52 → 63 tests. Updated CLAUDE.md, SESSION_NOTES.md, and\nTESTING_GUIDE.md (test counts + dropped the manual step, kept the\nthree remaining crash-survival manual scenarios that genuinely\nrequire a browser).\n\nTags: debug, tests, automation\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "debug-pill-hardening",
   "semver": "patch",
-  "scope": "debug",
-  "title": "cover console capture with jest instead of deferring to manual test",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 137,

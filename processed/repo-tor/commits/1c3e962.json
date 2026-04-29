@@ -1,17 +1,11 @@
 {
   "sha": "1c3e962",
-  "fullSha": "1c3e96253c233d08304a1b88dde0fb9ddfeecef3",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-17T06:19:51Z",
-  "commitDate": "2026-04-17T06:19:51Z",
   "subject": "docs(claude): split Code Standards out of HARD RULES into its own section",
   "body": "HARD RULES used to carry double duty: non-negotiable runtime rules\nAND code-writing standards, all flattened into one section. The\ngiveaway was the orphan `### REMINDER: READ AND FOLLOW THE CODE\nSTANDARDS EVERY TIME` at the bottom of HARD RULES — a reminder\nreferencing a section name that didn't exist as a top-level heading.\n\nSplit into two sibling top-level sections:\n\n  ## HARD RULES\n    - Before Making Changes\n    - User Experience (CRITICAL)\n    - Documentation (+ its own REMINDER, unchanged)\n\n  ## Code Standards  (NEW)\n    - Best Practices\n    - Code Organization\n    - Decision Documentation in Code\n    - Frontend: Styles and Scripts\n    - Cleanup\n    - Quality Checks\n    - REMINDER: READ AND FOLLOW THE CODE STANDARDS EVERY TIME\n\nContent is byte-identical — only the parent headings and section\ngrouping changed. The Code Standards REMINDER now actually sits\nunder a Code Standards heading, matching the pattern of every\nother top-level section's REMINDER line.\n\nPlacement: Code Standards sits between HARD RULES and Cross-Project\nReferences so the prescriptive content stays grouped at the top of\nthe file, before project overview / architecture / configuration.\n\nTags: documentation, claude-md, refactor\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: communication-rules-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01BLFLX4RLenHz3mWYHbXVwj",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "communication-rules-alignment",
   "semver": "patch",
-  "scope": "claude",
-  "title": "split Code Standards out of HARD RULES into its own section",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 44,

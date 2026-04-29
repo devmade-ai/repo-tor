@@ -1,17 +1,11 @@
 {
   "sha": "4d003b5",
-  "fullSha": "4d003b597e0c416da93dc397a9a31ade7e9c156a",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-24T22:06:18Z",
-  "commitDate": "2026-04-24T22:06:18Z",
   "subject": "fix(edges): clamp storage bar + empty-state when all rows removed from review",
   "body": "Two edge cases from `edges branch`.\n\n1. Storage progress bar/aria-label could read >100%.\n   The WHATWG StorageManager spec allows `usage > quota` briefly — the\n   browser can shrink an origin's quota (user clears site data, domain\n   rebalancing between origins). Without a clamp, aria-label reads\n   \"Storage 105% used\" until the next loadStorageUsage() catches up.\n   Added Math.min(100, …).\n\n2. ImportStepReview rendered blank when user removed every row.\n   The new X-button delete flow (commit 561673a) lets users splice any\n   row out of the review list. Removing all rows left a blank area\n   with a disabled \"Import 0 transactions\" button and no path forward.\n   Added an empty-state card with a \"Go back to upload\" button wired\n   to the existing emit('back') contract.\n\nDropped from the audit:\n- \"CashflowGraph downloads for empty workspaces\" — verified wrong.\n  The chart is inside `<template v-else>` gated on\n  `transactions.length > 0`; empty-state workspaces correctly skip\n  the ApexCharts chunk download.\n- \"Tag-suggestion spinner is perpetual\" — useTagSuggestions has a\n  10s INFERENCE_TIMEOUT that resolves []; no infinite spin possible.\n- \"0% bar when quota is 0\" — the `quota > 0` guard at\n  loadStorageUsage prevents storageUsage being set, so the indicator\n  is hidden entirely in that case.\n\nType-check clean. 145/145 tests pass. Production build succeeds.\n\nTags: edges, import, storage, a11y\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "ux-polish",
   "semver": "patch",
-  "scope": "edges",
-  "title": "clamp storage bar + empty-state when all rows removed from review",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 23,

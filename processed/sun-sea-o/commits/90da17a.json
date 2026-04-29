@@ -1,17 +1,11 @@
 {
   "sha": "90da17a",
-  "fullSha": "90da17a1d1ea4e8c741e88b1269cc2b86d2a5ca9",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-20T00:12:49Z",
-  "commitDate": "2026-04-20T00:12:49Z",
   "subject": "docs(cleanup): verify backend — delete stale SPEC, trim dead TODO items",
   "body": "Checked the tool-till-tees repo via the GitHub API. Of the 8 items\ntracked in docs/SPEC_tool_till_tees_additions.md, 7 are shipped:\n\n- §1a intent/summary_* in validateModuleUpdate (lib/sancio/validation.ts:212–292)\n- §1b sender_tone in validateNoteInput (line 346)\n- §1c sender_tone in validateProposalInput (line 395)\n- §2a POST /projects/:id/accept-handshake (router line 45–47)\n- §2b POST /modules/:id/move (router line 77)\n- §2c POST /modules/batch-ready (router line 70)\n- §3a–3e unscoped GET handlers (all list handlers accept optional\n  parent IDs and fall back to user-scoped queries)\n\nOnly the bulk /api/sancio/module-versions endpoint is still missing —\nwhich is what makes useModules do an N+1 fetch.\n\nDeleted the SPEC file (now obsolete), stripped §N cross-references\nfrom the 7 src/ files that pointed at it, collapsed the TODO\n\"Backend: Implement tool-till-tees Additions\" section to the single\nremaining item, dropped the CLAUDE.md Architecture + README doc-index\nentries, and updated the CLAUDE.md AI Note to direct missing-field\nwork to docs/TODO.md instead of the deleted SPEC.\n\nTags: documentation, cleanup, backend-verification\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-fleet-docs\nSemver: patch",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "cross-fleet-docs",
   "semver": "patch",
-  "scope": "cleanup",
-  "title": "verify backend — delete stale SPEC, trim dead TODO items",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 12,
     "additions": 11,

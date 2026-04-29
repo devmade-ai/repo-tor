@@ -1,17 +1,11 @@
 {
   "sha": "4baf19d",
-  "fullSha": "4baf19d1d4c0850274b17fd9d73c8f9e69b6076f",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-09T05:09:13Z",
-  "commitDate": "2026-04-09T05:09:13Z",
   "subject": "fix(pwa): detect iOS browser variants (CriOS/FxiOS/EdgiOS) in detectBrowser",
   "body": "iOS Chrome uses CriOS, Firefox uses FxiOS, and Edge uses EdgiOS in their\nUA strings instead of Chrome/Firefox/Edg. Without detecting these, all\niOS non-Safari browsers fall through to 'safari' (their UAs contain\n\"Safari\" but not \"Chrome\"), making the iOS cross-redirect in\ngetInstallInstructions() dead code — it checks browser !== 'safari'\nwhich was always false on iOS.\n\nNow iOS Chrome → 'chrome', iOS Firefox → 'firefox', iOS Edge → 'edge'.\nThis enables the correct flow: supportsAutoInstall → 5s diagnostic\ntimeout (prompt never fires on iOS) → showManualInstructions → modal\nshows \"Open in Safari\" cross-redirect with explanation.\n\nTags: pwa, browser-detection, ios\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-reliability\nSemver: patch\n\nhttps://claude.ai/code/session_01AC1UWyZGqVwHGuu6SPJr72",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "pwa-reliability",
   "semver": "patch",
-  "scope": "pwa",
-  "title": "detect iOS browser variants (CriOS/FxiOS/EdgiOS) in detectBrowser",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 7,

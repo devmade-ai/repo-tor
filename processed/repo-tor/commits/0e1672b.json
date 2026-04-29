@@ -1,17 +1,11 @@
 {
   "sha": "0e1672b",
-  "fullSha": "0e1672b89eb2bf4fcea1a7392c19b568471e0a14",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-11T00:08:33Z",
-  "commitDate": "2026-04-11T00:08:33Z",
   "subject": "fix(build): exclude data dirs from Tailwind scanning, add test scenario",
   "body": "Tailwind v4 auto-scans all subdirectories of the CSS file. JSON data\nfiles in public/data-commits/ and public/repos/ contain commit history\nwith Tailwind-like class names (e.g. \"z-[9999] → z-[80]\" from other\nprojects' changelogs). This caused phantom z-index CSS utilities in\nthe build output — unused but violating the \"no ad-hoc values\" rule.\n\nFix: @source not directives in styles.css exclude both directories.\nBuild output now contains only scale-mapped z-index values.\n\nAlso:\n- Added z-index visual stacking test scenario (TESTING_GUIDE.md)\n- Documented hamburger menu stacking context limitation (TODO.md):\n  backdrop/dropdown trapped inside header z-21, drawers (z-30) render\n  above the backdrop. Fix would require portaling — low priority.\n\nTags: build, tailwind, z-index, testing, documentation\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: z-index-scale\nSemver: patch\n\nhttps://claude.ai/code/session_01MnhxXijTTmk9cxGLiWqh7R",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "z-index-scale",
   "semver": "patch",
-  "scope": "build",
-  "title": "exclude data dirs from Tailwind scanning, add test scenario",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 5,
     "additions": 30,

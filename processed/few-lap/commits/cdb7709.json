@@ -1,17 +1,11 @@
 {
   "sha": "cdb7709",
-  "fullSha": "cdb7709406b0b5793cd3a19f2a445bfe8721b43f",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-18T00:28:36Z",
-  "commitDate": "2026-04-18T00:28:36Z",
   "subject": "refactor(debug): reorder debugLog.ts top-down, no forward references",
   "body": "The file had helpers used on lines 199/230/239/273 but defined on\nlines 297/320/309 — a scavenger hunt for any reader trying to follow\nthe control flow. Every call worked via function hoisting, but\nreading debugLog top-down now matches execution order.\n\nNew structure (explicit section dividers in the source):\n  1. Imports\n  2. Public types (DebugSource, DebugSeverity, DebugDetails, DebugEntry)\n  3. Pure helpers (safeStringify, errDetails, redactUrls)\n  4. Pub/sub state + notifyAll\n  5. Public API (debugAdd, debugGetEntries, debugGetCounts,\n     debugClear, debugSubscribe)\n  6. Environment + report (consumes helpers from section 3)\n  7. Global error listener registration (consumes debugAdd +\n     errDetails)\n  8. installConsoleCapture() + boot log\n\nNo behaviour change — the order matters to readers, not to runtime.\ntsc 0, jest 83/83, expo web build clean.\n\nTags: debug, refactor, readability\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "debug-pill-hardening",
   "semver": "patch",
-  "scope": "debug",
-  "title": "reorder debugLog.ts top-down, no forward references",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 94,

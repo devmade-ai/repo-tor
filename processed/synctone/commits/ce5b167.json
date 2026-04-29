@@ -1,17 +1,11 @@
 {
   "sha": "ce5b167",
-  "fullSha": "ce5b167f07f763ab8c01d62d8b8aa0d8647138e7",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-22T20:57:00Z",
-  "commitDate": "2026-04-22T20:57:00Z",
   "subject": "feat(pwa): dedicated maskable icon + multi-size favicon.ico",
   "body": "Part A (maskable fix) and Part B (optional favicon) of the\nAPP_ICONS-maskable-fix task. Closes the manifest-level `purpose`\nreuse bug where /icon-512.png was listed twice (once for \"any\",\nonce for \"maskable\"); Android adaptive-icon was clipping the\ntail glow on some mask shapes because the source wasn't designed\naround the inner 80% safe-area circle.\n\n- `assets/icon-source-maskable.svg`: new dedicated maskable source.\n  Wraps the same chat-bubble + waveform content as the any-purpose\n  source in a `scale(0.80)` transform about canvas center so the\n  subject (including the 14-px-stdDev glow) sits comfortably inside\n  the 409.6-px safe-area radius on every adaptive-icon mask shape\n  (circle / squircle / teardrop / rounded-square). Same full-bleed\n  `#09002f` background so each mask lands on the brand color.\n- `scripts/generate-icons.mjs`: extended to render from both SVG\n  sources. New outputs: `public/icon-1024-maskable.png` (from the\n  maskable source) and `public/favicon.ico` (multi-size 16/32/48,\n  packed via `png-to-ico` from the any source). Same 400-DPI Sharp\n  render for crisp small-size output. Fails fast if either SVG\n  source is missing.\n- `public/manifest.json`: `purpose:\"maskable\"` entry now points to\n  `/icon-1024-maskable.png` at 1024x1024 (was the reused\n  `/icon-512.png` at 512x512).\n- `app/+html.tsx`: adds a `<link rel=\"icon\" href=\"/favicon.ico\">`\n  in the head for desktop browser tabs / bookmark bars / legacy\n  browsers that don't read the PWA manifest.\n- `package.json`: pin `png-to-ico` (devDep; build-time only — no\n  runtime cost). Installed at ^3.0.1.\n\nWhy `png-to-ico` and not ImageMagick/manual ICO: pure-JS,\nno system dependency, same Sharp-rendered PNG pipeline feeds into\nit — keeps the generator deterministic and CI-reproducible.\n\nVerified locally: `node scripts/generate-icons.mjs` produces the\nfull asset set; `file public/favicon.ico` confirms multi-size ICO;\n`file public/icon-1024-maskable.png` confirms 1024x1024 PNG.\n\nTags: pwa, app-icons, maskable, favicon\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: fleet-alignment\nSemver: minor",
   "tags": [
@@ -25,13 +19,7 @@
   "debt": "paid",
   "epic": "fleet-alignment",
   "semver": "minor",
-  "scope": "pwa",
-  "title": "dedicated maskable icon + multi-size favicon.ico",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#09002"
-  ],
   "stats": {
     "filesChanged": 8,
     "additions": 192,

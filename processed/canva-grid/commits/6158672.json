@@ -1,17 +1,11 @@
 {
   "sha": "6158672",
-  "fullSha": "615867215e7da4149ed05c762b8e533f0d64182a",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-03T10:31:57Z",
-  "commitDate": "2026-04-03T10:31:57Z",
   "subject": "fix(ui): adjust bottom sheet snap threshold to match new snap points",
   "body": "Change the half-to-full threshold from 65vh to 50vh so snap zones\nare evenly distributed: 0-30 (close), 30-50 (half), 50+ (full).\n\nTags: ui, mobile, bottom-sheet\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_015p3nW4ha6Rav5VqWzwaQVP",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "neutral",
   "epic": "mobile-ux",
   "semver": "patch",
-  "scope": "ui",
-  "title": "adjust bottom sheet snap threshold to match new snap points",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 1,

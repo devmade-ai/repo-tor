@@ -1,17 +1,11 @@
 {
   "sha": "8973797",
-  "fullSha": "897379774ab3043575886243d943d8f16aa2ee74",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-06T07:35:53Z",
-  "commitDate": "2026-04-06T07:35:53Z",
   "subject": "refactor(graph): remove redundant COMPONENT_COLORS, reuse LABEL_COLORS",
   "body": "COMPONENT_COLORS was a subset of LABEL_COLORS after both were darkened.\nSingle palette is simpler — connected components now index into\nLABEL_COLORS (15 colors instead of 10, slightly better variety).\n\nTags: graph, cleanup, simplification\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: graph-styling\nSemver: patch\n\nhttps://claude.ai/code/session_01FxPa13YHRJXi91G3SYF3yj",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "graph-styling",
   "semver": "patch",
-  "scope": "graph",
-  "title": "remove redundant COMPONENT_COLORS, reuse LABEL_COLORS",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 1,

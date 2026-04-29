@@ -1,17 +1,11 @@
 {
   "sha": "bdfee83",
-  "fullSha": "bdfee831f77385318b5baf5cc18705489fb3a537",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T22:29:26Z",
-  "commitDate": "2026-04-02T22:29:26Z",
   "subject": "feat(pwa): toast action buttons + one-tap update from check result",
   "body": "Add action button support to toasts so users can act directly from\nthe notification. Used for the \"Check for updates\" flow:\n\n1. User taps \"Check for updates\" in burger menu\n2. Toast: \"Checking for updates…\" (info)\n3. If update found: toast \"Update available!\" with [Update now] button\n4. Tapping [Update now] sends SKIP_WAITING to SW and reloads\n\nNew standalone applyUpdate() function in usePWAUpdate.ts — mirrors\nupdateApp() from the hook but works without the hook instance. Sends\nSKIP_WAITING message to waiting SW and reloads on controllerchange.\n\nToast changes:\n- showToast() accepts optional third arg: { label, onPress }\n- ToastItem renders action button with semi-transparent background\n- Action button dismisses the toast then runs the callback\n\nTags: pwa, toast, update-flow, ux\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pwa-system\nSemver: minor\n\nhttps://claude.ai/code/session_01JiHLm7X1zVwrcYAJuVaPFN",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "neutral",
   "epic": "pwa-system",
   "semver": "minor",
-  "scope": "pwa",
-  "title": "toast action buttons + one-tap update from check result",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 51,

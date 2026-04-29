@@ -1,17 +1,11 @@
 {
   "sha": "74835ab",
-  "fullSha": "74835ab27b127da07081272df6115d5e8d949091",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-03T10:40:15Z",
-  "commitDate": "2026-04-03T10:40:15Z",
   "subject": "fix(header): split search button into headerTitle, filters into headerRight",
   "body": "Extract SearchButton as a separate export so it stays in headerTitle\nalongside the title (left side). HeaderFilters now only contains the\nfuel type and radius dropdowns, grouped with burger menu in headerRight.\n\nLayout: [FuelHunt | Search...] [Fuel | Radius | ☰]\n\nTags: ui, header, layout, refactor\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: header-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01TUBM6seUGHEGXCpEtuxjjc",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "neutral",
   "epic": "header-layout",
   "semver": "patch",
-  "scope": "header",
-  "title": "split search button into headerTitle, filters into headerRight",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 28,

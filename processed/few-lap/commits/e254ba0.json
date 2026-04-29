@@ -1,17 +1,11 @@
 {
   "sha": "e254ba0",
-  "fullSha": "e254ba0c663979f7b3bbabd9785090bc8f6da54f",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-05T23:27:05Z",
-  "commitDate": "2026-04-05T23:27:05Z",
   "subject": "fix(ui): fix FontAwesome className misuse, deduplicate DebugPill tabs",
   "body": "className on @expo/vector-icons FontAwesome components is silently ignored —\nit's not a React Native View. Replaced with style={{ marginTop: 2 }}.\n\nDebugPill had 3 near-identical tab button blocks (log/env/pwa) that only\ndiffered in the tab ID and label. Refactored to a .map() over a tabs array.\n\nTags: fix, cleanup, debug, search\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theme-integration\nSemver: patch\n\nhttps://claude.ai/code/session_01VJGL4EBYzHhRdw1gp7EMHL",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "theme-integration",
   "semver": "patch",
-  "scope": "ui",
-  "title": "fix FontAwesome className misuse, deduplicate DebugPill tabs",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 14,

@@ -1,17 +1,11 @@
 {
   "sha": "b550dbc",
-  "fullSha": "b550dbccc89b21375e353d0a4e00c0afb1e48710",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T02:43:36Z",
-  "commitDate": "2026-04-21T02:43:36Z",
   "subject": "refactor(status): centralize STATUS_BADGE maps",
   "body": "Three copies of STATUS_BADGE had drifted from each other:\n- AgreementCard.tsx had draft/requested/in_progress/fully_agreed/reopened\n  but lacked an `error` variant (intentional — Agreement.status has no\n  error state).\n- AgreementHeader.tsx omitted `draft` entirely (intentional — header\n  doesn't show a badge when the agreement is untouched) but the omission\n  was invisible because the map shape didn't document it.\n- ProposalCard.tsx had its own Proposal.status map (pending/accepted/\n  rejected/countered) inline.\n\nNew src/constants/statusBadge.ts exports AGREEMENT_STATUS_BADGE and\nPROPOSAL_STATUS_BADGE, typed as Record<AgreementStatus, BadgeSpec> and\nRecord<ProposalStatus, BadgeSpec>. The exhaustive Record type now catches\nany new enum value at compile time.\n\n- AgreementCard: imports AGREEMENT_STATUS_BADGE; `?? fallback` syntax\n  replaces `|| fallback` (nullish-coalescing is correct here — BadgeSpec\n  objects are always truthy).\n- AgreementHeader: imports AGREEMENT_STATUS_BADGE; explicit\n  `status === 'draft' ? null` branch now documents why draft renders\n  without a badge.\n- ProposalCard: imports PROPOSAL_STATUS_BADGE.\n\nTwo separate maps rather than a single generic one because Agreement and\nProposal are genuinely different enums with different semantic meanings\n(agreement lifecycle vs proposal resolution). Keeping them co-located in\none file makes future drift easy to spot.\n\nTags: refactor, types, status, dry\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "daisyui-migration",
   "semver": "patch",
-  "scope": "status",
-  "title": "centralize STATUS_BADGE maps",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 49,

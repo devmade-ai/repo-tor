@@ -1,17 +1,11 @@
 {
   "sha": "db88c2e",
-  "fullSha": "db88c2e3cbd0ef10bb1e4196894612cfdd8ae51b",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-01T15:28:42Z",
-  "commitDate": "2026-04-01T15:28:42Z",
   "subject": "fix(menu): remove backdrop overlay and clean up dead code",
   "body": "The navbar's backdrop-filter creates a containing block that traps\nposition:fixed children — the backdrop only covered the navbar area.\nMoving it outside would cover the menu (z-index stacking conflict).\nRemoved the backdrop element since click-outside uses a document\nhandler and scroll uses body overflow lock. Removed dead z-backdrop\nCSS utility.\n\nTags: bugfix, cleanup, mobile, ui\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: patch\n\nhttps://claude.ai/code/session_01XtdBUsRggbA6nNYrNDHoFN",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "theme-system",
   "semver": "patch",
-  "scope": "menu",
-  "title": "remove backdrop overlay and clean up dead code",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 6,
     "additions": 47,

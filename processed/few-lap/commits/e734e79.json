@@ -1,17 +1,11 @@
 {
   "sha": "e734e79",
-  "fullSha": "e734e79b17cc0f991f80418232642d836227ede5",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T01:46:54Z",
-  "commitDate": "2026-04-02T01:46:54Z",
   "subject": "fix(mobile-web): bottom sheet touch, burger menu position, PWA install visibility",
   "body": "Three mobile web fixes:\n\n1. Bottom sheet inaccessible: Added touch-action:none to drag handle so\n   mobile browsers don't intercept swipes as page scroll. Fixed content\n   PanResponder that captured ALL vertical drags when sheet wasn't full —\n   now only captures drag-down at scroll top (collapse) or drag-up when\n   not full (expand), allowing FlatList scrolling at all sheet positions.\n\n2. Burger menu on left: RN Web Modal doesn't reliably support position:fixed\n   backdrop + position:absolute child on mobile browsers. Switched to flexbox\n   alignment (alignItems:flex-end + marginRight) so menu anchors to the right\n   edge regardless of Modal container width.\n\n3. PWA install banner invisible: Was floating at bottom:190 over the map where\n   it's easily missed or hidden behind the bottom sheet. Moved inside the\n   bottom sheet content so it's visible when users interact with the station\n   list. Increased auto-hide from 10s to 30s for slower mobile interactions.\n\nTags: mobile-web, bottom-sheet, burger-menu, pwa, ui\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-web-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01RBZUEqgK8QgZ1mLi6mQrb9",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "mobile-web-ux",
   "semver": "patch",
-  "scope": "mobile-web",
-  "title": "bottom sheet touch, burger menu position, PWA install visibility",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 32,

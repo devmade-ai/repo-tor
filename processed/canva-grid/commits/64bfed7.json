@@ -1,17 +1,11 @@
 {
   "sha": "64bfed7",
-  "fullSha": "64bfed76f5da8db3073c4113c3cdf012dfb0c367",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-08T13:10:58Z",
-  "commitDate": "2026-04-08T13:10:58Z",
   "subject": "fix(debug): add re-entrancy guard, replay pre-React errors, remove unused import",
   "body": "Three issues found during self-review:\n\n1. Console interception could infinite-loop if debugLog itself triggered\n   console.error — added re-entrancy guard with try/finally.\n2. Pre-React errors (window.__debugErrors from inline script) were never\n   replayed into the structured debug log — now replayed at module load\n   with 'pre-react' source tag, then cleared.\n3. getEntries import was unused in DebugPill.jsx after subscriber replay\n   eliminated the need for direct reads — removed.\n\nTags: debug, bugfix\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01KWPHuYLV1weWg2cFm9VtjN",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "debug-system",
   "semver": "patch",
-  "scope": "debug",
-  "title": "add re-entrancy guard, replay pre-React errors, remove unused import",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 21,

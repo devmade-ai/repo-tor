@@ -1,17 +1,11 @@
 {
   "sha": "19821c4",
-  "fullSha": "19821c4330cd29892289defb2d9c7f03eb7f1fc5",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-19T13:00:04Z",
-  "commitDate": "2026-04-19T13:00:04Z",
   "subject": "fix(pwa): drop favicon from icon-hash pipeline (Expo emit path unpredictable)",
   "body": "Vercel build failed on commit 3f2a479:\n\n  [inject-icon-hashes] precached icon(s) missing from dist/:\n    '/favicon.png'\n  SW install would fail on cache.addAll()\n  Error: Command '...' exited with 1\n\nRoot cause: app.json web.favicon points at assets/images/favicon.png,\nbut Expo's web export does NOT copy it verbatim — the emitted path is\nversion-dependent (.ico conversion vs PNG passthrough vs auto-discovery\nonly). The tiered fail-loud I added in the edges pass then (correctly)\nrefused to ship a PRECACHE list pointing at a non-existent file.\n\nResolution: favicon is outside the icon-hash pipeline. Removed from\nICON_URLS, SW_EXPECTED_URLS, PRECACHE_ASSETS, and the test fixture.\n+html.tsx now references /favicon.ico (best guess at what Expo emits\n+ matches browser auto-discovery); vercel.json passes both .ico and\n.png through so whichever Expo emits isn't swallowed by the SPA\ncatch-all. Favicon is small + HTTP-cached aggressively + dominated by\nthe OS icon cache for installed PWAs, so skipping ?v= on it is an\nacceptable trade.\n\nVerified end-to-end against a fixture with zero favicon files in\ndist/ — build chain (expo export -> inject-icon-hashes ->\ninject-sw-version) exits 0, all other icons versioned correctly.\n\nTags: pwa, build, vercel, fix\nComplexity: 2\nUrgency: 5\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pwa-polish\nSemver: patch",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "pwa-polish",
   "semver": "patch",
-  "scope": "pwa",
-  "title": "drop favicon from icon-hash pipeline (Expo emit path unpredictable)",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 5,
     "additions": 33,

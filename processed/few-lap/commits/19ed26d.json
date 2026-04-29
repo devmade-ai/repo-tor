@@ -1,17 +1,11 @@
 {
   "sha": "19ed26d",
-  "fullSha": "19ed26d2e0d7c35e230ad8b2c5d00ee3f9b89c8d",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T22:46:41Z",
-  "commitDate": "2026-04-21T22:46:41Z",
   "subject": "fix(db): trigger-based write lockdown on spatial_ref_sys + live tests",
   "body": "Closes the DoS window on public.spatial_ref_sys without needing the\nSupabase support ticket. The canonical fix (ALTER TABLE ... ENABLE\nRLS via migration 20260409000001) still needs supabase_admin and\nremains in the repo, but this trigger is sufficient defense-in-depth.\n\nHow it sidesteps the ownership wall that blocks RLS:\nDifferent DDL statements check different privileges. ALTER TABLE\nrequires ownership (table owned by supabase_admin), but CREATE TRIGGER\nneeds only the TRIGGER privilege — which `postgres` holds here\n(verified via has_table_privilege). CREATE OR REPLACE TRIGGER in PG\n14+ also avoids the DROP TRIGGER requirement (which would have needed\ntable ownership). The trigger itself adds no structural change to\nspatial_ref_sys, just an external gate on writes.\n\nTrigger body raises insufficient_privilege (42501) for any caller not\nin ('supabase_admin', 'postgres'). RAISE EXCEPTION in a BEFORE trigger\naborts the statement before any row is touched.\n\nVerified live against the remote DB:\n- anon INSERT: blocked (42501 with our custom message)\n- anon UPDATE on SRID 4326: blocked\n- anon DELETE: blocked\n- anon TRUNCATE: blocked\n- authenticated INSERT: blocked\n- anon SELECT on SRID 4326: still returns the EPSG row\n- postgres round-trip insert/delete: still works\n- find_stations_in_radius(-26.2, 28.05, 50): returns 39 stations\n\nApplied to remote 2026-04-21 via management API as postgres.\n\nThe test file uses the management API with SET ROLE anon/authenticated\nrather than PostgREST over fetch() because the dev env's outbound HTTP\nstack is flaky (intermittent proxy 503s); the management API is\nconsistent. Tests skip gracefully when SUPABASE_ACCESS_TOKEN_CLAUDE_WEB\nisn't available (local dev without credentials, third-party contributors).\n\nTags: security, database, migrations, supabase, postgis, critical\nComplexity: 3\nUrgency: 4\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: db-sync\nSemver: patch",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "db-sync",
   "semver": "minor",
-  "scope": "db",
-  "title": "trigger-based write lockdown on spatial_ref_sys + live tests",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 213,

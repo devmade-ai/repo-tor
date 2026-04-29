@@ -1,17 +1,11 @@
 {
   "sha": "4a7821d",
-  "fullSha": "4a7821de768c302a5a6ebaec657eca4b413bff73",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-05T23:40:31Z",
-  "commitDate": "2026-04-05T23:40:31Z",
   "subject": "perf(ui): stabilize render-path object references in LocationSearch and StationList",
   "body": "Inline style objects in .map() and FlatList renderItem create new references every\nrender, defeating React's shallow comparison and causing unnecessary child re-renders.\n\nLocationSearch:\n- Extract { borderBottomWidth, borderBottomColor } to useMemo (separatorStyle)\n  so FlatList renderItem and .map() items share one stable reference\n- Extract recent search onPress handler to useCallback (handleSelectRecent)\n  so .map() items don't create new closures per render\n\nStationList:\n- SkeletonCard: Replace inline { backgroundColor: colors.base100 } with className\n  bg-base-100 — eliminates JS color resolution, uses CSS variable directly\n- Remove colors prop from SkeletonCard and SkeletonList — no longer needed\n\nTags: perf, ui, search, station-list, render-optimization\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theme-integration\nSemver: patch\n\nhttps://claude.ai/code/session_01VJGL4EBYzHhRdw1gp7EMHL",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "theme-integration",
   "semver": "patch",
-  "scope": "ui",
-  "title": "stabilize render-path object references in LocationSearch and StationList",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 27,

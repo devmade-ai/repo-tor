@@ -1,17 +1,11 @@
 {
   "sha": "6fc20cf",
-  "fullSha": "6fc20cf3127e89f5395f566ae38e60418ab36f63",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T16:17:11Z",
-  "commitDate": "2026-04-02T16:17:11Z",
   "subject": "chore: fully purge chatty-chart repo from all data",
   "body": "Removed chatty-chart completely:\n- Deleted processed/chatty-chart/ (42 commit files + manifest)\n- Deleted dashboard/public/repos/chatty-chart.json\n- Deleted dashboard/repos/chatty-chart.json\n- Deleted orphaned dashboard/public/data-commits/2025-06.json (only had chatty-chart)\n- Removed from dashboard/public/projects.json\n- Re-ran aggregate-processed.js to regenerate data.json and all\n  data-commits/ and repos/ files without chatty-chart data\n- Purged from intermediate files (summary, commits, files)\n- Added EXCLUDED_REPOS set to aggregate-processed.js to prevent\n  future re-inclusion if repo is accidentally re-extracted\n\nTags: data, cleanup\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: data-cleanup\nSemver: patch\n\nhttps://claude.ai/code/session_01TTPDz1J9eg8GxxJHYf5DXG",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "data-cleanup",
   "semver": "patch",
-  "scope": null,
-  "title": "fully purge chatty-chart repo from all data",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 68,
     "additions": 481,

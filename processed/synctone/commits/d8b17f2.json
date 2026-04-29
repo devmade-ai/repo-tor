@@ -1,17 +1,11 @@
 {
   "sha": "d8b17f2",
-  "fullSha": "d8b17f271558434fb0d69daa3968127ae1422039",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T09:56:16Z",
-  "commitDate": "2026-04-21T09:56:16Z",
   "subject": "docs(claude): note UTIL_ env vars map to synctone Supabase + sandbox limits",
   "body": "Future Claude Code web sessions reading lib/supabase.ts will look for\nEXPO_PUBLIC_SUPABASE_URL / EXPO_PUBLIC_SUPABASE_ANON_KEY and find neither.\nThe values are actually exported as UTIL_SUPABASE_URL / UTIL_SUPABASE_ANON_KEY\n(project ref kmqcbpeidmmintltcoqm). Also records that api.supabase.com is\nhost-not-allowed in the sandbox, so `supabase` CLI commands don't work\nwithout an allowlist change — only direct REST against *.supabase.co does.\n\nTags: docs, supabase, session-onboarding, env\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: message-scheduling\nSemver: patch",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "message-scheduling",
   "semver": "patch",
-  "scope": "claude",
-  "title": "note UTIL_ env vars map to synctone Supabase + sandbox limits",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 1,

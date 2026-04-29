@@ -1,17 +1,11 @@
 {
   "sha": "10cb4ff",
-  "fullSha": "10cb4ff3d9de0126eee55c652b55a123d956426b",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T23:44:03Z",
-  "commitDate": "2026-04-02T23:44:03Z",
   "subject": "fix(ui): remove maxWidth cap on search button so it fills available space",
   "body": "Search is the primary user action — it should visually dominate the header.\nThe 200px cap forced it to the same size as the filter buttons on wider screens.\nNow flex: 1 lets it take all remaining space, with filters staying compact.\n\nTags: ui, layout, header\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: header-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01RzsrbdRZPkrzmNNEwDFHaq",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "header-layout",
   "semver": "patch",
-  "scope": "ui",
-  "title": "remove maxWidth cap on search button so it fills available space",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 0,

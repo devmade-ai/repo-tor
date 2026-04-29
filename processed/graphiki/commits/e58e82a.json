@@ -1,17 +1,11 @@
 {
   "sha": "e58e82a",
-  "fullSha": "e58e82a0bbbd9b1ea31810d26678332e889cbeb9",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-20T23:08:33Z",
-  "commitDate": "2026-04-20T23:08:33Z",
   "subject": "refactor(query): split queryParser.ts (536 lines) into src/services/query/*",
   "body": "The old file crossed the 500-line \"pause and consider\" threshold in\nCLAUDE.md. Each concern in the query pipeline is self-contained and\nmostly imports from the shared AST types, so the split is mechanical.\n\nNew layout:\n- src/services/query/ast.ts (39 lines) — AST types, CompareOp,\n  GraphContext. Sole source of the query data model.\n- src/services/query/tokenizer.ts (73 lines) — Token type + tokenize().\n  Lexer for the text query language (label:X, OR, NOT, IN/OUT/CONN,\n  paren grouping).\n- src/services/query/parser.ts (199 lines) — Recursive-descent Parser\n  class + parseQuery() public entry point. Tokenizer is internal;\n  parseQuery wraps tokenize + parse.\n- src/services/query/evaluator.ts (117 lines) — evaluateNode +\n  compareValues + applyOp. Date→number→string coercion lives here\n  because it's evaluator-specific, not a shape definition.\n- src/services/query/builder.ts (132 lines) — BuilderFilter/BuilderStep\n  types + builderFilterToAST / builderStepToAST. Converts the\n  interactive query builder's structured output directly to AST\n  without round-tripping through text.\n\nsrc/services/queryParser.ts (22 lines) — Barrel re-export so\n`import { ... } from './queryParser'` still works. queryEngine.ts\nand its consumers don't need to change. Kept the filename as a\nsearchable landmark rather than forcing 20+ import-site edits.\n\nAll 336 tests pass on the first build. Lint + build clean. Zero\nbehavior change — this is pure hygiene.\n\nDocs\n- CLAUDE.md: project-structure tree updated with the new layout.\n- docs/TODO.md: queryParser split item removed (done).\n- docs/SESSION_NOTES.md: new section describing the change.\n\nTags: refactor, query, hygiene, extraction\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: alpha-debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_015rKh5k6MFgfyjNZDfGaWzV",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "alpha-debug-system",
   "semver": "patch",
-  "scope": "query",
-  "title": "split queryParser.ts (536 lines) into src/services/query/*",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 9,
     "additions": 590,

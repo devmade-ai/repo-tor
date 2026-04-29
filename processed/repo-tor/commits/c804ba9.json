@@ -1,17 +1,11 @@
 {
   "sha": "c804ba9",
-  "fullSha": "c804ba9024d57d0cc85b274afe69f4dbb7679782",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-05T11:27:18Z",
-  "commitDate": "2026-04-05T11:27:18Z",
   "subject": "fix: remove X-Frame-Options header blocking cross-origin embeds",
   "body": "The SAMEORIGIN header added in H4 audit fix (19e1e21) blocked all\ncross-origin iframes, breaking the embed feature. See-veo and other\napps embedding repo-tor charts via ?embed= got \"refused to connect\".\nVercel header matching is path-based only, so the embed.js exemption\ndidn't cover the HTML page loaded in iframes.\n\nRemoved the header entirely — the dashboard is public with no auth,\nso there's no clickjacking risk. Cross-origin framing is intentional.\n\nTags: security, embed, bugfix\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: embed-system\nSemver: patch\n\nhttps://claude.ai/code/session_01NJidJUBTVXpGasGxA8qzhJ",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "embed-system",
   "semver": "patch",
-  "scope": null,
-  "title": "remove X-Frame-Options header blocking cross-origin embeds",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 15,

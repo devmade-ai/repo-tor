@@ -1,17 +1,11 @@
 {
   "sha": "ddf953c",
-  "fullSha": "ddf953c48446e0651aabab600289978944a9ccd7",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T20:41:22Z",
-  "commitDate": "2026-04-21T20:41:22Z",
   "subject": "refactor(pwa): harden PWA_SYSTEM — singleton, suppression, visibility, typed check",
   "body": "Align usePWAUpdate with glow-props PWA_SYSTEM pattern:\n\n- Extract SW lifecycle state into module-level singleton (src/lib/pwa.ts)\n  so registration, hasUpdate, and offlineReady survive AppLayout remounts\n  instead of re-firing \"update available\" banners after route changes.\n- Thin React wrapper uses useSyncExternalStore for tearing-safe sync.\n- 30-second wasJustUpdated() suppression via sessionStorage — onNeedRefresh\n  skips while the post-reload SW lifecycle settles.\n- visibilitychange listener triggers registration.update() when the tab\n  regains focus (catches updates faster than the 60min poll, esp. on iOS).\n- controllerchange reload guard registered once; auto-reloads only when\n  _userClickedUpdate is set so background tab lifecycle events don't yank\n  the page out from under the user.\n- checkForUpdate(): Promise<'no-sw'|'done'|'error'> for toast feedback.\n- onRegisterError routes to debugLog for DebugPill surfacing.\n- Manifest: id, scope, prefer_related_applications (stable identity +\n  avoid Chrome skipping beforeinstallprompt).\n- Workbox: cleanupOutdatedCaches + explicit globPatterns.\n\nPreserves existing offlineReady + dismissOfflineReady in the hook return\nsince AppLayout uses the banner; swap to Toast system when it lands.\n\nTags: pwa, refactor, infrastructure, service-worker\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01Qj2ueAEuobTogrBRFwAXvc",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "pwa-hardening",
   "semver": "patch",
-  "scope": "pwa",
-  "title": "harden PWA_SYSTEM — singleton, suppression, visibility, typed check",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 303,

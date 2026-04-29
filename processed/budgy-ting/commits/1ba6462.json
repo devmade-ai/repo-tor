@@ -1,17 +1,11 @@
 {
   "sha": "1ba6462",
-  "fullSha": "1ba64623e192b5ec70342bfb407e1c20ce13dbb6",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-09T22:37:23Z",
-  "commitDate": "2026-04-09T22:37:23Z",
   "subject": "fix(theme): strengthen DaisyUI migration — selects, neutral conflict, cross-tab sync",
   "body": "Audit and fix issues from the initial migration pass:\n\n- Fix 4 <select> elements using `input input-bordered` instead of\n  `select select-bordered` (TransactionTable, TransactionEditModal)\n- Rename --color-neutral to --color-data-neutral in @theme to avoid\n  conflict with DaisyUI's `neutral` semantic color (bg-neutral now\n  correctly resolves to DaisyUI theme color, not our chart gray)\n- Add `syncing` guard flag in useDarkMode cross-tab sync to prevent\n  watchers from redundantly calling applyTheme() and re-persisting\n  values that already came from another tab's localStorage write\n- Fix ImportStepReview duplicated classes: `w-full w-48` and\n  `text-base text-xs` (conflicting width/size on same element)\n- Broaden print CSS break-inside selector: `.card` → `.card, .rounded-xl`\n\nTags: theme, daisyui, fix, a11y, cleanup\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01BPc1xJr4LVbLgvTxtZf2i1",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "daisyui-migration",
   "semver": "patch",
-  "scope": "theme",
-  "title": "strengthen DaisyUI migration — selects, neutral conflict, cross-tab sync",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 7,
     "additions": 60,

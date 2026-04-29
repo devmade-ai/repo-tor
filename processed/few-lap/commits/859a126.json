@@ -1,17 +1,11 @@
 {
   "sha": "859a126",
-  "fullSha": "859a126917312b98bcf5ba61aec0b109848d09eb",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-17T21:34:38Z",
-  "commitDate": "2026-04-17T21:34:38Z",
   "subject": "feat(debug): pre-React inline boot pill for silent-boot-failure visibility",
   "body": "A broken JS bundle, parse error, or unhandled rejection during boot\npreviously produced a silent white screen. This adds a classic inline\nIIFE in +html.tsx <head>, registered before the Metro bundle, that\nshows a small red bottom-right banner in those cases.\n\nPill shows on:\n- window.error (native script errors, React render crashes that bubble)\n- unhandledrejection (async boot failures)\n- 20s fallback timer — last-resort \"App failed to load\" indicator\n  (preempted by the existing 15s recovery reload on first load; kicks\n  in once the recovery counter caps at 2 reload attempts)\n\nExposes two hooks on window:\n- __debugPushError(msg): lets app code surface errors to the pre-React\n  pill if it wants to\n- __debugClearLoadTimer(): called by RootLayoutNav's mount effect\n  alongside setting __appHealthy. Cancels the 20s timer AND removes\n  any pill that already appeared during boot — otherwise a transient\n  early error that resolves on mount would leave a stale red banner.\n\nDeviation from task snippet: the task only cleared the timer. I also\nremove the DOM node on clear, because \"app loaded but a banner says\nit didn't\" is strictly worse than showing nothing. Kept the 20s\ntimeout per the task despite knowing the 15s recovery preempts it\nfirst-load — it's useful on the final reload attempt.\n\nStructural verification: in the built dist/index.html, the boot IIFE\nsits at byte 1570 (first inline script), before earlyInstallCapture\n(1885), recoveryScript (2081), and the bundle <script src> (31906).\n\ntsc --noEmit: 0 errors. jest: 63/63. expo export --platform web:\nclean.\n\nTags: debug, pwa, resilience, boot\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: debug-pill-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VhsFyHM2zJYi7rBYgiNf8k",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "debug-pill-hardening",
   "semver": "minor",
-  "scope": "debug",
-  "title": "pre-React inline boot pill for silent-boot-failure visibility",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 5,
     "additions": 65,

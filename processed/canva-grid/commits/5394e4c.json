@@ -1,17 +1,11 @@
 {
   "sha": "5394e4c",
-  "fullSha": "5394e4cbf5d343a29df8980ee862a43607aa9a1d",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T07:06:51Z",
-  "commitDate": "2026-04-10T07:06:51Z",
   "subject": "fix(tooling): add ESLint as devDependency and resolve all 45 lint errors",
   "body": "The project had eslint.config.js and a lint script but ESLint was never\ninstalled — npm run lint would fail. Installed eslint@9.x, @eslint/js,\nglobals, eslint-plugin-react-hooks@7.x, and eslint-plugin-react-refresh\nas devDependencies. Fixed all 45 lint errors across 17 files:\n\n- Removed unused imports/destructures (AdCanvas, StyleTab, MediaTab, etc.)\n- Moved ref-during-render assignments into useEffect (App, SaveLoadModal, useDarkMode)\n- Fixed useIsMobile: use matchMedia in useState initializer\n- Added missing beforeAll imports in test files\n- Added global gtag declaration for Google Analytics\n- Cleaned up stale eslint-disable directives and empty catch blocks\n- Added argsIgnorePattern for PascalCase JSX component props\n- Wrapped logical expression fallback in useMemo to stabilize deps\n- Removed dead props from StyleTab/MediaTab and their call sites\n\nTags: tooling, lint, dx, cleanup\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: minor\n\nhttps://claude.ai/code/session_01JcL8N5XwMUw4XeTVm2nzug",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "developer-experience",
   "semver": "minor",
-  "scope": "tooling",
-  "title": "add ESLint as devDependency and resolve all 45 lint errors",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 27,
     "additions": 1055,

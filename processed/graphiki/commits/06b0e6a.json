@@ -1,17 +1,11 @@
 {
   "sha": "06b0e6a",
-  "fullSha": "06b0e6a0546967eaab807290a3963407b116dc16",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-20T23:03:38Z",
-  "commitDate": "2026-04-20T23:03:38Z",
   "subject": "test(graph): oklch-rejection tripwire for Cytoscape stylesheet output",
   "body": "Closes the Console-warning-budget TODO item. Defensive test specifically\nfor the class of bug that started this branch: DaisyUI's oklch() values\nreaching Cytoscape's color parser and getting silently dropped.\n\nsrc/components/graph/cytoscapeStyles.safety.test.ts (new, 6 cases)\n- Seeds document.documentElement with realistic DaisyUI oklch CSS vars\n  for the 7 tokens the stylesheet reads (warning/info/success/\n  secondary/accent/primary/base-content).\n- Installs a canvas mock that simulates the browser's oklch→hex\n  normalization for each seeded value.\n- Calls getCytoscapeStylesheet() for both 'bezier' and 'taxi' edge-\n  curve styles. Walks every string-valued `*color*` property in the\n  output (skipping Cytoscape `data(...)` mapper references — those\n  resolve to values produced by getNodeColor/getArcColor, which have\n  their own direct tests).\n- Asserts each value matches /^(#[0-9a-f]{3,8}|rgba?\\(.+\\)|hsla?\\(.+\\)|\n  transparent|[a-z]+)$/i AND does not start with any of oklch(, lch(,\n  oklab(, lab(, color(, color-mix(.\n- Separately exercises getNodeColor (labelless path via --color-primary)\n  and getArcColor (titled path + untitled fallback).\n- Uses a TS-safe narrow (`'style' in block`) for Cytoscape's\n  StylesheetJsonBlock union (StylesheetStyle | StylesheetCSS).\n\nVerified the tripwire trips: temporarily replaced the normalizeColor()\ncall in getCSSColor with a raw pass-through — 3 of 6 cases failed\nloudly with messages like \"node:selected { border-color: oklch(82% .189\n84.429) } — starts with unparseable 'oklch('\". Restored the fix before\ncommitting.\n\nWhat this catches:\n- Direct regression: anyone removing/bypassing cssColor normalization\n- New style property added with a literal oklch/color-mix/lch color\n- PALETTE hex replaced with an oklch literal\n- New CSS Color 4 function that Cytoscape doesn't know about\n\n336 tests pass (up from 330). Lint + build clean.\n\nDocs\n- docs/TODO.md: console-warning-budget item removed (done).\n- docs/SESSION_NOTES.md: new section describing the tripwire.\n\nTags: test, defensive, graph, cytoscape, oklch, regression-guard\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: alpha-debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_015rKh5k6MFgfyjNZDfGaWzV",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "alpha-debug-system",
   "semver": "patch",
-  "scope": "graph",
-  "title": "oklch-rejection tripwire for Cytoscape stylesheet output",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 162,

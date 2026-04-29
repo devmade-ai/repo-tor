@@ -1,17 +1,11 @@
 {
   "sha": "cdb187c",
-  "fullSha": "cdb187c29ee0a6090ad1384faa4d7f8a7099a6d9",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T19:13:04Z",
-  "commitDate": "2026-04-02T19:13:04Z",
   "subject": "fix(ui): audit sweep — bugs, accessibility, security, debug coverage, docs",
   "body": "Full audit of UI reorganization changes (rev/aud/doc/tap/cln/perf/sec/dbg/imp):\n\nBug fixes:\n- Add missing isMobile, setPlatform, imageAspectRatio to tabContent useMemo deps\n- Remove redundant normalizeStructure() call in CellGrid (called twice per render)\n- Remove unused getPageCount from useAdState destructuring\n\nCode quality:\n- Extract shared UndoRedoButtons component (eliminates duplication between layouts)\n- Wrap ContextBar in ErrorBoundary in both MobileLayout and DesktopLayout\n\nAccessibility:\n- Bump page dot touch targets to 44px (w-11 h-11) meeting WCAG minimum\n- Increase bottom sheet drag handle touch zone (py-3 → py-4)\n- Add focus management: move focus to first interactive element on sheet open\n- Add focus trap to BurgerMenu (Tab key cycles within open menu)\n- Add prefers-reduced-motion support to BottomSheet animations\n- Add role=\"region\" + aria-label to BottomSheet\n- Add aria-label + aria-current=\"page\" to PageDot buttons\n\nSecurity:\n- Validate theme hex colors via regex before use in inline styles\n\nDebug coverage:\n- Add tab change logging (mobile handleMobileTabChange + keyboard shortcuts)\n- Add sheet close logging\n- Add page navigation logging (swipe + keyboard sources)\n\nDocumentation:\n- Update USER_GUIDE.md: ContextBar is selection-only, pages in Structure tab\n- Update TESTING_GUIDE.md: page add test references Structure tab\n- Update CLAUDE.md: Structure tab description, architecture (UndoRedoButtons, BurgerMenu, BottomSheet)\n- Update SESSION_NOTES.md with audit summary\n\nTags: audit, accessibility, security, debug, ui, cleanup\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ui-reorganization\nSemver: patch\n\nhttps://claude.ai/code/session_01D464PDw9sMoPgBtrnCo9V6",
   "tags": [
@@ -25,11 +19,7 @@
   "debt": "paid",
   "epic": "ui-reorganization",
   "semver": "patch",
-  "scope": "ui",
-  "title": "audit sweep — bugs, accessibility, security, debug coverage, docs",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 11,
     "additions": 183,

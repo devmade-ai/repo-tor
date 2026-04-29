@@ -1,17 +1,11 @@
 {
   "sha": "445b2c7",
-  "fullSha": "445b2c755cdab6f1513b0600b7025f7ef64ddceb",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T01:09:18Z",
-  "commitDate": "2026-04-02T01:09:18Z",
   "subject": "refactor(ui): audit sweep — fixes, extractions, accessibility, docs",
   "body": "Full audit sweep across review, quality, mobile UX, clean, perf,\nsecurity, debug, and improve triggers. All findings addressed:\n\nHigh priority:\n- Fix: Update and Refresh had identical icons — Update now uses\n  cloud-download (ICON_UPDATE), Refresh keeps circular arrows\n- Fix: Nested scroll containers in burger menu (nav overflow-y-auto\n  + theme list overflow-y-auto) — removed inner scroll, parent nav\n  handles it via max-h-[calc(100dvh-4rem)]\n- Fix: MobileNav tab buttons lacked guaranteed 44px touch targets —\n  added min-h-11\n\nMedium priority:\n- BurgerMenu: Added ArrowUp/ArrowDown/Home/End keyboard navigation,\n  matching ThemeSelector's pattern for consistent disclosure UX\n- Extracted menu icon SVG paths to src/config/menuIcons.js — single\n  source of truth, cleaner items array in MobileLayout\n- Extracted ThemeList.jsx — shared component used by both\n  MenuThemeSection (mobile) and ThemeSelector (desktop), eliminating\n  duplicated theme list rendering\n- Extracted HeaderButton component in DesktopLayout — replaced 7\n  repeated className strings with a single component\n- Added debugLog calls for burger menu open/close events\n\nLow priority:\n- Extracted useDisclosureFocus hook — deduplicates identical focus\n  management pattern (hasBeenOpenRef + rAF + return-to-trigger) from\n  BurgerMenu and ThemeSelector\n- CLAUDE.md: Clarified canvas design themes (19 in themes.js) vs\n  app UI themes (16 DaisyUI in daisyuiThemes.js), added new files\n  to architecture section\n\nTags: ui, mobile, accessibility, refactor, clean, debug, docs\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-ux\nSemver: minor\n\nhttps://claude.ai/code/session_01CArdGkf7Pw8EVWBHihPXvv",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "mobile-ux",
   "semver": "minor",
-  "scope": "ui",
-  "title": "audit sweep — fixes, extractions, accessibility, docs",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 9,
     "additions": 148,

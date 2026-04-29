@@ -1,17 +1,11 @@
 {
   "sha": "9c85979",
-  "fullSha": "9c8597907729581867a758fef248245ed51c9c65",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-16T08:47:23Z",
-  "commitDate": "2026-04-16T08:47:23Z",
   "subject": "feat(debug): add debugGetEntries export for one-shot buffer reads",
   "body": "The entries array was module-private with no direct read accessor.\nConsumers had to subscribe (with replay) to read current state.\nAdd debugGetEntries() that returns a shallow copy — useful for\none-shot snapshots, testing, and external tooling.\n\nTags: debug, api\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-system-completion\nSemver: patch\n\nhttps://claude.ai/code/session_01WSMMJbREgwMfg5BqqCNpjb",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "debug-system-completion",
   "semver": "patch",
-  "scope": "debug",
-  "title": "add debugGetEntries export for one-shot buffer reads",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 5,

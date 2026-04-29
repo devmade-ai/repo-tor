@@ -1,17 +1,11 @@
 {
   "sha": "029714a",
-  "fullSha": "029714a0697076b88fcb86a29da740b4fef70897",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-01T23:45:39Z",
-  "commitDate": "2026-04-01T23:45:39Z",
   "subject": "refactor(mobile): move Save + ThemeSelector into burger menu",
   "body": "Cleaner mobile header — now just app name/badge + burger menu button.\nPreviously Save and ThemeSelector cluttered the header with 3 interactive\nelements competing for space. Per glow-props standard menu items spec,\ndark/light toggle belongs in the menu.\n\nChanges:\n- BurgerMenu: added separator, trailing, preventClose, and children support\n- MobileLayout: Save is first menu item, dark mode toggle with visual switch,\n  theme picker as expandable section at bottom of menu\n- Header reduced to app name + single burger button\n\nTags: ui, mobile, menu, refactor\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-ux\nSemver: minor\n\nhttps://claude.ai/code/session_01CArdGkf7Pw8EVWBHihPXvv",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "mobile-ux",
   "semver": "minor",
-  "scope": "mobile",
-  "title": "move Save + ThemeSelector into burger menu",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 126,

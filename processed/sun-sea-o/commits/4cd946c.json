@@ -1,17 +1,11 @@
 {
   "sha": "4cd946c",
-  "fullSha": "4cd946cebeb3fe702a9c55094ae946d345a5f134",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T00:43:36Z",
-  "commitDate": "2026-04-21T00:43:36Z",
   "subject": "fix(pre-react-chrome): align boot loader + overlays + manifest with theme",
   "body": "Pre-React chrome (boot-loader, noscript fallback, fatal-error overlay in\nindex.html, App-load-failure fallback in main.tsx) used hardcoded slate\nhex values — a hard light-mode flash before React mounts under business.\nFix by having the inline bootstrap script set CSS custom properties on\n<html> before first paint; every pre-React surface now reads var(--boot-*)\nwith a hex fallback.\n\n- index.html inline script: sets --boot-bg, --boot-fg, --boot-muted,\n  --boot-spinner, --boot-error-bg, --boot-error-fg based on resolved\n  theme (stored preference → OS preference).\n- index.html boot-loader, noscript, error overlay: colors read var(--boot-*).\n- main.tsx App-load fallback: same treatment.\n- src/utils/theme.ts: new updateBootChromeColors(dark) called from\n  applyTheme so user-explicit theme changes also refresh the palette\n  (e.g. if React fails after a runtime theme toggle, overlay matches).\n- vite.config.ts PWA manifest theme_color: #1e293b → #202020 (business\n  base-100). Static once installed; dark is forgiving under both app\n  themes where a branded primary would clash on dark-mode devices.\n\nInline script's palette mirrors updateBootChromeColors() in theme.ts —\nunavoidable duplication per the pattern (inline scripts can't import\nES modules). Both sites noted so they stay in sync.\n\nAlso adds a CSP caveat comment: strict `script-src` without 'unsafe-inline'\nwill block the bootstrap; precompute a SHA-256 hash if Sancio adopts one.\n\nTags: ui, theme, pwa, bootstrap, fouc\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch",
   "tags": [
@@ -24,15 +18,7 @@
   "debt": "paid",
   "epic": "theme-dark-mode",
   "semver": "patch",
-  "scope": "pre-react-chrome",
-  "title": "align boot loader + overlays + manifest with theme",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#1",
-    "#202020",
-    "SHA-256"
-  ],
   "stats": {
     "filesChanged": 4,
     "additions": 80,

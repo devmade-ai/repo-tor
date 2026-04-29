@@ -1,17 +1,11 @@
 {
   "sha": "335c013",
-  "fullSha": "335c0134c075f03b446626f0ca9f64fb4c76fb3b",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-03T16:22:46Z",
-  "commitDate": "2026-04-03T16:22:46Z",
   "subject": "fix(mobile): make canvas scrollable when bottom sheet is open",
   "body": "Canvas area was not scrollable, so when the bottom sheet covered\nthe lower portion, users couldn't see the bottom of tall canvases.\nAdded overflow-y-auto and dynamic bottom padding matching the sheet's\nsnap height so the canvas can scroll past the sheet overlay.\n\nTags: mobile, canvas, ux\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01QGZzLNQRmQpx2wyMfEHv7q",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "neutral",
   "epic": "mobile-ux",
   "semver": "patch",
-  "scope": "mobile",
-  "title": "make canvas scrollable when bottom sheet is open",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 1,
     "additions": 3,

@@ -1,17 +1,11 @@
 {
   "sha": "2ebd14f",
-  "fullSha": "2ebd14f87c22ed8d53864740c32d0643631f3dc5",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-05T23:04:01Z",
-  "commitDate": "2026-04-05T23:04:01Z",
   "subject": "fix(icons): scale up graph to fill 80% safe zone",
   "body": "Expand graph from 25% to ~70% of canvas. Nodes now span 240-700\n(460px of 1024) instead of 384-640 (256px). Node radii increased\nproportionally (52→72, 44→60, 60→84). Line width 14→18.\n\nThe icon is now legible at 48px favicon size — nodes are distinct\nand the graph structure is recognizable.\n\nTags: icons, design, safe-zone\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "neutral",
   "epic": "theme-dark-mode",
   "semver": "patch",
-  "scope": "icons",
-  "title": "scale up graph to fill 80% safe zone",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 7,
     "additions": 14,

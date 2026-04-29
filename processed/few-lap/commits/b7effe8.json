@@ -1,17 +1,11 @@
 {
   "sha": "b7effe8",
-  "fullSha": "b7effe8e3cf5c1bb44f5f3cd58132a92ff3ef735",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-02T02:00:43Z",
-  "commitDate": "2026-04-02T02:00:43Z",
   "subject": "fix(mobile-web): map overflow, bottom sheet visibility, PWA banner above header",
   "body": "Three structural fixes for mobile web:\n\n1. Map overflowing viewport: FuelMapWeb div used flex:1 which doesn't\n   constrain height on a plain <div> without explicit parent height.\n   Changed to position:absolute with inset:0 so the map fills exactly\n   its container. Added position:relative to FuelMap container and\n   overflow:hidden to the home screen container.\n\n2. Bottom sheet invisible: Added explicit top:0 to the sheet's absolute\n   positioning (was relying on RN Web default). Combined with the\n   container overflow:hidden, ensures the sheet stays within bounds.\n\n3. PWA actions above header: Created PWABanner component that combines\n   install prompt, update notification, and offline-ready status into\n   a single dismissable banner above the header. Prioritizes: update >\n   install > offline-ready. Replaces the separate UpdatePrompt and\n   removes InstallPrompt from the bottom sheet.\n\nTags: mobile-web, map, bottom-sheet, pwa, layout\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-web-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01RBZUEqgK8QgZ1mLi6mQrb9",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "mobile-web-ux",
   "semver": "patch",
-  "scope": "mobile-web",
-  "title": "map overflow, bottom sheet visibility, PWA banner above header",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 6,
     "additions": 240,

@@ -1,17 +1,11 @@
 {
   "sha": "f2ac795",
-  "fullSha": "f2ac795a1ce10391a9b4180d49cb17aa3c6632ce",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-11T11:07:34Z",
-  "commitDate": "2026-04-11T11:07:34Z",
   "subject": "feat(debug): add structured debugLog module, React DebugPill, clipboard fallbacks",
   "body": "Replace simple {time, message, stack} error array with full pub/sub debug\nsystem. debugLog.js provides a 200-entry circular buffer with typed entries,\nconsole interception, global error capture, and report generation with URL\nparam redaction. React DebugPill renders in a separate root (#debug-root) with\n3 tabs (Log, Environment, PWA Diagnostics) using inline styles to survive CSS\nfailures. copyToClipboard.js adds ClipboardItem Blob, writeText, and textarea\nfallbacks. All error routing (ErrorBoundary, App, pwa, HamburgerMenu) updated\nfrom window.__debugPushError to direct debugAdd imports.\n\nTags: debug, ui, pwa, refactor\nComplexity: 4\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: debug-system\nSemver: minor\n\nhttps://claude.ai/code/session_01VJTP7qCmApamkAM8xREziS",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "debug-system",
   "semver": "minor",
-  "scope": "debug",
-  "title": "add structured debugLog module, React DebugPill, clipboard fallbacks",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 13,
     "additions": 790,

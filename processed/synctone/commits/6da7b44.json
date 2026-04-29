@@ -1,17 +1,11 @@
 {
   "sha": "6da7b44",
-  "fullSha": "6da7b44a5406b1eed7ac864a479f47de12ecccd5",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-04T23:17:01Z",
-  "commitDate": "2026-04-04T23:17:01Z",
   "subject": "fix(ui): replace solid primary bubble with subtle tinted surface",
   "body": "Own message bubbles were solid hot pink (#f861b4) — visually overwhelming\nfor prolonged chatting. Now uses withAlpha(primary, 0.15) for a subtle\npink-tinted dark surface with a withAlpha(primary, 0.3) border.\n\nAll inner elements updated for the dark tinted surface:\n- Message text: primaryContent → baseContent (light, readable)\n- Timestamp/edited: primaryContent → baseContent at reduced opacity\n- Status checkmarks: read uses primary (pink pop), unread uses muted baseContent\n- Tone tag overlay: primaryContent → primary at 20% opacity\n- Added subtle primary border to define bubble edges\n\nReplyReference made context-aware with isOwn prop:\n- Own bubble: withAlpha(primary, 0.15) fill with primary left border\n- Received bubble: withAlpha(baseContent, 0.08) fill with primary left border\n\nTags: ui, theme, chat\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: uniwind-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01Gh9v3fwMHqZP5MbcrUgRuY",
   "tags": [
@@ -23,11 +17,7 @@
   "debt": "paid",
   "epic": "uniwind-migration",
   "semver": "minor",
-  "scope": "ui",
-  "title": "replace solid primary bubble with subtle tinted surface",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 29,

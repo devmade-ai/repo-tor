@@ -1,17 +1,11 @@
 {
   "sha": "76b3b11",
-  "fullSha": "76b3b1174264a1c50146d4ac99debd5c55ca5049",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T21:51:47Z",
-  "commitDate": "2026-04-21T21:51:47Z",
   "subject": "chore(pwa): strengthen icon cache-bust sweep + refresh SESSION_NOTES",
   "body": "vite.config.ts:\n- iconCacheBustHtml() adds a final sweep: after literal replacements,\n  re-scan the HTML for any <link rel=\"icon|apple-touch-icon\"> whose href\n  doesn't include ?v=. Throws at build with the offending tag and a\n  \"add to REPLACEMENTS\" hint.\n- Closes the gap where a future contributor adds a new icon link\n  without updating REPLACEMENTS — literal-only matching would have\n  skipped it and shipped un-versioned URLs. Defense-in-depth alongside\n  the tripwire test.\n\ndocs/SESSION_NOTES.md:\n- Rewrites session summary per CLAUDE.md convention (rewrite at session\n  end; fresh snapshot, not a changelog). Covers Chunks 9 + 10 end-to-end\n  plus the TODO audit. Captures what's still pending for manual browser\n  verification.\n\nTags: pwa, documentation, hardening\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pwa-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01Qj2ueAEuobTogrBRFwAXvc",
   "tags": [
@@ -24,11 +18,7 @@
   "debt": "paid",
   "epic": "pwa-hardening",
   "semver": "patch",
-  "scope": "pwa",
-  "title": "strengthen icon cache-bust sweep + refresh SESSION_NOTES",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 2,
     "additions": 48,

@@ -1,17 +1,11 @@
 {
   "sha": "c17467f",
-  "fullSha": "c17467f356e6c80946d80fa821411a6aa0a630bd",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-21T21:41:12Z",
-  "commitDate": "2026-04-21T21:41:12Z",
   "subject": "chore(db): drop unused legacy tables from remote",
   "body": "Ran the DDL from 20260301231928_drop_unused_tone_and_reply_tables.sql\nagainst remote via Management API. The migration had been recorded as\nstub/applied in schema_migrations but the DDL never actually ran, so\ntone_usage, message_replies, global_tone_popularity, and the\nincrement_tone_usage() function persisted as dead storage (~184 kB).\n\nPre-flight dependency check confirmed no foreign FKs point at any of\nthe three tables — only self-contained dependencies (the view on\ntone_usage, and the function on tone_usage). Drop order followed the\nmigration file: view, function, then the two tables. Post-drop check\nconfirmed all four objects absent; all live synctone tables intact;\nsibling project's sancio_* tables untouched.\n\nLeft the schema_migrations row for 20260301231928 as stub — it records\nthe migration as applied (now true) and flipping it would diverge from\nthe stub-name pattern of every other pre-2026-04-21 synctone row. The\nCLI uses the version key, not the name, to decide re-apply.\n\nTags: database, cleanup, migration, docs\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: shared-db-hygiene\nSemver: patch\n\nhttps://claude.ai/code/session_01P5uv5tNGcoUDXWyzLbmArf",
   "tags": [
@@ -25,11 +19,7 @@
   "debt": "paid",
   "epic": "shared-db-hygiene",
   "semver": "patch",
-  "scope": "db",
-  "title": "drop unused legacy tables from remote",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 11,

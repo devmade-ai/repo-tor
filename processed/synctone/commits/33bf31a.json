@@ -1,17 +1,11 @@
 {
   "sha": "33bf31a",
-  "fullSha": "33bf31a34a1ed5bed9b1d26918d9fe7ffb06e928",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-04T12:45:40Z",
-  "commitDate": "2026-04-04T12:45:40Z",
   "subject": "feat(icons): replace browser-based icon generator with Sharp",
   "body": "Single SVG source (assets/icon-source.svg) generates all PNGs via Sharp\nat 400 DPI for crisp anti-aliased edges even at small sizes (48px favicon).\n\nChanges:\n- Add assets/icon-source.svg: 1024x1024 canvas with shape-rendering=\n  geometricPrecision (scaled up from old 512x512 public/icon.svg)\n- Add scripts/generate-icons.mjs: Sharp-based generator producing\n  7 PNGs + SVG copy to public/. Run via `npm run gen:icons`\n- Add sharp as devDependency\n- Regenerate all icon PNGs at 400 DPI (crisper than old versions)\n- manifest.json: Separate purpose values (any vs maskable) per PWA spec\n- app.json: Splash uses splash-icon.png, backgrounds match SVG (#0A0A0A)\n- Delete scripts/generate-icons.html (browser-based, replaced)\n- CLAUDE.md: Update Icon Assets and Regenerating Icons sections\n\nTags: icons, pwa, build-tools, sharp\nComplexity: 2\nUrgency: 1\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: minor\n\nhttps://claude.ai/code/session_01B19ShhBXLzVzbptkz9Tuew",
   "tags": [
@@ -24,13 +18,7 @@
   "debt": "paid",
   "epic": "theme-system",
   "semver": "minor",
-  "scope": "icons",
-  "title": "replace browser-based icon generator with Sharp",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [
-    "#0"
-  ],
   "stats": {
     "filesChanged": 16,
     "additions": 701,

@@ -1,17 +1,11 @@
 {
   "sha": "efc4c3d",
-  "fullSha": "efc4c3dcdde8b58c0d77099a50cf093cd66867c1",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-10T13:03:40Z",
-  "commitDate": "2026-04-10T13:03:40Z",
   "subject": "fix(boot): await demo seed before app mount to fix empty first load",
   "body": "seedDemoWorkspace() was non-blocking (.then()) while app.mount() ran\nsynchronously. WorkspaceListView queried the DB before seeding committed,\nshowing an empty state on first visit. Fix: wrap boot in async IIFE and\nawait seedDemoWorkspace() before mount. DebugPill changed to dynamic\nimport() for async IIFE compatibility.\n\nTags: boot, demo, race-condition, db\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: demo-workspace\nSemver: patch\n\nhttps://claude.ai/code/session_01QpqJcFncyK5yDheztyy9zK",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "demo-workspace",
   "semver": "patch",
-  "scope": "boot",
-  "title": "await demo seed before app mount to fix empty first load",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 3,
     "additions": 68,

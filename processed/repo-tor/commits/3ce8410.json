@@ -1,17 +1,11 @@
 {
   "sha": "3ce8410",
-  "fullSha": "3ce841020a5f2bba45081394a5233acc8908d9db",
   "author_id": "devmade.ai@gmail.com",
   "author": {
     "name": "devmade-ai",
     "email": "devmade.ai@gmail.com"
   },
-  "committer": {
-    "name": "devmade-ai",
-    "email": "devmade.ai@gmail.com"
-  },
   "timestamp": "2026-04-13T08:02:36Z",
-  "commitDate": "2026-04-13T08:02:36Z",
   "subject": "docs: capture DaisyUI component-class migration sweep (10 phases)",
   "body": "Record the full 10-phase DaisyUI component-class migration in the\nproject-wide docs so future sessions have the same context without\nneeding to rebuild it from commit logs.\n\n- SESSION_NOTES.md: new \"Recent Updates (2026-04-13)\" block at the top\n  summarizing all 10 phases with commit hashes, the shadowing-risk\n  before/after audit, and the list of surfaces deliberately NOT\n  migrated (HamburgerMenu dropdown, MultiSelect listbox,\n  CollapsibleSection, drawer-style panes) with rejection reasoning.\n- HISTORY.md: new dated 2026-04-13 entry with phase-by-phase detail,\n  including every class deletion, every consumer migration, and\n  explicit alternative-rejection reasoning. Also records the build\n  verification steps (10 consecutive vite builds) and the testing\n  gap (no browser runtime test performed).\n- TODO.md: removed the \"Component class migration to DaisyUI\" item —\n  it's now complete — and updated the last-updated footer to reflect\n  the 2026-04-13 sweep.\n- TESTING_GUIDE.md: new \"DaisyUI component-class migration\" section\n  under the Theme block with a per-phase verification checklist\n  (modal, toast, health alert, timeline badge, card, btn, tabs,\n  select/input, hamburger audit, listbox checkbox) that exercises\n  each migrated surface in both a light and a dark theme.\n\nTags: documentation, daisyui, migration\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-component-migration\nSemver: patch",
   "tags": [
@@ -22,11 +16,7 @@
   "debt": "paid",
   "epic": "daisyui-component-migration",
   "semver": "patch",
-  "scope": null,
-  "title": "capture DaisyUI component-class migration sweep (10 phases)",
-  "is_conventional": true,
   "has_breaking_change": false,
-  "references": [],
   "stats": {
     "filesChanged": 4,
     "additions": 149,
