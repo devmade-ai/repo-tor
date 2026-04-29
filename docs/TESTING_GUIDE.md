@@ -13,6 +13,8 @@ Source- and build-output-level tripwires (no browser, no transpilation, run on e
 | `scripts/__tests__/icon-cache-bust.test.mjs` | PWA icon cache-bust pipeline integrity (Vite plugin, manifest sync, version coupling) |
 | `scripts/__tests__/aggregate-output.test.mjs` | Re-introduction of dashboard-unused fields, missing strip helper, resurrection of removed `repos/` output, drift detection (any new commit field must be in `KNOWN_COMMIT_FIELDS` allowlist) |
 | `scripts/__tests__/build-output.test.mjs` | Built `dist/` integrity — required HTML hooks, manifest keys, sw.js precache routes, JS bundle still fetches canonical paths AND no longer contains stripped legacy identifiers |
+| `scripts/__tests__/commit-parsing.test.mjs` | `extractBreakingChange` correctness — conventional `!:` markers (with/without scope), `BREAKING CHANGE` and `BREAKING:` body markers (case-insensitive, line-anchored), edge cases (empty inputs, undefined, mid-line false positives) |
+| `scripts/__tests__/strip-dead-fields.test.mjs` | `stripDeadFieldsInDir` correctness + atomicity — strips known dead fields, idempotent on clean trees, aborts BEFORE any writes on parse failure (Pass 1 atomicity), skips non-conforming repo/commit filenames with warnings, preserves UTF-8 content (em dashes, emoji) without escape sequences, throws helpful error when processed/ is missing |
 
 Run `npm test` (~300ms total). The `node:test` runner walks `scripts/__tests__/*.test.mjs`. Tests with `dist/`-dependent assertions auto-skip when the build hasn't run.
 
