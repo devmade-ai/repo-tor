@@ -46,3 +46,11 @@ dist/
 
 # Generated at build time (scripts/write-build-version.mjs)
 dashboard/public/version.json
+
+# Generated at build time (scripts/aggregate-processed.js)
+# Pretty-printed aggregator output regenerated from processed/ on every
+# dev/build. Tracking these produced ~138k-line diffs per pipeline run
+# (~70% of every feed-chicken commit) even though ~1% of values changed.
+dashboard/public/data.json
+dashboard/public/data-commits/
+dashboard/public/repos/
