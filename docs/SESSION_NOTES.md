@@ -26,6 +26,17 @@ Detailed history lives in the git log (`git log --oneline` / `git log -p`).
    for ~1% real value change. Fix: gitignored those paths, wired
    `node scripts/aggregate-processed.js` into `dev` and `build`
    scripts in `package.json`, same pattern as `version.json`.
+4. **Aggregator output slimmed and dead code removed** (this session,
+   wrap-pass follow-up). Greppable absence in `dashboard/js/` confirmed
+   7 fields were never read: `fullSha`, `committer`, `commitDate`,
+   `scope`, `is_conventional`, `references`, `title`. Stripped at the
+   aggregator's dashboard-output boundary (not in `processed/` —
+   audit trail keeps every field). Also removed `dashboard/public/repos/`
+   generation entirely: dashboard never fetched those files, comment
+   in aggregator confirmed they were "backward compat" leftover from
+   before the data-commits/ migration. CLAUDE.md prohibits backcompat
+   shims. Net effect: PWA precache went from 41 → 26 entries (15
+   per-repo files dropped); per-month JSON payloads ~12% smaller.
 
 **Why the build-artefact change matters:**
 

@@ -115,13 +115,13 @@ rm -rf reports/
 
 # Delete dashboard aggregated data (gitignored build output — regenerated on next build)
 rm -f dashboard/public/data.json
-rm -rf dashboard/public/data-commits dashboard/public/repos
+rm -rf dashboard/public/data-commits
 ```
 
 **What gets deleted:**
 - `processed/` - All AI-analyzed commits and manifests
 - `reports/` - All raw extracted data
-- `dashboard/public/{data.json,data-commits/,repos/}` - Aggregator build artefacts (gitignored; `npm run dev`/`npm run build` regenerates them)
+- `dashboard/public/{data.json,data-commits/}` - Aggregator build artefacts (gitignored; `npm run dev`/`npm run build` regenerates them)
 
 **What's preserved:**
 - `config/repos.json` - List of tracked repos
@@ -184,7 +184,7 @@ The aggregator runs as a build step on `npm run dev` and `npm run build`. Run it
 node scripts/aggregate-processed.js
 ```
 
-Aggregator output (`dashboard/public/data.json`, `dashboard/public/data-commits/`, `dashboard/public/repos/`) is gitignored — it's regenerated from `processed/` on every build.
+Aggregator output (`dashboard/public/data.json`, `dashboard/public/data-commits/`) is gitignored — it's regenerated from `processed/` on every build.
 
 ### Step 6: Commit Changes
 
@@ -194,7 +194,7 @@ git commit -m "chore: hatch the chicken - full extraction"
 git push
 ```
 
-Note: `dashboard/` aggregator output is gitignored; nothing under `dashboard/public/{data.json,data-commits/,repos/}` needs to be staged.
+Note: `dashboard/` aggregator output is gitignored; nothing under `dashboard/public/{data.json,data-commits/}` needs to be staged.
 
 ---
 
@@ -296,7 +296,7 @@ Re-aggregation runs as a build step on `npm run dev` / `npm run build`. Run it m
 node scripts/aggregate-processed.js
 ```
 
-Aggregator output (`dashboard/public/data.json`, `dashboard/public/data-commits/`, `dashboard/public/repos/`) is gitignored.
+Aggregator output (`dashboard/public/data.json`, `dashboard/public/data-commits/`) is gitignored.
 
 ### Step 5: Commit Changes
 
@@ -306,7 +306,7 @@ git commit -m "chore: feed the chicken - X new commits"
 git push
 ```
 
-Note: `dashboard/` aggregator output is gitignored; nothing under `dashboard/public/{data.json,data-commits/,repos/}` needs to be staged.
+Note: `dashboard/` aggregator output is gitignored; nothing under `dashboard/public/{data.json,data-commits/}` needs to be staged.
 
 ### Key Differences from "Hatch"
 

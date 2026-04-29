@@ -435,6 +435,39 @@ function generateAggregation(commits, scope, repoCount = 1) {
 
 // === Output ===
 
+// Fields written by extract-api.js / extract.js that are NOT consumed by the dashboard.
+// Stripping them at the dashboard-output boundary shrinks runtime payload without
+// touching processed/ (which keeps the full audit trail).
+//
+// Verified 2026-04-29 by greppable absence in dashboard/js/:
+//   - fullSha       (dashboard always uses 7-char `sha`)
+//   - committer     (always GitHub bot for merges; dashboard uses `author` only)
+//   - commitDate    (duplicate of `timestamp`; dashboard uses `timestamp`)
+//   - scope         (parsed conventional-commit scope; never displayed)
+//   - is_conventional (boolean; never displayed)
+//   - references    (PR/issue numbers; never displayed)
+//   - title         (duplicate of `subject`; dashboard reads `subject` via getCommitMessage)
+//
+// If the dashboard later needs one of these, restore by removing it from this list —
+// processed/ retains every field, so a re-aggregation will republish it.
+const DASHBOARD_UNUSED_FIELDS = [
+  'fullSha',
+  'committer',
+  'commitDate',
+  'scope',
+  'is_conventional',
+  'references',
+  'title',
+];
+
+function stripCommitForDashboard(commit) {
+  const stripped = { ...commit };
+  for (const field of DASHBOARD_UNUSED_FIELDS) {
+    delete stripped[field];
+  }
+  return stripped;
+}
+
 function writeJson(filepath, data) {
   const dir = path.dirname(filepath);
   fs.mkdirSync(dir, { recursive: true });
@@ -487,16 +520,6 @@ function main() {
 
   console.log(`\nGenerating aggregations:\n`);
 
-  // Generate per-repo files (these still include inline commits for backward compat)
-  const reposDir = path.join(outputDir, 'repos');
-
-  for (const repoName of repoNames) {
-    const commits = repos[repoName];
-    const { summary, sortedCommits } = generateAggregation(commits, repoName, 1);
-    // Per-repo files keep commits inline (they're small enough individually)
-    writeJson(path.join(reposDir, `${repoName}.json`), { ...summary, commits: sortedCommits });
-  }
-
   // Generate overall aggregation
   const allCommits = repoNames.flatMap(name => repos[name]);
   const { summary: overallSummary, sortedCommits: overallCommits } = generateAggregation(allCommits, 'overall', repoNames.length);
@@ -508,6 +531,10 @@ function main() {
   // Alternatives:
   //   - Keep all commits in data.json: Rejected — 2.9 MB payload, slow initial load
   //   - Split by repo instead of month: Rejected — month-based matches time-windowed UI pattern
+  //   - Per-repo files (formerly dashboard/public/repos/<repo>.json): Removed 2026-04-29 —
+  //     dashboard never fetched them; they were "backward compat" leftover from before the
+  //     data-commits/ migration. CLAUDE.md prohibits backcompat shims. Deleted with no
+  //     consumer impact.
   const commitsDir = path.join(outputDir, 'data-commits');
 
   // Group commits by UTC month (consistent with monthly/daily/weekly aggregations)
@@ -520,10 +547,13 @@ function main() {
   }
 
   // Write per-month commit files
+  // Strip dashboard-unused fields (fullSha, committer, commitDate, scope, is_conventional,
+  // references, title) — verified zero direct or indirect access in dashboard/js/. Stripping
+  // here, not in processed/, keeps the audit-trail full while shrinking runtime payload.
   for (const [month, monthCommits] of Object.entries(commitsByMonth)) {
     writeJson(path.join(commitsDir, `${month}.json`), {
       month,
-      commits: monthCommits,
+      commits: monthCommits.map(stripCommitForDashboard),
     });
   }
 
