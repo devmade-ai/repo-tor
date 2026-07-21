@@ -109,7 +109,9 @@ Browser-based runtime / visual regression coverage was removed 2026-04-15 — se
   - [ ] Dark mode / Light mode — toggles theme, label updates to match current mode
   - [ ] Save as PDF — triggers browser print dialog
   - [ ] Install App — appears only when PWA install is available; shows native prompt (Chromium) or install instructions modal (Safari/Firefox)
-  - [ ] Check for Updates — appears only when update is available, highlighted in blue
+  - [ ] Check for updates — visible when no update is pending; clicking it shows a toast with the result ("You're up to date…", "A new version is ready…", browser-not-supported, or a connection error). Label switches to "Checking for updates…" (disabled) while a check is running
+  - [ ] Update Now — replaces "Check for updates" when an update is waiting; highlighted, with a pulsing dot next to the menu button; clicking applies the update and reloads
+  - [ ] Automatic updates: On/Off — check icon when on; clicking flips the state in place (menu stays open) and shows a toast explaining the new behavior; the choice survives a reload
 - [ ] Clicking outside the menu (backdrop) closes it
 - [ ] Pressing Escape closes the menu
 - [ ] Arrow Down/Up keys navigate between menu items
@@ -117,6 +119,16 @@ Browser-based runtime / visual regression coverage was removed 2026-04-15 — se
 - [ ] Enter/Space activates focused menu item
 - [ ] Separator lines divide menu item groups
 - [ ] Version number shown at bottom of menu
+
+**App Updates (PWA, auto-on-launch policy):**
+
+Needs a production build served locally (`npm run build`, then serve `dist/`) — the service worker is not registered by the dev server. To simulate a deploy, rebuild between visits.
+
+- [ ] **Launch-apply (default):** visit once so the SW installs, deploy/rebuild, visit again (update downloads in the background, "Update Now" may appear — ignore it), then close and reopen the tab → the page refreshes itself once at startup and runs the new version. No update prompt remains afterwards
+- [ ] **Mid-session never reloads:** load a data file via drag & drop, deploy/rebuild, wait for the update to be detected (or use Menu → Check for updates) → the "Update Now" item and pulse dot appear, but the page does NOT reload on its own and the loaded data stays
+- [ ] **Automatic updates off:** turn the toggle off, arrange a waiting update, close and reopen → the app does NOT self-refresh; "Update Now" is shown instead and works when clicked
+- [ ] **version.json launch reload:** a deploy that changes only `version.json` (no sw.js change) still self-refreshes once on the next open with automatic updates on — and only once (the sessionStorage one-shot guard prevents reload loops even if the server keeps returning a mismatched buildTime)
+- [ ] **Check for updates results:** with the newest version, Menu → Check for updates shows "You're up to date…"; with a fresh deploy pending it shows "A new version is ready…" and arms Update Now; with the network cut it shows the connection-error toast
 
 **Quick Guide:**
 - [ ] Auto-shows on first visit (after data loads)

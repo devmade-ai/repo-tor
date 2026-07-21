@@ -1,156 +1,95 @@
 # Session Notes
 
-Compact context snapshot for AI continuity. Updated 2026-04-29 after
-adding Google Analytics 4 to the dashboard.
+Compact context snapshot for AI continuity. Updated 2026-07-21 after
+implementing the fleet-standard PWA auto-on-launch update policy.
 Detailed history lives in the git log (`git log --oneline` / `git log -p`).
 
 ## Current State
 
-**Branch:** `claude/add-google-analytics-9B0aw`.
+**Branch:** `claude/projects-missing-analytics-vla4ja` (not merged; no PR).
 
-**This session:** Added GA4 snippet (`G-8CLE4P0DQK`) to
-`dashboard/index.html` in `<head>`, after the theme flash prevention
-script and before `</head>`. Async load — non-blocking. Auto-tracks
-page_view via `gtag('config', ...)`. No embed-mode skip (intentional —
-embedded iframes count as pageviews; can be filtered in GA dashboard
-if needed). Updated `docs/ADMIN_GUIDE.md` with a new "Analytics"
-section explaining scope, property ID location, PII handling, and
-disable instructions. Added pending verification step to
-`docs/USER_ACTIONS.md` for confirming traffic flow post-deploy.
+**This session:** Implemented the fleet-standard **auto-on-launch** PWA
+update policy from glow-props `PWA_SYSTEM.md` "Update Application Policy".
+`registerType: 'prompt'` stays the mechanism; the behavior changed from
+tap-only to launch-apply + defer-mid-session + user toggle.
 
-**Previous branch:** `claude/align-components-27ypY`.
+**What changed (`dashboard/js/pwa.js`, 469 → 593 lines):**
 
-**Recent work (oldest first):**
+1. **Launch-apply (SW path):** in `onRegisteredSW`, a worker already
+   `waiting` when registration first resolves — with automatic updates
+   enabled and the `_userClickedUpdate` / `wasJustUpdated()` suppression
+   machinery inactive — routes through the existing `applyUpdate()`
+   (latch + 30s suppression + `storeCurrentBuildTime` + `updateSW(true)`;
+   single reload via the guarded `controllerchange` listener). A worker
+   that reaches waiting later in the session still only arms the banner
+   via `onNeedRefresh` — repo-tor users may have a drag-dropped data file
+   loaded, and a mid-session reload discards it.
+2. **Launch-apply (version.json path):** `checkVersionJson({ launch })`.
+   The deferred startup check passes `launch: true`; a mismatch there
+   (auto ON, suppression inactive) does ONE plain
+   `window.location.reload()` guarded by the sessionStorage one-shot flag
+   `pwa-version-launch-reload` — can never loop. Stored buildTime + the
+   30s `pwa-just-updated` marker are written before the reload. Interval
+   and manual calls stay `launch: false` (arm-banner only). The function
+   now returns a boolean mismatch signal for the manual check.
+3. **"Automatic updates" preference:** `isAutoUpdateEnabled()` /
+   `setAutoUpdateEnabled()` exported from pwa.js. localStorage
+   `pwa-auto-update`, `'true' | 'false'`, absent = ON, read through the
+   safeStorage wrappers.
+4. **`checkForUpdate()` upgraded to the canonical union**
+   `'no-sw' | 'up-to-date' | 'update-available' | 'error'` (renamed
+   `'update-found'`; no external caller used the old literal) and now
+   also runs the version.json comparison after the 1500ms settle, so
+   deploys that didn't change sw.js are reported too.
+5. `pwa-just-updated` literal extracted to `JUST_UPDATED_KEY` (three
+   writers now). Module header JSDoc documents the policy + the full
+   CustomEvent vocabulary (no new events were needed).
 
-1. **Full "feed the chicken" run across all 13 active repos** — drained
-   every repo's pending queue through the standard preamble→merge-
-   analysis pipeline. Final tally: 4,183 commits across 15 tracked
-   repos (13 active + coin-zapp + plant-fur frozen). 1,332 new commit
-   JSONs landed under `processed/`.
-2. **Vocabulary update + historical retag** — added `data-pipeline` tag
-   (analytics/ETL pipeline runs, regenerated data artefacts) to
-   `config/batch-preamble.md` under a renamed "Data" group. Retagged
-   135 historical commits via heuristic; 0 false positives.
-3. **Aggregator output → build artefact** (this session). The
-   `dashboard/public/{data.json,data-commits/,repos/}` files were
-   tracked, pretty-printed, regenerated wholesale every aggregation
-   run. Result: every feed-chicken commit produced ~138k-line diffs
-   for ~1% real value change. Fix: gitignored those paths, wired
-   `node scripts/aggregate-processed.js` into `dev` and `build`
-   scripts in `package.json`, same pattern as `version.json`.
-4. **Aggregator output slimmed and dead code removed** (this session,
-   wrap-pass follow-up). Greppable absence in `dashboard/js/` confirmed
-   7 fields were never read: `fullSha`, `committer`, `commitDate`,
-   `scope`, `is_conventional`, `references`, `title`. Stripped at the
-   aggregator's dashboard-output boundary. Also removed
-   `dashboard/public/repos/` generation entirely: dashboard never
-   fetched those files, comment in aggregator confirmed they were
-   "backward compat" leftover from before the data-commits/ migration.
-   CLAUDE.md prohibits backcompat shims. Net effect: PWA precache went
-   from 41 → 26 entries (15 per-repo files dropped); per-month JSON
-   payloads ~12% smaller.
-5. **Dead fields removed at source, not just at output** (this session,
-   surface-pass follow-up). Initial fix in step 4 stripped only at the
-   aggregator boundary, leaving `processed/` files carrying the 7 dead
-   fields as 1.2 MB of inert pass-through. Source fix:
-     - `extract.js`, `extract-api.js`, `fix-malformed.js` no longer
-       emit those 7 fields. `extractReferences` import removed (dead).
-       `extract.js` git format trimmed (originally 10 fields → 6) —
-       committer name/email/date no longer extracted at all; `%H` full
-       hash also dropped after refactoring `statsByFullSha` to
-       `statsByShortSha` (both `git log` invocations use `%h`, indexed
-       directly without a side map).
-     - One-time clean: 4034 of 4183 existing `processed/*.json` files
-       had at least one dead field; all stripped. 26,058 fields removed.
-       JSON formatting preserved (matched original Node output via
-       `ensure_ascii=False`); diff is 39,336 deletions / 185 insertions.
-     - Strip script preserved as `scripts/strip-dead-fields.mjs`.
-       Idempotent. Imports `DASHBOARD_UNUSED_FIELDS` from the aggregator
-       (single source of truth — main() only runs when invoked as CLI,
-       guarded by `process.argv[1] === __filename`).
-     - Tripwire: `scripts/__tests__/aggregate-output.test.mjs`
-       (8 tests) catches re-introduction of any dead field, deletion
-       of stripCommitForDashboard, resurrection of `dashboard/public/
-       repos/` output, missing required fields, AND any new field
-       appearing in commits that's not in the explicit
-       `KNOWN_COMMIT_FIELDS` allowlist (proactive drift detection).
-6. **Legacy schema normalized + utils.js fallbacks removed** (this
-   session, approach-pass discovery). 44 of 4183 commits used a
-   pre-migration shape: `message` (not `subject`+`body`),
-   `files_changed`/`lines_added`/`lines_deleted` (not nested `stats`).
-   Dashboard handled them via fallback chains in `utils.js` —
-   backcompat shims that CLAUDE.md prohibits. Fix:
-     - 44 commits normalized to the canonical shape via inline
-       migration. `message` split into `subject`/`body`. snake_case
-       stats moved into `stats`. Missing fields filled with null
-       (AI-analyzed) or best-effort defaults (`files: []`,
-       `author: {name: <local-part>, email: author_id}`).
-     - `getFilesChanged`/`getCommitSubject`/`getAdditions`/
-       `getDeletions` simplified from 3-step fallback chains to
-       single-line property reads.
-     - `KNOWN_COMMIT_FIELDS` allowlist tightened (legacy field names
-       no longer permitted; drift detector will fail if they reappear).
-7. **Build-output tripwire** (this session, approach-pass shortcut).
-   Container has no browser; Playwright Chromium download blocked;
-   JSDOM + Vite-built React 19 + Chart.js bundle is non-trivial to
-   set up and Chart.js needs canvas. Best honest proxy:
-   `scripts/__tests__/build-output.test.mjs` (6 tests) verifies
-   `dist/` contains required files (HTML hooks, manifest keys,
-   data.json, sw.js routes, JS bundle), bundle still fetches the
-   canonical paths, and bundle no longer contains the legacy
-   identifiers (`files_changed`, etc.). Real browser coverage is a
-   CI concern; documented in TODO under "Browser test coverage".
-8. **Cold-pass cleanup** (this session, fresh-eyes branch audit).
-   Three findings, all fixed:
-     - `scripts/lib/commit-parsing.js` had two exports (`parseCommitMessage`,
-       `extractReferences`) that lost their last callers in step 5.
-       Module reduced from 62 to 23 lines, exporting only
-       `extractBreakingChange`. The breaking-change `!` marker
-       detection (previously routed through `parseCommitMessage`)
-       was folded into `extractBreakingChange` directly. Callers in
-       `extract.js` and `extract-api.js` simplified accordingly.
-     - `docs/ADMIN_GUIDE.md` "Multi-Repository Aggregation" section
-       referenced a non-existent `scripts/aggregate.js` taking
-       `reports/*` CLI args. Rewrote to reflect the actual flow:
-       aggregator runs at build time, reads `processed/`, writes
-       `dashboard/public/{data.json,data-commits/}`. Author-map
-       guidance updated similarly.
-     - `docs/TESTING_GUIDE.md` claimed "one automated layer" — now
-       lists all 5 test files (88 tests / ~290ms), with auto-skip
-       behaviour for `dist/`-dependent assertions explained.
+**Header.jsx (menu wiring):**
 
-**Why the build-artefact change matters:**
+- "Check for updates" item (visible when no update pending; disabled +
+  "Checking for updates…" label while a check runs, driven by the
+  existing `pwa-checking-update` event) → result surfaced via `useToast`
+  with plain-language what+next copy.
+- "Update Now" unchanged in behavior; now carries its own `separator`
+  since it replaces "Check for updates" (exactly one of the two visible).
+- "Automatic updates: On/Off" toggle item — check icon when on (same
+  active treatment as the theme picker), `keepOpen: true`, confirmation
+  toast explaining the new behavior.
 
-Branch line stats before the change: 197,705 insertions / 14,515
-deletions across 1,360 files. ~70% of that is regenerated dashboard
-JSON, not actual content change. After the change every future feed-
-chicken commit drops ~138k lines of noise; only `processed/` (~45
-lines per genuinely new commit) shows up in diffs.
+**Verification:** `npm run build` clean (theme-meta generator + aggregator
++ vite + PWA generateSW, 26 precache entries); `npm test` 107/107 pass.
+No browser run (sandbox has no browser — pre-existing limitation, see
+TESTING_GUIDE "Automated coverage"). New manual scenarios added to
+TESTING_GUIDE under "App Updates (PWA, auto-on-launch policy)".
 
-Vercel deploy unaffected: `vercel.json` runs `npm run build`, which now
-runs the aggregator before Vite. `processed/` is tracked, so the
-aggregator has its input on a fresh clone or fresh deploy. Build time
-grows from ~6.6s to ~9.5s (aggregator: 2.9s).
+**Pre-existing warnings (not introduced here):** Vite's >500 kB chunk
+warning (bundle was 566 kB before this ~1 kB change) and the stale
+browserslist notice.
 
-PWA precache count unchanged (41 entries / 870.26 KiB). Output bytes
-identical to before — only the tracking changed.
+**Docs touched:** CLAUDE.md (`js/pwa.js` component description),
+docs/USER_GUIDE.md (menu list + rewritten "Updating the App" — the old
+text referenced a non-existent "Settings → Updates" path), 
+docs/TESTING_GUIDE.md (menu checklist + update-policy scenarios),
+docs/TODO.md (pwa.js file-size entry refreshed: 578 → 469 after the
+earlier pwaInstructions split → 593 now; `pwaUpdate.js` split deferred —
+the flows share module state, splitting needs an accessor layer beyond
+this task's contract). QuickGuide.jsx checked — it never mentions app
+updates (only "data updates automatically"), so no change was needed.
 
 ## Open Items
 
-- None blocking. SESSION_NOTES previously stale (last updated 2026-04-16,
-  on a different branch); refreshed in this commit.
+- pwa.js is back over the 500-line soft-limit (593) — split tracked in
+  TODO "File-size monitoring" item 1.
+- The update-policy behavior needs a live browser pass (launch-apply,
+  toggle persistence, check-for-updates toasts) — scenarios are in
+  TESTING_GUIDE; the sandbox has no browser.
 
 ## Files Touched This Session
 
-- `package.json` — added aggregator to `dev` and `build` scripts
-- `.gitignore` — added `dashboard/public/data.json`,
-  `dashboard/public/data-commits/`, `dashboard/public/repos/`
-- `CLAUDE.md` — updated `aggregate-processed.js` description to note
-  build-step integration + gitignored output
-- `docs/DATA_OPERATIONS.md` — Step 5 of Hatch + Step 4 of Feed marked
-  optional (build does it); `git add` instructions corrected to drop
-  `dashboard/`; stale `aggregate.js` reference fixed to
-  `aggregate-processed.js`
-- `dashboard/public/data.json`, `dashboard/public/data-commits/*`,
-  `dashboard/public/repos/*` — `git rm --cached` (still on disk,
-  regenerated by build)
+- `dashboard/js/pwa.js` — launch-apply (SW + version.json), auto-update
+  preference, canonical checkForUpdate union, JUST_UPDATED_KEY extraction
+- `dashboard/js/components/Header.jsx` — Check for updates / Automatic
+  updates menu items, checking state, result toasts
+- `CLAUDE.md`, `docs/USER_GUIDE.md`, `docs/TESTING_GUIDE.md`,
+  `docs/TODO.md`, `docs/SESSION_NOTES.md` (this file)

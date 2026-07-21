@@ -29,12 +29,10 @@ Remaining tasks for Git Analytics Reporting System.
 
 ### File-size monitoring
 
-1. [ ] **`dashboard/js/pwa.js`** is 578 lines — **already over the 500-line soft-limit**, missed by the three audit passes because they focused on section components and never ran a file-size sweep over the top-level `dashboard/js/*.js` modules. Not a strong-limit violation (800) yet but should be split before it grows. The file has multiple responsibilities that could be separated:
+1. [ ] **`dashboard/js/pwa.js`** is 593 lines — over the 500-line soft-limit. History: flagged at 578 by the 2026-04 file-size sweep; the `pwaInstructions.js` extraction (2026-04-15) brought it down to 469; the 2026-07-21 auto-on-launch update-policy additions (launch-apply, version.json launch reload, auto-update preference) pushed it back to 593. Not a strong-limit violation (800) yet. Remaining split candidates:
     - **Install flow** — `installPWA()`, `dismissInstall()`, `isInstallDismissed()`, the `beforeinstallprompt` capture logic, and the manual-install detection for Safari/Firefox.
-    - **Update flow** — `applyUpdate()`, `checkForUpdate()`, `stopUpdatePolling()`, and the `workbox-window` wiring + update-available event emission.
-    - **Install-instructions content** — `getInstallInstructions()` returns per-browser step text; a pure data module candidate.
-    - **Event-based pub/sub** — the `window.addEventListener` / `dispatchEvent` layer that bridges the vanilla PWA API with React (AppContext listens for `pwa-install-ready` / `pwa-update-available` etc.).
-   Suggested split: `pwa.js` (install flow) + `pwaUpdate.js` (update flow) + `pwaInstructions.js` (per-browser instructions data). The event-bridge can stay with the install flow since the install-ready event is its primary emitter.
+    - **Update flow** — `applyUpdate()`, `checkForUpdate()`, `checkVersionJson()`, the auto-update preference, `stopUpdatePolling()`, and the `virtual:pwa-register` wiring + update-available event emission.
+   Suggested split: `pwa.js` (install flow + event bridge) + `pwaUpdate.js` (update flow). Deferred during the update-policy work because the two flows share module state (`_updateAvailable`, `_userClickedUpdate`, `wasJustUpdated()`, the HMR AbortController) — splitting requires a small shared-state module or accessor layer, a structural change beyond that task's contract.
 
 2. [ ] **`scripts/extract-api.js`** is 699 lines — over the 500-line soft-limit but under the 800-line strong-refactor threshold. Out of scope for the audit pass. Monitor for growth; split candidates are the GitHub API pagination helpers, the rate-limit handling, and the commit-shape normaliser that maps the API response into the same structure `extract.js` uses for local git logs.
 

@@ -3,16 +3,31 @@
  *
  * Install: Captures beforeinstallprompt for Chromium browsers,
  *   provides browser-specific manual instructions for Safari/Firefox.
- * Update: Uses virtual:pwa-register with registerType:'prompt' for
- *   explicit control over SW activation. Checks hourly for updates.
+ * Update: Uses virtual:pwa-register with registerType:'prompt' as the
+ *   MECHANISM (exposes the waiting worker to app code) and the fleet-standard
+ *   "auto-on-launch" policy as the BEHAVIOR (glow-props PWA_SYSTEM.md,
+ *   "Update Application Policy"):
+ *     1. Launch-apply — a worker already waiting when registration first
+ *        resolves (or a version.json mismatch found by the startup check)
+ *        applies automatically: one reload at the moment nothing can be lost.
+ *     2. Defer mid-session — updates that install while the app is open only
+ *        arm the header "Update Now" item; a forced reload would discard a
+ *        drag-dropped data file mid-analysis.
+ *     3. "Automatic updates" toggle — persisted preference, default ON
+ *        (isAutoUpdateEnabled / setAutoUpdateEnabled). OFF = every update
+ *        waits for an explicit "Update Now" tap.
+ *     4. checkForUpdate() — manual check (SW + version.json) returning the
+ *        canonical 'no-sw' | 'up-to-date' | 'update-available' | 'error'.
+ *   Hourly polling + visibilitychange checks feed the mid-session path.
  *
  * Communicates with React via custom events on `window`:
- *   - 'pwa-install-ready'   → install prompt is available
- *   - 'pwa-installed'       → app was installed
- *   - 'pwa-update-available'→ a new SW is waiting
- *   - 'pwa-update-dismissed'→ user dismissed update prompt
- *   - 'pwa-offline-ready'   → app ready for offline use
- *   - 'pwa-checking-update' → manual update check in progress
+ *   - 'pwa-install-ready'     → install prompt is available
+ *   - 'pwa-installed'         → app was installed
+ *   - 'pwa-update-available'  → a new SW is waiting
+ *   - 'pwa-update-dismissed'  → user dismissed update prompt
+ *   - 'pwa-offline-ready'     → app ready for offline use
+ *   - 'pwa-offline-dismissed' → offline-ready notice auto-dismissed
+ *   - 'pwa-checking-update'   → manual update check started/finished
  */
 
 import { registerSW } from 'virtual:pwa-register';
@@ -59,10 +74,39 @@ function safeSessionSet(key, value) {
 // Approach: 30-second window after update where onNeedRefresh is ignored. Prevents the
 //   "update available" prompt from flashing immediately after the user just updated.
 // Pattern from: synctone usePWAUpdate.ts (wasJustUpdated), few-lap usePWAUpdate.ts
+// Key extracted to a const because three sites now write/read it: applyUpdate(),
+// the version.json launch-reload path, and this guard.
+const JUST_UPDATED_KEY = 'pwa-just-updated';
 function wasJustUpdated() {
-    const ts = safeSessionGet('pwa-just-updated');
+    const ts = safeSessionGet(JUST_UPDATED_KEY);
     if (!ts) return false;
     return (Date.now() - Number(ts)) < JUST_UPDATED_SUPPRESS_MS;
+}
+
+// ── Automatic-updates preference ──
+// Requirement: Fleet-standard auto-on-launch policy needs a persisted user
+//   toggle, DEFAULT ON (glow-props PWA_SYSTEM.md "Update Application Policy"
+//   item 3). OFF restores the previous tap-only behavior.
+// Approach: localStorage 'pwa-auto-update' holding 'true' | 'false'; an
+//   absent key means ON. Read through the safeStorage wrappers so sandboxed
+//   iframes / disabled-storage environments silently fall back to the
+//   default instead of throwing.
+// Alternatives:
+//   - Default OFF: Rejected — clients that never tap run stale precached
+//     code indefinitely (the fleet policy documents a real incident of a
+//     retired analytics property still receiving traffic from
+//     never-updated shells).
+//   - sessionStorage: Rejected — the preference must survive across visits.
+const AUTO_UPDATE_KEY = 'pwa-auto-update';
+
+/** Whether updates may auto-apply at launch. Absent key = enabled (default ON). */
+export function isAutoUpdateEnabled() {
+    return safeStorageGet(AUTO_UPDATE_KEY) !== 'false';
+}
+
+/** Persist the automatic-updates preference. */
+export function setAutoUpdateEnabled(enabled) {
+    safeStorageSet(AUTO_UPDATE_KEY, enabled ? 'true' : 'false');
 }
 
 // ── Version.json polling ──
@@ -76,22 +120,62 @@ function wasJustUpdated() {
 //   - Rely only on SW hash: Rejected — misses config-only deployments (vercel.json)
 //   - ETag checks: Rejected — CDN may strip or normalize headers
 const VERSION_STORAGE_KEY = 'pwa-build-time';
-async function checkVersionJson() {
+// One-shot guard for the launch-time version reload. sessionStorage scope on
+// purpose: the guard must survive the reload it causes (so a stale CDN copy
+// of version.json can never reload-loop) but reset for the next fresh visit.
+const VERSION_LAUNCH_RELOAD_KEY = 'pwa-version-launch-reload';
+
+/**
+ * Compare /version.json's buildTime against the last-seen stored value.
+ *
+ * Requirement (fleet auto-on-launch policy): the SW launch-apply path can't
+ *   catch deployments that didn't change sw.js, so a mismatch found during
+ *   the STARTUP check counts as "update waiting at launch" too — with
+ *   automatic updates enabled it performs ONE plain window.location.reload()
+ *   instead of arming the banner. repo-tor context: launch is the only safe
+ *   reload moment; a mid-session reload would discard a drag-dropped data
+ *   file, so interval/manual calls (launch=false) only arm the banner.
+ * Approach: sessionStorage one-shot flag set BEFORE the reload so a second
+ *   mismatch in the same session can never reload again (worst case the
+ *   banner arms instead); the stored buildTime and the 30s wasJustUpdated
+ *   suppression are also written pre-reload so the post-reload SW settle
+ *   can't flash a false "update available".
+ * Alternatives:
+ *   - Reload on interval mismatches too: Rejected — that is plain autoUpdate
+ *     mid-session behavior, which destroys in-progress work (fleet policy).
+ *   - localStorage one-shot: Rejected — would permanently disable the
+ *     launch reload after its first use instead of once per session.
+ *
+ * @param {{launch?: boolean}} [opts] launch=true marks the startup check.
+ * @returns {Promise<boolean>} true when a mismatch (new deployment) was seen.
+ */
+async function checkVersionJson({ launch = false } = {}) {
     try {
         const resp = await fetch(`/version.json?t=${Date.now()}`);
-        if (!resp.ok) return;
+        if (!resp.ok) return false;
         const { buildTime } = await resp.json();
-        if (!buildTime) return;
+        if (!buildTime) return false;
         const stored = safeStorageGet(VERSION_STORAGE_KEY);
-        if (stored && String(buildTime) !== stored) {
-            if (!wasJustUpdated() && !_updateAvailable) {
+        const mismatch = Boolean(stored) && String(buildTime) !== stored;
+        if (mismatch && !wasJustUpdated()) {
+            if (launch && isAutoUpdateEnabled() && !safeSessionGet(VERSION_LAUNCH_RELOAD_KEY)) {
+                debugAdd('pwa', 'info', 'New deployment detected at launch — reloading automatically');
+                safeSessionSet(VERSION_LAUNCH_RELOAD_KEY, String(Date.now()));
+                safeSessionSet(JUST_UPDATED_KEY, String(Date.now()));
+                safeStorageSet(VERSION_STORAGE_KEY, String(buildTime));
+                window.location.reload();
+                return true;
+            }
+            if (!_updateAvailable) {
                 _updateAvailable = true;
                 window.dispatchEvent(new CustomEvent('pwa-update-available'));
             }
         }
         safeStorageSet(VERSION_STORAGE_KEY, String(buildTime));
+        return mismatch;
     } catch {
         // Network error — skip silently, will retry on next interval
+        return false;
     }
 }
 function storeCurrentBuildTime() {
@@ -299,7 +383,9 @@ export function isInstallDismissed() {
 
 /**
  * Apply the pending update — activates the new SW and reloads.
- * Requirement: User-controlled update flow — only reload when user clicks
+ * Requirement: Explicit update application — reload only when this is called
+ *   (the user clicked "Update Now", or the launch-apply path in onRegisteredSW
+ *   decided the launch moment is safe).
  * Approach: Set _userClickedUpdate flag before calling updateSW(true), which
  *   sends SKIP_WAITING to the waiting SW. The controllerchange listener checks
  *   this flag before reloading. Marks sessionStorage so the next page load
@@ -309,7 +395,7 @@ export function isInstallDismissed() {
 export function applyUpdate() {
     if (updateSW) {
         _userClickedUpdate = true;
-        safeSessionSet('pwa-just-updated', String(Date.now()));
+        safeSessionSet(JUST_UPDATED_KEY, String(Date.now()));
         storeCurrentBuildTime();
         updateSW(true);
     }
@@ -339,12 +425,16 @@ export function stopUpdatePolling() {
 
 /**
  * Manual check for updates.
- * Requirement: Explicitly check for SW updates and surface waiting workers
- * Approach: Call reg.update(), then wait for the async update process to
- *   complete before checking reg.waiting/reg.installing. Without the settle delay,
- *   the check can miss updates that are still being fetched/installed.
+ * Requirement: Explicitly check for SW updates AND new deployments, returning
+ *   the canonical fleet result union so the caller can surface a toast
+ *   (glow-props PWA_SYSTEM.md "Update Application Policy" item 4).
+ * Approach: Call reg.update(), wait for the async update process to settle
+ *   (~1500ms — reg.waiting/reg.installing may not be populated immediately),
+ *   then also run the version.json comparison so deployments that didn't
+ *   change sw.js are reported too. The previous 'update-found' literal was
+ *   renamed to the canonical 'update-available'.
  * Pattern from: synctone usePWAUpdate.ts, few-lap usePWAUpdate.ts
- * Returns: 'update-found' | 'up-to-date' | 'no-sw' | 'error'
+ * Returns: 'no-sw' | 'up-to-date' | 'update-available' | 'error'
  */
 export async function checkForUpdate() {
     if (!('serviceWorker' in navigator)) return 'no-sw';
@@ -352,15 +442,20 @@ export async function checkForUpdate() {
     window.dispatchEvent(new CustomEvent('pwa-checking-update'));
     try {
         const reg = await navigator.serviceWorker.getRegistration();
-        if (!reg) { _isChecking = false; return 'no-sw'; }
+        if (!reg) return 'no-sw';
         await reg.update();
         // Settle delay — the update process is async and reg.waiting/reg.installing
         // may not be populated immediately after reg.update() resolves
         await new Promise(r => setTimeout(r, UPDATE_SETTLE_DELAY_MS));
-        if (reg.waiting || reg.installing) {
-            _updateAvailable = true;
-            window.dispatchEvent(new CustomEvent('pwa-update-available'));
-            return 'update-found';
+        // Non-launch call: a mismatch arms the banner inside checkVersionJson,
+        // never reloads — the user is mid-session by definition here.
+        const versionMismatch = await checkVersionJson();
+        if (reg.waiting || reg.installing || versionMismatch) {
+            if (!_updateAvailable) {
+                _updateAvailable = true;
+                window.dispatchEvent(new CustomEvent('pwa-update-available'));
+            }
+            return 'update-available';
         }
         return 'up-to-date';
     } catch {
@@ -391,14 +486,43 @@ updateSW = registerSW({
     },
     onRegisteredSW(swUrl, registration) {
         if (registration) {
-            // Hourly: check both SW updates and version.json
+            // ── Launch-apply (fleet auto-on-launch policy) ──
+            // Requirement: a worker already WAITING when registration first
+            //   resolves finished downloading in a previous session — apply it
+            //   now, at launch, before the user has drag-dropped a data file
+            //   or started reading. A worker that reaches waiting LATER in the
+            //   session goes through onNeedRefresh and only arms "Update Now"
+            //   (a mid-session reload would discard the loaded data file).
+            // Approach: reuse applyUpdate() — it sets the _userClickedUpdate
+            //   controllerchange latch, marks the 30s re-detection
+            //   suppression, stores the current build time, and sends
+            //   SKIP_WAITING via updateSW(true); the single reload arrives
+            //   via controllerchange exactly like a manual "Update Now".
+            //   Guarded by the persisted "Automatic updates" preference and
+            //   the wasJustUpdated() window so a post-update reload can't
+            //   chain into another one.
+            // Alternatives:
+            //   - skipWaiting/clientsClaim in the SW config: Rejected — that
+            //     activates mid-session too (see vite.config.js rationale).
+            //   - Tap-only prompt (previous behavior): Rejected — fleet
+            //     policy; clients that never tap run stale code forever.
+            if (registration.waiting && isAutoUpdateEnabled()
+                && !wasJustUpdated() && !_userClickedUpdate) {
+                debugAdd('pwa', 'info', 'Update ready at launch — applying automatically');
+                applyUpdate();
+            }
+            // Hourly: check both SW updates and version.json. Armed even when
+            // launch-apply just fired — the page is about to reload, but if
+            // the controllerchange reload were ever lost, polling must survive.
             updateInterval = setInterval(() => {
                 registration.update();
                 checkVersionJson();
             }, SW_UPDATE_CHECK_INTERVAL_MS);
         }
-        // Initial version check on startup (deferred so it doesn't block rendering)
-        pwaTimeouts.push(setTimeout(() => checkVersionJson(), VERSION_CHECK_STARTUP_DELAY_MS));
+        // Initial version check on startup (deferred so it doesn't block
+        // rendering). launch:true → a mismatch here may auto-reload once
+        // (see checkVersionJson); interval calls above stay launch:false.
+        pwaTimeouts.push(setTimeout(() => checkVersionJson({ launch: true }), VERSION_CHECK_STARTUP_DELAY_MS));
     },
     onRegisterError(error) {
         debugAdd('pwa', 'error', 'Service worker registration failed: ' + error.message, {
@@ -409,11 +533,13 @@ updateSW = registerSW({
 
 // ── controllerchange ──
 
-// Requirement: Only reload on controllerchange when the user initiated the update
+// Requirement: Only reload on controllerchange when an apply was explicitly
+//   initiated — the user clicked "Update Now", or the launch-apply path
+//   decided the launch moment was safe. Both route through applyUpdate().
 // Approach: Check _userClickedUpdate flag before reloading. Background SW lifecycle
-//   events (browser auto-update, visibility check) should NOT cause surprise reloads
-//   while the user is mid-analysis. The user triggers reload via applyUpdate() which
-//   sets the flag, sends SKIP_WAITING, and the controllerchange handler reloads.
+//   events (browser auto-update, visibility check, another tab updating) should NOT
+//   cause surprise reloads while the user is mid-analysis. applyUpdate() sets the
+//   flag, sends SKIP_WAITING, and this controllerchange handler reloads once.
 // Pattern from: synctone usePWAUpdate.ts, few-lap usePWAUpdate.ts
 // Alternatives considered:
 //   - Always reload on controllerchange: Rejected — causes surprise reloads during use

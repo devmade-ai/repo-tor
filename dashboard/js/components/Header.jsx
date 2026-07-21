@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useApp, useAppDispatch } from '../AppContext.jsx';
-import { installPWA, applyUpdate, getPWAState, isInstalledPWA } from '../pwa.js';
+import {
+    installPWA, applyUpdate, getPWAState, isInstalledPWA,
+    checkForUpdate, isAutoUpdateEnabled, setAutoUpdateEnabled,
+} from '../pwa.js';
 import { getInstallInstructions, supportsManualInstall } from '../pwaInstructions.js';
+import { useToast } from './Toast.jsx';
 import { LIGHT_THEMES, DARK_THEMES } from '../themes.js';
 import HamburgerMenu from './HamburgerMenu.jsx';
 import QuickGuide from './QuickGuide.jsx';
@@ -30,8 +34,13 @@ const icons = {
 export default function Header() {
     const { state, activeFilterCount, filteredCommits } = useApp();
     const { dispatch, setTheme } = useAppDispatch();
+    const { addToast } = useToast();
     const [installReady, setInstallReady] = useState(false);
     const [updateAvailable, setUpdateAvailable] = useState(false);
+    // Lazy initializer — reads the persisted preference once on mount.
+    // pwa.js owns the storage; this state only mirrors it for rendering.
+    const [autoUpdate, setAutoUpdate] = useState(isAutoUpdateEnabled);
+    const [checking, setChecking] = useState(false);
     const [guideOpen, setGuideOpen] = useState(false);
     const [installModalOpen, setInstallModalOpen] = useState(false);
 
@@ -61,14 +70,20 @@ export default function Header() {
         const current = getPWAState();
         if (current.installReady) setInstallReady(true);
         if (current.updateAvailable) setUpdateAvailable(true);
+        if (current.isChecking) setChecking(true);
 
         const handleInstallReady = () => setInstallReady(true);
         const handleInstalled = () => setInstallReady(false);
         const handleUpdateAvailable = () => setUpdateAvailable(true);
+        // Fired at both the start and the end of a manual check — read the
+        // module state rather than toggling, so start/end can't get inverted
+        // if events are ever coalesced.
+        const handleCheckingUpdate = () => setChecking(getPWAState().isChecking);
 
         window.addEventListener('pwa-install-ready', handleInstallReady);
         window.addEventListener('pwa-installed', handleInstalled);
         window.addEventListener('pwa-update-available', handleUpdateAvailable);
+        window.addEventListener('pwa-checking-update', handleCheckingUpdate);
 
         const manualTimeout = setTimeout(() => {
             if (!getPWAState().installReady && supportsManualInstall()) {
@@ -80,6 +95,7 @@ export default function Header() {
             window.removeEventListener('pwa-install-ready', handleInstallReady);
             window.removeEventListener('pwa-installed', handleInstalled);
             window.removeEventListener('pwa-update-available', handleUpdateAvailable);
+            window.removeEventListener('pwa-checking-update', handleCheckingUpdate);
             clearTimeout(manualTimeout);
         };
     }, []);
@@ -98,6 +114,47 @@ export default function Header() {
             setInstallModalOpen(true);
         }
     }, []);
+
+    // Requirement: "Automatic updates" toggle (fleet policy item 3) with
+    //   plain-language feedback explaining what each state means — the menu
+    //   item's one-line label can't carry the helper copy, so a toast does.
+    // Approach: pwa.js owns persistence (isAutoUpdateEnabled/setAutoUpdateEnabled);
+    //   local state mirrors it for the label/icon. Reading the current value
+    //   from storage (not the mirror) keeps the toggle correct even if another
+    //   tab changed the preference since mount.
+    const handleToggleAutoUpdate = useCallback(() => {
+        const next = !isAutoUpdateEnabled();
+        setAutoUpdateEnabled(next);
+        setAutoUpdate(next);
+        addToast(
+            next
+                ? 'Automatic updates are on. New versions will be applied when you open the dashboard.'
+                : 'Automatic updates are off. New versions will wait until you choose "Update Now" in the menu.',
+            { type: 'info', duration: 5000 }
+        );
+    }, [addToast]);
+
+    // Requirement: "Check for updates" menu action (fleet policy item 4) —
+    //   run the SW + version.json check and surface the typed result as a
+    //   toast that says what happened AND what to do next.
+    const handleCheckForUpdates = useCallback(async () => {
+        const result = await checkForUpdate();
+        switch (result) {
+            case 'up-to-date':
+                addToast("You're up to date — this is the newest version.", { type: 'success' });
+                break;
+            case 'update-available':
+                // The pwa-update-available event has already armed the
+                // "Update Now" menu item and the header pulse dot.
+                addToast('A new version is ready. Open the menu and choose "Update Now" to use it.', { type: 'info', duration: 6000 });
+                break;
+            case 'no-sw':
+                addToast("This browser can't check for updates automatically. Refresh the page to get the newest version.", { type: 'warning', duration: 6000 });
+                break;
+            default: // 'error' or anything unexpected
+                addToast("Couldn't check for updates. Check your internet connection and try again.", { type: 'error', duration: 6000 });
+        }
+    }, [addToast]);
 
     const handleToggleDarkMode = useCallback(() => {
         dispatch({ type: 'SET_DARK_MODE', payload: !state.darkMode });
@@ -186,7 +243,33 @@ export default function Header() {
             ...themeItems,
             { label: 'Save as PDF', action: () => window.print(), icon: icons.pdf, separator: true },
             { label: 'Install App', action: handleInstall, icon: icons.install, visible: installReady && !isInstalledPWA(), separator: true },
-            { label: 'Update Now', action: () => applyUpdate(), icon: icons.update, visible: updateAvailable, highlight: true },
+            // ── Update cluster (fleet auto-on-launch policy, PWA_SYSTEM.md) ──
+            // Exactly one of "Check for updates" / "Update Now" is visible:
+            // once an update is known there is nothing left to check, and the
+            // highlighted "Update Now" replaces the check action. The
+            // "Automatic updates" toggle attaches below whichever is shown.
+            {
+                label: checking ? 'Checking for updates…' : 'Check for updates',
+                action: handleCheckForUpdates,
+                icon: icons.update,
+                visible: !updateAvailable,
+                disabled: checking,
+                separator: true,
+            },
+            { label: 'Update Now', action: () => applyUpdate(), icon: icons.update, visible: updateAvailable, highlight: true, separator: true },
+            {
+                // State-in-label because the menu has no toggle control —
+                // the check icon marks ON (same active treatment as the
+                // theme picker). keepOpen lets the user flip it and see the
+                // new state in place; the toast explains the effect.
+                label: autoUpdate ? 'Automatic updates: On' : 'Automatic updates: Off',
+                ariaLabel: autoUpdate
+                    ? 'Turn off automatic updates. Updates currently apply when the app opens.'
+                    : 'Turn on automatic updates so new versions apply when the app opens.',
+                action: handleToggleAutoUpdate,
+                icon: autoUpdate ? icons.check : icons.update,
+                keepOpen: true,
+            },
         ];
         // `setGuideOpen` is a React setState setter — guaranteed stable
         // identity across renders — so it's deliberately omitted from this
@@ -199,8 +282,12 @@ export default function Header() {
         setTheme,
         handleToggleDarkMode,
         handleInstall,
+        handleCheckForUpdates,
+        handleToggleAutoUpdate,
         installReady,
         updateAvailable,
+        autoUpdate,
+        checking,
     ]);
 
     return (

@@ -44,7 +44,7 @@ The header shows the repository name and change count:
 - **Filters active:** `repo-name — Showing 1,234 of 5,000 changes · Filtered` (click to open filters)
 
 Three buttons appear on the right:
-- **Menu (☰)** — Opens a dropdown with Quick Guide, User Guide (opens in new tab), Dark/Light mode toggle, Save as PDF, Install App (when available), and Check for Updates (when available)
+- **Menu (☰)** — Opens a dropdown with Quick Guide, User Guide (opens in new tab), Dark/Light mode toggle, theme picker, Save as PDF, Install App (when available), Check for updates (or the highlighted Update Now when a new version is waiting), and the Automatic updates toggle
 - **Filter** — Opens the filter sidebar (badge shows active filter count)
 - **Settings (⚙)** — Opens the settings panel
 
@@ -123,7 +123,12 @@ The dashboard can be installed as a Progressive Web App for offline access and a
 Once installed, the app appears on your home screen with the Git Analytics icon and works offline using cached data from your last visit.
 
 **Updating the App:**
-The app updates automatically in the background when a new version is deployed. To apply a pending update, close and reopen the app. You can also manually check in Settings → Updates → "Check for Updates".
+New versions download in the background. What happens next depends on the **Automatic updates** setting (Menu → "Automatic updates", on by default):
+
+- **Automatic updates on (default):** a downloaded update is applied the next time you open the dashboard — the page refreshes once at startup, before you've loaded anything. Updates never interrupt you mid-session: if one arrives while you're using the dashboard, a highlighted **Update Now** item appears in the menu (with a pulsing dot next to the menu button). Use it to update right away, or just ignore it — the update applies on its own the next time you open the app.
+- **Automatic updates off:** updates always wait for you. Choose **Update Now** from the menu when you're ready; nothing is applied without that click.
+
+You can check on demand with **Menu → Check for updates** — a short message tells you whether you're up to date, a new version is ready, or the check couldn't run.
 
 ---
 
