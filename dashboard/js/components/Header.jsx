@@ -29,6 +29,7 @@ const icons = {
     install: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>,
     update: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>,
     book: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>,
+    projects: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" /></svg>,
 };
 
 export default function Header() {
@@ -217,6 +218,12 @@ export default function Header() {
         return [
             { label: 'Quick Guide', action: () => setGuideOpen(true), icon: icons.guide },
             { label: 'User Guide', action: () => window.open('https://github.com/devmade-ai/repo-tor#readme', '_blank'), icon: icons.book, external: true },
+            // Projects live in the glow-props showcase (devmade-ai.github.io/glow-props),
+            // which lists every project with descriptions + live links. The dashboard's
+            // own Projects tab + projects.json were removed 2026-07-23 in favor of this
+            // single source, so the menu just links out. noopener/noreferrer prevents the
+            // opened page from reaching back through window.opener (reverse tabnabbing).
+            { label: 'View all projects', action: () => window.open('https://devmade-ai.github.io/glow-props/', '_blank', 'noopener,noreferrer'), icon: icons.projects, external: true },
             {
                 // Requirement: Theme toggle menu item must expose to assistive tech
                 //   (1) what mode the user is currently in and (2) what will happen

@@ -1,95 +1,113 @@
 # Session Notes
 
-Compact context snapshot for AI continuity. Updated 2026-07-21 after
-implementing the fleet-standard PWA auto-on-launch update policy.
+Compact context snapshot for AI continuity. Updated 2026-07-23 after
+propagating three GitHub repository renames and syncing the tracked-repo
+registry with the live org.
 Detailed history lives in the git log (`git log --oneline` / `git log -p`).
 
 ## Current State
 
-**Branch:** `claude/projects-missing-analytics-vla4ja` (not merged; no PR).
+**Branch:** `claude/repo-name-updates-raci2y` (not merged; no PR).
 
-**This session:** Implemented the fleet-standard **auto-on-launch** PWA
-update policy from glow-props `PWA_SYSTEM.md` "Update Application Policy".
-`registerType: 'prompt'` stays the mechanism; the behavior changed from
-tap-only to launch-apply + defer-mid-session + user toggle.
+**Repo-registry sync (follow-up to the renames below):** A completeness
+audit (`config/repos.json` ↔ `processed/` ↔ `mcp list_repos`) found the
+tracked set now matches the org's 21 accessible repos exactly. Changes made:
+- **Third rename:** `budgy-ting` → `fl-farlume` (252 commits) — same full
+  method as the two renames below (dir + `repo_id` + config note). Found
+  because `budgy-ting` had vanished from the org's accessible list; user
+  confirmed the rename.
+- **6 new repos registered** in `config/repos.json`: `dm-website`,
+  `hf-sculpt`, `kl-website`, `sp-backend`, `sp-website`, `web-arch` (all
+  private). They have **no `processed/` data yet** — extraction is blocked
+  in this sandbox (agent proxy scopes GitHub API to `repo-tor`; others 403).
+  Tracked as a pending action in `docs/USER_ACTIONS.md` ("feed the chicken"
+  run needed from an environment with org API access).
+- **Projects tab removed** — replaced with a "View all projects" link in the
+  hamburger menu pointing to the glow-props showcase
+  (`https://devmade-ai.github.io/glow-props/`, verified live via WebFetch —
+  lists all 12 projects). Deleted `dashboard/js/sections/Projects.jsx` +
+  `dashboard/public/projects.json`; dropped the tab from TabBar (6→5), the
+  App route, `PAGE_LIMITS.projects`, and the two projects.json PWA-precache
+  entries in vite.config.js; added a menu item + grid icon in Header.jsx;
+  updated QuickGuide. Supersedes the earlier "Projects tab missing
+  four-ems/sun-sea-o" gap. Verified: `vite build` clean (24 precache
+  entries, down from 26), `npm test` 106/106 pass.
 
-**What changed (`dashboard/js/pwa.js`, 469 → 593 lines):**
+**This session:** Two repos were renamed on GitHub — `synctone` → `intxt`
+and `few-lap` → `fh-fuelhunt`. Only the GitHub repo slugs changed; nothing
+else (same project, same history, same Vercel deployment domains). Followed
+the existing `social-ad-creator` → `canva-grid` rename precedent: migrate
+everything keyed off the slug so the dashboard shows one continuous history
+under the new name, plus a `"Renamed from …"` note in config.
 
-1. **Launch-apply (SW path):** in `onRegisteredSW`, a worker already
-   `waiting` when registration first resolves — with automatic updates
-   enabled and the `_userClickedUpdate` / `wasJustUpdated()` suppression
-   machinery inactive — routes through the existing `applyUpdate()`
-   (latch + 30s suppression + `storeCurrentBuildTime` + `updateSW(true)`;
-   single reload via the guarded `controllerchange` listener). A worker
-   that reaches waiting later in the session still only arms the banner
-   via `onNeedRefresh` — repo-tor users may have a drag-dropped data file
-   loaded, and a mid-session reload discards it.
-2. **Launch-apply (version.json path):** `checkVersionJson({ launch })`.
-   The deferred startup check passes `launch: true`; a mismatch there
-   (auto ON, suppression inactive) does ONE plain
-   `window.location.reload()` guarded by the sessionStorage one-shot flag
-   `pwa-version-launch-reload` — can never loop. Stored buildTime + the
-   30s `pwa-just-updated` marker are written before the reload. Interval
-   and manual calls stay `launch: false` (arm-banner only). The function
-   now returns a boolean mismatch signal for the manual check.
-3. **"Automatic updates" preference:** `isAutoUpdateEnabled()` /
-   `setAutoUpdateEnabled()` exported from pwa.js. localStorage
-   `pwa-auto-update`, `'true' | 'false'`, absent = ON, read through the
-   safeStorage wrappers.
-4. **`checkForUpdate()` upgraded to the canonical union**
-   `'no-sw' | 'up-to-date' | 'update-available' | 'error'` (renamed
-   `'update-found'`; no external caller used the old literal) and now
-   also runs the version.json comparison after the 1500ms settle, so
-   deploys that didn't change sw.js are reported too.
-5. `pwa-just-updated` literal extracted to `JUST_UPDATED_KEY` (three
-   writers now). Module header JSDoc documents the policy + the full
-   CustomEvent vocabulary (no new events were needed).
+**Why a full rename (not just URL pointers):** the dashboard's repo
+identity comes from the `repo_id` field inside each `processed/<repo>/commits/*.json`
+(aggregate-processed.js derives it from `repo_id`, dir name is only the
+fallback), and `extract-api.js` names both the output dir and `repo_id` from
+the GitHub slug (`repoOutputDir = outputDir/repo`, `repoId = toKebabCase(repo)`).
+So renaming the dirs + `repo_id` + config keeps past history and future
+"feed the chicken" extraction pointed at the same continuous project.
 
-**Header.jsx (menu wiring):**
+**What changed:**
 
-- "Check for updates" item (visible when no update pending; disabled +
-  "Checking for updates…" label while a check runs, driven by the
-  existing `pwa-checking-update` event) → result surfaced via `useToast`
-  with plain-language what+next copy.
-- "Update Now" unchanged in behavior; now carries its own `separator`
-  since it replaces "Check for updates" (exactly one of the two visible).
-- "Automatic updates: On/Off" toggle item — check icon when on (same
-  active treatment as the theme picker), `keepOpen: true`, confirmation
-  toast explaining the new behavior.
+1. **Data** — `git mv processed/synctone processed/intxt` (503 commit
+   files) and `processed/few-lap processed/fh-fuelhunt` (363 files).
+   Rewrote the internal `"repo_id"` field only (`"repo_id": "synctone"` →
+   `"intxt"`, `"few-lap"` → `"fh-fuelhunt"`) via exact-string sed — commit
+   `subject`/`body`/`files` audit text was left intact, so 32 intxt + 4
+   fh-fuelhunt files still legitimately mention the old names in their
+   historical commit messages. `manifest.json` holds only SHA lists (no
+   repo name), so it moved cleanly with the dir.
+2. **config/repos.json** — `name` + `url` updated to the new slugs; `notes`
+   now reads `"Private repository. Renamed from <old> on 2026-07-23"`.
+3. **dashboard/public/projects.json** — `name` + `repoUrl` updated. The
+   Vercel `liveUrl`s (`synctone.vercel.app`, `few-lap.vercel.app`) were
+   left as-is: a GitHub rename doesn't move the deployment domain, and the
+   brief said only the GitHub names changed. **If the Vercel projects were
+   also renamed, update these two `liveUrl`s.**
+4. **Prose** — ~30 `// Pattern from: synctone/few-lap …` attribution
+   comments across `dashboard/js/pwa.js`, `pwaConstants.js`,
+   `pwaInstructions.js`, `dashboard/index.html`, `vite.config.js`,
+   `scripts/write-build-version.mjs`, plus CLAUDE.md's Approach-B example
+   list. Comment text only — no runtime code touched.
 
-**Verification:** `npm run build` clean (theme-meta generator + aggregator
-+ vite + PWA generateSW, 26 precache entries); `npm test` 107/107 pass.
-No browser run (sandbox has no browser — pre-existing limitation, see
-TESTING_GUIDE "Automated coverage"). New manual scenarios added to
-TESTING_GUIDE under "App Updates (PWA, auto-on-launch policy)".
+**Deliberately not touched:**
 
-**Pre-existing warnings (not introduced here):** Vite's >500 kB chunk
-warning (bundle was 566 kB before this ~1 kB change) and the stale
-browserslist notice.
+- `docs/AI_MISTAKES.md` — the `few-lap` mentions there are a dated record
+  of a past event; rewriting a historical log would falsify it.
+- Commit `subject`/`body` audit text (see item 1).
+- `dashboard/repos/*.json` — a stale, unused directory (dead since the
+  2026-04-29 per-repo-files removal; nothing in `dashboard/js/` fetches it,
+  the aggregator no longer writes it, and it held an orphaned
+  `social-ad-creator.json` from the previous rename). Rather than rename
+  its `synctone.json` / `few-lap.json` snapshots, the whole dir was
+  **deleted** in a follow-up commit (14 files) after confirming no
+  consumer — it was never served (not under `public/`) and no source
+  references it.
 
-**Docs touched:** CLAUDE.md (`js/pwa.js` component description),
-docs/USER_GUIDE.md (menu list + rewritten "Updating the App" — the old
-text referenced a non-existent "Settings → Updates" path), 
-docs/TESTING_GUIDE.md (menu checklist + update-policy scenarios),
-docs/TODO.md (pwa.js file-size entry refreshed: 578 → 469 after the
-earlier pwaInstructions split → 593 now; `pwaUpdate.js` split deferred —
-the flows share module state, splitting needs an accessor layer beyond
-this task's contract). QuickGuide.jsx checked — it never mentions app
-updates (only "data updates automatically"), so no change was needed.
+**Verification:** `node scripts/aggregate-processed.js` → 15 repos, `intxt`
+503 + `fh-fuelhunt` 363 commits, old names absent from `repoCommitCounts`,
+zero malformed commits. `npm test` → 92 pass / 14 build-skipped / 1 fail.
+The single failure (`daisyui-surfaces.test.mjs` "Repo color invariant") is
+pre-existing and environmental — `node_modules/daisyui/theme/lofi/object.js`
+isn't installed in this container; it references zero renamed tokens and is
+unrelated to this change. No browser run (sandbox has no browser).
 
 ## Open Items
 
-- pwa.js is back over the 500-line soft-limit (593) — split tracked in
-  TODO "File-size monitoring" item 1.
-- The update-policy behavior needs a live browser pass (launch-apply,
-  toggle persistence, check-for-updates toasts) — scenarios are in
-  TESTING_GUIDE; the sandbox has no browser.
+- **Vercel `liveUrl` assumption** — left pointing at the old
+  `*.vercel.app` domains; revisit if the deployment projects were renamed
+  too.
 
 ## Files Touched This Session
 
-- `dashboard/js/pwa.js` — launch-apply (SW + version.json), auto-update
-  preference, canonical checkForUpdate union, JUST_UPDATED_KEY extraction
-- `dashboard/js/components/Header.jsx` — Check for updates / Automatic
-  updates menu items, checking state, result toasts
-- `CLAUDE.md`, `docs/USER_GUIDE.md`, `docs/TESTING_GUIDE.md`,
-  `docs/TODO.md`, `docs/SESSION_NOTES.md` (this file)
+- `processed/intxt/` (renamed from `processed/synctone/`, 503 files) +
+  `processed/fh-fuelhunt/` (renamed from `processed/few-lap/`, 363 files) —
+  dir rename + `repo_id` field rewrite
+- `config/repos.json`, `dashboard/public/projects.json` — name/URL/notes
+- `dashboard/js/pwa.js`, `dashboard/js/pwaConstants.js`,
+  `dashboard/js/pwaInstructions.js`, `dashboard/index.html`,
+  `vite.config.js`, `scripts/write-build-version.mjs` — comment attributions
+- `CLAUDE.md`, `docs/SESSION_NOTES.md` (this file), `docs/TODO.md`
+- `dashboard/repos/` — **deleted** (14 stale, unused JSON files) in the
+  follow-up cleanup commit

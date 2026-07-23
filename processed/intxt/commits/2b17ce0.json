@@ -1,0 +1,28 @@
+{
+  "sha": "2b17ce0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-06T19:51:54Z",
+  "subject": "fix: make install/update buttons truly exclusive by audience",
+  "body": "- Update: only shows for installed PWA users (isInstalled && hasUpdate)\n- Install: only shows for non-installed users (!isInstalled && shouldShowInstall)\n\nBrowser users don't need \"Update\" since network-first caching means\nhard reload already gets the latest code. The SW update is only\nmeaningful for installed PWAs where the SW controls the experience.\n\nhttps://claude.ai/code/session_012nvsRGG6qvCXSbHiTPwmgX",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 3,
+    "deletions": 3
+  },
+  "files": [
+    "app/(app)/home.tsx"
+  ],
+  "repo_id": "intxt",
+  "urgency": 2,
+  "impact": "user-facing"
+}

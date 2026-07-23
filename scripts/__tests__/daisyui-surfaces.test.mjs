@@ -177,12 +177,6 @@ test('Phase 5 — ErrorBoundary uses DaisyUI card + role="alert"', () => {
     assert.match(src, /className="card-body/);
 });
 
-test('Phase 5 — Projects ProjectCard uses DaisyUI card', () => {
-    const src = read('dashboard/js/sections/Projects.jsx');
-    assert.match(src, /className="card bg-base-200 border border-base-300/);
-    assert.match(src, /className="card-body /);
-});
-
 test('Phase 5 — Discover metric cards use DaisyUI card', () => {
     const src = read('dashboard/js/sections/Discover.jsx');
     assert.match(src, /className="card bg-base-200 border border-base-300"/);
@@ -320,7 +314,6 @@ test('Loading spinner: all consumers use DaisyUI loading loading-spinner, no sha
     const consumers = [
         'dashboard/js/App.jsx',
         'dashboard/js/sections/Timeline.jsx',
-        'dashboard/js/sections/Projects.jsx',
         'dashboard/js/sections/Discover.jsx',
     ];
     for (const path of consumers) {
@@ -549,8 +542,10 @@ test('Built CSS ships all DaisyUI component classes we reference', { skip: !buil
         '\\.checkbox\\b', '\\.checkbox-xs', '\\.checkbox-primary',
         // Join (segmented buttons)
         '\\.join\\b', '\\.join-item',
-        // Loading
-        '\\.loading\\b', '\\.loading-spinner', '\\.loading-sm', '\\.loading-md', '\\.loading-lg',
+        // Loading (loading-md dropped 2026-07-23 — its only consumer was the
+        // removed Projects section; Tailwind no longer emits it, so requiring
+        // it here would fail the built-CSS check. Remaining users: sm + lg.)
+        '\\.loading\\b', '\\.loading-spinner', '\\.loading-sm', '\\.loading-lg',
         // Progress
         '\\.progress\\b', '\\.progress-primary', '\\.progress-info',
     ];

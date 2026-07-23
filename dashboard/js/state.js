@@ -89,7 +89,6 @@ export const PAGE_LIMITS = {
     epics:        [6, 12],   // Progress epics on Breakdown tab
     tags:         [8, 0],    // Tag list on Breakdown tab (0 = show all on desktop)
     files:        [5, 10],   // Discover file insights
-    projects:     [6, 12],   // Project grids
 };
 
 // Tab -> section mapping documentation lives in CLAUDE.md "Dashboard

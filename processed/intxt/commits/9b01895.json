@@ -1,0 +1,27 @@
+{
+  "sha": "9b01895",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T11:35:12Z",
+  "subject": "Fix upside-down chat messages caused by RefreshControl",
+  "body": "RefreshControl doesn't work properly with inverted FlatLists - it causes\nthe entire list to flip 180 degrees, making messages appear upside down.\nRemoved RefreshControl from chat screen. Messages now display correctly.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 15
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx"
+  ],
+  "repo_id": "intxt",
+  "urgency": 3,
+  "impact": "user-facing"
+}

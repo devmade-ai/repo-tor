@@ -1,0 +1,29 @@
+{
+  "sha": "e0fa045",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T20:51:02Z",
+  "subject": "style: replace emojis with Ionicons in header and settings modal",
+  "body": "- Replace refresh emoji with Ionicons refresh icon\n- Replace settings emoji with Ionicons settings-outline\n- Replace pull-to-refresh arrow with Ionicons arrow-down\n- Update SettingsModal with consistent Ionicons:\n  - help-circle-outline for Help & Tutorial\n  - notifications/notifications-off-outline for Browser Notifications\n  - radio/radio-outline for Push Notifications\n  - trash-outline for Clear All Data\n  - chevron-forward for row indicators\n- Use semantic colors (success for enabled, error for blocked/delete)",
+  "tags": [
+    "ui",
+    "refactor"
+  ],
+  "complexity": 2,
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 54,
+    "deletions": 23
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "components/SettingsModal.tsx"
+  ],
+  "repo_id": "intxt",
+  "urgency": 2,
+  "impact": "user-facing"
+}

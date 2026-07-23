@@ -106,6 +106,7 @@ Browser-based runtime / visual regression coverage was removed 2026-04-15 — se
 - [ ] Clicking opens dropdown with all menu items:
   - [ ] Quick Guide — opens onboarding tutorial
   - [ ] User Guide — opens GitHub README in new tab (shows external link indicator ↗)
+  - [ ] View all projects — opens the glow-props project showcase (`https://devmade-ai.github.io/glow-props/`) in a new tab (shows external link indicator ↗)
   - [ ] Dark mode / Light mode — toggles theme, label updates to match current mode
   - [ ] Save as PDF — triggers browser print dialog
   - [ ] Install App — appears only when PWA install is available; shows native prompt (Chromium) or install instructions modal (Safari/Firefox)
@@ -152,7 +153,6 @@ Needs a production build served locally (`npm run build`, then serve `dist/`) �
 - [ ] Contributors: Shows 6 on mobile, 8 on desktop
 - [ ] Tags: Shows 8 on mobile, all on desktop
 - [ ] Discover files: Shows 5 on mobile, 10 on desktop
-- [ ] Projects: Shows 6 on mobile, 12 on desktop
 - [ ] "Show more" button loads next batch of same size
 - [ ] Changing filters resets pagination to first page
 
@@ -319,7 +319,6 @@ Walk through these checks after switching theme to verify every migrated surface
 *Cards (Phase 5):*
 - [ ] Every CollapsibleSection renders as `card bg-base-200` with a visible `border-base-300` in both themes
 - [ ] Error boundary (force an error in React DevTools) renders as a `card` with `role="alert"` + "Try again" button
-- [ ] Projects tab → ProjectCard tiles render as `card` with `card-body p-4 gap-0`, hover border tints to `primary/40`
 - [ ] Discover tab → metric cards render as `card` with `card-body p-5 gap-0`
 
 *Buttons (Phase 6):*
@@ -327,7 +326,7 @@ Walk through these checks after switching theme to verify every migrated surface
 - [ ] Header filter badge (when filters active) → `badge badge-primary badge-xs` in top-right of the filter toggle
 - [ ] Header settings button → `btn btn-ghost btn-square`
 - [ ] Hamburger menu trigger → `btn btn-ghost btn-square`
-- [ ] Show More buttons in Timeline/Breakdown/Projects → `btn btn-ghost btn-block btn-sm`
+- [ ] Show More buttons in Timeline/Breakdown → `btn btn-ghost btn-block btn-sm`
 - [ ] FilterSidebar Include/Exclude toggle → `join` segmented buttons, Include active uses `btn-primary`, Exclude active uses `btn-error` (red)
 - [ ] FilterSidebar Clear All → `btn btn-outline btn-sm w-full`
 - [ ] DetailPane + SettingsPane close buttons → `btn btn-sm btn-circle btn-ghost`

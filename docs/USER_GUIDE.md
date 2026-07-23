@@ -44,7 +44,7 @@ The header shows the repository name and change count:
 - **Filters active:** `repo-name — Showing 1,234 of 5,000 changes · Filtered` (click to open filters)
 
 Three buttons appear on the right:
-- **Menu (☰)** — Opens a dropdown with Quick Guide, User Guide (opens in new tab), Dark/Light mode toggle, theme picker, Save as PDF, Install App (when available), Check for updates (or the highlighted Update Now when a new version is waiting), and the Automatic updates toggle
+- **Menu (☰)** — Opens a dropdown with Quick Guide, User Guide (opens in new tab), View all projects (opens the project showcase in a new tab), Dark/Light mode toggle, theme picker, Save as PDF, Install App (when available), Check for updates (or the highlighted Update Now when a new version is waiting), and the Automatic updates toggle
 - **Filter** — Opens the filter sidebar (badge shows active filter count)
 - **Settings (⚙)** — Opens the settings panel
 
@@ -172,7 +172,6 @@ Long lists show a limited number of items with a "Show more" button to load the 
 - **Contributors** cards (6 mobile / 8 desktop)
 - **Tags** list (8 mobile / all on desktop)
 - **Discover** file insights (5 mobile / 10 desktop)
-- **Projects** grids (6 mobile / 12 desktop)
 
 ---
 
@@ -193,7 +192,7 @@ Four cards at the top of the Summary tab provide key metrics:
 
 ## Dashboard Tabs
 
-The dashboard uses **6 tabs** organized by logical groupings:
+The dashboard uses **5 tabs** organized by logical groupings:
 
 | Tab | Purpose | Primary User |
 |-----|---------|--------------|
@@ -202,7 +201,6 @@ The dashboard uses **6 tabs** organized by logical groupings:
 | **Breakdown** | Progress, tags, contributors, what's being built | Dev Manager |
 | **Health** | Security, urgency, risk, tech debt, work patterns | Both |
 | **Discover** | Explore metrics, randomized insights, file activity | All |
-| **Projects** | Project directory with live site and repo links | All |
 
 ---
 
@@ -423,15 +421,9 @@ Four randomizable metric cards that show different data points on each shuffle:
 
 ---
 
-### Projects Tab (Project Directory)
+### Viewing All Projects
 
-A directory of all tracked projects with quick access links.
-
-**Live Projects**
-- Projects with deployed websites show both the live site link and GitHub repository link
-
-**Other Repositories**
-- Projects without a live site show only the GitHub repository link
+The dashboard focuses on git analytics for the tracked repositories. To browse the full directory of devmade projects — with descriptions, live-site links, and source links — open **Menu (☰) → View all projects**. It opens the project showcase (`https://devmade-ai.github.io/glow-props/`) in a new browser tab.
 
 ---
 

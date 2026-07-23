@@ -161,7 +161,7 @@ export function getInstallInstructions({ hasDeferredPrompt = false } = {}) {
                     'Click "Install" to confirm',
                 ],
                 // Requirement: Warn about Chrome 90-day cooldown after dismissing install prompt
-                // Pattern from: few-lap InstallInstructionsModal.tsx
+                // Pattern from: fh-fuelhunt InstallInstructionsModal.tsx
                 note: !hasDeferredPrompt && supportsNativeInstall()
                     ? 'If the install option doesn\u2019t appear, you may have previously dismissed it. Chrome hides the prompt for 90 days after dismissal. Try the browser menu instead.'
                     : undefined,

@@ -6,7 +6,7 @@
  *   the SW by pwa.js. If the stored buildTime differs from the fetched one,
  *   an update is surfaced to the user. A simple reload serves fresh assets
  *   because runtimeCaching uses NetworkFirst.
- * Pattern from: synctone scripts/write-build-version.mjs, few-lap same
+ * Pattern from: intxt scripts/write-build-version.mjs, fh-fuelhunt same
  * Alternatives considered:
  *   - Rely only on SW hash changes: Rejected — misses config-only deployments
  *     (e.g. vercel.json header changes) where no precached files change

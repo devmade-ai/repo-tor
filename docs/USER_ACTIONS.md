@@ -17,6 +17,27 @@ Manual steps that require user action (external dashboards, credentials, configu
 
 If no traffic appears: check browser DevTools → Network for a request to `https://www.googletagmanager.com/gtag/js?id=G-8CLE4P0DQK` and a follow-up `collect?...` POST to `google-analytics.com`. Ad blockers will suppress both.
 
+### Extract commit data for 6 newly-registered repos
+
+**What:** On 2026-07-23 six org repositories were added to
+`config/repos.json` but have **no `processed/` commit data yet**, so they do
+not appear in the dashboard analytics: `dm-website`, `hf-sculpt`,
+`kl-website`, `sp-backend`, `sp-website`, `web-arch`. Extraction could not
+run in the session that registered them — the remote sandbox's agent proxy
+scopes GitHub API access to `repo-tor` only (every other repo returns 403),
+so `extract-api.js` cannot reach them from there.
+
+**Why it needs you:** run the extraction from an environment with GitHub API
+access to the `devmade-ai` org (a local checkout with a token, or a session
+whose network policy allows the org).
+
+**Steps:** follow the `@data` **"feed the chicken"** (incremental) flow in
+`docs/DATA_OPERATIONS.md` exactly — do not improvise the workflow. In short,
+per repo: `node scripts/extract-api.js devmade-ai/<repo>` → AI-analyse the
+new commits into `processed/<repo>/commits/` → the next `npm run build`
+re-aggregates them into the dashboard automatically. The six repos are all
+private; confirm the token has access to each.
+
 ## Completed Actions
 
 ### Set Up GitHub Token for API Extraction (Completed 2026-02-24)
