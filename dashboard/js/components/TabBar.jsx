@@ -1,7 +1,7 @@
 import React from 'react';
 import { useApp } from '../AppContext.jsx';
 
-// Requirement: Primary navigation for the dashboard's 6 tabs. Non-technical
+// Requirement: Primary navigation for the dashboard's 5 tabs. Non-technical
 //   users need a clear visual of which tab is active and an obvious way to
 //   switch. Accessible to screen readers + keyboard.
 // Approach: DaisyUI `tabs tabs-border` structural classes + inline Tailwind
@@ -20,7 +20,7 @@ import { useApp } from '../AppContext.jsx';
 //     Rejected 2026-04-13 as part of the custom-CSS cleanup pass — each
 //     rule is a flat list of CSS properties that map 1:1 to Tailwind
 //     utilities, so there's no rationale to keep a named class alias.
-//   - Use <Tab> as a component: Rejected — 6 tabs with minimal variance;
+//   - Use <Tab> as a component: Rejected — 5 tabs with minimal variance;
 //     a map() + class composition is clearer.
 const TAB_BASE_CLASSES =
     'tab px-4 py-2 text-sm font-medium font-mono uppercase ' +
@@ -37,7 +37,6 @@ const TABS = [
     { id: 'work', label: 'Breakdown' },
     { id: 'health', label: 'Health' },
     { id: 'discover', label: 'Discover' },
-    { id: 'projects', label: 'Projects' },
 ];
 
 export default function TabBar() {

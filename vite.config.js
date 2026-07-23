@@ -151,7 +151,7 @@ export default defineConfig({
       // Requirement: data.json (2.68MB) must NOT be precached — exceeds Workbox 2MB limit
       // Approach: Exclude *.json from includeAssets, list only small static assets explicitly
       // data.json is handled via runtimeCaching with NetworkFirst instead
-      includeAssets: ['assets/images/*.png', 'projects.json'],
+      includeAssets: ['assets/images/*.png'],
       manifest: {
         name: 'Git Analytics Dashboard',
         short_name: 'Git Analytics',
@@ -237,7 +237,7 @@ export default defineConfig({
         // Pattern from: fh-fuelhunt sw.js networkFirstWithOfflineFallback()
         // data.json excluded from precache — too large (2.68MB > Workbox 2MB limit)
         // Handled via runtimeCaching with NetworkFirst below instead
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}', 'projects.json'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         runtimeCaching: [
           {
             // Runtime cache for data.json (summary file, ~126KB)

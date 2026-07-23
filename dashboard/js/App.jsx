@@ -22,7 +22,6 @@ import Contributors from './sections/Contributors.jsx';
 import Tags from './sections/Tags.jsx';
 import Health from './sections/Health.jsx';
 import Discover from './sections/Discover.jsx';
-import Projects from './sections/Projects.jsx';
 
 function combineDatasets(datasets) {
     if (datasets.length === 0) return null;
@@ -443,7 +442,6 @@ export default function App() {
                         )}
                         {state.activeTab === 'health' && <Health />}
                         {state.activeTab === 'discover' && <Discover />}
-                        {state.activeTab === 'projects' && <Projects />}
                     </ErrorBoundary>
                 </main>
                 <HeatmapTooltip />
