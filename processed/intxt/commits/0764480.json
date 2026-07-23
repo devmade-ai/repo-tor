@@ -1,0 +1,28 @@
+{
+  "sha": "0764480",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T23:19:41Z",
+  "subject": "fix: prevent create chat button gradient clipping",
+  "body": "Separated shadow wrapper from overflow wrapper to fix bottom pixel cutoff.\nShadow now renders on outer View while overflow:hidden clips gradient on\ninner Pressable, preventing gradient content from being cut off.",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 23,
+    "deletions": 16
+  },
+  "files": [
+    "app/(app)/home.tsx"
+  ],
+  "repo_id": "intxt",
+  "urgency": 2,
+  "impact": "user-facing"
+}

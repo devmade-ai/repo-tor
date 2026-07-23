@@ -345,7 +345,7 @@
       //   and reload. Limited to 2 attempts via sessionStorage to prevent infinite loops.
       //   The 30s window is intentionally longer than the 20s warning — gives user time
       //   to see the warning before auto-recovery kicks in.
-      // Pattern from: synctone +html.tsx, few-lap +html.tsx
+      // Pattern from: intxt +html.tsx, fh-fuelhunt +html.tsx
       // Alternatives considered:
       //   - Manual recovery only: Rejected — users may not know how to clear SW
       //   - Shorter timeout: Rejected — slow networks need time; 20s warning first
@@ -360,7 +360,7 @@
 
         // Force SW update check — if a new SW is available, install it.
         // Watches updatefound for installing workers (not just already-waiting ones).
-        // Pattern from: few-lap +html.tsx recovery script
+        // Pattern from: fh-fuelhunt +html.tsx recovery script
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.getRegistration().then(function(reg) {
             if (!reg) return;
@@ -403,7 +403,7 @@
       window.__debugClearLoadTimer = function() {
         window.__debugReactMounted = true;
         if (loadTimerId) { clearTimeout(loadTimerId); loadTimerId = null; }
-        // Clear recovery counter on successful mount (pattern from few-lap +html.tsx)
+        // Clear recovery counter on successful mount (pattern from fh-fuelhunt +html.tsx)
         try { sessionStorage.removeItem('pwa-recovery-attempts'); } catch(e) {}
       };
     })();
@@ -422,7 +422,7 @@
       window.__pwaInstallPromptEvent = e;
       // Diagnostic flag — lets hooks/debug check if event was ever received,
       // even after the event object has been consumed by pwa.js.
-      // Pattern from: few-lap +html.tsx (__pwaPromptReceived)
+      // Pattern from: fh-fuelhunt +html.tsx (__pwaPromptReceived)
       window.__pwaPromptReceived = true;
     });
     </script>

@@ -1,0 +1,33 @@
+{
+  "sha": "e08a918",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-28T11:09:13Z",
+  "subject": "Fix OneSignal subscription and add PWA support for web notifications",
+  "body": "- Add explicit opt-in after permission granted to ensure users are properly subscribed to OneSignal push notifications\n- Add PWA meta tags to web/index.html for improved mobile web experience\n- Create manifest.json with app metadata for PWA installation\n- Generate PWA icon assets (192x192, 512x512, apple-touch-icon)\n- Add theme-color and Apple-specific meta tags for iOS support\n\nThis ensures notifications work correctly on mobile web browsers by:\n1. Explicitly subscribing users via OneSignal.User.PushSubscription.optIn()\n2. Providing proper PWA manifest for browser notification support\n3. Including necessary icons for installation and home screen",
+  "tags": [
+    "bugfix",
+    "feature"
+  ],
+  "complexity": 2,
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 6,
+    "additions": 42,
+    "deletions": 0
+  },
+  "files": [
+    "public/apple-touch-icon.png",
+    "public/icon-192.png",
+    "public/icon-512.png",
+    "public/manifest.json",
+    "services/onesignal.ts",
+    "web/index.html"
+  ],
+  "repo_id": "intxt",
+  "urgency": 2,
+  "impact": "user-facing"
+}

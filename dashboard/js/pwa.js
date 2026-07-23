@@ -73,7 +73,7 @@ function safeSessionSet(key, value) {
 // Requirement: Suppress false update re-detection after a reload triggered by applyUpdate
 // Approach: 30-second window after update where onNeedRefresh is ignored. Prevents the
 //   "update available" prompt from flashing immediately after the user just updated.
-// Pattern from: synctone usePWAUpdate.ts (wasJustUpdated), few-lap usePWAUpdate.ts
+// Pattern from: intxt usePWAUpdate.ts (wasJustUpdated), fh-fuelhunt usePWAUpdate.ts
 // Key extracted to a const because three sites now write/read it: applyUpdate(),
 // the version.json launch-reload path, and this guard.
 const JUST_UPDATED_KEY = 'pwa-just-updated';
@@ -115,7 +115,7 @@ export function setAutoUpdateEnabled(enabled) {
 //   with localStorage. If different, surface as an update. A simple reload serves
 //   fresh assets because runtimeCaching uses NetworkFirst for data files, and
 //   the SW precache will update on the next registration if code changed.
-// Pattern from: synctone usePWAUpdate.ts (checkVersionJson), few-lap same
+// Pattern from: intxt usePWAUpdate.ts (checkVersionJson), fh-fuelhunt same
 // Alternatives considered:
 //   - Rely only on SW hash: Rejected — misses config-only deployments (vercel.json)
 //   - ETag checks: Rejected — CDN may strip or normalize headers
@@ -190,7 +190,7 @@ function storeCurrentBuildTime() {
 // ── Install analytics ──
 // Requirement: Track install events for diagnostics
 // Approach: Last N events in localStorage, checked by getWasPreviouslyInstalled()
-// Pattern from: few-lap usePWAInstall.ts (trackPWAEvent)
+// Pattern from: fh-fuelhunt usePWAInstall.ts (trackPWAEvent)
 const INSTALL_ANALYTICS_KEY = 'pwa-install-analytics';
 function trackInstallEvent(type) {
     try {
@@ -214,7 +214,7 @@ let _installReady = false;
 let _updateAvailable = false;
 let _isChecking = false;
 // Requirement: Only reload on controllerchange when user initiated the update
-// Pattern from: synctone usePWAUpdate.ts, few-lap usePWAUpdate.ts
+// Pattern from: intxt usePWAUpdate.ts, fh-fuelhunt usePWAUpdate.ts
 let _userClickedUpdate = false;
 
 // HMR teardown wiring.
@@ -242,7 +242,7 @@ const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
 
 // Requirement: Capture beforeinstallprompt even if it fires before this module loads
 // Approach: 2-layer capture — inline <script> in index.html + module-level consumer here.
-//   few-lap uses 3 layers (HTML, _layout.tsx module scope, useEffect) because Expo's Metro
+//   fh-fuelhunt uses 3 layers (HTML, _layout.tsx module scope, useEffect) because Expo's Metro
 //   bundler loads modules later than Vite. Vite modules load faster so 2 layers suffice:
 //   the inline script catches the event pre-module-load, and the addEventListener below
 //   catches first-visit events that fire after module load.
@@ -250,7 +250,7 @@ const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
 //   - Only listen here: Rejected — module scripts load async; on cached SW visits
 //     the event fires before any module executes (see glow-props CLAUDE.md pattern)
 //   - Only use inline script: Rejected — need React integration via custom events
-//   - 3-layer capture (few-lap pattern): Rejected — unnecessary with Vite's faster module loading
+//   - 3-layer capture (fh-fuelhunt pattern): Rejected — unnecessary with Vite's faster module loading
 function consumeEarlyCapturedEvent() {
     const captured = window.__pwaInstallPromptEvent;
     if (captured) {
@@ -281,7 +281,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 }, { signal: pwaAbortController.signal });
 
 // Requirement: Set diagnostic flag so hooks/debug can check if event was ever received
-// Pattern from: few-lap +html.tsx (__pwaPromptReceived)
+// Pattern from: fh-fuelhunt +html.tsx (__pwaPromptReceived)
 // Note: The inline script in index.html also sets this (for pre-module-load events).
 //       This listener covers events that fire after module load.
 window.addEventListener('beforeinstallprompt', () => {
@@ -300,7 +300,7 @@ window.addEventListener('appinstalled', () => {
 // Approach: Watch display-mode: standalone media query changes. When it switches to true,
 //   the user installed via the browser menu (not beforeinstallprompt). Track the event
 //   and update state.
-// Pattern from: few-lap usePWAInstall.ts (mediaQuery.addEventListener)
+// Pattern from: fh-fuelhunt usePWAInstall.ts (mediaQuery.addEventListener)
 if (!isStandalone) {
     const standaloneQuery = window.matchMedia('(display-mode: standalone)');
     standaloneQuery.addEventListener('change', (e) => {
@@ -317,7 +317,7 @@ if (!isStandalone) {
 // Requirement: Diagnostic timeout — warn if beforeinstallprompt hasn't fired after 5s on Chromium
 // Approach: On Chromium browsers, if no prompt received after timeout, log diagnostic info
 //   to the debug pill. Helps debug "why isn't install showing?" without needing DevTools.
-// Pattern from: few-lap usePWAInstall.ts (5s diagnostic)
+// Pattern from: fh-fuelhunt usePWAInstall.ts (5s diagnostic)
 if (supportsNativeInstall() && !earlyCaptured && !window.__pwaPromptReceived && !isStandalone) {
     pwaTimeouts.push(setTimeout(() => {
         if (window.__pwaPromptReceived || deferredInstallPrompt) return;
@@ -367,7 +367,7 @@ export function isStandaloneMode() {
 
 /**
  * Dismiss the install prompt — persists to localStorage so it doesn't reappear.
- * Pattern from: few-lap usePWAInstall.ts (dismiss)
+ * Pattern from: fh-fuelhunt usePWAInstall.ts (dismiss)
  */
 export function dismissInstall() {
     _installReady = false;
@@ -390,7 +390,7 @@ export function isInstallDismissed() {
  *   sends SKIP_WAITING to the waiting SW. The controllerchange listener checks
  *   this flag before reloading. Marks sessionStorage so the next page load
  *   suppresses false re-detection for 30 seconds.
- * Pattern from: synctone usePWAUpdate.ts, few-lap usePWAUpdate.ts
+ * Pattern from: intxt usePWAUpdate.ts, fh-fuelhunt usePWAUpdate.ts
  */
 export function applyUpdate() {
     if (updateSW) {
@@ -404,7 +404,7 @@ export function applyUpdate() {
 /**
  * Dismiss the update prompt without applying.
  * Requirement: Let users close the update banner without reloading
- * Pattern from: few-lap usePWAUpdate.ts (dismiss)
+ * Pattern from: fh-fuelhunt usePWAUpdate.ts (dismiss)
  */
 export function dismissUpdate() {
     _updateAvailable = false;
@@ -433,7 +433,7 @@ export function stopUpdatePolling() {
  *   then also run the version.json comparison so deployments that didn't
  *   change sw.js are reported too. The previous 'update-found' literal was
  *   renamed to the canonical 'update-available'.
- * Pattern from: synctone usePWAUpdate.ts, few-lap usePWAUpdate.ts
+ * Pattern from: intxt usePWAUpdate.ts, fh-fuelhunt usePWAUpdate.ts
  * Returns: 'no-sw' | 'up-to-date' | 'update-available' | 'error'
  */
 export async function checkForUpdate() {
@@ -479,7 +479,7 @@ updateSW = registerSW({
     onOfflineReady() {
         window.dispatchEvent(new CustomEvent('pwa-offline-ready'));
         // Requirement: Auto-dismiss offline-ready after 3s — transient notification
-        // Pattern from: few-lap usePWAUpdate.ts (offlineReady auto-dismiss)
+        // Pattern from: fh-fuelhunt usePWAUpdate.ts (offlineReady auto-dismiss)
         pwaTimeouts.push(setTimeout(() => {
             window.dispatchEvent(new CustomEvent('pwa-offline-dismissed'));
         }, OFFLINE_READY_DISMISS_MS));
@@ -540,7 +540,7 @@ updateSW = registerSW({
 //   events (browser auto-update, visibility check, another tab updating) should NOT
 //   cause surprise reloads while the user is mid-analysis. applyUpdate() sets the
 //   flag, sends SKIP_WAITING, and this controllerchange handler reloads once.
-// Pattern from: synctone usePWAUpdate.ts, few-lap usePWAUpdate.ts
+// Pattern from: intxt usePWAUpdate.ts, fh-fuelhunt usePWAUpdate.ts
 // Alternatives considered:
 //   - Always reload on controllerchange: Rejected — causes surprise reloads during use
 //   - Never reload: Rejected — user would need to manually refresh after clicking update
@@ -561,7 +561,7 @@ if ('serviceWorker' in navigator) {
 //   for waiting/installing workers. The onNeedRefresh callback from registerSW only
 //   fires once during setup — separate reg.update() calls won't re-trigger it, so
 //   we need to dispatch the event manually if a waiting worker is found.
-// Pattern from: synctone usePWAUpdate.ts (visibility + settle), few-lap usePWAUpdate.ts
+// Pattern from: intxt usePWAUpdate.ts (visibility + settle), fh-fuelhunt usePWAUpdate.ts
 document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible' && 'serviceWorker' in navigator) {
         if (wasJustUpdated()) return;

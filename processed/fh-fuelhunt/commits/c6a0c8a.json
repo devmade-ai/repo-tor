@@ -1,0 +1,36 @@
+{
+  "sha": "c6a0c8a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-12T19:33:47Z",
+  "subject": "feat(admin): add extended station fields for bulk import",
+  "body": "Adds 9 new columns to stations table: suburb, province, loyalty_programs,\nfood_partners, convenience_partner, atm_banks, payment_methods,\ntruck_friendly, source_id. Updates bulk_insert_stations RPC, client-side\nvalidation, and TypeScript types to support all fields. Province is\nconstrained to valid SA provinces. Amenities list expanded with 9 new\nvalues (coffee_shop, bakery, truck_stop, ev_charging, etc).\n\nTags: admin, bulk-import, database, schema\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: bulk-import\nSemver: minor\n\nhttps://claude.ai/code/session_016TH1ngDtxc1chAu7S7eU74",
+  "tags": [
+    "feature",
+    "schema"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "bulk-import",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 5,
+    "additions": 267,
+    "deletions": 19
+  },
+  "files": [
+    "app/admin/bulk-import.tsx",
+    "src/types/database.ts",
+    "src/types/index.ts",
+    "supabase/migrations/20260312000001_add_station_fields.sql",
+    "supabase/migrations/20260312000002_update_bulk_insert_stations.sql"
+  ],
+  "repo_id": "fh-fuelhunt",
+  "urgency": 2,
+  "impact": "user-facing"
+}

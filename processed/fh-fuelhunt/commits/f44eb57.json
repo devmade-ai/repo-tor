@@ -1,0 +1,48 @@
+{
+  "sha": "f44eb57",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-22T20:34:47Z",
+  "subject": "Merge pull request #28 from devmade-ai/claude/execute-claude-md-Rg6L9",
+  "body": "Add complete OSM data extraction pipeline with geocoding",
+  "tags": [
+    "merge"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "data-extraction",
+  "semver": "patch",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 18,
+    "additions": 1853,
+    "deletions": 288
+  },
+  "files": [
+    ".gitignore",
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/DATA_EXTRACTION.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_ACTIONS.md",
+    "docs/USER_GUIDE.md",
+    "scripts/geocode-all.mjs",
+    "scripts/lib/http.mjs",
+    "scripts/lib/station-utils.mjs",
+    "scripts/reverse-geocode.mjs",
+    "scripts/transform-overpass.mjs",
+    "src/components/ui/TutorialModal.tsx",
+    "supabase/migrations/20260322000001_source_id_unique_index.sql",
+    "supabase/migrations/20260322000002_upsert_bulk_insert_stations.sql",
+    "supabase/migrations/20260322000003_reconcile_stations_function.sql"
+  ],
+  "repo_id": "fh-fuelhunt",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,34 @@
+{
+  "sha": "afb6cb8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T22:30:03Z",
+  "subject": "refactor: refine tone system from 29 to 25 tones, add interpersonal category",
+  "body": "Remove 8 redundant tones (grateful, loving, proud, casual, playful, firm,\ncalm, excited) and add 4 new ones: sarcastic (restored as own tone),\nnot-a-fight, boundary, no-reply. New \"Between Us\" category for conflict\nmanagement and relationship navigation. Fix duplicate colors for Supportive\nand No Reply. Update migration map, theme category colors, tutorial, and docs.\n\nhttps://claude.ai/code/session_018NrJiMtPGf7KmYUgKG9yCq",
+  "tags": [
+    "refactor",
+    "feature"
+  ],
+  "complexity": 3,
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 7,
+    "additions": 115,
+    "deletions": 64
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "constants/tones.ts",
+    "constants/tutorial.ts",
+    "docs/HISTORY.md",
+    "styles/theme.js",
+    "tailwind.config.js"
+  ],
+  "repo_id": "intxt",
+  "urgency": 1,
+  "impact": "user-facing"
+}

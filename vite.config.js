@@ -213,7 +213,7 @@ export default defineConfig({
         // Requirement: User-controlled updates — no auto-skipWaiting
         // Approach: Omit skipWaiting and clientsClaim so the new SW waits until
         //   the user explicitly triggers applyUpdate() (which calls updateSW(true)).
-        //   This matches synctone, few-lap, and canva-grid patterns.
+        //   This matches intxt, fh-fuelhunt, and canva-grid patterns.
         // Alternatives considered:
         //   - skipWaiting: true + clientsClaim: true: Rejected — conflicts with
         //     registerType:'prompt'. The SW activates immediately and controllerchange
@@ -234,7 +234,7 @@ export default defineConfig({
         //   navigation, precached index.html serves as the SPA shell (always available).
         //   For embed URLs (denylist skips navigateFallback), a runtimeCaching rule
         //   catches failed navigation with a NetworkOnly handler + offline fallback.
-        // Pattern from: few-lap sw.js networkFirstWithOfflineFallback()
+        // Pattern from: fh-fuelhunt sw.js networkFirstWithOfflineFallback()
         // data.json excluded from precache — too large (2.68MB > Workbox 2MB limit)
         // Handled via runtimeCaching with NetworkFirst below instead
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}', 'projects.json'],

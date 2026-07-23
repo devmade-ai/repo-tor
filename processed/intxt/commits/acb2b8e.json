@@ -1,0 +1,29 @@
+{
+  "sha": "acb2b8e",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T07:37:52Z",
+  "subject": "fix: use different icon for not-asked vs granted browser permission",
+  "body": "Previous code showed 🔔 for BOTH granted and undetermined states.\n\nNow:\n- ⏳ = loading\n- 🔔 = granted\n- 🔕 = denied\n- ⭕ = not asked yet\n\nFour distinct states, four distinct icons.",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux"
+  ],
+  "complexity": 1,
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 1,
+    "additions": 5,
+    "deletions": 5
+  },
+  "files": [
+    "app/(app)/home.tsx"
+  ],
+  "repo_id": "intxt",
+  "urgency": 2,
+  "impact": "user-facing"
+}

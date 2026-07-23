@@ -16,6 +16,10 @@ Remaining tasks for Git Analytics Reporting System.
 
 1. [ ] Device/platform attribution — investigated 2026-04-02, git does not store device info natively. Proxy indicators (email domain, timezone, commit message patterns) are weak signals. Would require a separate heuristic analysis module. Low priority unless a strong use case emerges.
 
+### Cleanup
+
+1. [ ] **Delete the stale `dashboard/repos/` directory** (14 tracked JSON files). Dead since the 2026-04-29 per-repo-files removal: nothing in `dashboard/js/` fetches it, `aggregate-processed.js` no longer writes it (the aggregator's per-repo output was `dashboard/public/repos/`, already gone), and it still contains an orphaned `social-ad-creator.json` from the pre-2026-02 rename plus now-inconsistent `synctone.json` / `few-lap.json` (repos renamed to intxt / fh-fuelhunt on 2026-07-23 — these old aggregation snapshots were intentionally NOT renamed, since the whole dir should just be removed). Confirm no consumer (`grep -rn "dashboard/repos" dashboard/ scripts/ vite.config*.js`) then `git rm -r dashboard/repos/`.
+
 ### Post-sweep verification
 
 1. [ ] Live browser verification — none of the vanilla-DaisyUI sweep changes have been tested in an actual browser. Specifically: the `grid-cols-[auto_repeat(7,1fr)]` Timing heatmap row alignment, the DaisyUI `collapse collapse-arrow` CollapsibleSection animation, the simplified drawer architecture (1 DaisyUI drawer for filter + 2 fixed-positioned slide-over panes for detail/settings), and the per-section `data-embed-wrapper` traversal in EmbedRenderer. Open in a browser, switch through all 8 themes, exercise each pane open/close, verify charts re-colour on theme switch.

@@ -4,7 +4,7 @@
  * Requirement: Centralize timing and threshold constants scattered in pwa.js
  * Approach: Single file for all PWA-related constants. Components and pwa.js
  *   import from here instead of hardcoding values.
- * Pattern from: few-lap src/constants/config.ts, synctone same
+ * Pattern from: fh-fuelhunt src/constants/config.ts, intxt same
  */
 
 /** Service worker update check interval (ms) — 60 minutes */
@@ -24,14 +24,14 @@ export const UPDATE_SETTLE_DELAY_MS = 1500;
 export const VERSION_CHECK_STARTUP_DELAY_MS = 3000;
 
 /** Duration to show the "offline ready" notification before auto-dismiss (ms).
- *  Pattern from: few-lap usePWAUpdate.ts — transient, not persistent UI. */
+ *  Pattern from: fh-fuelhunt usePWAUpdate.ts — transient, not persistent UI. */
 export const OFFLINE_READY_DISMISS_MS = 3000;
 
 /** Diagnostic timeout: warn in debug log if beforeinstallprompt hasn't fired
  *  on Chromium after this delay (ms). Helps debug install issues.
- *  Pattern from: few-lap usePWAInstall.ts */
+ *  Pattern from: fh-fuelhunt usePWAInstall.ts */
 export const INSTALL_DIAGNOSTIC_TIMEOUT_MS = 5000;
 
 /** Maximum number of install analytics events to keep in localStorage.
- *  Pattern from: few-lap usePWAInstall.ts (last 50 events) */
+ *  Pattern from: fh-fuelhunt usePWAInstall.ts (last 50 events) */
 export const INSTALL_ANALYTICS_MAX_EVENTS = 50;
