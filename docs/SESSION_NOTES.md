@@ -53,9 +53,12 @@ So renaming the dirs + `repo_id` + config keeps past history and future
 - Commit `subject`/`body` audit text (see item 1).
 - `dashboard/repos/*.json` — a stale, unused directory (dead since the
   2026-04-29 per-repo-files removal; nothing in `dashboard/js/` fetches it,
-  the aggregator no longer writes it, and it still holds an orphaned
-  `social-ad-creator.json` from the previous rename). Flagged for cleanup
-  in TODO rather than edited piecemeal.
+  the aggregator no longer writes it, and it held an orphaned
+  `social-ad-creator.json` from the previous rename). Rather than rename
+  its `synctone.json` / `few-lap.json` snapshots, the whole dir was
+  **deleted** in a follow-up commit (14 files) after confirming no
+  consumer — it was never served (not under `public/`) and no source
+  references it.
 
 **Verification:** `node scripts/aggregate-processed.js` → 15 repos, `intxt`
 503 + `fh-fuelhunt` 363 commits, old names absent from `repoCommitCounts`,
@@ -67,8 +70,6 @@ unrelated to this change. No browser run (sandbox has no browser).
 
 ## Open Items
 
-- **Dead `dashboard/repos/` dir** — recommend deleting the whole directory
-  (14 stale JSON files, no consumer). Tracked in TODO "Cleanup".
 - **Vercel `liveUrl` assumption** — left pointing at the old
   `*.vercel.app` domains; revisit if the deployment projects were renamed
   too.
@@ -83,3 +84,5 @@ unrelated to this change. No browser run (sandbox has no browser).
   `dashboard/js/pwaInstructions.js`, `dashboard/index.html`,
   `vite.config.js`, `scripts/write-build-version.mjs` — comment attributions
 - `CLAUDE.md`, `docs/SESSION_NOTES.md` (this file), `docs/TODO.md`
+- `dashboard/repos/` — **deleted** (14 stale, unused JSON files) in the
+  follow-up cleanup commit
