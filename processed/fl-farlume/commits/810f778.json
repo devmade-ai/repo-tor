@@ -1,0 +1,34 @@
+{
+  "sha": "810f778",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T15:21:32Z",
+  "subject": "fix(ux): read-only transaction view + bridge actuals-forecast gap",
+  "body": "Transaction modal now opens in read-only mode showing details at a glance.\nUsers click \"Edit\" to switch to the editable form. This matches the common\ncase where users want to review, not modify. The chart gap between the\nactuals and forecast lines is fixed by prepending the last actual data point\nto the forecast series so the lines connect visually.\n\nTags: ux, graph, transaction, modal\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: dashboard-polish\nSemver: minor\n\nhttps://claude.ai/code/session_01ACYo9PvFtnZUnQLTSyt5rg",
+  "tags": [
+    "enhancement",
+    "ux",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "dashboard-polish",
+  "semver": "minor",
+  "has_breaking_change": false,
+  "stats": {
+    "filesChanged": 2,
+    "additions": 246,
+    "deletions": 140
+  },
+  "files": [
+    "src/components/CashflowGraph.vue",
+    "src/components/TransactionEditModal.vue"
+  ],
+  "repo_id": "fl-farlume",
+  "urgency": 3,
+  "impact": "user-facing"
+}

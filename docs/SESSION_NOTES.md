@@ -1,12 +1,32 @@
 # Session Notes
 
 Compact context snapshot for AI continuity. Updated 2026-07-23 after
-propagating two GitHub repository renames through the analytics pipeline.
+propagating three GitHub repository renames and syncing the tracked-repo
+registry with the live org.
 Detailed history lives in the git log (`git log --oneline` / `git log -p`).
 
 ## Current State
 
 **Branch:** `claude/repo-name-updates-raci2y` (not merged; no PR).
+
+**Repo-registry sync (follow-up to the renames below):** A completeness
+audit (`config/repos.json` ↔ `processed/` ↔ `mcp list_repos`) found the
+tracked set now matches the org's 21 accessible repos exactly. Changes made:
+- **Third rename:** `budgy-ting` → `fl-farlume` (252 commits) — same full
+  method as the two renames below (dir + `repo_id` + config note). Found
+  because `budgy-ting` had vanished from the org's accessible list; user
+  confirmed the rename.
+- **6 new repos registered** in `config/repos.json`: `dm-website`,
+  `hf-sculpt`, `kl-website`, `sp-backend`, `sp-website`, `web-arch` (all
+  private). They have **no `processed/` data yet** — extraction is blocked
+  in this sandbox (agent proxy scopes GitHub API to `repo-tor`; others 403).
+  Tracked as a pending action in `docs/USER_ACTIONS.md` ("feed the chicken"
+  run needed from an environment with org API access).
+- **Projects tab** — user wants it replaced with a single link out to the
+  glow-props showcase (which lists all projects). Clarifying scope before
+  implementing; `dashboard/public/projects.json` and the `Projects` section
+  are the affected surfaces. This supersedes the earlier "Projects tab
+  missing four-ems/sun-sea-o" gap.
 
 **This session:** Two repos were renamed on GitHub — `synctone` → `intxt`
 and `few-lap` → `fh-fuelhunt`. Only the GitHub repo slugs changed; nothing
