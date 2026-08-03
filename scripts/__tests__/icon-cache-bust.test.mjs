@@ -208,3 +208,77 @@ test('dist/sw.js: workbox SW has cleanupOutdatedCaches and ?v ignore', { skip: !
         'dist/sw.js must include /^v$/ in ignoreURLParametersMatching — without it, versioned icon URLs miss the precache'
     );
 });
+
+// --- Precache manifest integrity -------------------------------------------
+//
+// Requirement: exactly one precache entry per URL, and stable-named assets must
+//   carry a real revision.
+// Why: two entries for one URL with DIFFERENT revisions produce two cache keys,
+//   and workbox-precaching throws add-to-cache-list-conflicting-entries while the
+//   service worker script evaluates — so the worker never installs. Offline dies
+//   in production while `vite build` still prints "precache N entries". This
+//   repo shipped exactly that: includeAssets supplied an MD5 for
+//   assets/images/*.png while the glob supplied revision:null (from the default
+//   dontCacheBustURLsMatching of /^assets\//). Nothing in the source-level tests
+//   above could see it — only the built manifest shows it.
+// Alternatives:
+//   - Grep dist/sw.js for substrings: Rejected — that is what the tests above do,
+//     and it is precisely what missed this class of bug.
+test('dist/sw.js precache manifest has no duplicate URLs and no revision conflicts', { skip: !DIST_AVAILABLE }, () => {
+  const sw = readFileSync(join(DIST_DIR, 'sw.js'), 'utf8');
+  const match = sw.match(/precacheAndRoute\(\s*(\[[\s\S]*?\])\s*,/);
+  assert.ok(match, 'could not locate the precache manifest in dist/sw.js');
+
+  const entries = JSON.parse(
+    match[1].replace(/([{,])(\w+):/g, '$1"$2":').replace(/'/g, '"'),
+  );
+  assert.ok(entries.length > 5, `precache manifest collapsed to ${entries.length} entries`);
+
+  const byUrl = new Map();
+  for (const entry of entries) {
+    if (!byUrl.has(entry.url)) byUrl.set(entry.url, []);
+    byUrl.get(entry.url).push(entry.revision);
+  }
+
+  const duplicates = [...byUrl].filter(([, revisions]) => revisions.length > 1);
+  const conflicts = duplicates.filter(
+    ([, revisions]) => new Set(revisions.map(String)).size > 1,
+  );
+
+  assert.deepEqual(
+    conflicts.map(([url]) => url),
+    [],
+    'FATAL: these URLs have two precache entries with different revisions, so the ' +
+      'service worker throws add-to-cache-list-conflicting-entries and never installs. ' +
+      'Give each URL exactly one precache source (see vite.config.js includeManifestIcons).',
+  );
+
+  // Same-revision duplicates dedupe silently today, but are one config change
+  // away from the fatal form above — fail on them too rather than warn.
+  assert.deepEqual(
+    duplicates.map(([url]) => url),
+    [],
+    'these URLs reach the precache manifest twice; collapse them to one source',
+  );
+});
+
+test('stable-named icons carry a real precache revision', { skip: !DIST_AVAILABLE }, () => {
+  const sw = readFileSync(join(DIST_DIR, 'sw.js'), 'utf8');
+  const match = sw.match(/precacheAndRoute\(\s*(\[[\s\S]*?\])\s*,/);
+  const entries = JSON.parse(
+    match[1].replace(/([{,])(\w+):/g, '$1"$2":').replace(/'/g, '"'),
+  );
+
+  // Icons live at assets/images/*.png with stable filenames. If
+  // dontCacheBustURLsMatching widens back to the plugin default (/^assets\//),
+  // they get revision:null and a changed icon never reaches installed clients.
+  const stale = entries.filter(
+    (entry) => /^assets\/images\//.test(entry.url) && entry.revision == null,
+  );
+  assert.deepEqual(
+    stale.map((entry) => entry.url),
+    [],
+    'these stable-named icons have revision:null, so a changed icon will never ' +
+      're-precache for installed clients — narrow dontCacheBustURLsMatching',
+  );
+});
