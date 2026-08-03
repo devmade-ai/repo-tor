@@ -56,3 +56,79 @@ Remaining tasks for Git Analytics Reporting System.
 ---
 
 *Last updated: 2026-04-15 — four audit-cleanup passes complete on the `claude/migrate-daisyui-dark-mode-toG0Y` branch. First pass (13 commits): four section-component extractions, HISTORY/SESSION_NOTES rewrites, styles.css trim. Second pass (8 commits): 20 fresh-eyes findings — exception list expansion, 9 more dead exports, chartHeight → utilities, body bg/color removal, AppContext split. Third pass (6 commits): exception strengthening — element-selector exceptions 3→1, hex exceptions 3→2, inline-style exceptions 2→1, aggregate.js investigation resolved. Fourth pass (4 commits): retrospective findings — tripwire strengthened with 3 new regression guards (bracket-value allowlist, hex-literal scope, JSX heading font-mono requirement; test count 60→63), file-size sweep caught 3 oversized files the audit missed (`pwa.js` 578, `aggregate-processed.js` 1042, `extract-api.js` 699 — all flagged in file-size monitoring), CLAUDE.md scope note added for `dashboard/index.html` pre-React inline styles. Final state: 8 documented exceptions in CLAUDE.md each with capability-gap or resilience rationale, zero custom CSS classes, zero known dead exports in `dashboard/js/`, 63 tripwire tests running in ~260ms, branch delta of 45 commits across 4 passes. See `git log` for the phase-by-phase changelog.*
+
+## PWA pattern audit — 2026-08-03
+
+Repo-side findings from a fleet-wide audit of every devmade-ai PWA against the
+glow-props implementation patterns. The pattern-side learnings are already folded
+back into those docs, so **fetch the current pattern before starting any item**:
+
+```bash
+curl -sf "https://devmade-ai.github.io/glow-props/patterns/PWA_SYSTEM.md"
+curl -sf "https://devmade-ai.github.io/glow-props/patterns/PWA_ICON_CACHE_BUST.md"
+```
+
+Line references were accurate at audit time. Severity-ordered.
+
+**The service-worker fault found by this audit is already fixed** (PR #120): the
+precache manifest carried two entries per icon with different revisions, so
+`addToCacheList` threw and the worker ran live but completely inert — zero caches,
+and every route after the throwing line (including all `runtimeCaching`) never
+registered. Verified in Chromium: 0 cache entries before, 17 after. The items below
+are what remains.
+
+1. [ ] **Dead code documenting a feature that does not exist.**
+   `vite.config.js:232-239` states that "for embed URLs (denylist skips
+   navigateFallback), a runtimeCaching rule catches failed navigation with a
+   NetworkOnly handler + offline fallback" — **there is no such rule** in
+   `runtimeCaching`. `public/offline.html` is precached by `**/*.html` and can never
+   be served. Either implement the rule or delete the comment and the file.
+2. [ ] **Fix the runtime-cache expiration on the dashboard data.**
+   `vite.config.js:249-252,262-267` sets `maxAgeSeconds: 7 days` on two NetworkFirst
+   caches whose *only* purpose is offline fallback. Workbox's expiration plugin
+   returns `null` for an expired entry, so after seven days offline the dashboard has
+   **no data at all** — the cache that exists to survive network loss deletes itself
+   exactly when it is the only copy. NetworkFirst already guarantees freshness; use
+   `maxEntries` for quota and drop `maxAgeSeconds`.
+3. [ ] **Add `networkTimeoutSeconds` (3–5s) to both NetworkFirst routes.** Without
+   it they only degrade on *hard* offline — on a captive portal or one-bar cell
+   `navigator.onLine` is `true`, the fetch hangs, and the cache is never reached. The
+   only backstop today is the app-level 30s abort, so a user with a perfectly good
+   cached dashboard watches a spinner for 30 seconds and then gets an error.
+4. [ ] **Guard the data routes against a cached app shell.** Workbox's default
+   `cacheWillUpdate` accepts any status-200 response, so a rewrite that answers a
+   missing `/data-commits/2024-01.json` with `index.html` stores HTML under the JSON
+   URL for the whole TTL. `App.jsx:184` content-type-checks `data.json` but **not**
+   the month shards. Add `cacheableResponse: { statuses: [200] }` plus a
+   content-type check.
+5. [ ] **The `?data=<url>` parameter has no runtime rule** unless the remote file
+   happens to be named `data.json`. Installed + offline + `?data=` is an empty
+   dashboard. Use a `urlPattern` *function* when the origin is not fixed.
+6. [ ] **Add a staleness affordance.** For a dashboard whose entire content is
+   remote, "Showing saved data from Tuesday" is the difference between "this app is
+   broken" and "you're offline". There is no such surface today.
+7. [ ] **`registration.update()` is uncaught** at `pwa.js:518` (hourly) and `:570`
+   (visibility) — it rejects routinely when offline. `dashboard/index.html:373` gets
+   this right, so the discipline exists in the repo. The visibility check is also
+   unthrottled.
+8. [ ] **`applyUpdate()` has no plain-reload fallback** (`pwa.js:395-402`) — and
+   `checkVersionJson` can report `'update-available'` from `version.json` alone with
+   no SW change at all, so the "Update Now" menu item silently does nothing.
+9. [ ] **`_isChecking` is set but never read** (`pwa.js:439-467`) — two menu taps run
+   two concurrent checks, and the first `finally` clears the flag while the second is
+   still running. Share one in-flight promise.
+10. [ ] **Smaller:** `onNeedRefresh` returns before recording the update;
+    `setAutoUpdateEnabled` does not read back yet the toast unconditionally claims the
+    new state; `installPWA()` does not await `prompt()` and the throw propagates into
+    an uncaught `await` in `Header.jsx:120`; the inline capture in
+    `dashboard/index.html:420-427` has no attach guard; `vercel.json` is missing the
+    `/workbox-(.*)` immutable rule; `assets/images/{adaptive-icon,splash-icon}.png`
+    and a duplicate `apple-touch-icon.png` are Expo-era leftovers precached for every
+    client.
+
+**Promoted into the fleet pattern from this repo:** the pre-module service-worker
+self-heal ladder (now the recommended answer to every fatal-and-silent SW failure,
+including the attempt cap, fail-closed storage access and clear-on-success), the
+default-deny formulation for Vercel cache headers, the SPA rewrite regex that
+excludes any path with a file extension, `Service-Worker-Allowed`, and reading
+`registration.installing` in the update verdict.
