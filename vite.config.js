@@ -148,10 +148,24 @@ export default defineConfig({
     iconCacheBustHtml(),
     VitePWA({
       registerType: 'prompt',
-      // Requirement: data.json (2.68MB) must NOT be precached — exceeds Workbox 2MB limit
-      // Approach: Exclude *.json from includeAssets, list only small static assets explicitly
-      // data.json is handled via runtimeCaching with NetworkFirst instead
-      includeAssets: ['assets/images/*.png'],
+      // Requirement: exactly ONE precache source per URL, or the service worker dies.
+      // Approach: globPatterns below is the sole source. `includeAssets` is deliberately
+      //   absent and `includeManifestIcons` explicitly off.
+      // Why: both feed workbox.additionalManifestEntries, which is appended AFTER the
+      //   transform pipeline with no dedupe against the globbed manifest. The globbed
+      //   entry for assets/images/*.png gets revision:null from dontCacheBustURLsMatching
+      //   while includeAssets supplies an MD5 — two cache keys for one URL, so
+      //   precacheAndRoute() throws add-to-cache-list-conflicting-entries while the
+      //   worker script evaluates. It never installs: no precache, no offline, no
+      //   runtime caching, no update detection, and Chrome's install criteria unmet.
+      //   The build log still prints a healthy "precache N entries".
+      // Alternatives:
+      //   - Keep includeAssets, add globIgnores for the icons: Rejected — equivalent
+      //     result, but leaves two sources one edit away from colliding again.
+      //   - Keep both and hope revisions match: Rejected — they provably don't here.
+      // (data.json is already excluded: globPatterns has no `json`. The previous comment
+      //  claimed includeAssets did that job; it never did — includeAssets is purely additive.)
+      includeManifestIcons: false,
       manifest: {
         name: 'Git Analytics Dashboard',
         short_name: 'Git Analytics',
@@ -238,6 +252,15 @@ export default defineConfig({
         // data.json excluded from precache — too large (2.68MB > Workbox 2MB limit)
         // Handled via runtimeCaching with NetworkFirst below instead
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        // Requirement: a changed icon must actually reach installed clients.
+        // Approach: narrow the regex to Vite's content-hashed filenames only.
+        // Why: the plugin default is /^assets\// — it assumes everything under assets/
+        //   is content-hashed and marks it revision:null (immutable). Our icons live at
+        //   assets/images/*.png with stable names, so the default would freeze them in
+        //   every installed client's precache forever. [^/]+ stops at the directory
+        //   boundary, so assets/index-a1b2c3d4.js still gets revision:null (no redundant
+        //   ?__WB_REVISION__) while assets/images/icon-192.png gets a real MD5.
+        dontCacheBustURLsMatching: /^assets\/[^/]+-[A-Za-z0-9_-]{8,}\.\w+$/,
         runtimeCaching: [
           {
             // Runtime cache for data.json (summary file, ~126KB)
