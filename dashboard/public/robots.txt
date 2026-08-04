@@ -1,0 +1,20 @@
+# Git Analytics Dashboard — https://repo-tor.vercel.app/
+#
+# The dashboard itself is public and may be indexed.
+#
+# The data files it reads are NOT: data.json and data-commits/*.json contain
+# commit subjects and bodies, including for repositories config/repos.json
+# annotates as private. They are excluded from search results by
+# X-Robots-Tag in vercel.json, not by a Disallow here — a Disallow blocks the
+# crawl that would deliver the noindex, and a URL discovered from any link can
+# then be listed anyway, with no way to get it removed.
+#
+# NOTE: X-Robots-Tag keeps those files out of RESULTS. It does not make them
+# private — anyone with the URL can still fetch them. If that content should
+# not be publicly readable, the fix is to stop publishing it, not to mark it
+# noindex. See docs/TODO.md.
+#
+# This file is advisory and is NOT a security control.
+
+User-agent: *
+Allow: /
