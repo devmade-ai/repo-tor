@@ -132,3 +132,24 @@ including the attempt cap, fail-closed storage access and clear-on-success), the
 default-deny formulation for Vercel cache headers, the SPA rewrite regex that
 excludes any path with a file extension, `Service-Worker-Allowed`, and reading
 `registration.installing` in the update verdict.
+
+## Follow-ups from the 2026-08-03 SEO audit
+
+1. [ ] **Decide whether private-repo commit bodies should be published at all.**
+   `dashboard/public/data-commits/*.json` (6.1 MB) contains commit `subject` and
+   `body` for repositories `config/repos.json` annotates as *"Private
+   repository"*. The audit fix added `X-Robots-Tag: noindex` so they stay out of
+   search results — **that is not access control.** Anyone with the URL can still
+   fetch them. Either that content is fine to publish (say so explicitly in
+   `CLAUDE.md`), or the aggregator should redact bodies for repos marked private.
+2. [ ] **No Open Graph, no Twitter tags, no card asset.** Pasted dashboard links
+   render as a bare URL. Needs a 1200×630 card (`sharp` is already a dependency)
+   plus the full tag set — see DISCOVERABILITY.md Step 4.
+3. [ ] **`?embed=` variants are indexable duplicates.** `dashboard/js/urlParams.js`
+   renders chrome-less charts at the same URL with a query parameter. Vercel
+   header `source:` cannot match query strings, so this needs a canonical back to
+   `/` (or a `noindex`) emitted from inside the app.
+4. [ ] **No canonical and no sitemap.** The apex, the `*.vercel.app` alias and
+   every preview alias currently serve byte-identical pages with nothing electing
+   a winner.
+5. [ ] **No SEO tripwire.** Every item above is invisible to the current gate.
