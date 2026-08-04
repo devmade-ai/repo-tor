@@ -149,6 +149,15 @@ const VERSION_LAUNCH_RELOAD_KEY = 'pwa-version-launch-reload';
  * @param {{launch?: boolean}} [opts] launch=true marks the startup check.
  * @returns {Promise<boolean>} true when a mismatch (new deployment) was seen.
  */
+// Requirement: applyUpdate() must know HOW the armed update was detected.
+// A version.json mismatch arms the banner with NO waiting service worker, and
+// updateSW(true) posts SKIP_WAITING to a worker that is not there — so "Update
+// Now" did nothing at all, silently, for that entire class of update. These two
+// let applyUpdate() take the plain-reload path instead, and write the new
+// baseline synchronously rather than racing a fetch against the navigation.
+let _isVersionOnlyUpdate = false;
+let _pendingVersionBuildTime = null;
+
 async function checkVersionJson({ launch = false } = {}) {
     try {
         const resp = await fetch(`/version.json?t=${Date.now()}`);
@@ -168,6 +177,11 @@ async function checkVersionJson({ launch = false } = {}) {
             }
             if (!_updateAvailable) {
                 _updateAvailable = true;
+                // No service worker is waiting in this path — record that, so
+                // applyUpdate() reloads instead of messaging a worker that
+                // does not exist.
+                _isVersionOnlyUpdate = true;
+                _pendingVersionBuildTime = String(buildTime);
                 window.dispatchEvent(new CustomEvent('pwa-update-available'));
             }
         }
@@ -213,6 +227,8 @@ let updateInterval = null;
 let _installReady = false;
 let _updateAvailable = false;
 let _isChecking = false;
+/** Shared in-flight manual check — see checkForUpdate. */
+let _checkInFlight = null;
 // Requirement: Only reload on controllerchange when user initiated the update
 // Pattern from: intxt usePWAUpdate.ts, fh-fuelhunt usePWAUpdate.ts
 let _userClickedUpdate = false;
@@ -393,12 +409,28 @@ export function isInstallDismissed() {
  * Pattern from: intxt usePWAUpdate.ts, fh-fuelhunt usePWAUpdate.ts
  */
 export function applyUpdate() {
-    if (updateSW) {
-        _userClickedUpdate = true;
-        safeSessionSet(JUST_UPDATED_KEY, String(Date.now()));
-        storeCurrentBuildTime();
-        updateSW(true);
+    safeSessionSet(JUST_UPDATED_KEY, String(Date.now()));
+
+    // Version-only update: there is no waiting worker to hand the baton to, so
+    // messaging one is a no-op and the user's tap produces nothing. Reload —
+    // network-first caching serves the new bundles. The baseline is written
+    // SYNCHRONOUSLY from the value we already hold; storeCurrentBuildTime()'s
+    // fetch would be cancelled by the navigation, leaving the same update to be
+    // re-detected after the suppression window as a phantom.
+    if (_isVersionOnlyUpdate || !updateSW) {
+        if (_pendingVersionBuildTime) {
+            safeStorageSet(VERSION_STORAGE_KEY, _pendingVersionBuildTime);
+        }
+        _updateAvailable = false;
+        _isVersionOnlyUpdate = false;
+        debugAdd('pwa', 'info', 'Applying version-only update — reloading');
+        window.location.reload();
+        return;
     }
+
+    _userClickedUpdate = true;
+    storeCurrentBuildTime();
+    updateSW(true);
 }
 
 /**
@@ -438,8 +470,15 @@ export function stopUpdatePolling() {
  */
 export async function checkForUpdate() {
     if (!('serviceWorker' in navigator)) return 'no-sw';
+    // Share one in-flight check. _isChecking was SET and never READ, so two taps
+    // ran two concurrent checks and the first `finally` cleared the flag (and
+    // fired the "done" event) while the second was still running — the spinner
+    // stopped early and the second result arrived into a UI that had moved on.
+    if (_checkInFlight) return _checkInFlight;
+
     _isChecking = true;
     window.dispatchEvent(new CustomEvent('pwa-checking-update'));
+    _checkInFlight = (async () => {
     try {
         const reg = await navigator.serviceWorker.getRegistration();
         if (!reg) return 'no-sw';
@@ -460,7 +499,13 @@ export async function checkForUpdate() {
         return 'up-to-date';
     } catch {
         return 'error';
+    }
+    })();
+
+    try {
+        return await _checkInFlight;
     } finally {
+        _checkInFlight = null;
         _isChecking = false;
         window.dispatchEvent(new CustomEvent('pwa-checking-update'));
     }
@@ -515,7 +560,11 @@ updateSW = registerSW({
             // launch-apply just fired — the page is about to reload, but if
             // the controllerchange reload were ever lost, polling must survive.
             updateInterval = setInterval(() => {
-                registration.update();
+                // .catch() is not optional: update() rejects routinely when the
+                // tab is offline, and an unhandled rejection every hour is noise
+                // that buries real errors. checkVersionJson already swallows its
+                // own network failures.
+                registration.update().catch(() => { /* offline — next poll retries */ });
                 checkVersionJson();
             }, SW_UPDATE_CHECK_INTERVAL_MS);
         }
