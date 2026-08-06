@@ -8,7 +8,7 @@
  *   - writeText only: Rejected — blocked in some PWA webview contexts
  *   - Third-party clipboard library: Rejected — adds dependency for 15 lines of code
  *
- * See: glow-props docs/implementations/DEBUG_SYSTEM.md (Clipboard Utilities)
+ * See: gp-props docs/implementations/DEBUG_SYSTEM.md (Clipboard Utilities)
  */
 
 /**

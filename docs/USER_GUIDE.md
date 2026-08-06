@@ -423,7 +423,7 @@ Four randomizable metric cards that show different data points on each shuffle:
 
 ### Viewing All Projects
 
-The dashboard focuses on git analytics for the tracked repositories. To browse the full directory of devmade projects — with descriptions, live-site links, and source links — open **Menu (☰) → View all projects**. It opens the project showcase (`https://devmade-ai.github.io/glow-props/`) in a new browser tab.
+The dashboard focuses on git analytics for the tracked repositories. To browse the full directory of devmade projects — with descriptions, live-site links, and source links — open **Menu (☰) → View all projects**. It opens the project showcase (`https://gp-props.vercel.app/`) in a new browser tab.
 
 ---
 

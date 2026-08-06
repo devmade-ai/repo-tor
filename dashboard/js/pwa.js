@@ -5,7 +5,7 @@
  *   provides browser-specific manual instructions for Safari/Firefox.
  * Update: Uses virtual:pwa-register with registerType:'prompt' as the
  *   MECHANISM (exposes the waiting worker to app code) and the fleet-standard
- *   "auto-on-launch" policy as the BEHAVIOR (glow-props PWA_SYSTEM.md,
+ *   "auto-on-launch" policy as the BEHAVIOR (gp-props PWA_SYSTEM.md,
  *   "Update Application Policy"):
  *     1. Launch-apply — a worker already waiting when registration first
  *        resolves (or a version.json mismatch found by the startup check)
@@ -85,7 +85,7 @@ function wasJustUpdated() {
 
 // ── Automatic-updates preference ──
 // Requirement: Fleet-standard auto-on-launch policy needs a persisted user
-//   toggle, DEFAULT ON (glow-props PWA_SYSTEM.md "Update Application Policy"
+//   toggle, DEFAULT ON (gp-props PWA_SYSTEM.md "Update Application Policy"
 //   item 3). OFF restores the previous tap-only behavior.
 // Approach: localStorage 'pwa-auto-update' holding 'true' | 'false'; an
 //   absent key means ON. Read through the safeStorage wrappers so sandboxed
@@ -264,7 +264,7 @@ const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
 //   catches first-visit events that fire after module load.
 // Alternatives:
 //   - Only listen here: Rejected — module scripts load async; on cached SW visits
-//     the event fires before any module executes (see glow-props CLAUDE.md pattern)
+//     the event fires before any module executes (see gp-props CLAUDE.md pattern)
 //   - Only use inline script: Rejected — need React integration via custom events
 //   - 3-layer capture (fh-fuelhunt pattern): Rejected — unnecessary with Vite's faster module loading
 function consumeEarlyCapturedEvent() {
@@ -459,7 +459,7 @@ export function stopUpdatePolling() {
  * Manual check for updates.
  * Requirement: Explicitly check for SW updates AND new deployments, returning
  *   the canonical fleet result union so the caller can surface a toast
- *   (glow-props PWA_SYSTEM.md "Update Application Policy" item 4).
+ *   (gp-props PWA_SYSTEM.md "Update Application Policy" item 4).
  * Approach: Call reg.update(), wait for the async update process to settle
  *   (~1500ms — reg.waiting/reg.installing may not be populated immediately),
  *   then also run the version.json comparison so deployments that didn't

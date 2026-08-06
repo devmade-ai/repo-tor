@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 // Requirement: Reusable focus management for disclosure components (menus,
 //   dropdowns, modals). Focus first item on open, return to trigger on close.
 // Approach: Extracted from HamburgerMenu.jsx inlined focus logic into a shared
-//   hook following the glow-props BURGER_MENU.md useDisclosureFocus spec.
+//   hook following the gp-props BURGER_MENU.md useDisclosureFocus spec.
 //   Uses requestAnimationFrame so portal-rendered content has time to mount
 //   before the querySelector runs.
 // Alternatives:

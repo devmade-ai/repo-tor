@@ -173,7 +173,7 @@
         if (errors.length >= MAX_ENTRIES) errors.shift();
         // Store numeric epoch (Date.now) so debugLog.js bridge can preserve
         // the original error timestamp instead of using module-load time.
-        // Matches spec: glow-props DEBUG_SYSTEM.md inline pill uses Date.now().
+        // Matches spec: gp-props DEBUG_SYSTEM.md inline pill uses Date.now().
         errors.push({ time: Date.now(), message: msg, stack: stack || '' });
         dismissed = false;
         render();
@@ -422,7 +422,7 @@
       begins loading. On repeat visits with a cached service worker, the
       browser fires beforeinstallprompt before React mounts. This inline
       script stashes the event for pwa.js to consume later.
-      See: glow-props CLAUDE.md "PWA Install Prompt Race Condition" pattern.
+      See: gp-props CLAUDE.md "PWA Install Prompt Race Condition" pattern.
     -->
     <script>
     window.addEventListener('beforeinstallprompt', function(e) {

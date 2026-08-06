@@ -136,7 +136,7 @@ The daisy theme IS the brand colour.
 - [ ] Store timer ids in a scope the cleanup can reach. Nested timeouts → array; single-shot → local const or ref.
 - [ ] In React: return cleanup from `useEffect`. In plain modules (e.g. `dashboard/js/pwa.js`, `dashboard/js/debugLog.js`): export a `dispose()` or use `AbortController`.
 - [ ] HMR-safe: guard global listener attachment behind a `window.__<featureName>Attached` flag so hot-reload doesn't double-subscribe. For modules running under Vite, also release listeners via `import.meta.hot.dispose()`.
-- [ ] See glow-props `docs/implementations/TIMER_LEAKS.md` for concrete patterns (nested-timeout array, AbortController, per-effect dispose, HMR guard).
+- [ ] See gp-props `docs/implementations/TIMER_LEAKS.md` for concrete patterns (nested-timeout array, AbortController, per-effect dispose, HMR guard).
 
 ### Quality Checks
 
@@ -157,10 +157,10 @@ Report findings even if not directly related to current task.
 
 ## Cross-Project References
 
-### glow-props CLAUDE.md
+### gp-props CLAUDE.md
 
-**URL (canonical):** `https://devmade-ai.github.io/glow-props/CLAUDE.md`
-**URL (raw fallback):** `https://raw.githubusercontent.com/devmade-ai/glow-props/main/CLAUDE.md`
+**URL (canonical):** `https://gp-props.vercel.app/CLAUDE.md`
+**URL (raw fallback):** `https://raw.githubusercontent.com/devmade-ai/gp-props/main/CLAUDE.md`
 
 Shared coding standards, patterns, and implementation patterns across devmade-ai projects.
 Check periodically for new patterns to adopt. Last reviewed: 2026-04-25.
@@ -199,7 +199,7 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-25.
   - `js/chartColors.js` - Centralized chart color system: general 8-token semantic cycle (`getSeriesColor`) + chroma-filtered repo cycle (`resolveActiveRepoColor` skips achromatic tokens so active repos always get colorful assignments, even in monochrome themes like lofi/black). Repo categories: active (colorful), internal (60% neutral), discontinued (30% neutral)
   - `js/debugLog.js` - Structured debug logging with pub/sub, console interception, global error capture, and report generation
   - `js/copyToClipboard.js` - Clipboard utility with multiple fallbacks (ClipboardItem Blob, writeText, textarea)
-  - `js/pwa.js` - PWA install/update lifecycle (event-based, communicates with React via CustomEvents). Update behavior is the fleet-standard **auto-on-launch** policy (glow-props `PWA_SYSTEM.md` "Update Application Policy"): a worker already waiting when registration first resolves — or a `version.json` mismatch found by the deferred startup check — applies automatically with one reload (launch is the only safe moment; a mid-session reload would discard a drag-dropped data file). Mid-session detections (hourly poll, visibilitychange, manual check) only arm the header "Update Now" item. Persisted "Automatic updates" toggle (localStorage `pwa-auto-update`, `'true'|'false'`, absent = ON) opts out of launch-apply; the version.json launch reload is guarded by a sessionStorage one-shot flag (`pwa-version-launch-reload`) so it can never loop. `checkForUpdate()` runs SW + version.json checks and returns the canonical `'no-sw' | 'up-to-date' | 'update-available' | 'error'` union, surfaced as a toast by the hamburger menu's "Check for updates" item. Per-browser install instructions extracted to `pwaInstructions.js` on 2026-04-15; the 2026-07-21 update-policy additions pushed pwa.js back over the 500-line soft-limit — split tracked in `docs/TODO.md` "File-size monitoring".
+  - `js/pwa.js` - PWA install/update lifecycle (event-based, communicates with React via CustomEvents). Update behavior is the fleet-standard **auto-on-launch** policy (gp-props `PWA_SYSTEM.md` "Update Application Policy"): a worker already waiting when registration first resolves — or a `version.json` mismatch found by the deferred startup check — applies automatically with one reload (launch is the only safe moment; a mid-session reload would discard a drag-dropped data file). Mid-session detections (hourly poll, visibilitychange, manual check) only arm the header "Update Now" item. Persisted "Automatic updates" toggle (localStorage `pwa-auto-update`, `'true'|'false'`, absent = ON) opts out of launch-apply; the version.json launch reload is guarded by a sessionStorage one-shot flag (`pwa-version-launch-reload`) so it can never loop. `checkForUpdate()` runs SW + version.json checks and returns the canonical `'no-sw' | 'up-to-date' | 'update-available' | 'error'` union, surfaced as a toast by the hamburger menu's "Check for updates" item. Per-browser install instructions extracted to `pwaInstructions.js` on 2026-04-15; the 2026-07-21 update-policy additions pushed pwa.js back over the 500-line soft-limit — split tracked in `docs/TODO.md` "File-size monitoring".
   - `js/pwaInstructions.js` - Browser-detection helpers + per-browser step-by-step install instructions for the InstallInstructionsModal. Pure data module (no DOM, no React).
   - `js/pwaConstants.js` - PWA timing/threshold constants (update intervals, settle delays, etc.)
 - `vite.config.js` - Vite build + React + Tailwind v4 + PWA plugin config
@@ -229,7 +229,7 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-25.
 | Health | `health` | Health (includes Security) |
 | Discover | `discover` | Discover |
 
-(The former **Projects** tab was removed 2026-07-23 — the project directory now lives in the glow-props showcase at `https://devmade-ai.github.io/glow-props/`, reached via a "View all projects" link in the hamburger menu. `dashboard/public/projects.json` and `js/sections/Projects.jsx` were deleted with it.)
+(The former **Projects** tab was removed 2026-07-23 — the project directory now lives in the gp-props showcase at `https://gp-props.vercel.app/`, reached via a "View all projects" link in the hamburger menu. `dashboard/public/projects.json` and `js/sections/Projects.jsx` were deleted with it.)
 
 Tab-to-section mapping is documented in the table above; actual routing is a switch statement in `js/App.jsx` keyed on `state.activeTab`. (A previous `TAB_SECTIONS` export in `js/state.js` duplicated the table with zero active consumers and was removed 2026-04-13.)
 
@@ -484,7 +484,7 @@ Examples:
 |---|---------|-------|-----------|
 | 22 | `clean` | `cln` | Dead code, duplication, commented-out blocks, unused imports/exports, leftover TODOs |
 | 23 | `naming` | `nam` | Identifier clarity, consistency with local norms, misleading abbreviations |
-| 24 | `patterns` | `pat` | Deviation from established patterns (fleet-wide glow-props or repo-local), reinvented wheels |
+| 24 | `patterns` | `pat` | Deviation from established patterns (fleet-wide gp-props or repo-local), reinvented wheels |
 | 25 | `docs` | `doc` | Docs ↔ code drift, missing docs on public API, outdated README/CLAUDE.md claims |
 | 26 | `doc-cleanup` | `dcl` | Duplicated content across doc files, stale files no longer relevant, orphaned docs nothing references, superseded files that replaced but didn't delete their predecessor, sections still describing removed features |
 | 27 | `tests` | `tst` | Coverage gaps on critical paths, flaky patterns, test smells, missing edge-case tests |
@@ -522,8 +522,8 @@ Examples:
 
 | # | Trigger | Alias | Looks for |
 |---|---------|-------|-----------|
-| 47 | `align` | `aln` | Drift between this repo's CLAUDE.md and glow-props CLAUDE.md — missing sections, stale rules, divergent conventions |
-| 48 | `pattern-audit` | `pa` | Every glow-props implementation pattern: implemented / partial / missing / deviates — with diff notes for each |
+| 47 | `align` | `aln` | Drift between this repo's CLAUDE.md and gp-props CLAUDE.md — missing sections, stale rules, divergent conventions |
+| 48 | `pattern-audit` | `pa` | Every gp-props implementation pattern: implemented / partial / missing / deviates — with diff notes for each |
 
 ### Meta sweeps
 
@@ -558,31 +558,31 @@ Single-pass, no fan-out to other triggers. Each answers one specific question ab
 
 ## Implementation Patterns (Source of Truth)
 
-**Source of truth:** glow-props repo at `docs/implementations/` — there are NO local copies in this repo or any other devmade-ai repo.
+**Source of truth:** gp-props repo at `docs/implementations/` — there are NO local copies in this repo or any other devmade-ai repo.
 
 To fetch a pattern spec (preferred — public GitHub Pages, no token required):
 ```bash
-curl -sf "https://devmade-ai.github.io/glow-props/patterns/{PATTERN_NAME}.md"
+curl -sf "https://gp-props.vercel.app/patterns/{PATTERN_NAME}.md"
 ```
 
 To fetch via the GitHub API (fallback — requires token):
 ```bash
 curl -sf -H "Authorization: token $(printenv GITHUB_ALL_REPO_TOKEN)" \
-  "https://api.github.com/repos/devmade-ai/glow-props/contents/docs/implementations/{FILENAME}.md" \
+  "https://api.github.com/repos/devmade-ai/gp-props/contents/docs/implementations/{FILENAME}.md" \
   | python3 -c "import sys,json,base64; d=json.load(sys.stdin); print(base64.b64decode(d['content']).decode())"
 ```
 
 To list every available pattern (discover what's there before assuming):
 ```bash
 curl -sf -H "Authorization: token $(printenv GITHUB_ALL_REPO_TOKEN)" \
-  "https://api.github.com/repos/devmade-ai/glow-props/contents/docs/implementations" \
+  "https://api.github.com/repos/devmade-ai/gp-props/contents/docs/implementations" \
   | python3 -c "import sys,json; [print(f['name']) for f in json.load(sys.stdin)]"
 ```
 
 Rules:
-- **Never create local copies** of pattern files — always fetch from glow-props
+- **Never create local copies** of pattern files — always fetch from gp-props
 - **Always fetch the latest version** before implementing — patterns are updated between sessions
-- **Never rely on memory or summaries** — read the actual spec from glow-props every time
+- **Never rely on memory or summaries** — read the actual spec from gp-props every time
 - **Do not hardcode a list of patterns** — scan the source folder to discover what's available; the set grows over time, always check the source for new additions
 
 ---
@@ -616,7 +616,7 @@ Never:
 - Use interactive input prompts or selection UIs — list options as numbered text instead
 - Remove features during "cleanup" without checking if they're documented as intentional (see AI Mistakes)
 - Proceed with assumptions when a single clarifying question would prevent a wrong commit
-- Create local copies of implementation pattern files — always fetch from glow-props (see Implementation Patterns)
+- Create local copies of implementation pattern files — always fetch from gp-props (see Implementation Patterns)
 - Mention branches, pull requests, squashing, rebasing, merging, or force-pushing unless the user raises the topic first. When the user does raise one, answer the specific question and stop — do not volunteer opinions on what they should do process-wise.
 - Frame any work as "out of scope" or "deferred as out of scope". Work is either doable (do it) or blocked on missing user input (say exactly what input is needed). "Scope" is a process concept, not a reason to skip work.
 - Offer opinions on git history editing, branch strategy, PR size or shape, review flow, or commit structure. Follow instructions; don't editorialize on how the work should be organized.

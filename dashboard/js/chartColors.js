@@ -125,7 +125,7 @@ export function withOpacity(color, opacity) {
 // because base-content is near-pure-black/white in most themes. Fixed
 // 2026-04-15 to use neutral with opacity instead.
 const DISCONTINUED_REPOS = new Set(['coin-zapp', 'plant-fur', 'chatty-chart']);
-const INTERNAL_REPOS = new Set(['tool-till-tees', 'glow-props', 'canva-grid-assets', 'repo-tor']);
+const INTERNAL_REPOS = new Set(['tool-till-tees', 'gp-props', 'canva-grid-assets', 'repo-tor']);
 
 function dimNeutral(opacity) {
     const neutral = readCssVar('--color-neutral');

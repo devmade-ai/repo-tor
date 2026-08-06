@@ -8,7 +8,7 @@
  *   - Manual export from Figma/Inkscape: Rejected — error-prone, not reproducible
  *   - ImageMagick: Rejected — Sharp is already common in Node ecosystems, better API
  *
- * Pattern adopted from glow-props CLAUDE.md "App Icons from SVG Source"
+ * Pattern adopted from gp-props CLAUDE.md "App Icons from SVG Source"
  *
  * Usage: node scripts/generate-icons.mjs
  * Requires: npm install --save-dev sharp
@@ -60,7 +60,7 @@ async function generate() {
     // Alternatives:
     //   - png-to-ico package: Rejected — adds a dependency for a stable binary format
     //   - Skip .ico entirely: Rejected — inline SVG favicon doesn't cover legacy browsers
-    // Pattern from: glow-props APP_ICONS.md (manual ICO packing)
+    // Pattern from: gp-props APP_ICONS.md (manual ICO packing)
     const favicon32 = await sharp(svgBuffer, { density: SVG_DENSITY })
         .resize(32, 32).png().toBuffer();
 

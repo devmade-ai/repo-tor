@@ -24,7 +24,7 @@ import { LogTab, EnvironmentTab, PWADiagnosticsTab, runDiagnostics } from './deb
  *   - Use Tailwind classes: Rejected — app CSS may not be loaded in isolated root
  *   - Single debug system: Rejected — need pre-React coverage that survives bundle failure
  *
- * See: glow-props docs/implementations/DEBUG_SYSTEM.md
+ * See: gp-props docs/implementations/DEBUG_SYSTEM.md
  */
 
 const MAX_ENTRIES = 200;

@@ -20,11 +20,11 @@
  *   - Inline in Header.jsx or InstallInstructionsModal.jsx: Rejected —
  *     both are already near their own line-count ceilings.
  *   - npm package for browser detection (bowser, ua-parser-js): Rejected
- *     — adds dependency for ~30 lines of regex the glow-props pattern
+ *     — adds dependency for ~30 lines of regex the gp-props pattern
  *     already handles, and the detection here is specific to PWA install
  *     capabilities rather than general browser identification.
  *
- * See: glow-props docs/implementations/PWA_SYSTEM.md
+ * See: gp-props docs/implementations/PWA_SYSTEM.md
  */
 
 // ── Browser detection ──
@@ -79,7 +79,7 @@ export function supportsManualInstall() {
 /**
  * Returns browser-specific install instructions for the InstallInstructionsModal.
  * Data-driven: the modal renders whatever this returns — adding a browser is one switch case.
- * Returns { browser, steps, note? } matching the glow-props PWA_SYSTEM.md pattern.
+ * Returns { browser, steps, note? } matching the gp-props PWA_SYSTEM.md pattern.
  *
  * @param {{ hasDeferredPrompt: boolean }} options — pass `hasDeferredPrompt: false`
  *   when the native prompt has been consumed or never arrived (used for the Chrome

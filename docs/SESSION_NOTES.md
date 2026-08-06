@@ -23,8 +23,8 @@ tracked set now matches the org's 21 accessible repos exactly. Changes made:
   Tracked as a pending action in `docs/USER_ACTIONS.md` ("feed the chicken"
   run needed from an environment with org API access).
 - **Projects tab removed** — replaced with a "View all projects" link in the
-  hamburger menu pointing to the glow-props showcase
-  (`https://devmade-ai.github.io/glow-props/`, verified live via WebFetch —
+  hamburger menu pointing to the gp-props showcase
+  (`https://gp-props.vercel.app/`, verified live via WebFetch —
   lists all 12 projects). Deleted `dashboard/js/sections/Projects.jsx` +
   `dashboard/public/projects.json`; dropped the tab from TabBar (6→5), the
   App route, `PAGE_LIMITS.projects`, and the two projects.json PWA-precache

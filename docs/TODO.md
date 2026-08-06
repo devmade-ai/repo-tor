@@ -60,12 +60,12 @@ Remaining tasks for Git Analytics Reporting System.
 ## PWA pattern audit — 2026-08-03
 
 Repo-side findings from a fleet-wide audit of every devmade-ai PWA against the
-glow-props implementation patterns. The pattern-side learnings are already folded
+gp-props implementation patterns. The pattern-side learnings are already folded
 back into those docs, so **fetch the current pattern before starting any item**:
 
 ```bash
-curl -sf "https://devmade-ai.github.io/glow-props/patterns/PWA_SYSTEM.md"
-curl -sf "https://devmade-ai.github.io/glow-props/patterns/PWA_ICON_CACHE_BUST.md"
+curl -sf "https://gp-props.vercel.app/patterns/PWA_SYSTEM.md"
+curl -sf "https://gp-props.vercel.app/patterns/PWA_ICON_CACHE_BUST.md"
 ```
 
 Line references were accurate at audit time. Severity-ordered.
