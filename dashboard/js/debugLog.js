@@ -10,7 +10,7 @@
  *   - localStorage persistence: Rejected — fills storage, not needed for alpha
  *   - Plain string arrays: Rejected — Record<string, unknown> details enable filtering
  *
- * See: glow-props docs/implementations/DEBUG_SYSTEM.md
+ * See: gp-props docs/implementations/DEBUG_SYSTEM.md
  */
 
 const MAX_ENTRIES = 200;

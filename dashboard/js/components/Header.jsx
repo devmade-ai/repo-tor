@@ -195,7 +195,7 @@ export default function Header() {
         // users can rapid-preview multiple themes without reopening the menu.
         // The active-theme highlight updates in place as the React tree
         // re-renders from the reducer state change. Pattern borrowed from
-        // glow-props where theme-picker buttons deliberately omit the
+        // gp-props where theme-picker buttons deliberately omit the
         // `data-close` attribute that other menu items carry.
         const themeItems = activeThemeCatalog.map((theme, idx) => ({
             label: theme.name,
@@ -218,12 +218,12 @@ export default function Header() {
         return [
             { label: 'Quick Guide', action: () => setGuideOpen(true), icon: icons.guide },
             { label: 'User Guide', action: () => window.open('https://github.com/devmade-ai/repo-tor#readme', '_blank'), icon: icons.book, external: true },
-            // Projects live in the glow-props showcase (devmade-ai.github.io/glow-props),
+            // Projects live in the gp-props showcase (gp-props.vercel.app),
             // which lists every project with descriptions + live links. The dashboard's
             // own Projects tab + projects.json were removed 2026-07-23 in favor of this
             // single source, so the menu just links out. noopener/noreferrer prevents the
             // opened page from reaching back through window.opener (reverse tabnabbing).
-            { label: 'View all projects', action: () => window.open('https://devmade-ai.github.io/glow-props/', '_blank', 'noopener,noreferrer'), icon: icons.projects, external: true },
+            { label: 'View all projects', action: () => window.open('https://gp-props.vercel.app/', '_blank', 'noopener,noreferrer'), icon: icons.projects, external: true },
             {
                 // Requirement: Theme toggle menu item must expose to assistive tech
                 //   (1) what mode the user is currently in and (2) what will happen

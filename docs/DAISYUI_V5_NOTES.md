@@ -229,5 +229,5 @@ See `CLAUDE.md` "Dashboard Architecture" section for the full four-file propagat
 
 - `docs/AI_MISTAKES.md` — 2026-04-13 entry: the `*-bordered` trap post-mortem
 - `git log --grep='daisyui'` — 2026-04-13 commits: full 10-phase component-class migration
-- `docs/implementations/THEME_DARK_MODE.md` — glow-props upstream reference for dual-layer theming (fetch from glow-props, not local)
-- `docs/implementations/BURGER_MENU.md` — glow-props upstream reference for the disclosure-pattern menu (fetch from glow-props, not local)
+- `docs/implementations/THEME_DARK_MODE.md` — gp-props upstream reference for dual-layer theming (fetch from gp-props, not local)
+- `docs/implementations/BURGER_MENU.md` — gp-props upstream reference for the disclosure-pattern menu (fetch from gp-props, not local)

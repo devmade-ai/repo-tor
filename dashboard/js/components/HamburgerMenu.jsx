@@ -6,7 +6,7 @@ import useEscapeKey from '../hooks/useEscapeKey.js';
 import { version } from '../../../package.json';
 import { debugAdd } from '../debugLog.js';
 
-// Requirement: Data-driven hamburger menu matching glow-props BurgerMenu pattern
+// Requirement: Data-driven hamburger menu matching gp-props BurgerMenu pattern
 // Approach: Disclosure-pattern dropdown (not ARIA menu) with data-driven items array.
 //   Each item has: label, action, icon (optional), visible, disabled, separator, external, destructive.
 //   Show/hide via `visible`; gray out via `disabled` (rendered but not clickable/focusable).
@@ -53,7 +53,7 @@ import { debugAdd } from '../debugLog.js';
  *     user can activate the item and remain in the menu. Used for theme picker
  *     items and the dark/light mode toggle so users can rapid-preview multiple
  *     themes (or pick a theme after toggling mode) without reopening the menu.
- *     Pattern borrowed from glow-props where theme controls lack the
+ *     Pattern borrowed from gp-props where theme controls lack the
  *     `data-close` attribute that other items have.
  */
 export default function HamburgerMenu({ items }) {
@@ -182,7 +182,7 @@ export default function HamburgerMenu({ items }) {
     //      active-theme highlight updates in place as the React tree
     //      re-renders from the reducer state change.
     //
-    // Pattern borrowed from glow-props where the equivalent behavior is
+    // Pattern borrowed from gp-props where the equivalent behavior is
     // implemented via a `data-close` attribute on menu items that SHOULD
     // close the menu, with theme controls deliberately omitting it.
     function handleItem(item) {

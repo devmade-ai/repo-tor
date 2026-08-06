@@ -21,7 +21,7 @@
  *   - Pull in a color library (culori, colorjs.io): Rejected — 30 lines of
  *     self-contained math is cheaper than a dependency and matches what
  *     every sibling project in the devmade-ai org does (canva-grid,
- *     glow-props).
+ *     gp-props).
  *   - Runtime conversion via getComputedStyle in the browser: Rejected —
  *     requires a browser/DOM environment for the build-time generator,
  *     and the inline flash prevention script can't import modules anyway,

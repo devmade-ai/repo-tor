@@ -106,7 +106,7 @@ Browser-based runtime / visual regression coverage was removed 2026-04-15 — se
 - [ ] Clicking opens dropdown with all menu items:
   - [ ] Quick Guide — opens onboarding tutorial
   - [ ] User Guide — opens GitHub README in new tab (shows external link indicator ↗)
-  - [ ] View all projects — opens the glow-props project showcase (`https://devmade-ai.github.io/glow-props/`) in a new tab (shows external link indicator ↗)
+  - [ ] View all projects — opens the gp-props project showcase (`https://gp-props.vercel.app/`) in a new tab (shows external link indicator ↗)
   - [ ] Dark mode / Light mode — toggles theme, label updates to match current mode
   - [ ] Save as PDF — triggers browser print dialog
   - [ ] Install App — appears only when PWA install is available; shows native prompt (Chromium) or install instructions modal (Safari/Firefox)
