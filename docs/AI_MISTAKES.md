@@ -4,6 +4,30 @@ Record of significant AI errors and learnings to prevent repetition. Document mi
 
 ---
 
+## 2026-08-07: A renamed repo kept its old key, and a recorded blocker outlived the condition that caused it
+
+Two mistakes from the same fleet rename, both the same shape: something was written down correctly at the time and then quietly stopped being true.
+
+**What happened (1) — the rename moved the directory but not the key.** PR #124 renamed `processed/glow-props` to `processed/gp-props` and updated `config/repos.json`, reasoning correctly that the directory is the join key `aggregate-processed.js` resolves. It left the 236 commit records inside untouched, each still carrying `"repo_id": "glow-props"`. But `repo_id` is the key everything *downstream* groups by — `repoBreakdown` and `monthlyCommits[month].repos` in `aggregate.js`, the buckets in `aggregateCalcs.js` and `aggregateTimeWindows.js`, the per-repo series in `useTimelineCharts.js`. Every record already analysed said `glow-props`; every record analysed from then on would say `gp-props`. The dashboard would have shown a frozen `glow-props` holding all the history beside a `gp-props` starting at zero, and neither number would be the repo's real activity. It could not self-heal: `aggregate-processed.js:137` fills `repo_id` only when it is *missing*, so a wrong-but-present value survives every future run.
+
+**What happened (2) — the blocker note had expired.** `docs/USER_ACTIONS.md` said extraction for the six repos registered on 2026-07-23 could not run because the agent proxy scoped GitHub API access to `repo-tor` alone and every other repo returned 403, and it directed the reader to go find a different environment. Re-tested 2026-08-07: all six return 200 for repo metadata and commits, and all six clone cleanly after `add_repo`. The stated blocker no longer existed. The real obstacle — `DATA_OPERATIONS.md`'s human-in-the-loop batch review, ~14 batches for 335 commits — was never the one written down.
+
+**Why neither was caught:** both are invisible to every check that exists. No test asserts that a record's `repo_id` agrees with its directory, because until a rename happens they cannot disagree — the bug is only expressible for the duration of a rename, which is exactly when nobody is looking for it. And a stale blocker note reads as *more* authoritative the more specific it is: "every other repo returns 403" sounds diagnosed, so the next reader acts on it instead of re-testing it.
+
+**Root cause:** a rename was treated as finished once the *config* agreed with the new name. Config, directory layout, record contents and prose documentation are four separate places a name lives, and only the first two were swept. The environmental note was recorded as a fact about the world rather than as a dated observation with a way to re-check it.
+
+**Fixes (`813697f`, `f3fa6cb`):** rewrote `repo_id` in all 236 records — verified every file parses, the diff contains no line without `repo_id` in it, and replaying the aggregation grouping over all 15 repos now yields one `gp-props` key with 236 commits and no `glow-props` key. Confirmed no other repo has the same split, including `intxt` after its synctone rename. The 31 records mentioning `glow-props` in `subject`/`body` were left alone — that is the commit message as actually written. `USER_ACTIONS.md` now states the re-test result, names the review as the real blocker, and records the per-repo commit counts.
+
+**Prevention rules:**
+
+1. **When a tracked repo is renamed, sweep every layer a name lives in, not just config:** `config/repos.json`, the `processed/<name>/` directory, the `repo_id` inside every record under it, and any prose in `docs/` naming the old value. Grep the old name across the whole repo and classify each hit as *identity* (rewrite) or *history* (leave).
+2. **Never rewrite a name inside a recorded commit `subject` or `body`.** Those are the message as authored; changing them makes the analysed history disagree with git. Only identity/join fields get rewritten.
+3. **A backfill that "fills when missing" will not repair a wrong value.** Before relying on `if (!x) x = default` to heal data, check whether the failure mode is *absent* or *incorrect* — only the first is covered.
+4. **Date every environmental blocker and say how to re-test it.** Write "as of YYYY-MM-DD, `curl <endpoint>` returned 403" rather than "the proxy blocks this". Proxies, tokens and sandbox policies change without touching the repo, so a blocker with no re-test instruction sends the next session to solve a problem that may already be gone.
+5. **Re-test a recorded blocker before acting on it.** One request costs seconds; provisioning an environment to route around an expired 403 costs a session.
+
+---
+
 ## 2026-04-14: Migrating state-dependent classes without tracing cascade priority between variants
 
 **What happened:** During the round-3 custom-CSS cleanup sweep (`405f1ec`) I migrated several custom classes that had multiple state variants (selected, highlighted, hover, focus, drag-over) to inline Tailwind conditional builders. The migrations built cleanly and passed tests, but the 2026-04-14 fresh-eyes audit caught four separate regressions where I'd flattened the state cascade incorrectly:
