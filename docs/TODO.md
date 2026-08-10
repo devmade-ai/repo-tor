@@ -153,3 +153,7 @@ excludes any path with a file extension, `Service-Worker-Allowed`, and reading
    every preview alias currently serve byte-identical pages with nothing electing
    a winner.
 5. [ ] **No SEO tripwire.** Every item above is invisible to the current gate.
+
+## Deployment URLs (carried from session notes 2026-08-10)
+
+- [ ] **Verify the `liveUrl` values in `config/repos.json` and `dashboard/public/projects.json`** — after the fleet rename they were left pointing at the old `*.vercel.app` domains on the assumption the Vercel projects were not renamed. That assumption has never been checked against the platform; if a project WAS renamed, the dashboard links a visitor to a dead or duplicate origin.
