@@ -679,7 +679,6 @@ Never:
 - Use placeholder data that looks like real data
 - Skip error handling "for now"
 - Write code without decision context comments for non-trivial changes
-- Add workarounds for architectural issues — fix root causes (see AI Mistakes)
 - Use silent `.catch(() => {})` — always handle specific errors (see AI Mistakes)
 - Hardcode values that should come from CSS variables or config (see AI Mistakes)
 - Document or recommend features that haven't been tested (see AI Mistakes)
@@ -695,7 +694,7 @@ Never:
 - Decide that anything is out of scope, or frame work as "deferred as out of scope". Only the user sets scope. Work is either doable (do it) or blocked on user input (say exactly what input is needed).
 - Offer opinions on git history editing, branch strategy, PR size or shape, review flow, or commit structure. Follow instructions; don't editorialize on how the work should be organized.
 - Add a feature without updating the documentation it invalidates, in the same commit
-- Add a workaround for an architectural problem — find the root cause and fix that. Globals, duplicate listeners and flag variables to patch over a structural issue are the shape to watch for; if a fix needs 3+ files coordinated to share state, that is the smell
+- Add a workaround for an architectural problem — find the root cause and fix that. Globals, duplicate listeners and flag variables to patch over a structural issue are the shape to watch for; if a fix needs 3+ files coordinated to share state, that is the smell (see AI Mistakes)
 
 ### REMINDER: READ AND FOLLOW THE PROHIBITIONS EVERY TIME
 
