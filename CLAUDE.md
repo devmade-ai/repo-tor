@@ -1,15 +1,18 @@
 # Git Analytics Reporting System
 
+## Fetching the Fleet Standards
+
+The canonical rules live in **gp-props** and this file mirrors them. To read the current version:
+
+```bash
+curl -sf "https://gp-props.vercel.app/CLAUDE.md"
+```
+
+Implementation patterns are fetched separately — see Implementation Patterns below.
+
 ## HARD RULES
 
 These rules are non-negotiable. Stop and ask before proceeding if any rule would be violated.
-
-### Before Making Changes
-
-- [ ] Read relevant existing code and documentation first
-- [ ] Ask clarifying questions if scope, approach, or intent is unclear
-- [ ] Confirm understanding before implementing non-trivial changes
-- [ ] Never assume — when in doubt, ask
 
 ### User Experience (CRITICAL)
 
@@ -30,7 +33,7 @@ Good: "Something went wrong loading the dashboard. Please try again, or check yo
 Bad: "Invalid JSON schema"
 Good: "This file doesn't look like a dashboard data file. Try exporting from the extraction script first."
 
-### Documentation
+## Documentation
 
 **AI assistants automatically maintain these documents.** Update them as you work — don't wait for the user to ask. This ensures context is always current for the next session.
 
@@ -676,7 +679,6 @@ Never:
 - Use placeholder data that looks like real data
 - Skip error handling "for now"
 - Write code without decision context comments for non-trivial changes
-- Add workarounds for architectural issues — fix root causes (see AI Mistakes)
 - Use silent `.catch(() => {})` — always handle specific errors (see AI Mistakes)
 - Hardcode values that should come from CSS variables or config (see AI Mistakes)
 - Document or recommend features that haven't been tested (see AI Mistakes)
@@ -691,6 +693,8 @@ Never:
 - Mention branches, pull requests, squashing, rebasing, merging, or force-pushing unless the user raises the topic first. When the user does raise one, answer the specific question and stop — do not volunteer opinions on what they should do process-wise.
 - Decide that anything is out of scope, or frame work as "deferred as out of scope". Only the user sets scope. Work is either doable (do it) or blocked on user input (say exactly what input is needed).
 - Offer opinions on git history editing, branch strategy, PR size or shape, review flow, or commit structure. Follow instructions; don't editorialize on how the work should be organized.
+- Add a feature without updating the documentation it invalidates, in the same commit
+- Add a workaround for an architectural problem — find the root cause and fix that. Globals, duplicate listeners and flag variables to patch over a structural issue are the shape to watch for; if a fix needs 3+ files coordinated to share state, that is the smell (see AI Mistakes)
 
 ### REMINDER: READ AND FOLLOW THE PROHIBITIONS EVERY TIME
 
