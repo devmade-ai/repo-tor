@@ -630,14 +630,13 @@ These footers are required on every commit. No exceptions.
 
 ---
 
-## Rescued From Replaced Sections
+## Kept From Replaced Sections
 
-Lines the fleet sync found in this repo's canonical sections that canonical
-does not say. Kept verbatim, prefixed with the section they came from, so a
-later pass can decide whether each is local, obsolete, or worth upstreaming.
+What this repo said in sections the fleet sync replaced, that canonical does
+not say. Superseded lines were dropped; these were not. Each is a line, not a
+block — the rescue was line-based, so the surrounding context is in the commit
+before the sync.
 
-- Fetching the Fleet Standards :: The canonical rules live in **gp-props** and this file mirrors them. To read the current version:
-- Fetching the Fleet Standards :: Implementation patterns are fetched separately — see Implementation Patterns below.
 - Documentation :: | File | Purpose | When to update |
 - Documentation :: | `CLAUDE.md` | AI preferences, project overview, architecture | When architecture, state structures, or preferences change |
 - Documentation :: | `docs/SESSION_NOTES.md` | The few things the next session cannot work without — **default state is empty** | At session end, and the moment an entry goes stale — delete it, don't annotate it |
@@ -664,7 +663,6 @@ later pass can decide whether each is local, obsolete, or worth upstreaming.
 - Code Standards :: - [ ] Extract reusable logic into separate modules/files immediately
 - Code Standards :: - [ ] Group related functionality into logical directories
 - Code Standards :: - [ ] Split large components into smaller, focused components when responsibilities diverge
-- Code Standards :: Example:
 - Code Standards :: ```javascript
 - Code Standards :: // Requirement: Show loading state before React mounts
 - Code Standards :: // Approach: HTML-level spinner inside #root div, replaced by createRoot()
@@ -707,7 +705,6 @@ later pass can decide whether each is local, obsolete, or worth upstreaming.
 - Code Standards :: - [ ] Store timer ids in a scope the cleanup can reach. Nested timeouts → array; single-shot → local const or ref.
 - Code Standards :: - [ ] In React: return cleanup from `useEffect`. In plain modules (e.g. `dashboard/js/pwa.js`, `dashboard/js/debugLog.js`): export a `dispose()` or use `AbortController`.
 - Code Standards :: - [ ] HMR-safe: guard global listener attachment behind a `window.__<featureName>Attached` flag so hot-reload doesn't double-subscribe. For modules running under Vite, also release listeners via `import.meta.hot.dispose()`.
-- Code Standards :: - [ ] See gp-props `docs/implementations/TIMER_LEAKS.md` for concrete patterns (nested-timeout array, AbortController, per-effect dispose, HMR guard).
 - Code Standards :: - [ ] Error handling gaps
 - Code Standards :: - [ ] Edge cases not covered
 - Code Standards :: - [ ] Inconsistent naming
@@ -734,7 +731,6 @@ later pass can decide whether each is local, obsolete, or worth upstreaming.
 - Prohibitions :: - Create local copies of implementation pattern files — always fetch from gp-props (see Implementation Patterns)
 - AI Notes :: - **Document your mistakes** in docs/AI_MISTAKES.md so future sessions learn from them
 - AI Notes :: - **Always read files before editing** — use the Read tool on every file before attempting to Edit it
-- AI Notes :: - **Check build tools before building** — run `npm install` or verify `node_modules/.bin/vite` exists before attempting `npm run build`. The `sharp` package may not be installed (used by prebuild icon generation), so use `./node_modules/.bin/vite build` directly to skip the prebuild step.
 - AI Notes :: - **CRITICAL: Keep `QuickGuide.jsx` up to date** — this is user-facing help content shown in-app. When tabs, sections, or features change, update the guide steps to match. Outdated guide content confuses users.
 - AI Notes :: - **Verify before assuming** — read the actual code before claiming what it does. Don't describe behavior based on file names, comments, or assumptions — check the implementation. If the user describes how something works, compare it against the actual code rather than agreeing without verification.
 - AI Notes :: - **Fix root causes, not symptoms** — when something isn't working, find out WHY before writing code. Don't add workarounds (globals, duplicate listeners, flag variables) to patch over an architectural issue. If the fix requires touching 3+ files to coordinate shared state, that's a smell — look for a simpler structural change.
@@ -743,7 +739,6 @@ later pass can decide whether each is local, obsolete, or worth upstreaming.
 - AI Notes :: - **Capture ideas** — add lower priority items and improvements to docs/TODO.md so they persist between sessions
 - AI Notes :: - **Document user actions** — when manual user action is required (external dashboards, credentials, etc.), add detailed instructions to docs/USER_ACTIONS.md
 - AI Notes :: - **Commit and push changes before ending a session**
-- AI Notes :: - **Claude Code mobile/web — accessing sibling repos:** Use `GITHUB_ALL_REPO_TOKEN` with the GitHub API (`api.github.com/repos/devmade-ai/{repo}/contents/{path}`) to read files from other devmade-ai repos. Use `$(printenv GITHUB_ALL_REPO_TOKEN)` not `$GITHUB_ALL_REPO_TOKEN` to avoid shell expansion issues. Never clone sibling repos — use the API instead.
 - AI Notes :: - **Check for existing patterns** in the codebase before creating new ones
 - AI Notes :: - **Clean up completed or obsolete docs/files** and remove references to them
 - AI Notes :: - **Discontinued repos — skip entirely:** `plant-fur`, `coin-zapp`, and `chatty-chart` are discontinued. Do not check, audit, align, or include them in cross-project operations. `chatty-chart` (illuminAI-select org) is also explicitly excluded from data aggregation by name in `scripts/aggregate-processed.js` `EXCLUDED_REPOS`.
