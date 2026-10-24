@@ -16,7 +16,7 @@
 // Alternatives:
 //   - Jest: Rejected — this project has no test framework configured, and
 //     adding Jest for one module is disproportionate. node:test has been
-//     stable since Node 20; we're on Node 22.
+//     stable since Node 20; we're on Node 24.
 //   - Snapshot tests: Rejected — hex values are short, exact-match
 //     assertions are clearer and diffs are more readable.
 //
