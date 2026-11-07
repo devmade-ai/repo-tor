@@ -15,10 +15,14 @@ Source- and build-output-level tripwires (no browser, no transpilation, run on e
 | `scripts/__tests__/build-output.test.mjs` | Built `dist/` integrity — required HTML hooks, manifest keys, sw.js precache routes, JS bundle still fetches canonical paths AND no longer contains stripped legacy identifiers |
 | `scripts/__tests__/commit-parsing.test.mjs` | `extractBreakingChange` correctness — conventional `!:` markers (with/without scope), `BREAKING CHANGE` and `BREAKING:` body markers (case-insensitive, line-anchored), edge cases (empty inputs, undefined, mid-line false positives) |
 | `scripts/__tests__/strip-dead-fields.test.mjs` | `stripDeadFieldsInDir` correctness + atomicity — strips known dead fields, idempotent on clean trees, aborts BEFORE any writes on parse failure (Pass 1 atomicity), skips non-conforming repo/commit filenames with warnings, preserves UTF-8 content (em dashes, emoji) without escape sequences, throws helpful error when processed/ is missing |
+| `scripts/__tests__/filter-dates.test.mjs` | Calendar-day bounds in one timezone, daylight-saving length, inverted ranges, invalid dates |
+| `scripts/__tests__/tab-url.test.mjs` | `?tab=` read/write, Summary omission, unknown values, other parameters kept |
+| `scripts/__tests__/filters-overlay.test.mjs` | Clear All vs the first-visit preset, singular/plural count, overlay open/close rules |
+| `scripts/__tests__/dashboard-shell.browser.test.mjs` | Rendered Chrome checks: settled drawer hits, Escape, overlay coordination, coarse 44px targets, fine-pointer compact size, one-row tabs, short menu scrolling, dates, Clear All, tab history. Skips when no Chrome binary is on the machine. Needs `dashboard/public/data.json` (produced by `npm run dev` or `node scripts/aggregate-processed.js`). |
 
-Run `npm test` (~300ms total). The `node:test` runner walks `scripts/__tests__/*.test.mjs`. Tests with `dist/`-dependent assertions auto-skip when the build hasn't run.
+Run `npm test`. The `node:test` runner walks `scripts/__tests__/*.test.mjs`. Tests with `dist/`-dependent assertions auto-skip when the build hasn't run. The Chrome file starts its own Vite server and is the slow part; the rest finish in well under a second.
 
-Browser-based runtime / visual regression coverage was removed 2026-04-15 — see `docs/TODO.md` "Browser test coverage" for the future re-introduction plan (Playwright was tried in April 2026 but never produced any baselines because the sandbox session that added it had no Chromium binary; JSDOM was tried 2026-04-29 but jsdom's `ResourceLoader` API and React 19 + Chart.js's canvas dependency made it impractical).
+Visual screenshot baselines are still not in the suite. Playwright was tried in April 2026 and removed on 2026-04-15 before it ever produced a baseline. The Chrome file above checks behaviour (what a click hits, what the address says, what the count is), not pixels.
 
 ## Testing Principles
 
@@ -77,7 +81,16 @@ Browser-based runtime / visual regression coverage was removed 2026-04-15 — se
 - [ ] Filters work (tag, author, repo, date range)
 - [ ] Activity timeline chart renders
 - [ ] Changes list shows commits with badges
-- [ ] Clear filters button resets all filters
+- [ ] Clear All empties every filter, including the starting "hide merge commits" choice and both dates. The first visit, before Clear All, still hides merge commits.
+
+**Phone filter list, dates, and the address (narrow window, about 390px wide):**
+- [ ] Open filters. The Tags, Authors, and Repos controls are fully tappable — the header and the tabs do not sit on top of them. Health and Discover are on the same row as the other tabs, and that row scrolls sideways.
+- [ ] Press Escape. The filter list closes. Open a tag list, press Escape once (the list closes, the panel stays), press Escape again (the panel closes).
+- [ ] Open Settings, then open filters. Settings closes. Open a detail card, then open filters. The detail card closes.
+- [ ] Set the start date to 2026-10-01 and the end date to 2020-01-01. Both dates stay as entered. A message says the start is after the end and tells you to pick an end date on the start date or later. The change count is zero. Change the end date to a day on or after the start. The message goes away and matching changes return.
+- [ ] The first visit says "1 filter active". Clear All removes it. The header no longer says Filtered, and the full change count is back.
+- [ ] Open Timeline. The address gains `?tab=activity`. Reload: Timeline is still showing. Copy the link into a new tab: Timeline. Click Summary: `?tab=` is gone. Back returns to Timeline. A link with `?tab=nope` shows Summary and keeps `nope` until you pick a tab. A link that also has `?data=` keeps that parameter when you change tabs.
+- [ ] On a short window (about 360px tall), open the menu. The last item can be scrolled into view. On a desktop mouse, the menu, filter, and settings buttons stay the smaller size; on a touch screen they are at least 44 by 44 pixels, and the date fields use 16px text.
 - [ ] Heatmap shows hour × day grid
 - [ ] Hour/day charts render with correct colors
 
@@ -335,11 +348,11 @@ Walk through these checks after switching theme to verify every migrated surface
 - [ ] TabBar renders as `tabs tabs-border` with `role="tablist"` + `aria-label="Dashboard sections"`
 - [ ] Each tab has `role="tab"`, `aria-selected={isActive}`, and both `tab tab-btn` + (if active) `tab-active tab-btn-active`
 - [ ] Active tab still has the mono-uppercase typography from `.tab-btn` (typography from custom class, border from DaisyUI `tabs-border`)
-- [ ] Tab bar scrolls horizontally on narrow screens without showing a scrollbar
+- [ ] Tab bar stays on one row. On a narrow screen the row scrolls sideways when the labels do not fit. Health and Discover are not on a second row.
 
 *Form inputs (Phase 8):*
-- [ ] Settings pane → Work Hours → Start/End selects render as `select select-bordered select-sm` — notice DaisyUI's chevron arrow and hover border
-- [ ] Filter sidebar → Date Range → both date inputs render as `input input-bordered input-sm w-full`
+- [ ] Settings pane → Work Hours → Start/End selects render as `select select-sm` — notice DaisyUI's chevron arrow and hover border
+- [ ] Filter sidebar → Date Range → both date inputs render as `input input-sm w-full`
 - [ ] Switch themes → selects and inputs pick up the new theme's bordered-input style automatically
 
 *HamburgerMenu (Phase 9):*

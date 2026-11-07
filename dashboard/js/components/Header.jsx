@@ -10,6 +10,8 @@ import { LIGHT_THEMES, DARK_THEMES } from '../themes.js';
 import HamburgerMenu from './HamburgerMenu.jsx';
 import QuickGuide from './QuickGuide.jsx';
 import InstallInstructionsModal from './InstallInstructionsModal.jsx';
+import { dateRangeErrorMessage } from '../filterDates.js';
+import { COARSE_HIT } from '../touchTarget.js';
 
 // Requirement: Clean, minimal header with hamburger menu for secondary actions
 // Approach: Keep filter toggle + settings as direct buttons (frequently used),
@@ -297,6 +299,13 @@ export default function Header() {
         checking,
     ]);
 
+    // Shown only while the filter drawer is closed. On a wide screen the
+    // sidebar is always on the page and carries the same sentence; the
+    // lg:hidden class keeps this copy off that layout. While the drawer
+    // is open the sidebar sentence is the one next to the dates.
+    const dateError = dateRangeErrorMessage(state.filters.dateFrom, state.filters.dateTo);
+    const showClosedDrawerDateError = dateError && !state.filterSidebarOpen;
+
     return (
         <>
             <header className="relative z-[var(--z-sticky-header)] px-4 md:px-8 py-3 sm:py-6 border-b border-base-300">
@@ -318,6 +327,11 @@ export default function Header() {
                                     <>{totalCount.toLocaleString()} changes</>
                                 )}
                             </p>
+                            {showClosedDrawerDateError && (
+                                <p className="text-sm text-error mt-2 lg:hidden" role="alert">
+                                    {dateError}
+                                </p>
+                            )}
                         </div>
                         <div className="flex items-center gap-2 flex-wrap print:hidden">
                             {updateAvailable && (
@@ -326,7 +340,7 @@ export default function Header() {
                             <HamburgerMenu items={menuItems} />
                             <button
                                 onClick={() => dispatch({ type: 'TOGGLE_FILTER_SIDEBAR' })}
-                                className={`btn btn-ghost btn-square relative lg:hidden ${state.filterSidebarOpen ? 'btn-active' : ''}`}
+                                className={`btn btn-ghost btn-square relative lg:hidden ${COARSE_HIT} ${state.filterSidebarOpen ? 'btn-active' : ''}`}
                                 aria-label={activeFilterCount > 0 ? `Toggle filters (${activeFilterCount} active)` : 'Toggle filters'}
                                 aria-expanded={state.filterSidebarOpen}
                             >
@@ -344,7 +358,7 @@ export default function Header() {
                             </button>
                             <button
                                 onClick={() => dispatch({ type: 'TOGGLE_SETTINGS_PANE' })}
-                                className="btn btn-ghost btn-square"
+                                className={`btn btn-ghost btn-square ${COARSE_HIT}`}
                                 aria-label="Settings"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

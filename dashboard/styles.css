@@ -73,8 +73,13 @@
            below the debug pill (80) so toast notifications appear over
            any open modal but never hide the debug surface.
        Stock-utility consumers (no arbitrary value needed):
-         - z-10 base content, z-20 sticky tabs, z-30 fixed panes,
-           z-40 menu backdrop, z-50 menu / modal scale anchor. */
+         - z-20 sticky tabs. The header is z-21 so it covers that strip
+           only — a scrimmed overlay sits above both.
+         - z-30 / z-40 settings and detail panes (inside the page).
+         - z-40 menu backdrop.
+         - z-50 the portaled menu and the mobile filter drawer. The
+           drawer's own DaisyUI rule is z-10; the z-50 utility lifts the
+           scrim and the panel together so they clear the header. */
     --z-base: 10;
     --z-sticky: 20;
     --z-sticky-header: 21;

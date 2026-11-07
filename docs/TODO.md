@@ -45,13 +45,11 @@ Remaining tasks for Git Analytics Reporting System.
 
 4. [ ] **`dashboard/js/AppContext.jsx`** is 338 lines after the 2026-04-15 `appReducer.js` extraction, well under the soft-limit. Monitor for growth — if a future feature adds more effects/useMemo blocks to the provider, consider extracting one of: the persistence-effects cluster (4 small useEffect blocks that mirror reducer state to localStorage), the theme cross-tab sync cluster (darkMode effect + storage listener + matchMedia fallback), or the `filterOptions` computation. Each is self-contained and could become its own custom hook.
 
-### Browser test coverage (future)
+### Browser test coverage
 
-1. [ ] Re-introduce automated browser test coverage. Playwright was tried in April 2026 (`af0f02d test(daisyui): add three-layer automated regression coverage`) but never produced any baseline screenshots — the session that added it had no Chromium binary in its sandbox, and the spec files sat unrun until everything Playwright-related was deleted on 2026-04-15. When re-introducing browser tests:
-    - **Decide the scope first.** The previous attempt set up two layers (functional smoke + visual regression with 48 baselines = 6 tabs × 8 themes). Visual regression has high maintenance cost (every legitimate UI change requires re-capturing baselines and visual review). Functional smoke tests are higher value-per-byte. Start with smoke only; add visual regression later if drift becomes a problem.
-    - **Verify the runner can actually execute** in the target environment before writing specs. `npx playwright install --with-deps chromium` needs a CDN-reachable session and ~170 MB of disk space. CI (GitHub Actions) handles this via `microsoft/playwright-github-action` or the `mcr.microsoft.com/playwright` Docker image. Local dev requires a one-time install per developer.
-    - **Existing source-level tripwire** (`scripts/__tests__/daisyui-surfaces.test.mjs`) catches DaisyUI class-name regressions, dead marker classes, hardcoded Tailwind color shades, v4 cruft, and built-CSS shipping checks via `node:test`. It runs in ~250ms with no browser. New browser tests should complement this layer, not replace it — anything that can be checked at the source level should stay at the source level.
-    - **Reference for the previous attempt:** commit `af0f02d` includes `playwright.config.js`, `dashboard/e2e/daisyui-surfaces.spec.js` (14 functional tests), `dashboard/e2e/visual/theme-baselines.spec.js` (48 visual tests), and `dashboard/e2e/README.md` (setup recipe). All deleted on 2026-04-15. Resurrect from git history if useful as a starting point, but treat as a draft — most of the assertions reference DaisyUI v5 phase-by-phase migration markers that may have shifted with subsequent refactors.
+Functional Chrome checks live in `scripts/__tests__/dashboard-shell.browser.test.mjs` (puppeteer-core plus the system Chrome binary; the test skips when Chrome is absent). They cover the filter drawer, touch size, the short menu, dates, Clear All, and `?tab=`. Source-level tripwires stay in `scripts/__tests__/daisyui-surfaces.test.mjs`.
+
+1. [ ] Visual screenshot baselines are still absent. Playwright was tried in April 2026 (`af0f02d`) and removed on 2026-04-15 before it produced a baseline. Add them only if pixel drift becomes a real problem — every legitimate UI change has to recapture them. Do not replace the Chrome behaviour test or the source tripwire with screenshots.
 
 ---
 

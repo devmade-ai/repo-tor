@@ -198,7 +198,9 @@ test('Phase 6 — Header uses DaisyUI btn-ghost btn-square for icon buttons', ()
 
 test('Phase 6 — HamburgerMenu trigger is DaisyUI btn-ghost btn-square', () => {
     const src = read('dashboard/js/components/HamburgerMenu.jsx');
-    assert.match(src, /className="btn btn-ghost btn-square"/);
+    // The trigger stays a DaisyUI square button. On a coarse pointer it
+    // also takes the 44px hit size from touchTarget.js.
+    assert.match(src, /btn btn-ghost btn-square \$\{COARSE_HIT\}/);
 });
 
 test('Phase 6 — ShowMoreButton uses DaisyUI btn-ghost btn-block', () => {
@@ -253,8 +255,9 @@ test('Phase 8 — SettingsPane selects use DaisyUI select class (no v4 -bordered
     // The 2026-04-13 custom-CSS cleanup added `w-full` inline (the
     // previous `.settings-group select { width: 100% }` descendant rule
     // was deleted), so both selects now carry `select select-sm w-full`.
-    const selectMatches = src.match(/className="select select-sm w-full"/g);
-    assert.ok(selectMatches && selectMatches.length === 2, `Expected 2 work hour <select> uses with "select select-sm w-full", found ${selectMatches?.length ?? 0}`);
+    // Coarse-pointer 44px / 16px text is appended; the DaisyUI classes stay.
+    const selectMatches = src.match(/select select-sm w-full \$\{COARSE_FIELD\}/g);
+    assert.ok(selectMatches && selectMatches.length === 2, `Expected 2 work hour <select> uses with "select select-sm w-full" plus COARSE_FIELD, found ${selectMatches?.length ?? 0}`);
     // Must not re-introduce the v4 `-bordered` cruft.
     assert.doesNotMatch(src, /select-bordered/, 'DaisyUI v5 removed `select-bordered` — see docs/DAISYUI_V5_NOTES.md');
     assert.doesNotMatch(src, /filter-select/, 'Dead .filter-select custom class must not be re-introduced');
@@ -262,8 +265,8 @@ test('Phase 8 — SettingsPane selects use DaisyUI select class (no v4 -bordered
 
 test('Phase 8 — FilterSidebar date inputs use DaisyUI input class', () => {
     const src = read('dashboard/js/components/FilterSidebar.jsx');
-    const inputMatches = src.match(/className="input input-sm w-full"/g);
-    assert.ok(inputMatches && inputMatches.length === 2, `Expected 2 date <input> uses, found ${inputMatches?.length ?? 0}`);
+    const inputMatches = src.match(/input input-sm w-full \$\{COARSE_FIELD\}/g);
+    assert.ok(inputMatches && inputMatches.length === 2, `Expected 2 date <input> uses with COARSE_FIELD, found ${inputMatches?.length ?? 0}`);
     assert.doesNotMatch(src, /input-bordered/, 'DaisyUI v5 removed `input-bordered`');
     assert.doesNotMatch(src, /filter-input/, 'Dead .filter-input custom class must not be re-introduced');
 });

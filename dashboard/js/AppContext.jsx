@@ -4,6 +4,7 @@ import { getCommitTags, getAuthorEmail, getUrgencyLabel, safeStorageGet, safeSto
 import { applyTheme, validLightTheme, validDarkTheme } from './themes.js';
 import { resolveRuntimeAccent, resolveRuntimeMuted } from './chartColors.js';
 import { loadInitialState, reducer, filterCommits } from './appReducer.js';
+import { tabFromSearch } from './tabUrl.js';
 
 // Requirement: Prevent unnecessary re-renders when components only need to dispatch actions
 // Approach: Split into two contexts — DispatchContext (stable identity, never changes) and
@@ -45,9 +46,11 @@ export function AppProvider({ children }) {
     globalState.currentViewLevel = state.currentViewLevel;
 
     // Memoized filtered commits — only available after commits are loaded
+    // useUTC is part of the date bound (local calendar day vs UTC calendar
+    // day). Leaving it out of the deps kept a stale count after the toggle.
     const filteredCommits = useMemo(
-        () => filterCommits(state.data?.commits, state.filters),
-        [state.data?.commits, state.filters]
+        () => filterCommits(state.data?.commits, state.filters, state.useUTC),
+        [state.data?.commits, state.filters, state.useUTC]
     );
 
     // Memoized view config
@@ -113,6 +116,23 @@ export function AppProvider({ children }) {
             console.warn('Failed to save filters to localStorage:', e.message);
         }
     }, [state.filters]);
+
+    // Requirement: Back and forward restore the tab the address already
+    //   has. A tab click writes the address; this listener only reads it.
+    // Approach: popstate is the browser's signal that the address changed
+    //   without a click. Dispatch SET_ACTIVE_TAB and do not pushState here,
+    //   or Back would grow a new entry and never return.
+    // Alternatives:
+    //   - Listen to the whole history via a polling interval: Rejected —
+    //     popstate already fires for Back, Forward, and reload is handled
+    //     by the initial state.
+    useEffect(() => {
+        function onPopState() {
+            dispatch({ type: 'SET_ACTIVE_TAB', payload: tabFromSearch(window.location.search) });
+        }
+        window.addEventListener('popstate', onPopState);
+        return () => window.removeEventListener('popstate', onPopState);
+    }, [dispatch]);
 
     // Apply dark mode to DOM, sync Chart.js defaults, and persist.
     // Requirement: Dual-layer theming — set both .dark (Tailwind dark: variant)
