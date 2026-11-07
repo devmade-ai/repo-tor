@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import useDisclosureFocus from '../hooks/useDisclosureFocus.js';
 import useFocusTrap from '../hooks/useFocusTrap.js';
 import useEscapeKey from '../hooks/useEscapeKey.js';
+import { COARSE_HIT } from '../touchTarget.js';
 import { version } from '../../../package.json';
 import { debugAdd } from '../debugLog.js';
 
@@ -204,22 +205,29 @@ export default function HamburgerMenu({ items }) {
         if (!focusable?.length) return;
         const idx = Array.from(focusable).indexOf(document.activeElement);
 
+        // The menu scrolls on a short screen. Moving focus also brings
+        // that row into the visible part of the menu.
+        function focusItem(el) {
+            el.focus();
+            el.scrollIntoView({ block: 'nearest' });
+        }
+
         switch (e.key) {
             case 'ArrowDown':
                 e.preventDefault();
-                focusable[(idx + 1) % focusable.length].focus();
+                focusItem(focusable[(idx + 1) % focusable.length]);
                 break;
             case 'ArrowUp':
                 e.preventDefault();
-                focusable[(idx - 1 + focusable.length) % focusable.length].focus();
+                focusItem(focusable[(idx - 1 + focusable.length) % focusable.length]);
                 break;
             case 'Home':
                 e.preventDefault();
-                focusable[0].focus();
+                focusItem(focusable[0]);
                 break;
             case 'End':
                 e.preventDefault();
-                focusable[focusable.length - 1].focus();
+                focusItem(focusable[focusable.length - 1]);
                 break;
         }
     }
@@ -247,7 +255,28 @@ export default function HamburgerMenu({ items }) {
                 id={menuId}
                 aria-label="Secondary actions"
                 className="fixed min-w-52 bg-base-200 border border-base-300 rounded-md shadow-xl z-50 py-1 overscroll-contain"
-                style={{ top: `${triggerPos.top}px`, left: `${triggerPos.left}px`, maxWidth: `${triggerPos.maxWidth}px` }}
+                style={{
+                    top: `${triggerPos.top}px`,
+                    left: `${triggerPos.left}px`,
+                    maxWidth: `${triggerPos.maxWidth}px`,
+                    // Requirement: On a short screen the last menu item must
+                    //   still be reachable. The fleet burger guidance is a
+                    //   max height of the smaller of 70dvh and 32rem, with
+                    //   vertical scrolling.
+                    // Approach: Inline style, same as maxWidth above. Putting
+                    //   that formula in a class would be a new arbitrary
+                    //   bracket value, which this repo's tripwire does not
+                    //   allow. The CSS function tracks the viewport on its
+                    //   own, including a resize while the menu is open.
+                    // Alternatives:
+                    //   - The bracket utility from the fleet doc: Rejected —
+                    //     a new bracket value fails the allowlist test.
+                    //   - No max height: Rejected — at 360px tall the last
+                    //     items painted past the bottom of the screen and
+                    //     could not be scrolled to.
+                    maxHeight: 'min(70dvh, 32rem)',
+                    overflowY: 'auto',
+                }}
                 onKeyDown={handleMenuKeyDown}
             >
                 <ul className="list-none m-0 p-0">
@@ -277,7 +306,7 @@ export default function HamburgerMenu({ items }) {
                                 <button
                                     type="button"
                                     disabled={item.disabled}
-                                    className={`flex items-center gap-2.5 w-full px-4 py-2.5 bg-transparent border-0 text-sm text-left cursor-pointer transition-colors outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary ${itemColors}`}
+                                    className={`flex items-center gap-2.5 w-full px-4 py-2.5 bg-transparent border-0 text-sm text-left cursor-pointer transition-colors outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary ${COARSE_HIT} ${itemColors}`}
                                     onClick={() => handleItem(item)}
                                     // Requirement: items whose visible label describes a destination
                                     //   (e.g. "Light mode") rather than an action are ambiguous to
@@ -311,7 +340,7 @@ export default function HamburgerMenu({ items }) {
             <button
                 ref={triggerRef}
                 type="button"
-                className="btn btn-ghost btn-square"
+                className={`btn btn-ghost btn-square ${COARSE_HIT}`}
                 onClick={toggle}
                 aria-label="Menu"
                 aria-expanded={open}

@@ -27,17 +27,14 @@
 import { safeStorageGet, getCommitTags, getAuthorEmail, getUrgencyLabel } from './utils.js';
 import { validLightTheme, validDarkTheme } from './themes.js';
 import { resolveRuntimeAccent, resolveRuntimeMuted } from './chartColors.js';
+import { dateRangeBounds } from './filterDates.js';
+import { DEFAULT_FILTERS, EMPTY_FILTERS, cloneFilters } from './filters.js';
+import { openFilterSidebar, openSettingsPane, openDetailPaneState } from './overlayState.js';
+import { tabFromSearch, isKnownTab, DEFAULT_TAB } from './tabUrl.js';
 
-// --- Default filter shape (single source of truth) ---
-export const DEFAULT_FILTERS = {
-    tag: { values: ['merge'], mode: 'exclude' },
-    author: { values: [], mode: 'include' },
-    repo: { values: [], mode: 'include' },
-    urgency: { values: [], mode: 'include' },
-    impact: { values: [], mode: 'include' },
-    dateFrom: '',
-    dateTo: '',
-};
+// Re-exported so existing imports of the first-visit preset keep working.
+// The preset itself lives in filters.js next to the empty Clear All preset.
+export { DEFAULT_FILTERS };
 
 // --- Initial state loader ---
 // Reads persisted preferences from localStorage and constructs the
@@ -95,7 +92,17 @@ export function loadInitialState() {
         // change to keep these values in sync.
         themeAccent: resolveRuntimeAccent(),
         themeMuted: resolveRuntimeMuted(),
-        activeTab: 'overview',
+        // Requirement: A copied or reloaded link restores the tab, and only
+        //   the tab. Summary omits `?tab=`. An unknown value shows Summary
+        //   without rewriting the address (the click handler does that).
+        // Approach: Read once here. Tab clicks push history; popstate
+        //   dispatches SET_ACTIVE_TAB and does not push again.
+        // Alternatives:
+        //   - Always start on Summary: Rejected — reload and a copied link
+        //     lost the tab the user was looking at.
+        //   - Read filters from the query too: Rejected — filter sharing is
+        //     not part of this change.
+        activeTab: typeof window === 'undefined' ? 'overview' : tabFromSearch(window.location.search),
         currentViewLevel: safeStorageGet('viewLevel') || 'developer',
         useUTC: safeStorageGet('useUTC') === 'true',
         workHourStart: parseInt(safeStorageGet('workHourStart') || '8', 10),
@@ -103,7 +110,8 @@ export function loadInitialState() {
         detailPane: { open: false, title: '', subtitle: '', commits: [], filterInfo: null },
         filterSidebarOpen: false,
         settingsPaneOpen: false,
-        filters: savedFilters || { ...DEFAULT_FILTERS },
+        // Clone so later edits cannot mutate the shared preset arrays.
+        filters: savedFilters || cloneFilters(DEFAULT_FILTERS),
         // Requirement: Track commit loading state for time-windowed lazy loading
         // Approach: Separate commitsLoading flag so dashboard can show charts from
         //   pre-aggregated data while commits are still loading in background
@@ -132,8 +140,14 @@ export function reducer(state, action) {
             };
         case 'SET_COMMITS_LOADING':
             return { ...state, commitsLoading: action.payload };
-        case 'SET_ACTIVE_TAB':
-            return { ...state, activeTab: action.payload };
+        case 'SET_ACTIVE_TAB': {
+            // Unknown ids (a bad `?tab=` on back/forward) show Summary.
+            // Skipping a no-op avoids a render when popstate repeats the
+            // tab that is already showing.
+            const next = isKnownTab(action.payload) ? action.payload : DEFAULT_TAB;
+            if (state.activeTab === next) return state;
+            return { ...state, activeTab: next };
+        }
         case 'SET_VIEW_LEVEL':
             return { ...state, currentViewLevel: action.payload };
         case 'SET_USE_UTC':
@@ -158,28 +172,30 @@ export function reducer(state, action) {
                 filters: { ...state.filters, [action.payload.field]: action.payload.value },
             };
         case 'CLEAR_FILTERS':
-            return { ...state, filters: { ...DEFAULT_FILTERS } };
+            // Requirement: Clear All empties every filter, including the
+            //   first-visit merge exclusion and both dates.
+            // Approach: Write a fresh clone of EMPTY_FILTERS. The first
+            //   visit still uses DEFAULT_FILTERS (merge excluded).
+            // Alternatives:
+            //   - Restore DEFAULT_FILTERS: Rejected — Clear All then still
+            //     hid merge commits and still counted as one filter.
+            return { ...state, filters: cloneFilters(EMPTY_FILTERS) };
         case 'OPEN_DETAIL_PANE':
-            return {
-                ...state,
-                detailPane: {
-                    open: true,
-                    title: action.payload.title,
-                    subtitle: action.payload.subtitle,
-                    commits: action.payload.commits,
-                    filterInfo: action.payload.filterInfo || null,
-                },
-            };
+            return openDetailPaneState(state, action.payload);
         case 'CLOSE_DETAIL_PANE':
             return { ...state, detailPane: { ...state.detailPane, open: false } };
         case 'TOGGLE_FILTER_SIDEBAR':
-            return { ...state, filterSidebarOpen: !state.filterSidebarOpen };
+            return state.filterSidebarOpen
+                ? { ...state, filterSidebarOpen: false }
+                : openFilterSidebar(state);
         case 'OPEN_FILTER_SIDEBAR':
-            return { ...state, filterSidebarOpen: true };
+            return openFilterSidebar(state);
         case 'CLOSE_FILTER_SIDEBAR':
             return { ...state, filterSidebarOpen: false };
         case 'TOGGLE_SETTINGS_PANE':
-            return { ...state, settingsPaneOpen: !state.settingsPaneOpen };
+            return state.settingsPaneOpen
+                ? { ...state, settingsPaneOpen: false }
+                : openSettingsPane(state);
         case 'CLOSE_SETTINGS_PANE':
             return { ...state, settingsPaneOpen: false };
         case 'SET_DARK_MODE':
@@ -221,30 +237,31 @@ export function reducer(state, action) {
 }
 
 // --- Filter predicate ---
-// Applied in AppProvider's `filteredCommits` useMemo via useMemo deps on
-// [state.data?.commits, state.filters]. Kept out of the reducer because
-// filtering is a pure view over state, not a state transition.
-export function filterCommits(commits, filters) {
+// Applied in AppProvider's `filteredCommits` useMemo. The third argument
+// is Settings "Use UTC": both calendar-day bounds follow that choice.
+// Kept out of the reducer because filtering is a view over state.
+export function filterCommits(commits, filters, useUTC = false) {
     if (!commits) return [];
 
-    // Hoist date-range bounds out of the filter callback. Without this,
-    // every commit triggers two `new Date()` constructions plus a
-    // setHours mutation — for a 10k-commit dataset that's 20k+
-    // allocations per filter operation. Hoisted: 0-2 allocations total.
-    const fromBoundMs = filters.dateFrom ? new Date(filters.dateFrom).getTime() : null;
-    let toBoundMs = null;
-    if (filters.dateTo) {
-        const toDate = new Date(filters.dateTo);
-        toDate.setHours(23, 59, 59, 999);
-        toBoundMs = toDate.getTime();
-    }
+    // Requirement: Both bounds are calendar days in one timezone. A
+    //   backwards range matches nothing and leaves the typed dates alone.
+    // Approach: dateRangeBounds parses YYYY-MM-DD once per pass. An
+    //   unparseable timestamp does not fail the date check (same as the
+    //   previous comparisons, which were false for NaN).
+    // Alternatives:
+    //   - UTC midnight for the start and local end-of-day for the end:
+    //     Rejected — that mixed two timezones, so a commit near midnight
+    //     fell on different days depending on which bound was tested.
+    const bounds = dateRangeBounds(filters.dateFrom, filters.dateTo, useUTC);
 
     return commits.filter(commit => {
-        // Date range — compare in milliseconds to avoid per-commit Date construction
-        if (fromBoundMs !== null || toBoundMs !== null) {
+        if (bounds.inverted) return false;
+        if (bounds.from != null || bounds.to != null) {
             const commitMs = new Date(commit.timestamp).getTime();
-            if (fromBoundMs !== null && commitMs < fromBoundMs) return false;
-            if (toBoundMs !== null && commitMs > toBoundMs) return false;
+            if (!Number.isNaN(commitMs)) {
+                if (bounds.from != null && commitMs < bounds.from) return false;
+                if (bounds.to != null && commitMs > bounds.to) return false;
+            }
         }
         // Tag filter
         if (filters.tag.values.length > 0) {

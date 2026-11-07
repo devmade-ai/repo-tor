@@ -45,7 +45,7 @@ The header shows the repository name and change count:
 
 Three buttons appear on the right:
 - **Menu (☰)** — Opens a dropdown with Quick Guide, User Guide (opens in new tab), View all projects (opens the project showcase in a new tab), Dark/Light mode toggle, theme picker, Save as PDF, Install App (when available), Check for updates (or the highlighted Update Now when a new version is waiting), and the Automatic updates toggle
-- **Filter** — Opens the filter sidebar (badge shows active filter count)
+- **Filter** — On a phone, opens the filter list over the page (the badge shows how many filters are on). On a wide screen the list is already on the left, so this button is hidden. Press Escape, or tap the dimmed area, to close the phone list.
 - **Settings (⚙)** — Opens the settings panel
 
 ### Quick Guide
@@ -77,32 +77,33 @@ Settings are saved to your browser and persist across sessions.
 
 ## Filters
 
-Click the **filter icon** in the header to open the filter sidebar. Filters use multi-select dropdowns with per-filter modes.
+On a phone, tap the **filter icon** in the header. The list slides over the page, above the header and the tabs. Press **Escape**, or tap the dimmed area, to close it. On a wide screen the same list is already on the left.
 
-**Using Filter Dropdowns:**
-- Click a dropdown to open it, then click options to select/deselect
-- **Keyboard:** Arrow keys to move between options, Space/Enter to toggle, Escape to close, Home/End to jump to first/last
+The first time you open the dashboard, merge commits are hidden. That counts as one filter. **Clear All** turns every filter off, including that one and any dates, so the count goes back to every change. Your choice is remembered in this browser.
 
-**Available Filters:**
-- **Tag** - Filter by commit tags (feature, bugfix, refactor, etc.)
-- **Author** - Filter by contributor
-- **Repo** - Filter by repository (only shown when viewing multiple repos)
-- **Urgency** - Filter by urgency level (Planned, Normal, Reactive)
-- **Impact** - Filter by impact type (User-facing, Internal, Infrastructure, API)
-- **Date Range** - Filter by date with quick presets (30 days, 90 days, This year, Last year)
+**Using the lists:**
+- Click a list to open it, then click names to select or clear them
+- **Keyboard:** Arrow keys move between names, Space or Enter selects, Escape closes the list (press Escape again to close the phone filter panel), Home and End jump to the first and last name
 
-**Per-Filter Modes:**
-Each filter has its own **Include/Exclude** toggle:
-- **Inc (Include)** - Show commits matching ANY selected values
-- **Exc (Exclude)** - Hide commits matching ANY selected values
+**What you can filter:**
+- **Tags** — feature, bugfix, refactor, and the other labels
+- **Authors** — who made the change
+- **Repos** — which repository (shown when the data has more than one)
+- **Urgency** — Planned, Normal, or Reactive
+- **Impact** — User-facing, Internal, Infrastructure, or API
+- **Date range** — a start date and an end date. Each date covers that whole calendar day. Days follow your local time, or UTC if **Use UTC** is on in Settings. There are no preset ranges.
 
-This allows complex filtering like "show feature commits but exclude bot authors".
+If the start date is after the end date, the dates stay as you entered them and a message explains why nothing matches. Pick an end date on the start date or later.
 
-**Shareable Links:**
-- Click the **Share** button to copy a link with your current filters
-- Links preserve tab, filters (with modes), and detail pane state
-- Multi-select values are comma-separated in the URL
-- Exclude mode is prefixed with `!` (e.g., `?tag=!test,docs`)
+**Include and Exclude:**
+Each list has its own Include / Exclude choice:
+- **Include** — show changes that match any selected name
+- **Exclude** — hide changes that match any selected name
+
+You can show feature changes and also hide one author.
+
+**The address bar:**
+The link remembers which tab you are on. Summary, the first tab, leaves that out of the link. Timeline, Breakdown, Health, and Discover add `?tab=` (the values are `activity`, `work`, `health`, and `discover`). Reloading or copying the link opens that tab. The browser Back button returns to the previous tab. Anything else already in the link is left alone. Filters and an open detail list are not stored in the link. A `?tab=` value the dashboard does not know shows Summary and leaves the link unchanged until you pick a tab.
 
 ---
 

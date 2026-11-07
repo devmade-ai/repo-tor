@@ -1,5 +1,9 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useApp } from '../AppContext.jsx';
+import useEscapeKey from '../hooks/useEscapeKey.js';
+import { DATE_RANGE_ERROR, dateRangeErrorMessage } from '../filterDates.js';
+import { filterCountPhrase } from '../filters.js';
+import { COARSE_HIT, COARSE_FIELD } from '../touchTarget.js';
 
 // Requirement: Multi-select dropdown with full keyboard navigation
 // Approach: Arrow keys move a highlighted index through options, Space/Enter
@@ -97,7 +101,12 @@ function MultiSelect({ options, selected, onChange }) {
                 }
                 break;
             case 'Escape':
+                // The drawer also listens for Escape on document. Stopping
+                // here closes the list first; the next Escape closes the
+                // drawer. stopPropagation on this button runs before the
+                // event reaches document.
                 e.preventDefault();
+                e.stopPropagation();
                 setOpen(false);
                 break;
             case 'Home':
@@ -120,13 +129,13 @@ function MultiSelect({ options, selected, onChange }) {
     // Tailwind class strings extracted for readability — base layout
     // for each multi-select option, reused in both the live option loop
     // and the empty-state placeholder below.
-    const optionBaseClasses = 'flex items-center px-2 py-1.5 cursor-pointer text-xs gap-1.5 leading-tight';
+    const optionBaseClasses = `flex items-center px-2 py-1.5 cursor-pointer text-xs gap-1.5 leading-tight ${COARSE_HIT}`;
 
     return (
         <div className="relative" ref={containerRef}>
             <button
                 type="button"
-                className="w-full px-2 py-1.5 text-xs border border-base-300 rounded-sm bg-base-200 text-base-content cursor-pointer flex justify-between items-center min-h-8 hover:border-primary focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                className={`w-full px-2 py-1.5 text-xs border border-base-300 rounded-sm bg-base-200 text-base-content cursor-pointer flex justify-between items-center min-h-8 hover:border-primary focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${COARSE_HIT}`}
                 aria-haspopup="listbox"
                 aria-expanded={open}
                 aria-activedescendant={activeDescendant}
@@ -241,8 +250,9 @@ function FilterGroup({ label, filterType, options }) {
                 <div className="join ml-auto">
                     <button
                         type="button"
-                        className={`join-item btn btn-xs ${filter.mode === 'include' ? 'btn-active btn-primary' : 'btn-ghost'}`}
+                        className={`join-item btn btn-xs ${COARSE_HIT} ${filter.mode === 'include' ? 'btn-active btn-primary' : 'btn-ghost'}`}
                         aria-pressed={filter.mode === 'include'}
+                        aria-label={`${label}: Include`}
                         onClick={() => handleModeChange('include')}
                         title="Show only selected items"
                     >
@@ -250,8 +260,9 @@ function FilterGroup({ label, filterType, options }) {
                     </button>
                     <button
                         type="button"
-                        className={`join-item btn btn-xs ${filter.mode === 'exclude' ? 'btn-active btn-error' : 'btn-ghost'}`}
+                        className={`join-item btn btn-xs ${COARSE_HIT} ${filter.mode === 'exclude' ? 'btn-active btn-error' : 'btn-ghost'}`}
                         aria-pressed={filter.mode === 'exclude'}
+                        aria-label={`${label}: Exclude`}
                         onClick={() => handleModeChange('exclude')}
                         title="Hide selected items"
                     >
@@ -273,6 +284,12 @@ function FilterGroup({ label, filterType, options }) {
 // renders just the filter panel's inner content.
 export default function FilterSidebar() {
     const { state, dispatch, filteredCommits, filterOptions, activeFilterCount } = useApp();
+    const closeSidebar = useCallback(() => {
+        dispatch({ type: 'CLOSE_FILTER_SIDEBAR' });
+    }, [dispatch]);
+    // On a wide screen the sidebar stays visible even when this flag is
+    // false (lg:drawer-open), so Escape does not try to dismiss it there.
+    useEscapeKey(state.filterSidebarOpen, closeSidebar);
 
     function handleDateChange(field, value) {
         dispatch({
@@ -281,11 +298,13 @@ export default function FilterSidebar() {
         });
     }
 
+    const dateError = dateRangeErrorMessage(state.filters.dateFrom, state.filters.dateTo);
+
     return (
         <aside className="bg-base-200 min-h-full w-80 p-4 space-y-4">
             <div className="text-xs text-base-content/60 mb-3">
                 Showing {filteredCommits.length} of {state.data?.commits?.length || 0} commits
-                {activeFilterCount > 0 && ` (${activeFilterCount} filters active)`}
+                {activeFilterCount > 0 && ` (${filterCountPhrase(activeFilterCount)})`}
             </div>
 
             <FilterGroup label="Tags" filterType="tag" options={filterOptions.tags} />
@@ -295,28 +314,37 @@ export default function FilterSidebar() {
             <FilterGroup label="Impact" filterType="impact" options={filterOptions.impacts} />
 
             <div>
-                <label className="block text-xs text-base-content/60 mb-1">Date Range</label>
+                <div className="block text-xs text-base-content/60 mb-1">Date Range</div>
                 <div className="flex flex-col gap-1.5">
                     <input
                         type="date"
-                        className="input input-sm w-full"
+                        className={`input input-sm w-full ${COARSE_FIELD}`}
                         value={state.filters.dateFrom}
                         onChange={(e) => handleDateChange('dateFrom', e.target.value)}
                         aria-label="Filter from date"
+                        aria-invalid={dateError ? true : undefined}
+                        aria-describedby={dateError ? 'date-range-error' : undefined}
                     />
                     <input
                         type="date"
-                        className="input input-sm w-full"
+                        className={`input input-sm w-full ${COARSE_FIELD}`}
                         value={state.filters.dateTo}
                         onChange={(e) => handleDateChange('dateTo', e.target.value)}
                         aria-label="Filter to date"
+                        aria-invalid={dateError ? true : undefined}
+                        aria-describedby={dateError ? 'date-range-error' : undefined}
                     />
                 </div>
+                {dateError && (
+                    <p id="date-range-error" role="alert" className="text-sm text-error mt-2">
+                        {DATE_RANGE_ERROR}
+                    </p>
+                )}
             </div>
 
             <button
                 type="button"
-                className="btn btn-outline btn-sm w-full mt-3"
+                className={`btn btn-outline btn-sm w-full mt-3 ${COARSE_HIT}`}
                 onClick={() => dispatch({ type: 'CLEAR_FILTERS' })}
             >
                 Clear All

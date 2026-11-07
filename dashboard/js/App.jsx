@@ -479,7 +479,19 @@ export default function App() {
                     <ErrorBoundary><SettingsPane /></ErrorBoundary>
                 </aside>
             </div>
-            <div className="drawer-side print:hidden">
+            {/* Requirement: On a phone the filter drawer sits above the
+                header and the tabs. Escape closes it (FilterSidebar).
+                Approach: Stock z-50 on drawer-side. Daisy's own rule is
+                z-10, under the tabs (z-20) and header (z-21), so clicks at
+                the top of the list hit the header. The scrim and the panel
+                are both inside drawer-side, so one z-index lifts both.
+                Opening it closes settings and detail (overlayState.js);
+                those z-40 panes would sit under this scrim.
+                Alternatives:
+                  - Lower the header: Rejected — it must cover the tab strip,
+                    and scrimmed overlays sit above sticky chrome.
+                  - Nest another Daisy drawer: Rejected — see the comment above. */}
+            <div className="drawer-side z-50 print:hidden">
                 <label htmlFor="filter-drawer-toggle" className="drawer-overlay" aria-label="Close filter sidebar" />
                 <ErrorBoundary><FilterSidebar /></ErrorBoundary>
             </div>

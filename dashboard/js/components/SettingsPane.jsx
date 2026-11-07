@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useApp } from '../AppContext.jsx';
 import useFocusTrap from '../hooks/useFocusTrap.js';
+import { COARSE_HIT, COARSE_FIELD } from '../touchTarget.js';
 
 const VIEW_LEVEL_DESCRIPTIONS = {
     executive: 'High-level summary, aggregated metrics',
@@ -94,7 +95,7 @@ export default function SettingsPane() {
         >
             <div className="flex items-center justify-between px-6 py-4 border-b border-base-300 shrink-0">
                 <span className="text-lg font-semibold text-base-content">Settings</span>
-                <button className="btn btn-sm btn-circle btn-ghost" onClick={handleClose} aria-label="Close settings">
+                <button className={`btn btn-sm btn-circle btn-ghost ${COARSE_HIT}`} onClick={handleClose} aria-label="Close settings">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                         <line x1="18" y1="6" x2="6" y2="18" />
                         <line x1="6" y1="6" x2="18" y2="18" />
@@ -199,7 +200,7 @@ export default function SettingsPane() {
                             <label htmlFor="work-hour-start" className="block text-sm font-medium text-base-content/80 mb-1.5">Start</label>
                             <select
                                 id="work-hour-start"
-                                className="select select-sm w-full"
+                                className={`select select-sm w-full ${COARSE_FIELD}`}
                                 value={state.workHourStart}
                                 onChange={handleWorkHourStart}
                             >
@@ -212,7 +213,7 @@ export default function SettingsPane() {
                             <label htmlFor="work-hour-end" className="block text-sm font-medium text-base-content/80 mb-1.5">End</label>
                             <select
                                 id="work-hour-end"
-                                className="select select-sm w-full"
+                                className={`select select-sm w-full ${COARSE_FIELD}`}
                                 value={state.workHourEnd}
                                 onChange={handleWorkHourEnd}
                             >
