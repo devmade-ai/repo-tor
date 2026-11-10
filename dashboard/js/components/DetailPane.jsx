@@ -1,7 +1,8 @@
-import React from 'react';
-import { useApp } from '../AppContext.jsx';
+import React, { useRef } from 'react';
+import { useApp, useAppDispatch } from '../AppContext.jsx';
 import { PAGE_LIMITS } from '../state.js';
 import useFocusTrap from '../hooks/useFocusTrap.js';
+import useDisclosureFocus from '../hooks/useDisclosureFocus.js';
 import useEscapeKey from '../hooks/useEscapeKey.js';
 import useShowMore from '../hooks/useShowMore.js';
 import ShowMoreButton from './ShowMoreButton.jsx';
@@ -20,8 +21,15 @@ import {
 // renders just the detail pane's inner content.
 export default function DetailPane() {
     const { state, dispatch, isMobile } = useApp();
+    const { detailReturnFocusRef } = useAppDispatch();
     const { open, title, subtitle, commits } = state.detailPane;
-    const trapRef = useFocusTrap(open);
+    const paneRef = useRef(null);
+    // Requirement: Closed detail aside stays mounted (translate-x-full) so its
+    //   controls must be inert — same pattern as SettingsPane post-PR132.
+    // Approach: inert when closed; useDisclosureFocus returns to the drill-down
+    //   element captured in openDetailPane; useFocusTrap while open.
+    useDisclosureFocus(detailReturnFocusRef, paneRef, open);
+    useFocusTrap(open, paneRef);
 
     const [mobileLimit, desktopLimit] = PAGE_LIMITS.detailPane;
     const { visible, hasMore, remaining, showMore } = useShowMore(
@@ -37,11 +45,13 @@ export default function DetailPane() {
 
     return (
         <div
-            ref={trapRef}
+            id="detail-pane"
+            ref={paneRef}
             className="flex flex-col h-full w-full max-w-lg bg-base-200 border-l border-base-300"
             role="dialog"
             aria-modal={open}
             aria-label={title || 'Detail pane'}
+            inert={!open ? true : undefined}
         >
             <div className="flex items-center justify-between px-6 py-4 border-b border-base-300 shrink-0">
                 <div>
