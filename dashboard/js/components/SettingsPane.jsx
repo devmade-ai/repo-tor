@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useApp } from '../AppContext.jsx';
 import useFocusTrap from '../hooks/useFocusTrap.js';
+import useDisclosureFocus from '../hooks/useDisclosureFocus.js';
 import { COARSE_HIT, COARSE_FIELD } from '../touchTarget.js';
 
 const VIEW_LEVEL_DESCRIPTIONS = {
@@ -37,9 +38,18 @@ function formatHour(h) {
     return `${h - 12}:00 PM`;
 }
 
-export default function SettingsPane() {
+export default function SettingsPane({ launcherRef }) {
     const { state, dispatch } = useApp();
-    const trapRef = useFocusTrap(state.settingsPaneOpen);
+    const paneRef = useRef(null);
+    // Requirement: Match HamburgerMenu disclosure focus — first focusable on
+    //   open, return to the live Settings launcher on close.
+    // Approach: useDisclosureFocus for open/close cycle; useFocusTrap for Tab
+    //   wrap while open. Both share paneRef (same pattern as HamburgerMenu).
+    // Alternatives:
+    //   - Focus return only in Escape handler: Rejected — mouse close and
+    //     backdrop close would still leave focus on off-screen Close button
+    useDisclosureFocus(launcherRef, paneRef, state.settingsPaneOpen);
+    useFocusTrap(state.settingsPaneOpen, paneRef);
 
     function handleClose() {
         dispatch({ type: 'CLOSE_SETTINGS_PANE' });
@@ -87,11 +97,13 @@ export default function SettingsPane() {
 
     return (
         <div
-            ref={trapRef}
+            id="settings-pane"
+            ref={paneRef}
             className="flex flex-col h-full w-full max-w-sm bg-base-200 border-l border-base-300"
             role="dialog"
             aria-modal={state.settingsPaneOpen}
             aria-label="Settings"
+            inert={!state.settingsPaneOpen ? true : undefined}
         >
             <div className="flex items-center justify-between px-6 py-4 border-b border-base-300 shrink-0">
                 <span className="text-lg font-semibold text-base-content">Settings</span>

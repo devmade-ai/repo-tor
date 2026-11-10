@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useApp } from './AppContext.jsx';
 import { useToast } from './components/Toast.jsx';
 import useScrollLock from './hooks/useScrollLock.js';
@@ -82,6 +82,10 @@ export default function App() {
     const { addToast } = useToast();
     const [loadError, setLoadError] = useState(null);
     const [initialLoading, setInitialLoading] = useState(true);
+    // Requirement: Settings drawer must return keyboard focus to the header
+    //   gear on close (Escape, Close button, backdrop). The launcher lives in
+    //   Header; the pane lives here — one ref threads through both.
+    const settingsLauncherRef = useRef(null);
 
     // Lock body scroll when any overlay pane is open
     // Requirement: Prevent background scrolling when panes are open
@@ -419,7 +423,7 @@ export default function App() {
                 aria-label="Toggle filter sidebar"
             />
             <div className="drawer-content flex flex-col min-h-screen">
-                <ErrorBoundary><Header /></ErrorBoundary>
+                <ErrorBoundary><Header settingsLauncherRef={settingsLauncherRef} /></ErrorBoundary>
                 <div className="print:hidden"><ErrorBoundary><TabBar /></ErrorBoundary></div>
                 <main className="max-w-7xl mx-auto w-full px-4 md:px-8 pb-12 flex-1">
                     <ErrorBoundary key={state.activeTab}>
@@ -476,7 +480,7 @@ export default function App() {
                 <aside
                     className={`fixed top-0 right-0 h-screen w-full max-w-sm z-40 transform transition-transform duration-300 print:hidden ${state.settingsPaneOpen ? 'translate-x-0' : 'translate-x-full'}`}
                 >
-                    <ErrorBoundary><SettingsPane /></ErrorBoundary>
+                    <ErrorBoundary><SettingsPane launcherRef={settingsLauncherRef} /></ErrorBoundary>
                 </aside>
             </div>
             {/* Requirement: On a phone the filter drawer sits above the
