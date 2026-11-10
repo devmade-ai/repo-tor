@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect, useState } from 'react';
+import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect, useState, useRef } from 'react';
 import { state as globalState, VIEW_LEVELS } from './state.js';
 import { getCommitTags, getAuthorEmail, getUrgencyLabel, safeStorageGet, safeStorageSet } from './utils.js';
 import { applyTheme, validLightTheme, validDarkTheme } from './themes.js';
@@ -35,6 +35,10 @@ const DispatchContext = createContext(null);
 // --- Provider ---
 export function AppProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, null, loadInitialState);
+    // Requirement: Detail pane opens from many drill-down triggers, not one
+    //   fixed launcher. Capture document.activeElement at open time so
+    //   useDisclosureFocus can return focus to the trigger on close.
+    const detailReturnFocusRef = useRef(null);
 
     // Sync React state to global state object for utils.js compatibility.
     // MUST run before useMemo hooks — getAuthorEmail/getAuthorName read
@@ -273,6 +277,10 @@ export function AppProvider({ children }) {
 
     // Helper: openDetailPane
     const openDetailPane = useCallback((title, subtitle, commits, filterInfo) => {
+        const active = document.activeElement;
+        if (active instanceof HTMLElement) {
+            detailReturnFocusRef.current = active;
+        }
         dispatch({ type: 'OPEN_DETAIL_PANE', payload: { title, subtitle, commits, filterInfo } });
     }, []);
 
@@ -320,6 +328,7 @@ export function AppProvider({ children }) {
         dispatch,
         openDetailPane,
         setTheme,
+        detailReturnFocusRef,
     }), [openDetailPane, setTheme]);
 
     const stateValue = useMemo(() => ({
